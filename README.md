@@ -1,0 +1,2 @@
+# mockspresso
+Automocker for mockito
