@@ -2,6 +2,9 @@ buildscript {
   repositories {
     jcenter()
   }
+  dependencies {
+    classpath 'com.netflix.nebula:gradle-extra-configurations-plugin:3.0.3'
+  }
 }
 
 allprojects {
