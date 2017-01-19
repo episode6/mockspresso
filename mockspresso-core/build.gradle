@@ -13,4 +13,5 @@ dependencies {
   testCompile('junit:junit:4.11')
 
   testCompile('com.episode6.hackit.chop:chop-core:0.1.7.2')
+  testCompile('org.easytesting:fest-assert-core:2.0M10')
 }
