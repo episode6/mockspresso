@@ -1,5 +1,7 @@
 package com.episode6.hackit.mockspresso;
 
+import com.episode6.hackit.mockspresso.reflect.TypeToken;
+
 /**
  * Main mockspresso interface
  */
