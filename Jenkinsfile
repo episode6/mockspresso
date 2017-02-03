@@ -10,7 +10,7 @@ node {
     gradleRunner = fileLoader.fromGit(
         'gradle/GradleRunner',
         'git@github.com:episode6/jenkins-pipelines.git',
-        'v0.0.2',
+        'v0.0.3',
         null,
         '')
   }
