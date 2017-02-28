@@ -4,18 +4,10 @@ apply plugin: 'com.episode6.hackit.gdmc'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
-ext {
-  providedDependencies = [
-      'org.mockito:mockito-core',
-      'junit:junit'
-  ]
-}
-
 dependencies {
   compile('net.sourceforge.findbugs:jsr305')
-
-  compileOnly providedDependencies
-  testCompile providedDependencies
+  compile('org.mockito:mockito-core')
+  compile('junit:junit')
 
   testCompile('com.episode6.hackit.chop:chop-core')
   testCompile('org.easytesting:fest-assert-core')
