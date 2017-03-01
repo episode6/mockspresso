@@ -17,6 +17,11 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(DefaultTestRunner.class)
 public class TypeTokenTest {
 
+  public static class TestClass {
+    List<String> stringList;
+    HashMap<String, Integer> stringIntHashmap;
+  }
+
   @Test
   public void testNormalClassesWithConstructors() {
     TypeToken<String> stringToken = new TypeToken<String>() {};
@@ -69,5 +74,32 @@ public class TypeTokenTest {
         .containsExactly(String.class, Integer.class);
     assertThat((Class)hashmapTypeToken.getRawType())
         .isEqualTo(HashMap.class);
+  }
+
+  @Test
+  public void testGenericsFromField() throws NoSuchFieldException {
+    TypeToken stringListToken = TypeToken.of(TestClass.class.getDeclaredField("stringList"));
+    TypeToken hashmapTypeToken = TypeToken.of(TestClass.class.getDeclaredField("stringIntHashmap"));
+
+    assertThat(stringListToken.getType()).isInstanceOf(ParameterizedType.class);
+    Type[] stringListTypeArgs = ((ParameterizedType)stringListToken.getType()).getActualTypeArguments();
+    assertThat(stringListTypeArgs)
+        .hasSize(1)
+        .containsExactly(String.class);
+    assertThat((Class)stringListToken.getRawType())
+        .isEqualTo(List.class);
+
+    assertThat(hashmapTypeToken.getType()).isInstanceOf(ParameterizedType.class);
+    Type[] hashmapTypeArgs = ((ParameterizedType)hashmapTypeToken.getType()).getActualTypeArguments();
+    assertThat(hashmapTypeArgs)
+        .hasSize(2)
+        .containsExactly(String.class, Integer.class);
+    assertThat((Class)hashmapTypeToken.getRawType())
+        .isEqualTo(HashMap.class);
+
+    TypeToken<List<String>> manualStringListToken = new TypeToken<List<String>>() {};
+    TypeToken<HashMap<String, Integer>> manualHashmapTypeToken = new TypeToken<HashMap<String, Integer>>() {};
+    assertThat(stringListToken).isEqualTo(manualStringListToken);
+    assertThat(hashmapTypeToken).isEqualTo(manualHashmapTypeToken);
   }
 }

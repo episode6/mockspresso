@@ -22,10 +22,7 @@
 
 package com.episode6.hackit.mockspresso.reflect;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.GenericArrayType;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import java.lang.reflect.*;
 
 /**
  * Represents a generic type {@code T}.
@@ -199,6 +196,10 @@ public abstract class TypeToken<T> {
    */
   public static <T> TypeToken<T> of(Class<T> type) {
     return new SimpleTypeToken<T>(type);
+  }
+
+  public static TypeToken<?> of(Field field) {
+    return of(field.getGenericType());
   }
 
   /**
