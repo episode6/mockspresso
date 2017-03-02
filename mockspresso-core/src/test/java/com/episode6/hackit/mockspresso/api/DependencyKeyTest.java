@@ -4,6 +4,8 @@ import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.annotation.TestQualifierAnnotation;
 import com.episode6.hackit.mockspresso.exception.MultipleQualifierAnnotationException;
+import com.episode6.hackit.mockspresso.reflect.NamedAnnotationLiteral;
+import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -50,6 +52,26 @@ public class DependencyKeyTest {
   @Test(expected = MultipleQualifierAnnotationException.class)
   public void testMultipleQualifiersFailure() {
     DependencyKey.fromField(prop("badTestProp"));
+  }
+
+  @Test
+  public void testCustomKeyEquality() {
+    DependencyKey key1 = DependencyKey.fromField(prop("testProp1"));
+    DependencyKey customKey1 = new DependencyKey<>(
+        TypeToken.of(Integer.class),
+        new NamedAnnotationLiteral("test1"));
+    DependencyKey key2 = DependencyKey.fromField(prop("testProp2"));
+    DependencyKey customKey2 = new DependencyKey<>(
+        new TypeToken<HashMap<String, Provider<Integer>>>() {},
+        new NamedAnnotationLiteral());
+
+    assertThat(key1)
+        .isEqualTo(customKey1)
+        .isNotEqualTo(customKey2);
+
+    assertThat(key2)
+        .isEqualTo(customKey2)
+        .isNotEqualTo(customKey1);
   }
 
   private static Field prop(String name) {
