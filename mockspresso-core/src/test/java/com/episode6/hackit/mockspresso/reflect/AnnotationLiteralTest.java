@@ -79,9 +79,9 @@ public class AnnotationLiteralTest {
         .isNotEqualTo(manualNamedTest1);
   }
 
-  private static Annotation annotationFromProp(String name) {
+  private Annotation annotationFromProp(String name) {
     try {
-      Field field = AnnotationLiteralTest.class.getDeclaredField(name);
+      Field field = getClass().getDeclaredField(name);
       return field.getDeclaredAnnotations()[0];
     } catch (NoSuchFieldException e) {
       throw new RuntimeException(e);

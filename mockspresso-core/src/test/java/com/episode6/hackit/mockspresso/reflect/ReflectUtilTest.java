@@ -56,9 +56,9 @@ public class ReflectUtilTest {
     ReflectUtil.findQualifierAnnotation(prop("badTestProp"));
   }
 
-  private static Field prop(String name) {
+  private Field prop(String name) {
     try {
-      return ReflectUtilTest.class.getDeclaredField(name);
+      return getClass().getDeclaredField(name);
     } catch (NoSuchFieldException e) {
       throw new RuntimeException(e);
     }

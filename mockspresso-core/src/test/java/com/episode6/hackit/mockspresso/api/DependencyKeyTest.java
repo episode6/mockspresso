@@ -74,9 +74,9 @@ public class DependencyKeyTest {
         .isNotEqualTo(customKey1);
   }
 
-  private static Field prop(String name) {
+  private Field prop(String name) {
     try {
-      return DependencyKeyTest.class.getDeclaredField(name);
+      return getClass().getDeclaredField(name);
     } catch (NoSuchFieldException e) {
       throw new RuntimeException(e);
     }
