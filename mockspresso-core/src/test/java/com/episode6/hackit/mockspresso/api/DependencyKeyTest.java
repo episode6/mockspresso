@@ -33,11 +33,11 @@ public class DependencyKeyTest {
 
   @Test
   public void testKeyEquality() {
-    DependencyKey key1 = DependencyKey.fromField(prop("testProp1"));
-    DependencyKey key2 = DependencyKey.fromField(prop("testProp2"));
-    DependencyKey key3 = DependencyKey.fromField(prop("testProp3"));
-    DependencyKey key4 = DependencyKey.fromField(prop("testProp4"));
-    DependencyKey key5 = DependencyKey.fromField(prop("testProp5"));
+    DependencyKey key1 = DependencyKey.from(prop("testProp1"));
+    DependencyKey key2 = DependencyKey.from(prop("testProp2"));
+    DependencyKey key3 = DependencyKey.from(prop("testProp3"));
+    DependencyKey key4 = DependencyKey.from(prop("testProp4"));
+    DependencyKey key5 = DependencyKey.from(prop("testProp5"));
 
     assertThat(key1)
         .isEqualTo(key5)
@@ -51,17 +51,17 @@ public class DependencyKeyTest {
 
   @Test(expected = MultipleQualifierAnnotationException.class)
   public void testMultipleQualifiersFailure() {
-    DependencyKey.fromField(prop("badTestProp"));
+    DependencyKey.from(prop("badTestProp"));
   }
 
   @Test
   public void testCustomKeyEquality() {
-    DependencyKey key1 = DependencyKey.fromField(prop("testProp1"));
-    DependencyKey customKey1 = new DependencyKey<>(
-        TypeToken.of(Integer.class),
+    DependencyKey key1 = DependencyKey.from(prop("testProp1"));
+    DependencyKey customKey1 = DependencyKey.from(
+        Integer.class,
         new NamedAnnotationLiteral("test1"));
-    DependencyKey key2 = DependencyKey.fromField(prop("testProp2"));
-    DependencyKey customKey2 = new DependencyKey<>(
+    DependencyKey key2 = DependencyKey.from(prop("testProp2"));
+    DependencyKey customKey2 = DependencyKey.from(
         new TypeToken<HashMap<String, Provider<Integer>>>() {},
         new NamedAnnotationLiteral());
 

@@ -12,14 +12,30 @@ import java.lang.reflect.Field;
  */
 public final class DependencyKey<V> {
 
-  public static DependencyKey<?> fromField(Field field) {
-    return new DependencyKey<>(TypeToken.of(field), ReflectUtil.findQualifierAnnotation(field));
+  public static <T> DependencyKey<T> from(Class<T> clazz) {
+    return from(TypeToken.of(clazz), null);
+  }
+
+  public static <T> DependencyKey<T> from(Class<T> clazz, @Nullable Annotation identityAnnotation) {
+    return from(TypeToken.of(clazz), identityAnnotation);
+  }
+
+  public static <T> DependencyKey<T> from(TypeToken<T> typeToken) {
+    return from(typeToken, null);
+  }
+
+  public static <T> DependencyKey<T> from(TypeToken<T> typeToken, @Nullable Annotation identityAnnotation) {
+    return new DependencyKey<T>(typeToken, identityAnnotation);
+  }
+
+  public static DependencyKey<?> from(Field field) {
+    return from(TypeToken.of(field), ReflectUtil.findQualifierAnnotation(field));
   }
 
   public final TypeToken<V> typeToken;
   public final @Nullable Annotation identityAnnotation;
 
-  public DependencyKey(TypeToken<V> typeToken, @Nullable Annotation identityAnnotation) {
+  private DependencyKey(TypeToken<V> typeToken, @Nullable Annotation identityAnnotation) {
     this.typeToken = typeToken;
     this.identityAnnotation = identityAnnotation;
   }
