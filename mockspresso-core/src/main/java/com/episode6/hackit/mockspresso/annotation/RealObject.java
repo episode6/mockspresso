@@ -10,4 +10,9 @@ import java.lang.annotation.RetentionPolicy;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RealObject {
+
+  /**
+   * Class to be used for implementation of this object.
+   */
+  Class<?> implementation() default RealObject.class;
 }
