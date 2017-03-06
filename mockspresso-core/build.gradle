@@ -12,11 +12,17 @@ configurations {
 dependencies {
   compile('net.sourceforge.findbugs:jsr305')
   compile('javax.inject:javax.inject')
+  compile('com.episode6.hackit.chop:chop-core')
 
   // provided deps
-  compileOnly('org.mockito:mockito-core')
   compileOnly('junit:junit')
 
-  testCompile('com.episode6.hackit.chop:chop-core')
+  testCompile('org.mockito:mockito-core')
   testCompile('org.easytesting:fest-assert-core')
+}
+
+test {
+  testLogging {
+    showStandardStreams = true
+  }
 }
