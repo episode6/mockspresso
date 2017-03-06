@@ -2,7 +2,7 @@ package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
-import org.junit.runner.Description;
+import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
 
 /**
@@ -20,11 +20,11 @@ public class MockspressoRuleImpl implements Mockspresso.Rule {
   }
 
   @Override
-  public Statement apply(final Statement base, Description description) {
+  public Statement apply(final Statement base, FrameworkMethod method, final Object target) {
     return new Statement() {
       @Override
       public void evaluate() throws Throwable {
-        mDelegate = mBuilder.build();
+        mDelegate = mBuilder.fieldsFrom(target).build();
         base.evaluate();
       }
     };
@@ -44,4 +44,6 @@ public class MockspressoRuleImpl implements Mockspresso.Rule {
   public Builder buildUpon() {
     return mDelegate.buildUpon();
   }
+
+
 }

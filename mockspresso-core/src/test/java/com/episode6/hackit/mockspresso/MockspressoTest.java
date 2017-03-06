@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 @RunWith(DefaultTestRunner.class)
 public class MockspressoTest {
 
-  @Rule public final Mockspresso.Rule mockspresso = Mockspresso.Builders.fromTest(this).buildRule();
+  @Rule public final Mockspresso.Rule mockspresso = Mockspresso.Builders.simple().buildRule();
 
   /**
    * placeholder test
