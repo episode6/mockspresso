@@ -19,6 +19,6 @@ public class MockspressoImpl implements Mockspresso {
 
   @Override
   public Builder buildUpon() {
-    return new MockspressoBuilderImpl(this);
+    return new MockspressoBuilderImpl().parent(this);
   }
 }

@@ -15,6 +15,7 @@ public interface Mockspresso {
   interface Rule extends Mockspresso,TestRule {}
 
   interface Builder {
+    Builder parent(Mockspresso mockspresso);
     Builder fieldsFrom(Object objectWithFields);
 
     Mockspresso build();
@@ -23,7 +24,7 @@ public interface Mockspresso {
 
   class Builders {
     static Builder fromTest(Object testObjectWithFields) {
-      return new MockspressoBuilderImpl(null).fieldsFrom(testObjectWithFields);
+      return new MockspressoBuilderImpl().fieldsFrom(testObjectWithFields);
     }
   }
 }

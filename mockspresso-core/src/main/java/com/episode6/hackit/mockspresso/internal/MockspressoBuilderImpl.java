@@ -11,11 +11,15 @@ import java.util.List;
  */
 public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
-  private final @Nullable Mockspresso mParentMockspresso;
+  private @Nullable Mockspresso mParentMockspresso = null;
   private final List<Object> mObjectsWithFields = new LinkedList<>();
 
-  public MockspressoBuilderImpl(@Nullable Mockspresso parentMockspresso) {
+
+  @Override
+  public Mockspresso.Builder parent(Mockspresso parentMockspresso) {
+    assertNullProperty(mParentMockspresso);
     mParentMockspresso = parentMockspresso;
+    return this;
   }
 
   public Mockspresso.Builder fieldsFrom(Object objectWithFields) {
@@ -30,5 +34,12 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   public Mockspresso.Rule buildRule() {
     return new MockspressoRuleImpl(this);
+  }
+
+  // some properties must only be allowed to be set exactly once.
+  private static void assertNullProperty(Object object) {
+    if (object != null) {
+      throw new IllegalArgumentException("Argument was already set and cannot be re-set by " + object.toString());
+    }
   }
 }
