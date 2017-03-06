@@ -1,6 +1,6 @@
 package com.episode6.hackit.mockspresso.internal;
 
-import com.episode6.hackit.mockspresso.api.DependencyKey;
+import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Before;
 import org.junit.Test;

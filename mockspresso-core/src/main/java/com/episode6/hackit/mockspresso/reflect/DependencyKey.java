@@ -1,7 +1,4 @@
-package com.episode6.hackit.mockspresso.api;
-
-import com.episode6.hackit.mockspresso.reflect.ReflectUtil;
-import com.episode6.hackit.mockspresso.reflect.TypeToken;
+package com.episode6.hackit.mockspresso.reflect;
 
 import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;

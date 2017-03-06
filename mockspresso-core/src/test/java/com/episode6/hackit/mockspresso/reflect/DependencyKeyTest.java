@@ -1,9 +1,10 @@
-package com.episode6.hackit.mockspresso.api;
+package com.episode6.hackit.mockspresso.reflect;
 
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.annotation.TestQualifierAnnotation;
 import com.episode6.hackit.mockspresso.exception.MultipleQualifierAnnotationException;
+import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.NamedAnnotationLiteral;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Test;
