@@ -8,12 +8,17 @@ import com.episode6.hackit.mockspresso.reflect.TypeToken;
  */
 public class MockspressoImpl implements Mockspresso {
   @Override
-  public <T> T constructRealObject(Class<T> clazz) {
+  public <T> T create(Class<T> clazz) {
     return null;
   }
 
   @Override
-  public <T> T constructRealObject(TypeToken<T> typeToken) {
+  public <T> T create(TypeToken<T> typeToken) {
     return null;
+  }
+
+  @Override
+  public Builder buildUpon() {
+    return new MockspressoBuilderImpl(this);
   }
 }
