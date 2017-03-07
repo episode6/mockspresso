@@ -1,1 +1,2 @@
-include ':mockspresso-core'
+include ':mockspresso-core',
+    ':mockspresso-mockito'
