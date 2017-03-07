@@ -1,2 +1,2 @@
 # mockspresso
-Automocker for mockito
+Automocker for java
