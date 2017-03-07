@@ -12,6 +12,9 @@ import java.util.List;
  * Similar to java's {@link org.junit.rules.RuleChain} except that it is implemented via
  * a MethodRule instead of a TestRule, and it supports both MethodRules and TestRules (but
  * not ClassRules)
+ *
+ * Currently this isn't directly tied to Mockspresso, so I may pull this out and
+ * move to its own library.
  */
 public class MethodRuleChain implements MethodRule {
   private static final MethodRuleChain EMPTY_CHAIN = new MethodRuleChain(new LinkedList<MethodRule>());
