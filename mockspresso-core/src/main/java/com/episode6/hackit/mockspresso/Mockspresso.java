@@ -23,7 +23,7 @@ public interface Mockspresso {
   }
 
   class Builders {
-    static Builder simple() {
+    static Builder empty() {
       return new MockspressoBuilderImpl();
     }
   }
