@@ -9,7 +9,7 @@ import com.episode6.hackit.mockspresso.reflect.TypeToken;
 public class MockspressoImpl implements Mockspresso {
   @Override
   public <T> T create(Class<T> clazz) {
-    return null;
+    return create(TypeToken.of(clazz));
   }
 
   @Override
