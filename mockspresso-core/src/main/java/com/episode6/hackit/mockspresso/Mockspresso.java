@@ -16,7 +16,6 @@ public interface Mockspresso {
   interface Rule extends Mockspresso, MethodRule {}
 
   interface Builder {
-    Builder parent(Mockspresso mockspresso);
     Builder fieldsFrom(Object objectWithFields);
     Builder mocker(MockerConfig mockerConfig);
 
