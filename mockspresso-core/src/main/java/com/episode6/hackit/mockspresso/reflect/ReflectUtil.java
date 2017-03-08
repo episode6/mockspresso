@@ -13,14 +13,18 @@ import java.lang.reflect.Field;
 public class ReflectUtil {
 
   public static @Nullable Annotation findQualifierAnnotation(Field field) {
+    return findQualifierAnnotation(field.getDeclaredAnnotations(), "field: " + field.getName());
+  }
+
+  public static @Nullable Annotation findQualifierAnnotation(Annotation[] annotations, String description) {
     Annotation found = null;
-    for (Annotation annotation : field.getDeclaredAnnotations()) {
+    for (Annotation annotation : annotations) {
       Qualifier qualifier = annotation.annotationType().getDeclaredAnnotation(Qualifier.class);
       if (qualifier == null) {
         continue;
       }
       if (found != null) {
-        throw new MultipleQualifierAnnotationException(field);
+        throw new MultipleQualifierAnnotationException(description);
       }
       found = annotation;
     }
