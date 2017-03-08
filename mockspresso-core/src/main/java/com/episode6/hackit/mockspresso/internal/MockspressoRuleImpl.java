@@ -7,16 +7,15 @@ import org.junit.runners.model.Statement;
 
 /**
  * The implementation of {@link Mockspresso.Rule}. Hold an instance of the
- * {@link Mockspresso.Builder} and builds a new instance of Mockspresso for
- * every test.
+ * {@link Mockspresso} and buildsUpon it for each test.
  **/
 public class MockspressoRuleImpl implements Mockspresso.Rule {
 
-  private final Mockspresso.Builder mBuilder;
+  private final Mockspresso mOriginal;
   private Mockspresso mDelegate = null;
 
-  public MockspressoRuleImpl(Mockspresso.Builder builder) {
-    mBuilder = builder;
+  public MockspressoRuleImpl(Mockspresso original) {
+    mOriginal = original;
   }
 
   @Override
@@ -24,9 +23,9 @@ public class MockspressoRuleImpl implements Mockspresso.Rule {
     return new Statement() {
       @Override
       public void evaluate() throws Throwable {
-        // TODO: this is no good, the builder's list will keep growing.
-        mDelegate = mBuilder.fieldsFrom(target).build();
+        mDelegate = mOriginal.buildUpon().fieldsFrom(target).build();
         base.evaluate();
+        mDelegate = null;
       }
     };
   }

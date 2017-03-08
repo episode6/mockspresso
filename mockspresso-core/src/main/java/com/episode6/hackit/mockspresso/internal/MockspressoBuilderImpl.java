@@ -90,7 +90,6 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   }
 
   public Mockspresso.Rule buildRule() {
-    validate();
-    return new MockspressoRuleImpl(this);
+    return new MockspressoRuleImpl(build());
   }
 }
