@@ -4,16 +4,16 @@ import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Simple class to store mapped dependencies and type-check their fetch and retrieval.
  */
 public class DependencyMap {
+  private final @Nullable DependencyMap mParentMap;
   private final HashMap<DependencyKey, Object> mDependencies;
 
-  public DependencyMap() {
+  public DependencyMap(@Nullable DependencyMap parentMap) {
+    mParentMap = parentMap;
     mDependencies = new HashMap<>();
   }
 
@@ -24,18 +24,17 @@ public class DependencyMap {
 
   @SuppressWarnings("unchecked")
   public @Nullable <T> T get(DependencyKey<T> key) {
-    return (T) mDependencies.get(key);
+    if (mDependencies.containsKey(key)) {
+      return (T) mDependencies.get(key);
+    }
+    return mParentMap == null ? null : mParentMap.get(key);
   }
 
   public boolean containsKey(DependencyKey key) {
-    return mDependencies.containsKey(key);
+    return mDependencies.containsKey(key) || (mParentMap != null && mParentMap.containsKey(key));
   }
 
   public DependencyMapImporter importFrom() {
     return new DependencyMapImporter(this);
-  }
-
-  public Set<Map.Entry<DependencyKey, Object>> entrySet() {
-    return mDependencies.entrySet();
   }
 }

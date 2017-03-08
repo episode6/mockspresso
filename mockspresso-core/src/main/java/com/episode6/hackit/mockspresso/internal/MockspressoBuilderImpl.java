@@ -16,11 +16,11 @@ import java.util.List;
 public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   private final @Nullable MockspressoInternal mParentMockspresso;
-  private final DependencyMap mCustomDependencyMap = new DependencyMap();
-  private final List<Object> mObjectsWithFields = new LinkedList<>();
+  private final DependencyMap mDependencyMap;
   private final SpecialObjectMakerContainer mSpecialObjectMakers;
+  private final List<Object> mObjectsWithFields;
 
-  private @Nullable MockerConfig mMockerConfig = null;
+  private @Nullable MockerConfig mMockerConfig;
 
   public MockspressoBuilderImpl() {
     this(null);
@@ -28,8 +28,12 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   MockspressoBuilderImpl(@Nullable MockspressoInternal parentMockspresso) {
     mParentMockspresso = parentMockspresso;
+    mDependencyMap = new DependencyMap(
+        parentMockspresso == null ? null : parentMockspresso.getDependencyMap());
     mSpecialObjectMakers = new SpecialObjectMakerContainer(
-        mParentMockspresso == null ? null : mParentMockspresso.getSpecialObjectMaker());
+        parentMockspresso == null ? null : parentMockspresso.getSpecialObjectMaker());
+    mObjectsWithFields = new LinkedList<>();
+    mMockerConfig = parentMockspresso == null ? null : parentMockspresso.getMockerConfig();
   }
 
   public Mockspresso.Builder fieldsFrom(Object objectWithFields) {
@@ -57,47 +61,36 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   }
 
   private void validate() {
-    assertParentOr(mMockerConfig, "mockerConfig");
+    Preconditions.assertNotNull(mMockerConfig, "MockerConfig missing from mockspresso builder");
   }
 
   //TODO: fill in
   public Mockspresso build() {
     validate();
 
-    DependencyMap dependencyMap = new DependencyMap();
-
-    MockerConfig mockerConfig = mMockerConfig != null ? mMockerConfig : mParentMockspresso.getMockerConfig();
-    MockerConfig.FieldPreparer mockFieldPreparer = mockerConfig.provideFieldPreparer();
-    MockerConfig.MockMaker mockMaker = mockerConfig.provideMockMaker();
-
+    MockerConfig.FieldPreparer mockFieldPreparer = mMockerConfig.provideFieldPreparer();
 
     for (Object o : mObjectsWithFields) {
       // prepare mock fields
       mockFieldPreparer.prepareFields(o);
 
       //import mocks and non-null real objects into dependency map
-      dependencyMap.importFrom()
-          .annotatedFields(o, mockerConfig.provideMockAnnotations())
+      mDependencyMap.importFrom()
+          .annotatedFields(o, mMockerConfig.provideMockAnnotations())
           .annotatedFields(o, RealObject.class);
 
       // inflate null realObjects
       // import previously null realObjects
     }
 
-    dependencyMap.importFrom().dependencyMap(mCustomDependencyMap);
-
-
-    return new MockspressoImpl(mockerConfig, mSpecialObjectMakers);
+    return new MockspressoImpl(
+        mMockerConfig,
+        mDependencyMap,
+        mSpecialObjectMakers);
   }
 
   public Mockspresso.Rule buildRule() {
     validate();
     return new MockspressoRuleImpl(this);
-  }
-
-  private void assertParentOr(@Nullable Object object, String name) {
-    Preconditions.assertTrue(
-        mParentMockspresso != null || object != null,
-        String.format("Mockspresso builder must include a %s or inherit one from a parent Mockspresso instance", name));
   }
 }

@@ -11,5 +11,6 @@ import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 public interface MockspressoInternal extends Mockspresso {
 
   MockerConfig getMockerConfig();
+  DependencyMap getDependencyMap();
   SpecialObjectMaker getSpecialObjectMaker();
 }

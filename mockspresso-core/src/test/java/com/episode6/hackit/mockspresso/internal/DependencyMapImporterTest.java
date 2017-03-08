@@ -44,7 +44,7 @@ public class DependencyMapImporterTest {
   @Before
   public void setup() {
     MockitoAnnotations.initMocks(this);
-    mDependencyMap = new DependencyMap();
+    mDependencyMap = new DependencyMap(null);
   }
 
   @Test

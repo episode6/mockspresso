@@ -24,6 +24,7 @@ public class MockspressoRuleImpl implements Mockspresso.Rule {
     return new Statement() {
       @Override
       public void evaluate() throws Throwable {
+        // TODO: this is no good, the builder's list will keep growing.
         mDelegate = mBuilder.fieldsFrom(target).build();
         base.evaluate();
       }

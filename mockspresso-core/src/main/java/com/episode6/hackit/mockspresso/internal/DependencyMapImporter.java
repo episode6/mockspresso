@@ -6,7 +6,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Class to handle importing dependencies into a dependency map
@@ -40,14 +39,6 @@ public class DependencyMapImporter {
       }
     } catch (IllegalAccessException e) {
       throw new RuntimeException(e);
-    }
-    return this;
-  }
-
-  @SuppressWarnings("unchecked")
-  public DependencyMapImporter dependencyMap(DependencyMap otherMap) {
-    for (Map.Entry<DependencyKey, Object> entry : otherMap.entrySet()) {
-      mDependencyMap.put(entry.getKey(), entry.getValue());
     }
     return this;
   }

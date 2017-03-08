@@ -10,12 +10,15 @@ import com.episode6.hackit.mockspresso.reflect.TypeToken;
 public class MockspressoImpl implements MockspressoInternal {
 
   private final MockerConfig mMockerConfig;
+  private final DependencyMap mDependencyMap;
   private final SpecialObjectMaker mSpecialObjectMaker;
 
   MockspressoImpl(
       MockerConfig mockerConfig,
+      DependencyMap dependencyMap,
       SpecialObjectMaker specialObjectMaker) {
     mMockerConfig = mockerConfig;
+    mDependencyMap = dependencyMap;
     mSpecialObjectMaker = specialObjectMaker;
   }
 
@@ -37,6 +40,11 @@ public class MockspressoImpl implements MockspressoInternal {
   @Override
   public MockerConfig getMockerConfig() {
     return mMockerConfig;
+  }
+
+  @Override
+  public DependencyMap getDependencyMap() {
+    return mDependencyMap;
   }
 
   @Override
