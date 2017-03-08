@@ -57,14 +57,14 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     MockerConfig.MockMaker mockMaker = mockerConfig.provideMockMaker();
 
 
-    List<Class<? extends Annotation>> importAnnotations = new ArrayList<>(mMockerConfig.provideMockAnnotations());
-    importAnnotations.add(RealObject.class); // include non-null real objects in first import pass
     for (Object o : mObjectsWithFields) {
       // prepare mock fields
       mockFieldPreparer.prepareFields(o);
 
       //import mocks and non-null real objects into dependency map
-      dependencyMap.importFrom().annotatedFields(o, importAnnotations);
+      dependencyMap.importFrom()
+          .annotatedFields(o, mockerConfig.provideMockAnnotations())
+          .annotatedFields(o, RealObject.class);
 
       // inflate null realObjects
       // import previously null realObjects
