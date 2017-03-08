@@ -1,5 +1,6 @@
 package com.episode6.hackit.mockspresso;
 
+import com.episode6.hackit.mockspresso.api.MockerConfig;
 import com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.rules.MethodRule;
@@ -17,6 +18,7 @@ public interface Mockspresso {
   interface Builder {
     Builder parent(Mockspresso mockspresso);
     Builder fieldsFrom(Object objectWithFields);
+    Builder mocker(MockerConfig mockerConfig);
 
     Mockspresso build();
     Rule buildRule();
