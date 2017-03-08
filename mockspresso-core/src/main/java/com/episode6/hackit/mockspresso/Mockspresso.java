@@ -6,6 +6,7 @@ import com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.rules.MethodRule;
 
+import java.lang.annotation.Annotation;
 import java.util.List;
 
 /**
@@ -23,6 +24,11 @@ public interface Mockspresso {
     Builder mockerConfig(MockerConfig mockerConfig);
     Builder specialObjectMaker(SpecialObjectMaker specialObjectMaker);
     Builder specialObjectMakers(List<SpecialObjectMaker> specialObjectMakers);
+
+    <T> Builder dependency(Class<T> clazz, T value);
+    <T> Builder dependency(TypeToken<T> typeToken, T value);
+    <T> Builder dependency(Class<T> clazz, Annotation annotation, T value);
+    <T> Builder dependency(TypeToken<T> typeToken, Annotation annotation, T value);
 
     Mockspresso build();
     Rule buildRule();

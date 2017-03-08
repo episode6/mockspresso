@@ -4,9 +4,12 @@ import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.api.MockerConfig;
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
+import com.episode6.hackit.mockspresso.reflect.DependencyKey;
+import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import com.episode6.hackit.mockspresso.util.Preconditions;
 
 import javax.annotation.Nullable;
+import java.lang.annotation.Annotation;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,6 +36,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     mSpecialObjectMakers = new SpecialObjectMakerContainer(
         parentMockspresso == null ? null : parentMockspresso.getSpecialObjectMaker());
     mObjectsWithFields = new LinkedList<>();
+
     mMockerConfig = parentMockspresso == null ? null : parentMockspresso.getMockerConfig();
   }
 
@@ -57,6 +61,27 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   @Override
   public Mockspresso.Builder specialObjectMakers(List<SpecialObjectMaker> specialObjectMakers) {
     mSpecialObjectMakers.addAll(specialObjectMakers);
+    return this;
+  }
+
+  @Override
+  public <T> Mockspresso.Builder dependency(Class<T> clazz, T value) {
+    return dependency(TypeToken.of(clazz), null, value);
+  }
+
+  @Override
+  public <T> Mockspresso.Builder dependency(TypeToken<T> typeToken, T value) {
+    return dependency(typeToken, null, value);
+  }
+
+  @Override
+  public <T> Mockspresso.Builder dependency(Class<T> clazz, Annotation annotation, T value) {
+    return dependency(TypeToken.of(clazz), annotation, value);
+  }
+
+  @Override
+  public <T> Mockspresso.Builder dependency(TypeToken<T> typeToken, Annotation annotation, T value) {
+    mDependencyMap.put(new DependencyKey<T>(typeToken, annotation), value);
     return this;
   }
 
