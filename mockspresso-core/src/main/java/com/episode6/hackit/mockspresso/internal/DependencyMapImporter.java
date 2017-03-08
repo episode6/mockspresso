@@ -23,6 +23,7 @@ public class DependencyMapImporter {
     return annotatedFields(importFrom, Collections.<Class<? extends Annotation>>singletonList(annotation));
   }
 
+  @SuppressWarnings("unchecked")
   public DependencyMapImporter annotatedFields(Object importFrom, List<Class<? extends Annotation>> annotations) {
     try {
       for (Field field : importFrom.getClass().getDeclaredFields()) {
