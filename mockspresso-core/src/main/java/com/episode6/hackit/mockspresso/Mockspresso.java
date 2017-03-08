@@ -17,7 +17,7 @@ public interface Mockspresso {
 
   interface Builder {
     Builder fieldsFrom(Object objectWithFields);
-    Builder mocker(MockerConfig mockerConfig);
+    Builder mockerConfig(MockerConfig mockerConfig);
 
     Mockspresso build();
     Rule buildRule();

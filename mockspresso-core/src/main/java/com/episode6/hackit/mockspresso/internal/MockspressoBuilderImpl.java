@@ -36,14 +36,14 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   }
 
   @Override
-  public Mockspresso.Builder mocker(MockerConfig mockerConfig) {
-    Preconditions.assertNull(mMockerConfig, "Attempted to set mocker config multiple times.");
+  public Mockspresso.Builder mockerConfig(MockerConfig mockerConfig) {
+    Preconditions.assertNull(mMockerConfig, "Attempted to set mockerConfig multiple times.");
     mMockerConfig = mockerConfig;
     return this;
   }
 
   private void validate() {
-    assertParentOr(mMockerConfig, "mocker config");
+    assertParentOr(mMockerConfig, "mockerConfig");
   }
 
   //TODO: fill in
