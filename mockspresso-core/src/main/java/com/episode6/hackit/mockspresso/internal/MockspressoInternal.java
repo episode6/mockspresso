@@ -2,6 +2,7 @@ package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.api.MockerConfig;
+import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 
 /**
  * Interface representing an internal implementation of Mockspresso that includes
@@ -10,4 +11,5 @@ import com.episode6.hackit.mockspresso.api.MockerConfig;
 public interface MockspressoInternal extends Mockspresso {
 
   MockerConfig getMockerConfig();
+  SpecialObjectMaker getSpecialObjectMaker();
 }

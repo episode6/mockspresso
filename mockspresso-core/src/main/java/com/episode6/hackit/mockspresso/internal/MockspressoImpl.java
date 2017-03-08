@@ -1,6 +1,7 @@
 package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.api.MockerConfig;
+import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 
 /**
@@ -9,9 +10,13 @@ import com.episode6.hackit.mockspresso.reflect.TypeToken;
 public class MockspressoImpl implements MockspressoInternal {
 
   private final MockerConfig mMockerConfig;
+  private final SpecialObjectMaker mSpecialObjectMaker;
 
-  MockspressoImpl(MockerConfig mockerConfig) {
+  MockspressoImpl(
+      MockerConfig mockerConfig,
+      SpecialObjectMaker specialObjectMaker) {
     mMockerConfig = mockerConfig;
+    mSpecialObjectMaker = specialObjectMaker;
   }
 
   @Override
@@ -33,4 +38,10 @@ public class MockspressoImpl implements MockspressoInternal {
   public MockerConfig getMockerConfig() {
     return mMockerConfig;
   }
+
+  @Override
+  public SpecialObjectMaker getSpecialObjectMaker() {
+    return mSpecialObjectMaker;
+  }
+
 }

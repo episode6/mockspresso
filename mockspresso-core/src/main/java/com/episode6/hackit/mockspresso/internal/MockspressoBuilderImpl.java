@@ -3,11 +3,10 @@ package com.episode6.hackit.mockspresso.internal;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.api.MockerConfig;
+import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import com.episode6.hackit.mockspresso.util.Preconditions;
 
 import javax.annotation.Nullable;
-import java.lang.annotation.Annotation;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,6 +18,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   private final @Nullable MockspressoInternal mParentMockspresso;
   private final DependencyMap mCustomDependencyMap = new DependencyMap();
   private final List<Object> mObjectsWithFields = new LinkedList<>();
+  private final SpecialObjectMakerContainer mSpecialObjectMakers;
 
   private @Nullable MockerConfig mMockerConfig = null;
 
@@ -28,6 +28,8 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   MockspressoBuilderImpl(@Nullable MockspressoInternal parentMockspresso) {
     mParentMockspresso = parentMockspresso;
+    mSpecialObjectMakers = new SpecialObjectMakerContainer(
+        mParentMockspresso == null ? null : mParentMockspresso.getSpecialObjectMaker());
   }
 
   public Mockspresso.Builder fieldsFrom(Object objectWithFields) {
@@ -39,6 +41,18 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   public Mockspresso.Builder mockerConfig(MockerConfig mockerConfig) {
     Preconditions.assertNull(mMockerConfig, "Attempted to set mockerConfig multiple times.");
     mMockerConfig = mockerConfig;
+    return this;
+  }
+
+  @Override
+  public Mockspresso.Builder specialObjectMaker(SpecialObjectMaker specialObjectMaker) {
+    mSpecialObjectMakers.add(specialObjectMaker);
+    return this;
+  }
+
+  @Override
+  public Mockspresso.Builder specialObjectMakers(List<SpecialObjectMaker> specialObjectMakers) {
+    mSpecialObjectMakers.addAll(specialObjectMakers);
     return this;
   }
 
@@ -73,7 +87,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     dependencyMap.importFrom().dependencyMap(mCustomDependencyMap);
 
 
-    return new MockspressoImpl(mockerConfig);
+    return new MockspressoImpl(mockerConfig, mSpecialObjectMakers);
   }
 
   public Mockspresso.Rule buildRule() {

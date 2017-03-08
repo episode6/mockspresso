@@ -1,9 +1,12 @@
 package com.episode6.hackit.mockspresso;
 
 import com.episode6.hackit.mockspresso.api.MockerConfig;
+import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.rules.MethodRule;
+
+import java.util.List;
 
 /**
  * Main mockspresso interface
@@ -18,6 +21,8 @@ public interface Mockspresso {
   interface Builder {
     Builder fieldsFrom(Object objectWithFields);
     Builder mockerConfig(MockerConfig mockerConfig);
+    Builder specialObjectMaker(SpecialObjectMaker specialObjectMaker);
+    Builder specialObjectMakers(List<SpecialObjectMaker> specialObjectMakers);
 
     Mockspresso build();
     Rule buildRule();
