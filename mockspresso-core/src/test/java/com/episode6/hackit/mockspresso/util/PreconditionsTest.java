@@ -40,4 +40,14 @@ public class PreconditionsTest {
 
     Preconditions.assertNotNull(test, "should fail.");
   }
+
+  @Test
+  public void testAssertTruePass() {
+    Preconditions.assertTrue(true, "should pass");
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testAssertTrueFail() {
+    Preconditions.assertTrue(false, "should fail");
+  }
 }

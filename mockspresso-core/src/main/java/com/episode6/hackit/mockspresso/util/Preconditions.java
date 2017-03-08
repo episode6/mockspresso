@@ -16,4 +16,10 @@ public class Preconditions {
     }
     return object;
   }
+
+  public static void assertTrue(boolean argument, String message) {
+    if (!argument) {
+      throw new IllegalArgumentException(message);
+    }
+  }
 }
