@@ -9,4 +9,11 @@ public class Preconditions {
       throw new IllegalArgumentException(message);
     }
   }
+
+  public static <T> T assertNotNull(T object, String message) {
+    if (object == null) {
+      throw new NullPointerException(message);
+    }
+    return object;
+  }
 }
