@@ -4,7 +4,9 @@ import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -25,7 +27,7 @@ public class DependencyMapImporter {
   @SuppressWarnings("unchecked")
   public DependencyMapImporter annotatedFields(Object importFrom, List<Class<? extends Annotation>> annotations) {
     try {
-      for (Field field : importFrom.getClass().getDeclaredFields()) {
+      for (Field field : getAllFields(importFrom.getClass())) {
         if (!fieldHasAnnotation(field, annotations)) {
           continue;
         }
@@ -41,6 +43,15 @@ public class DependencyMapImporter {
       throw new RuntimeException(e);
     }
     return this;
+  }
+
+  private static List<Field> getAllFields(Class<?> clazz) {
+    List<Field> fieldList = new LinkedList<>();
+    fieldList.addAll(Arrays.asList(clazz.getDeclaredFields()));
+    if (clazz.getSuperclass() != null) {
+      fieldList.addAll(getAllFields(clazz.getSuperclass()));
+    }
+    return fieldList;
   }
 
   private static boolean fieldHasAnnotation(Field field, List<Class<? extends Annotation>> annotations) {
