@@ -4,12 +4,19 @@ import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.annotation.TestQualifierAnnotation;
 import com.episode6.hackit.mockspresso.exception.MultipleQualifierAnnotationException;
+import com.episode6.hackit.mockspresso.testobject.SubclassTestObject;
+import com.episode6.hackit.mockspresso.testobject.SuperclassTestObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Spy;
 
 import javax.inject.Named;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -54,6 +61,39 @@ public class ReflectUtilTest {
   @Test(expected = MultipleQualifierAnnotationException.class)
   public void testMultipleQualifiersFailure() {
     ReflectUtil.findQualifierAnnotation(prop("badTestProp"));
+  }
+
+  @Test
+  public void testGetAllDeclaredFields() {
+    List<Field> fields = ReflectUtil.getAllDeclaredFields(SubclassTestObject.class);
+
+    assertThat(fields).hasSize(4);
+    assertFieldInList(fields, "subclassString", String.class);
+    assertFieldInList(fields, "superclassTestString", String.class);
+    assertFieldInList(fields, "subclassInnterClass", SubclassTestObject.SubClassInnerClass.class);
+    assertFieldInList(fields, "superclassInnerClass", SuperclassTestObject.SuperClassInnerClass.class);
+  }
+
+  @Test
+  public void testIsAnyAnnotationPresent() {
+    Field field = prop("testProp4");
+
+    boolean result1 = ReflectUtil.isAnyAnnotationPresent(field, Arrays.asList(Spy.class, TestQualifierAnnotation.class, Mock.class));
+    boolean result2 = ReflectUtil.isAnyAnnotationPresent(field, Arrays.asList(Spy.class, Mock.class));
+    boolean result3 = ReflectUtil.isAnyAnnotationPresent(field, Arrays.asList(Mock.class, RealObject.class));
+
+    assertThat(result1).isTrue();
+    assertThat(result2).isFalse();
+    assertThat(result3).isTrue();
+  }
+
+  private void assertFieldInList(List<Field> fieldList, String name, Class<?> clazz) {
+    for (Field field : fieldList) {
+      if (field.getName().equals(name) && field.getGenericType() == clazz) {
+        return;
+      }
+    }
+    throw new AssertionError("Expected to find field named " + name + " of type " + clazz.getSimpleName() + ", but did not.");
   }
 
   private Field prop(String name) {
