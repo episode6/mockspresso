@@ -58,9 +58,9 @@ public class RealObjectFieldTrackerTest {
   }
 
   public static class TestClass1 {
-    @RealObject String mPresetString = "teststring";
+    @RealObject String mPresetString = "teststring"; // ignored because it's non-null
     @RealObject(implementation = TestRunnable.class) Runnable mRealRunnable;
-    @TestQualifierAnnotation TestRunnable unboundRunnable;
+    @TestQualifierAnnotation TestRunnable unboundRunnable; // ignored because it has no @RealObject annotation
   }
 
   public static class TestRunnable implements Runnable {
