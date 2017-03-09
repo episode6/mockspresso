@@ -47,7 +47,6 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   @Override
   public Mockspresso.Builder mockerConfig(MockerConfig mockerConfig) {
-    Preconditions.assertNull(mMockerConfig, "Attempted to set mockerConfig multiple times.");
     mMockerConfig = mockerConfig;
     return this;
   }
