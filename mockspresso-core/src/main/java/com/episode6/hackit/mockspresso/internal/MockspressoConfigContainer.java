@@ -18,6 +18,7 @@ public class MockspressoConfigContainer {
   private final SpecialObjectMaker mSpecialObjectMaker;
 
   private final DependencyProvider mDependencyProvider;
+  private final RealObjectMaker mRealObjectMaker;
 
   public MockspressoConfigContainer(
       MockerConfig mockerConfig,
@@ -33,6 +34,9 @@ public class MockspressoConfigContainer {
         mockerConfig.provideMockMaker(),
         dependencyMap,
         specialObjectMaker);
+    mRealObjectMaker = new RealObjectMaker(
+        mInjectionConfig,
+        mDependencyProvider);
   }
 
   public MockerConfig getMockerConfig() {
@@ -53,5 +57,9 @@ public class MockspressoConfigContainer {
 
   public DependencyProvider getDependencyProvider() {
     return mDependencyProvider;
+  }
+
+  public RealObjectMaker getRealObjectMaker() {
+    return mRealObjectMaker;
   }
 }
