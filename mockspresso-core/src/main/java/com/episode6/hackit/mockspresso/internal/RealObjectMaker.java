@@ -13,17 +13,13 @@ import java.util.List;
 public class RealObjectMaker  {
   private final InjectionConfig.ConstructorSelector mConstructorSelector;
   private final List<Class<? extends Annotation>> mInjectFieldAnnotations;
-  private final DependencyProvider mDependencyProvider;
 
-  public RealObjectMaker(
-      InjectionConfig injectionConfig,
-      DependencyProvider dependencyProvider) {
+  public RealObjectMaker(InjectionConfig injectionConfig) {
     mConstructorSelector = injectionConfig.provideConstructorSelector();
     mInjectFieldAnnotations = injectionConfig.provideInjectableFieldAnnotations();
-    mDependencyProvider = dependencyProvider;
   }
 
-  public <T> T createObject(TypeToken<T> typeToken) {
+  public <T> T createObject(DependencyProvider dependencyProvider, TypeToken<T> typeToken) {
     return null;
   }
 }

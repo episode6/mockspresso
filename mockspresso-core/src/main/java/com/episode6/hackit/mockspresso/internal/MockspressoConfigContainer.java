@@ -35,8 +35,7 @@ public class MockspressoConfigContainer {
         dependencyMap,
         specialObjectMaker);
     mRealObjectMaker = new RealObjectMaker(
-        mInjectionConfig,
-        mDependencyProvider);
+        mInjectionConfig);
   }
 
   public MockerConfig getMockerConfig() {
