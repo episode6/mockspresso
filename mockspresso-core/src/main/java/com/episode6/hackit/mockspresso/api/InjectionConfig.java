@@ -2,6 +2,7 @@ package com.episode6.hackit.mockspresso.api;
 
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 
+import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 public interface InjectionConfig {
 
   interface ConstructorSelector {
-    <T> Constructor<T> chooseConstructor(TypeToken<T> typeToken);
+    @Nullable <T> Constructor<T> chooseConstructor(TypeToken<T> typeToken);
   }
 
   ConstructorSelector provideConstructorSelector();

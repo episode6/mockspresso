@@ -37,6 +37,14 @@ public class SimpleInjectionConfigTest {
     assertThat(annotationList).isEmpty();
   }
 
+  @Test
+  public void testFailWithNoConstructor() {
+    Constructor<TestInterface> constructor = mSimpleInjectionConfig.provideConstructorSelector()
+        .chooseConstructor(TypeToken.of(TestInterface.class));
+
+    assertThat(constructor).isNull();
+  }
+
   public static class TestClass1 {
     public TestClass1(String param1, String param2, String param3) {}
     public TestClass1(String param1, String param2) {}
@@ -48,4 +56,6 @@ public class SimpleInjectionConfigTest {
     public TestClass2(String param1, String param2) {}
     public TestClass2(String param1, String param2, String param3) {}
   }
+
+  public interface TestInterface {}
 }

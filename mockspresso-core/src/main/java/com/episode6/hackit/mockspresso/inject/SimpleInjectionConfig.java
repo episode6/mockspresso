@@ -3,6 +3,7 @@ package com.episode6.hackit.mockspresso.inject;
 import com.episode6.hackit.mockspresso.api.InjectionConfig;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 
+import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.util.Collections;
@@ -29,7 +30,7 @@ public class SimpleInjectionConfig implements InjectionConfig {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T> Constructor<T> chooseConstructor(TypeToken<T> typeToken) {
+    public @Nullable <T> Constructor<T> chooseConstructor(TypeToken<T> typeToken) {
       Constructor<T> found = null;
       for (Constructor<?> constructor : typeToken.getRawType().getDeclaredConstructors()) {
         if (found == null || constructor.getParameterCount() < found.getParameterCount()) {
