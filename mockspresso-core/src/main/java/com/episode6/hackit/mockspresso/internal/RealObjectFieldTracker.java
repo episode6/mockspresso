@@ -74,10 +74,11 @@ public class RealObjectFieldTracker {
     DependencyKey key = DependencyKey.fromField(field);
     Entry entry = mNullRealObjectFields.get(key);
     if (entry == null) {
-      entry = new Entry(field.getAnnotation(RealObject.class).implementation());
+      entry = new Entry(field, object);
       mNullRealObjectFields.put(key, entry);
+    } else {
+      entry.add(field, object);
     }
-    entry.add(field, object);
   }
 
   @SuppressWarnings("unchecked")
@@ -117,13 +118,20 @@ public class RealObjectFieldTracker {
     }
   }
 
+  /**
+   * An entry in our mNullRealObjectFields hashmap. Holds a collection of
+   * Field/Object pairs and holds a ref to the implementation class to be used.
+   * When adding new field/object pairs, the implementation class is always checked
+   * and an exception thrown if there is a mis-match.
+   */
   private static class Entry {
     final Class<?> implementationClass;
     final Collection<FieldInstance> fields;
 
-    Entry(Class<?> implementationClass) {
-      this.implementationClass = implementationClass;
+    Entry(Field firstField, Object firstObject) {
+      this.implementationClass = firstField.getAnnotation(RealObject.class).implementation();
       this.fields = new LinkedList<>();
+      this.fields.add(new FieldInstance(firstField, firstObject));
     }
 
     void add(Field field, Object object) {
@@ -139,6 +147,9 @@ public class RealObjectFieldTracker {
     }
   }
 
+  /**
+   * An instance of a field and the object it belongs to.
+   */
   private static class FieldInstance {
     final Field field;
     final Object object;
