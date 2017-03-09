@@ -25,7 +25,6 @@ public class RealObjectFieldTrackerTest {
   private static final DependencyKey<TestRunnable> testRunnableKey = new DependencyKey<>(TypeToken.of(TestRunnable.class), null);
   private static final DependencyKey<Runnable> runnableKey = new DependencyKey<>(TypeToken.of(Runnable.class), null);
 
-  @Mock MockspressoConfigContainer mConfigContainer;
   @Mock RealObjectMaker mRealObjectMaker;
   @Mock DependencyMap mDependencyMap;
   @Mock DependencyProvider mDependencyProvider;
@@ -35,11 +34,11 @@ public class RealObjectFieldTrackerTest {
   @Before
   public void setup() {
     MockitoAnnotations.initMocks(this);
-    when(mConfigContainer.getRealObjectMaker()).thenReturn(mRealObjectMaker);
-    when(mConfigContainer.getDependencyMap()).thenReturn(mDependencyMap);
-    when(mConfigContainer.getDependencyProvider()).thenReturn(mDependencyProvider);
 
-    mRealObjectFieldTracker = new RealObjectFieldTracker(mConfigContainer);
+    mRealObjectFieldTracker = new RealObjectFieldTracker(
+        mRealObjectMaker,
+        mDependencyMap,
+        mDependencyProvider);
   }
 
   @Test

@@ -2,6 +2,7 @@ package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
+import com.episode6.hackit.mockspresso.api.DependencyProvider;
 import com.episode6.hackit.mockspresso.api.InjectionConfig;
 import com.episode6.hackit.mockspresso.api.MockerConfig;
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
@@ -93,25 +94,32 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   //TODO: fill in
   public Mockspresso build() {
+
+    // verify
     Preconditions.assertNotNull(mMockerConfig, "MockerConfig missing from mockspresso builder");
     Preconditions.assertNotNull(mInjectionConfig, "InjectionConfig missing from mockspresso builder");
 
-    MockerConfig.FieldPreparer mockFieldPreparer = mMockerConfig.provideFieldPreparer();
-    List<Class<? extends Annotation>> mockAnnotations = mMockerConfig.provideMockAnnotations();
-    DependencyMapImporter importDependenciesFrom = mDependencyMap.importFrom();
-    MockspressoConfigContainer configContainer = new MockspressoConfigContainer(
-        mMockerConfig,
-        mInjectionConfig,
+    // create the objects we use to create objects
+    RealObjectMaker realObjectMaker = new RealObjectMaker(
+        mInjectionConfig);
+    DependencyProvider dependencyProvider = new DependencyProviderImpl(
+        mMockerConfig.provideMockMaker(),
         mDependencyMap,
         mSpecialObjectMakers);
-    RealObjectFieldTracker realObjectFieldTracker = new RealObjectFieldTracker(configContainer);
 
+    // prepare mObjectsWithFields
+    RealObjectFieldTracker realObjectFieldTracker = new RealObjectFieldTracker(
+        realObjectMaker,
+        mDependencyMap,
+        dependencyProvider);
+    MockerConfig.FieldPreparer mockFieldPreparer = mMockerConfig.provideFieldPreparer();
+    List<Class<? extends Annotation>> mockAnnotations = mMockerConfig.provideMockAnnotations();
     for (Object o : mObjectsWithFields) {
       // prepare mock fields
       mockFieldPreparer.prepareFields(o);
 
       // import mocks and non-null real objects into dependency map
-      importDependenciesFrom
+      mDependencyMap.importFrom()
           .annotatedFields(o, mockAnnotations)
           .annotatedFields(o, RealObject.class);
 
@@ -122,7 +130,12 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     // build missing real objects, and assign them
     realObjectFieldTracker.createAndAssignTrackedRealObjects();
 
-    return new MockspressoImpl(configContainer);
+    MockspressoConfigContainer configContainer = new MockspressoConfigContainer(
+        mMockerConfig,
+        mInjectionConfig,
+        mDependencyMap,
+        mSpecialObjectMakers);
+    return new MockspressoImpl(configContainer, dependencyProvider, realObjectMaker);
   }
 
   public Mockspresso.Rule buildRule() {

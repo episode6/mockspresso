@@ -29,14 +29,12 @@ public class RealObjectFieldTracker {
   private final DependencyMap mDependencyMap;
   private final CustomDependencyProvider mCustomDependencyProvider;
 
-  /**
-   * We require the full {@link MockspressoConfigContainer} here to ensure the DependencyProvider
-   * we work with is attached to the DependencyMap we're populating.
-   */
-  public RealObjectFieldTracker(MockspressoConfigContainer configContainer) {
-    mRealObjectMaker = configContainer.getRealObjectMaker();
-    mDependencyMap = configContainer.getDependencyMap();
-    mCustomDependencyProvider = new CustomDependencyProvider(configContainer.getDependencyProvider());
+  public RealObjectFieldTracker(
+      RealObjectMaker realObjectMaker,
+      DependencyMap dependencyMap, DependencyProvider dependencyProvider) {
+    mRealObjectMaker = realObjectMaker;
+    mDependencyMap = dependencyMap;
+    mCustomDependencyProvider = new CustomDependencyProvider(dependencyProvider);
   }
 
   public void scanNullRealObjectFields(Object object) {
