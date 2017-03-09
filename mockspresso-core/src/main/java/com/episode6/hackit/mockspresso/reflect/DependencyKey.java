@@ -38,4 +38,9 @@ public final class DependencyKey<V> {
     result = 31 * result + (identityAnnotation != null ? identityAnnotation.hashCode() : 0);
     return result;
   }
+
+  @Override
+  public String toString() {
+    return String.format("Type: %s, Annotation: %s", typeToken, identityAnnotation);
+  }
 }

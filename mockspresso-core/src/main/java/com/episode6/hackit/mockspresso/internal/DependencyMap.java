@@ -1,5 +1,6 @@
 package com.episode6.hackit.mockspresso.internal;
 
+import com.episode6.hackit.mockspresso.exception.RepeatedDependencyDefinedException;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 
 import javax.annotation.Nullable;
@@ -18,12 +19,11 @@ public class DependencyMap {
   }
 
   @SuppressWarnings("unchecked")
-  public <T, V extends T> boolean put(DependencyKey<T> key, V value) {
-    if (!mDependencies.containsKey(key)) {
-      mDependencies.put(key, value);
-      return true;
+  public <T, V extends T> void put(DependencyKey<T> key, V value) {
+    if (mDependencies.containsKey(key)) {
+      throw new RepeatedDependencyDefinedException(key);
     }
-    return false;
+    mDependencies.put(key, value);
   }
 
   @SuppressWarnings("unchecked")

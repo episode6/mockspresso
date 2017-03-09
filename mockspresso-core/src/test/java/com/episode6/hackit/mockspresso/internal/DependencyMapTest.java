@@ -1,5 +1,6 @@
 package com.episode6.hackit.mockspresso.internal;
 
+import com.episode6.hackit.mockspresso.exception.RepeatedDependencyDefinedException;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Before;
@@ -80,21 +81,32 @@ public class DependencyMapTest {
     assertThat(resultObj).isEqualTo(value);
   }
 
-  @Test
+  @Test(expected = RepeatedDependencyDefinedException.class)
   public void testCantOverwrite() {
     DependencyMap dependencyMap = new DependencyMap(null);
     DependencyKey<TestClass> key = new DependencyKey<>(TypeToken.of(TestClass.class), null);
     TestClass value1 = new TestClass();
     TestClass value2 = new TestClass();
 
-    boolean putResult1 = dependencyMap.put(key, value1);
-    boolean putResult2 = dependencyMap.put(key, value2);
-    TestClass valueResult = dependencyMap.get(key);
+    dependencyMap.put(key, value1);
+    dependencyMap.put(key, value2);
+  }
 
-    assertThat(putResult1).isTrue();
-    assertThat(putResult2).isFalse();
-    assertThat(valueResult)
-        .isEqualTo(value1)
-        .isNotEqualTo(value2);
+  @Test
+  public void testCanOverwriteParent() {
+    DependencyMap parentMap = new DependencyMap(null);
+    DependencyMap dependencyMap = new DependencyMap(parentMap);
+    DependencyKey<TestClass> key = new DependencyKey<>(TypeToken.of(TestClass.class), null);
+    TestClass value1 = new TestClass();
+    TestClass value2 = new TestClass();
+
+    parentMap.put(key, value1);
+    dependencyMap.put(key, value2);
+
+    TestClass result = dependencyMap.get(key);
+
+    assertThat(result)
+        .isEqualTo(value2)
+        .isNotEqualTo(value1);
   }
 }
