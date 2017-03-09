@@ -79,4 +79,22 @@ public class DependencyMapTest {
     assertThat(result).isTrue();
     assertThat(resultObj).isEqualTo(value);
   }
+
+  @Test
+  public void testCantOverwrite() {
+    DependencyMap dependencyMap = new DependencyMap(null);
+    DependencyKey<TestClass> key = new DependencyKey<>(TypeToken.of(TestClass.class), null);
+    TestClass value1 = new TestClass();
+    TestClass value2 = new TestClass();
+
+    boolean putResult1 = dependencyMap.put(key, value1);
+    boolean putResult2 = dependencyMap.put(key, value2);
+    TestClass valueResult = dependencyMap.get(key);
+
+    assertThat(putResult1).isTrue();
+    assertThat(putResult2).isFalse();
+    assertThat(valueResult)
+        .isEqualTo(value1)
+        .isNotEqualTo(value2);
+  }
 }

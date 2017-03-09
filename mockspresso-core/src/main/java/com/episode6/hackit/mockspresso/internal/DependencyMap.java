@@ -18,8 +18,12 @@ public class DependencyMap {
   }
 
   @SuppressWarnings("unchecked")
-  public @Nullable <T, V extends T> T put(DependencyKey<T> key, V value) {
-    return (T) mDependencies.put(key, value);
+  public <T, V extends T> boolean put(DependencyKey<T> key, V value) {
+    if (!mDependencies.containsKey(key)) {
+      mDependencies.put(key, value);
+      return true;
+    }
+    return false;
   }
 
   @SuppressWarnings("unchecked")
