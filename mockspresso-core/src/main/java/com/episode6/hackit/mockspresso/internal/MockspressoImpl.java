@@ -21,7 +21,7 @@ public class MockspressoImpl implements Mockspresso {
 
   @Override
   public <T> T create(TypeToken<T> typeToken) {
-    return null;
+    return mMockspressoConfigContainer.getRealObjectMaker().createObject(typeToken);
   }
 
   @Override
