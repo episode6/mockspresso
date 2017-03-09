@@ -2,6 +2,7 @@ package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
+import com.episode6.hackit.mockspresso.api.InjectionConfig;
 import com.episode6.hackit.mockspresso.api.MockerConfig;
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
@@ -24,6 +25,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   private final List<Object> mObjectsWithFields;
 
   private @Nullable MockerConfig mMockerConfig;
+  private @Nullable InjectionConfig mInjectionConfig;
 
   public MockspressoBuilderImpl() {
     this(null);
@@ -38,6 +40,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     mObjectsWithFields = new LinkedList<>();
 
     mMockerConfig = parentMockspresso == null ? null : parentMockspresso.getMockerConfig();
+    mInjectionConfig = parentMockspresso == null ? null : parentMockspresso.getInjectionConfig();
   }
 
   public Mockspresso.Builder fieldsFrom(Object objectWithFields) {
@@ -48,6 +51,12 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   @Override
   public Mockspresso.Builder mockerConfig(MockerConfig mockerConfig) {
     mMockerConfig = mockerConfig;
+    return this;
+  }
+
+  @Override
+  public Mockspresso.Builder injectionConfig(InjectionConfig injectionConfig) {
+    mInjectionConfig = injectionConfig;
     return this;
   }
 
@@ -109,6 +118,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
     return new MockspressoImpl(
         mMockerConfig,
+        mInjectionConfig,
         mDependencyMap,
         mSpecialObjectMakers);
   }

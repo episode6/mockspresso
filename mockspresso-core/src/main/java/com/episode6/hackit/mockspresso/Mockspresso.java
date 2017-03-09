@@ -1,5 +1,6 @@
 package com.episode6.hackit.mockspresso;
 
+import com.episode6.hackit.mockspresso.api.InjectionConfig;
 import com.episode6.hackit.mockspresso.api.MockerConfig;
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl;
@@ -22,6 +23,7 @@ public interface Mockspresso {
   interface Builder {
     Builder fieldsFrom(Object objectWithFields);
     Builder mockerConfig(MockerConfig mockerConfig);
+    Builder injectionConfig(InjectionConfig injectionConfig);
     Builder specialObjectMaker(SpecialObjectMaker specialObjectMaker);
     Builder specialObjectMakers(List<SpecialObjectMaker> specialObjectMakers);
 

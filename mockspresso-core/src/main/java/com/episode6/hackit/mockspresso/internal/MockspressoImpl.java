@@ -1,5 +1,6 @@
 package com.episode6.hackit.mockspresso.internal;
 
+import com.episode6.hackit.mockspresso.api.InjectionConfig;
 import com.episode6.hackit.mockspresso.api.MockerConfig;
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
@@ -10,14 +11,17 @@ import com.episode6.hackit.mockspresso.reflect.TypeToken;
 public class MockspressoImpl implements MockspressoInternal {
 
   private final MockerConfig mMockerConfig;
+  private final InjectionConfig mInjectionConfig;
   private final DependencyMap mDependencyMap;
   private final SpecialObjectMaker mSpecialObjectMaker;
 
   MockspressoImpl(
       MockerConfig mockerConfig,
+      InjectionConfig injectionConfig,
       DependencyMap dependencyMap,
       SpecialObjectMaker specialObjectMaker) {
     mMockerConfig = mockerConfig;
+    mInjectionConfig = injectionConfig;
     mDependencyMap = dependencyMap;
     mSpecialObjectMaker = specialObjectMaker;
   }
@@ -40,6 +44,11 @@ public class MockspressoImpl implements MockspressoInternal {
   @Override
   public MockerConfig getMockerConfig() {
     return mMockerConfig;
+  }
+
+  @Override
+  public InjectionConfig getInjectionConfig() {
+    return mInjectionConfig;
   }
 
   @Override
