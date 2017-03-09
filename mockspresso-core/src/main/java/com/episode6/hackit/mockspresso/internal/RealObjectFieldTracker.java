@@ -2,8 +2,10 @@ package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.api.DependencyProvider;
+import com.episode6.hackit.mockspresso.exception.RealObjectMappingMismatchException;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.ReflectUtil;
+import com.episode6.hackit.mockspresso.reflect.TypeToken;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -21,7 +23,7 @@ import java.util.*;
  */
 public class RealObjectFieldTracker {
 
-  private final HashMap<DependencyKey, Collection<FieldInstance>> mNullRealObjectFields = new HashMap<>();
+  private final HashMap<DependencyKey, Entry> mNullRealObjectFields = new HashMap<>();
 
   private final RealObjectMaker mRealObjectMaker;
   private final DependencyMap mDependencyMap;
@@ -70,25 +72,27 @@ public class RealObjectFieldTracker {
     }
 
     DependencyKey key = DependencyKey.fromField(field);
-    Collection<FieldInstance> fieldCollection = mNullRealObjectFields.get(key);
-    if (fieldCollection == null) {
-      fieldCollection = new LinkedList<>();
-      mNullRealObjectFields.put(key, fieldCollection);
+    Entry entry = mNullRealObjectFields.get(key);
+    if (entry == null) {
+      entry = new Entry(field.getAnnotation(RealObject.class).implementation());
+      mNullRealObjectFields.put(key, entry);
     }
-    fieldCollection.add(new FieldInstance(field, object));
+    entry.add(field, object);
   }
 
   @SuppressWarnings("unchecked")
   private void createAndAssignObjectIfNeeded(DependencyKey key) {
-    Collection<FieldInstance> fields = mNullRealObjectFields.remove(key);
-    if (fields == null) {
+    Entry entry = mNullRealObjectFields.remove(key);
+    if (entry == null) {
       // dependency has already been handled
       return;
     }
 
-    Object value = mRealObjectMaker.createObject(mCustomDependencyProvider, key.typeToken);
+    // if we have a custom implementation class, create it, otherwise use the provided TypeToken.
+    TypeToken typeToken = entry.hasCustomImplementation() ? TypeToken.of(entry.implementationClass) : key.typeToken;
+    Object value = mRealObjectMaker.createObject(mCustomDependencyProvider, typeToken);
     mDependencyMap.put(key, value);
-    for (FieldInstance field : fields) {
+    for (FieldInstance field : entry.fields) {
       field.setValue(value);
     }
   }
@@ -110,6 +114,28 @@ public class RealObjectFieldTracker {
     public <T> T get(DependencyKey<T> key) {
       createAndAssignObjectIfNeeded(key);
       return mDependencyProvider.get(key);
+    }
+  }
+
+  private static class Entry {
+    final Class<?> implementationClass;
+    final Collection<FieldInstance> fields;
+
+    Entry(Class<?> implementationClass) {
+      this.implementationClass = implementationClass;
+      this.fields = new LinkedList<>();
+    }
+
+    void add(Field field, Object object) {
+      Class<?> fieldImplementationClass = field.getAnnotation(RealObject.class).implementation();
+      if (fieldImplementationClass != implementationClass) {
+        throw new RealObjectMappingMismatchException(DependencyKey.fromField(field));
+      }
+      fields.add(new FieldInstance(field, object));
+    }
+
+    boolean hasCustomImplementation() {
+      return implementationClass != RealObject.class;
     }
   }
 
