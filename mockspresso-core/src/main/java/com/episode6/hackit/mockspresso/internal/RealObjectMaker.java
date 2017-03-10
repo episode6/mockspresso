@@ -16,9 +16,11 @@ public class RealObjectMaker  {
   private final InjectionConfig.ConstructorSelector mConstructorSelector;
   private final List<Class<? extends Annotation>> mInjectFieldAnnotations;
 
-  public RealObjectMaker(InjectionConfig injectionConfig) {
-    mConstructorSelector = injectionConfig.provideConstructorSelector();
-    mInjectFieldAnnotations = injectionConfig.provideInjectableFieldAnnotations();
+  public RealObjectMaker(
+      InjectionConfig.ConstructorSelector constructorSelector,
+      List<Class<? extends Annotation>> injectFieldAnnotations) {
+    mConstructorSelector = constructorSelector;
+    mInjectFieldAnnotations = injectFieldAnnotations;
   }
 
   public <T> T createObject(DependencyProvider dependencyProvider, TypeToken<T> typeToken) {
