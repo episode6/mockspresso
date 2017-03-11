@@ -14,8 +14,8 @@ import org.mockito.Spy;
 import javax.inject.Named;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.fest.assertions.api.Assertions.assertThat;
@@ -87,6 +87,21 @@ public class ReflectUtilTest {
     assertThat(result3).isTrue();
   }
 
+  @Test
+  public void testGetAllMethodsOnSubclass() {
+    List<Method> methodList = ReflectUtil.getAllDeclaredMethods(SubClass.class);
+
+    assertThat(methodList).hasSize(14);
+    // subclass method should be first
+    assertThat(methodList.get(0).getName()).isEqualTo("doSomethingElse");
+    //then superclass method
+    assertThat(methodList.get(1).getName()).isEqualTo("doSomething");
+    // all other methods should come from Object, we don't care about their order.
+    for (int i = 2; i < methodList.size(); i++) {
+      assertTrue(methodList.get(i).getDeclaringClass() == Object.class);
+    }
+  }
+
   private void assertFieldInList(List<Field> fieldList, String name, Class<?> clazz) {
     for (Field field : fieldList) {
       if (field.getName().equals(name) && field.getGenericType() == clazz) {
@@ -102,5 +117,16 @@ public class ReflectUtilTest {
     } catch (NoSuchFieldException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  public static class SuperClass {
+    public void doSomething() {}
+    public void doSomethingElse(List<String> stringList) {}
+  }
+
+  public static class SubClass extends SuperClass {
+
+    @Override
+    public void doSomethingElse(List stringList) {}
   }
 }
