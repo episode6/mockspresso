@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Spy;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -102,6 +103,19 @@ public class ReflectUtilTest {
     }
   }
 
+  @Test
+  public void testIsAnyAnnotationPresentMethod() throws NoSuchMethodException {
+    Method method = ClassWithMethodWithAnnotation.class.getDeclaredMethod("doNothing");
+
+    boolean result1 = ReflectUtil.isAnyAnnotationPresent(method, Arrays.asList(Spy.class, TestQualifierAnnotation.class, Mock.class));
+    boolean result2 = ReflectUtil.isAnyAnnotationPresent(method, Arrays.asList(Spy.class, Mock.class));
+    boolean result3 = ReflectUtil.isAnyAnnotationPresent(method, Arrays.asList(Mock.class, Inject.class));
+
+    assertThat(result1).isTrue();
+    assertThat(result2).isFalse();
+    assertThat(result3).isTrue();
+  }
+
   private void assertFieldInList(List<Field> fieldList, String name, Class<?> clazz) {
     for (Field field : fieldList) {
       if (field.getName().equals(name) && field.getGenericType() == clazz) {
@@ -128,5 +142,9 @@ public class ReflectUtilTest {
 
     @Override
     public void doSomethingElse(List stringList) {}
+  }
+
+  public static class ClassWithMethodWithAnnotation {
+    @Inject @TestQualifierAnnotation public void doNothing() {}
   }
 }

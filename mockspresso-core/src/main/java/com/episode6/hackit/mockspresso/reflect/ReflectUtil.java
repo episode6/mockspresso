@@ -73,6 +73,15 @@ public class ReflectUtil {
     return false;
   }
 
+  public static boolean isAnyAnnotationPresent(Method method, List<Class<? extends Annotation>> annotations) {
+    for (Class<? extends Annotation> annotation : annotations) {
+      if (method.isAnnotationPresent(annotation)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   private static class MethodDesc {
     final String methodName;
     final Class<?>[] paramTypes;
