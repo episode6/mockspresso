@@ -58,14 +58,14 @@ public class RealObjectMakerTest {
             return typeToken.getRawType().getDeclaredConstructors()[0];
           }
         });
+
+    when(mDependencyProvider.get(runnableKey)).thenReturn(mRunnableMock);
+    when(mDependencyProvider.get(runnableProviderKey)).thenReturn(mRunnableProviderMock);
   }
 
   @Test
   public void testWithConstructorOnly() {
     prep();
-
-    when(mDependencyProvider.get(runnableKey)).thenReturn(mRunnableMock);
-    when(mDependencyProvider.get(runnableProviderKey)).thenReturn(mRunnableProviderMock);
 
     TestClassWithConstructorOnly testObject = mRealObjectMaker.createObject(
         mDependencyProvider,
@@ -84,9 +84,6 @@ public class RealObjectMakerTest {
   public void testWithInjectOnly() {
     prep(Inject.class);
 
-    when(mDependencyProvider.get(runnableKey)).thenReturn(mRunnableMock);
-    when(mDependencyProvider.get(runnableProviderKey)).thenReturn(mRunnableProviderMock);
-
     TestClassWithInjectParams testObject = mRealObjectMaker.createObject(
         mDependencyProvider,
         TypeToken.of(TestClassWithInjectParams.class));
@@ -103,9 +100,6 @@ public class RealObjectMakerTest {
   @Test
   public void testWithConstructorAndInjectMixed() {
     prep(Inject.class);
-
-    when(mDependencyProvider.get(runnableKey)).thenReturn(mRunnableMock);
-    when(mDependencyProvider.get(runnableProviderKey)).thenReturn(mRunnableProviderMock);
 
     TestConstructorAndInject testObject = mRealObjectMaker.createObject(
         mDependencyProvider,
@@ -124,9 +118,6 @@ public class RealObjectMakerTest {
   @Test
   public void testWithWeirdInjectAnnotations() {
     prep(Inject.class, Singleton.class);
-
-    when(mDependencyProvider.get(runnableKey)).thenReturn(mRunnableMock);
-    when(mDependencyProvider.get(runnableProviderKey)).thenReturn(mRunnableProviderMock);
 
     TestClassWithWeirdInjectAnnotations testObject = mRealObjectMaker.createObject(
         mDependencyProvider,
