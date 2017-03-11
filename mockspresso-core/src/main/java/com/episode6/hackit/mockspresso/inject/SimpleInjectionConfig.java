@@ -26,6 +26,11 @@ public class SimpleInjectionConfig implements InjectionConfig {
     return Collections.emptyList();
   }
 
+  @Override
+  public List<Class<? extends Annotation>> provideInjectableMethodAnnotations() {
+    return Collections.emptyList();
+  }
+
   private static class SimpleConstructorSelector implements ConstructorSelector {
 
     @SuppressWarnings("unchecked")

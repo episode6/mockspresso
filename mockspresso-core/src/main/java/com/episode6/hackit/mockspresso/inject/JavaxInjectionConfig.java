@@ -18,6 +18,8 @@ import java.util.List;
  * If multiple @Inject constructors are found, an exception will be thrown.
  */
 public class JavaxInjectionConfig implements InjectionConfig {
+  private static final List<Class<? extends Annotation>> INJECT_ANNOTATION = Collections.<Class<? extends Annotation>>singletonList(Inject.class);
+
   private final JavaxConstructorSelector mConstructorSelector = new JavaxConstructorSelector();
 
   @Override
@@ -27,7 +29,12 @@ public class JavaxInjectionConfig implements InjectionConfig {
 
   @Override
   public List<Class<? extends Annotation>> provideInjectableFieldAnnotations() {
-    return Collections.<Class<? extends Annotation>>singletonList(Inject.class);
+    return INJECT_ANNOTATION;
+  }
+
+  @Override
+  public List<Class<? extends Annotation>> provideInjectableMethodAnnotations() {
+    return INJECT_ANNOTATION;
   }
 
   private static class JavaxConstructorSelector implements ConstructorSelector {

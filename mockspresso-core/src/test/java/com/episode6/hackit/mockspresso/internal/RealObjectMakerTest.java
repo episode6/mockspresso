@@ -9,6 +9,7 @@ import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
@@ -107,7 +108,6 @@ public class RealObjectMakerTest {
     assertThat(testObject.mRunnableProvider).isEqualTo(mRunnableProviderMock);
   }
 
-
   @Test
   public void testWithWeirdInjectAnnotations() {
     prep(Inject.class, Singleton.class);
@@ -136,10 +136,41 @@ public class RealObjectMakerTest {
     assertThat(testObject.mRunnableProvider).isEqualTo(mRunnableProviderMock);
   }
 
+  @Test
+  public void testMethodInjection() {
+    prep(Inject.class);
+
+    TestMethodInjection testObject = mRealObjectMaker.createObject(
+        mDependencyProvider,
+        TypeToken.of(TestMethodInjection.class));
+
+    assertTestObjectNormal(testObject, TestMethodInjection.class);
+    verifyDependencyProviderCalls(runnableKey);
+    assertThat(testObject.mRunnable).isEqualTo(mRunnableMock);
+  }
+
+  @Test
+  public void testSubclassMethodInject() {
+    prep(Inject.class);
+
+    TestMethodInjectionSubclass testObject = mRealObjectMaker.createObject(
+        mDependencyProvider,
+        TypeToken.of(TestMethodInjectionSubclass.class));
+
+    assertTestObjectNormal(testObject, TestMethodInjectionSubclass.class);
+    // here we want to verify that the super class's injectable method is called first
+    InOrder inOrder = inOrder(mDependencyProvider);
+    inOrder.verify(mDependencyProvider).get(runnableKey);
+    inOrder.verify(mDependencyProvider).get(runnableProviderKey);
+    inOrder.verifyNoMoreInteractions();
+    assertThat(testObject.mRunnable).isEqualTo(mRunnableMock);
+    assertThat(testObject.mRunnableProvider).isEqualTo(mRunnableProviderMock);
+  }
+
   @SafeVarargs
   private final void prep(Class<? extends Annotation>... annotations) {
     List<Class<? extends Annotation>> annotationList = Arrays.asList(annotations);
-    mRealObjectMaker = new RealObjectMaker(mConstructorSelector, annotationList);
+    mRealObjectMaker = new RealObjectMaker(mConstructorSelector, annotationList, annotationList);
   }
 
   private <T> void assertTestObjectNormal(T testObject, Class<T> expectedClass) {
@@ -186,4 +217,22 @@ public class RealObjectMakerTest {
   }
 
   public static class TestSubclass extends TestClassWithInjectParams {}
+
+  public static class TestMethodInjection {
+    Runnable mRunnable;
+
+    @Inject
+    public void injectMe(Runnable runnable) {
+      mRunnable = runnable;
+    }
+  }
+
+  public static class TestMethodInjectionSubclass extends TestMethodInjection {
+    Provider<Runnable> mRunnableProvider;
+
+    @Inject
+    public void injectMeToo(@Named("testprovider") Provider<Runnable> runnableProvider) {
+      mRunnableProvider = runnableProvider;
+    }
+  }
 }

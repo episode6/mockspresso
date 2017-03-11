@@ -9,10 +9,7 @@ import com.episode6.hackit.mockspresso.reflect.TypeToken;
 
 import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Type;
+import java.lang.reflect.*;
 import java.util.List;
 
 /**
@@ -21,12 +18,15 @@ import java.util.List;
 public class RealObjectMaker  {
   private final InjectionConfig.ConstructorSelector mConstructorSelector;
   private final List<Class<? extends Annotation>> mInjectFieldAnnotations;
+  private final List<Class<? extends Annotation>> mInjectMethodAnnotations;
 
   public RealObjectMaker(
       InjectionConfig.ConstructorSelector constructorSelector,
-      List<Class<? extends Annotation>> injectFieldAnnotations) {
+      List<Class<? extends Annotation>> injectFieldAnnotations,
+      List<Class<? extends Annotation>> injectMethodAnnotations) {
     mConstructorSelector = constructorSelector;
     mInjectFieldAnnotations = injectFieldAnnotations;
+    mInjectMethodAnnotations = injectMethodAnnotations;
   }
 
   public <T> T createObject(DependencyProvider dependencyProvider, TypeToken<T> typeToken) {
@@ -49,12 +49,11 @@ public class RealObjectMaker  {
     Object[] paramValues = new Object[paramCount];
 
     for (int i = 0; i<paramCount; i++) {
-      TypeToken<?> paramToken = TypeToken.of(paramTypes[i]);
-      @Nullable Annotation qualifierAnnotation = ReflectUtil.findQualifierAnnotation(
+      paramValues[i] = createDependency(
+          dependencyProvider,
+          paramTypes[i],
           paramAnnotations[i],
-          String.format("Constructor (%s), Param (%s)", typeToken, paramToken));
-      DependencyKey<?> paramKey = new DependencyKey<>(paramToken, qualifierAnnotation);
-      paramValues[i] = dependencyProvider.get(paramKey);
+          String.format("Constructor (%s)", typeToken));
     }
 
     if (!constructor.isAccessible()) {
@@ -62,11 +61,25 @@ public class RealObjectMaker  {
     }
 
     T instance = constructor.newInstance(paramValues);
-    postProcessNewObject(dependencyProvider, instance);
+    assignInjectableFields(dependencyProvider, instance);
+    callInjectableMethods(dependencyProvider, instance);
     return instance;
   }
 
-  private void postProcessNewObject(DependencyProvider dependencyProvider, Object instance) throws IllegalAccessException {
+  private Object createDependency(
+      DependencyProvider dependencyProvider,
+      Type paramType,
+      Annotation[] paramAnnotations,
+      String description) {
+    TypeToken<?> paramToken = TypeToken.of(paramType);
+    @Nullable Annotation qualifierAnnotation = ReflectUtil.findQualifierAnnotation(
+        paramAnnotations,
+        String.format("%s, Param (%s)", description, paramToken));
+    DependencyKey<?> paramKey = new DependencyKey<>(paramToken, qualifierAnnotation);
+    return dependencyProvider.get(paramKey);
+  }
+
+  private void assignInjectableFields(DependencyProvider dependencyProvider, Object instance) throws IllegalAccessException {
     if (mInjectFieldAnnotations.isEmpty()) {
       return;
     }
@@ -80,6 +93,39 @@ public class RealObjectMaker  {
         }
         field.set(instance, paramValue);
       }
+    }
+  }
+
+  private void callInjectableMethods(DependencyProvider dependencyProvider, Object instance) {
+    if (mInjectMethodAnnotations.isEmpty()) {
+      return;
+    }
+
+    for (Method method : ReflectUtil.getAllDeclaredMethods(instance.getClass())) {
+      if (ReflectUtil.isAnyAnnotationPresent(method, mInjectMethodAnnotations)) {
+        invokeMethod(method, instance, dependencyProvider);
+      }
+    }
+  }
+
+  private void invokeMethod(Method method, Object instance, DependencyProvider dependencyProvider) {
+    int paramCount = method.getParameterCount();
+    Type[] paramTypes = method.getGenericParameterTypes();
+    Annotation[][] paramAnnotations = method.getParameterAnnotations();
+    Object[] paramValues = new Object[paramCount];
+
+    for (int i = 0; i< paramCount; i++) {
+      paramValues[i] = createDependency(
+          dependencyProvider,
+          paramTypes[i],
+          paramAnnotations[i],
+          String.format("Method (name: %s, during creation of: %s)", method, instance.getClass().getSimpleName()));
+    }
+
+    try {
+      method.invoke(instance, paramValues);
+    } catch (IllegalAccessException | InvocationTargetException e) {
+      throw new RuntimeException(e);
     }
   }
 }

@@ -18,4 +18,5 @@ public interface InjectionConfig {
 
   ConstructorSelector provideConstructorSelector();
   List<Class<? extends Annotation>> provideInjectableFieldAnnotations();
+  List<Class<? extends Annotation>> provideInjectableMethodAnnotations();
 }

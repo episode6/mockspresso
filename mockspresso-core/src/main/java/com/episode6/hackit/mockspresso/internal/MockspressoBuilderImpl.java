@@ -102,7 +102,8 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     // create the objects we use to create objects
     RealObjectMaker realObjectMaker = new RealObjectMaker(
         mInjectionConfig.provideConstructorSelector(),
-        mInjectionConfig.provideInjectableFieldAnnotations());
+        mInjectionConfig.provideInjectableFieldAnnotations(),
+        mInjectionConfig.provideInjectableMethodAnnotations());
     DependencyProvider dependencyProvider = new DependencyProviderImpl(
         mMockerConfig.provideMockMaker(),
         mDependencyMap,
