@@ -31,6 +31,7 @@ import static org.mockito.Mockito.*;
 /**
  * Tests {@link RealObjectMaker}
  */
+@SuppressWarnings("unchecked")
 @RunWith(DefaultTestRunner.class)
 public class RealObjectMakerTest {
 
