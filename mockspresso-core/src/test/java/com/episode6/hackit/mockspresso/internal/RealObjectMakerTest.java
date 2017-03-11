@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -71,11 +72,8 @@ public class RealObjectMakerTest {
         mDependencyProvider,
         TypeToken.of(TestClassWithConstructorOnly.class));
 
-    verify(mDependencyProvider).get(runnableKey);
-    verify(mDependencyProvider).get(runnableProviderKey);
-
-    assertThat(testObject).isNotNull();
-    assertThat(mockingDetails(testObject).isMock()).isFalse();
+    assertTestObjectNormal(testObject, TestClassWithConstructorOnly.class);
+    verifyDependencyProviderCalls(runnableKey, runnableProviderKey);
     assertThat(testObject.mRunnable).isEqualTo(mRunnableMock);
     assertThat(testObject.mRunnableProvider).isEqualTo(mRunnableProviderMock);
   }
@@ -88,11 +86,8 @@ public class RealObjectMakerTest {
         mDependencyProvider,
         TypeToken.of(TestClassWithInjectParams.class));
 
-    verify(mDependencyProvider).get(runnableKey);
-    verify(mDependencyProvider).get(runnableProviderKey);
-
-    assertThat(testObject).isNotNull();
-    assertThat(mockingDetails(testObject).isMock()).isFalse();
+    assertTestObjectNormal(testObject, TestClassWithInjectParams.class);
+    verifyDependencyProviderCalls(runnableKey, runnableProviderKey);
     assertThat(testObject.mRunnable).isEqualTo(mRunnableMock);
     assertThat(testObject.mRunnableProvider).isEqualTo(mRunnableProviderMock);
   }
@@ -105,11 +100,8 @@ public class RealObjectMakerTest {
         mDependencyProvider,
         TypeToken.of(TestConstructorAndInject.class));
 
-    verify(mDependencyProvider).get(runnableKey);
-    verify(mDependencyProvider).get(runnableProviderKey);
-
-    assertThat(testObject).isNotNull();
-    assertThat(mockingDetails(testObject).isMock()).isFalse();
+    assertTestObjectNormal(testObject, TestConstructorAndInject.class);
+    verifyDependencyProviderCalls(runnableKey, runnableProviderKey);
     assertThat(testObject.mRunnable).isEqualTo(mRunnableMock);
     assertThat(testObject.mRunnableProvider).isEqualTo(mRunnableProviderMock);
   }
@@ -123,11 +115,8 @@ public class RealObjectMakerTest {
         mDependencyProvider,
         TypeToken.of(TestClassWithWeirdInjectAnnotations.class));
 
-    verify(mDependencyProvider).get(runnableKey);
-    verify(mDependencyProvider).get(runnableProviderKey);
-
-    assertThat(testObject).isNotNull();
-    assertThat(mockingDetails(testObject).isMock()).isFalse();
+    assertTestObjectNormal(testObject, TestClassWithWeirdInjectAnnotations.class);
+    verifyDependencyProviderCalls(runnableKey, runnableProviderKey);
     assertThat(testObject.mRunnable).isEqualTo(mRunnableMock);
     assertThat(testObject.mRunnableProvider).isEqualTo(mRunnableProviderMock);
   }
@@ -140,11 +129,8 @@ public class RealObjectMakerTest {
         mDependencyProvider,
         TypeToken.of(TestSubclass.class));
 
-    verify(mDependencyProvider).get(runnableKey);
-    verify(mDependencyProvider).get(runnableProviderKey);
-
-    assertThat(testObject).isNotNull();
-    assertThat(mockingDetails(testObject).isMock()).isFalse();
+    assertTestObjectNormal(testObject, TestSubclass.class);
+    verifyDependencyProviderCalls(runnableKey, runnableProviderKey);
     assertThat(testObject.mRunnable).isEqualTo(mRunnableMock);
     assertThat(testObject.mRunnableProvider).isEqualTo(mRunnableProviderMock);
   }
@@ -155,6 +141,18 @@ public class RealObjectMakerTest {
     mRealObjectMaker = new RealObjectMaker(mConstructorSelector, annotationList);
   }
 
+  private <T> void assertTestObjectNormal(T testObject, Class<T> expectedClass) {
+    assertThat(testObject).isNotNull();
+    assertThat(mockingDetails(testObject).isMock()).isFalse();
+    assertTrue(testObject.getClass() == expectedClass);
+  }
+
+  private void verifyDependencyProviderCalls(DependencyKey... keys) {
+    for (DependencyKey key : keys) {
+      verify(mDependencyProvider).get(key);
+    }
+  }
+  
   public static class TestClassWithConstructorOnly {
     final Runnable mRunnable;
     final Provider<Runnable> mRunnableProvider;
