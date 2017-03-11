@@ -132,6 +132,23 @@ public class RealObjectMakerTest {
     assertThat(testObject.mRunnableProvider).isEqualTo(mRunnableProviderMock);
   }
 
+  @Test
+  public void testSubclassInject() {
+    prep(Inject.class);
+
+    TestSubclass testObject = mRealObjectMaker.createObject(
+        mDependencyProvider,
+        TypeToken.of(TestSubclass.class));
+
+    verify(mDependencyProvider).get(runnableKey);
+    verify(mDependencyProvider).get(runnableProviderKey);
+
+    assertThat(testObject).isNotNull();
+    assertThat(mockingDetails(testObject).isMock()).isFalse();
+    assertThat(testObject.mRunnable).isEqualTo(mRunnableMock);
+    assertThat(testObject.mRunnableProvider).isEqualTo(mRunnableProviderMock);
+  }
+
   @SafeVarargs
   private final void prep(Class<? extends Annotation>... annotations) {
     List<Class<? extends Annotation>> annotationList = Arrays.asList(annotations);
@@ -168,4 +185,6 @@ public class RealObjectMakerTest {
     @Inject Runnable mRunnable;
     @Singleton @Named("testprovider") Provider<Runnable> mRunnableProvider;
   }
+
+  public static class TestSubclass extends TestClassWithInjectParams {}
 }
