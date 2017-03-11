@@ -3,7 +3,6 @@ package com.episode6.hackit.mockspresso;
 import com.episode6.hackit.mockspresso.api.InjectionConfig;
 import com.episode6.hackit.mockspresso.api.MockerConfig;
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
-import com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.rules.MethodRule;
 
@@ -37,8 +36,12 @@ public interface Mockspresso {
   }
 
   class Builders {
-    static Builder empty() {
-      return new MockspressoBuilderImpl();
+    public static Builder empty() {
+      return new com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl();
+    }
+    public static Builder simple() {
+      return empty()
+          .injectionConfig(new com.episode6.hackit.mockspresso.inject.SimpleInjectionConfig());
     }
   }
 }
