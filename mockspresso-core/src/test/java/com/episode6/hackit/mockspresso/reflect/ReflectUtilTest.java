@@ -93,14 +93,14 @@ public class ReflectUtilTest {
     List<Method> methodList = ReflectUtil.getAllDeclaredMethods(SubClass.class);
 
     assertThat(methodList).hasSize(14);
-    // subclass method should be first
-    assertThat(methodList.get(0).getName()).isEqualTo("doSomethingElse");
-    //then superclass method
-    assertThat(methodList.get(1).getName()).isEqualTo("doSomething");
-    // all other methods should come from Object, we don't care about their order.
-    for (int i = 2; i < methodList.size(); i++) {
+    // first 12 methods should come from Object
+    for (int i = 0; i < 11; i++) {
       assertTrue(methodList.get(i).getDeclaringClass() == Object.class);
     }
+    // then the superclass method
+    assertThat(methodList.get(12).getName()).isEqualTo("doSomething");
+    //then the subclass method
+    assertThat(methodList.get(13).getName()).isEqualTo("doSomethingElse");
   }
 
   @Test

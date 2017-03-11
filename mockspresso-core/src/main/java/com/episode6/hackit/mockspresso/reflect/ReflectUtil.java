@@ -28,8 +28,8 @@ public class ReflectUtil {
   }
 
   private static List<Method> getAllDeclaredMethodsInternal(Class<?> clazz, Set<MethodDesc> methodSet) {
-    // we want our list to be sorted so that subclass methods come before super-class methods
-    // and we want to ensure we dont duplicate a method that exists on both the sub and super-class.
+    // we want our list to be sorted so that superclass methods come before sub-class methods
+    // and we also want to ensure we dont duplicate a method that exists on both the sub and super-class.
     List<Method> methodList = new LinkedList<>();
     for (Method method : clazz.getDeclaredMethods()) {
       MethodDesc methodDesc = new MethodDesc(method);
@@ -40,7 +40,7 @@ public class ReflectUtil {
     }
 
     if (clazz.getSuperclass() != null) {
-      methodList.addAll(getAllDeclaredMethodsInternal(clazz.getSuperclass(), methodSet));
+      methodList.addAll(0, getAllDeclaredMethodsInternal(clazz.getSuperclass(), methodSet));
     }
     return methodList;
   }
