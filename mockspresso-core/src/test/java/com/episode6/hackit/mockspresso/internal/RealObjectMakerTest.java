@@ -17,6 +17,7 @@ import org.mockito.stubbing.Answer;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Provider;
+import javax.inject.Singleton;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
@@ -109,7 +110,28 @@ public class RealObjectMakerTest {
     TestConstructorAndInject testObject = mRealObjectMaker.createObject(
         mDependencyProvider,
         TypeToken.of(TestConstructorAndInject.class));
-    
+
+    verify(mDependencyProvider).get(runnableKey);
+    verify(mDependencyProvider).get(runnableProviderKey);
+
+    assertThat(testObject).isNotNull();
+    assertThat(mockingDetails(testObject).isMock()).isFalse();
+    assertThat(testObject.mRunnable).isEqualTo(mRunnableMock);
+    assertThat(testObject.mRunnableProvider).isEqualTo(mRunnableProviderMock);
+  }
+
+
+  @Test
+  public void testWithWeirdInjectAnnotations() {
+    prep(Inject.class, Singleton.class);
+
+    when(mDependencyProvider.get(runnableKey)).thenReturn(mRunnableMock);
+    when(mDependencyProvider.get(runnableProviderKey)).thenReturn(mRunnableProviderMock);
+
+    TestClassWithWeirdInjectAnnotations testObject = mRealObjectMaker.createObject(
+        mDependencyProvider,
+        TypeToken.of(TestClassWithWeirdInjectAnnotations.class));
+
     verify(mDependencyProvider).get(runnableKey);
     verify(mDependencyProvider).get(runnableProviderKey);
 
@@ -149,5 +171,10 @@ public class RealObjectMakerTest {
     public TestConstructorAndInject(Runnable runnable) {
       mRunnable = runnable;
     }
+  }
+
+  public static class TestClassWithWeirdInjectAnnotations {
+    @Inject Runnable mRunnable;
+    @Singleton @Named("testprovider") Provider<Runnable> mRunnableProvider;
   }
 }
