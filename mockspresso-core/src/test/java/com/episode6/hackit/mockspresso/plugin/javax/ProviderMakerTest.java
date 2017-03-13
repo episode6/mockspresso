@@ -1,7 +1,8 @@
-package com.episode6.hackit.mockspresso.inject;
+package com.episode6.hackit.mockspresso.plugin.javax;
 
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.api.DependencyProvider;
+import com.episode6.hackit.mockspresso.plugin.javax.ProviderMaker;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Before;

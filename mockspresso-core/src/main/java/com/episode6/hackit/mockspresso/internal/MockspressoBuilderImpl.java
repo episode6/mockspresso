@@ -2,10 +2,7 @@ package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.api.DependencyProvider;
-import com.episode6.hackit.mockspresso.api.InjectionConfig;
-import com.episode6.hackit.mockspresso.api.MockerConfig;
-import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
+import com.episode6.hackit.mockspresso.api.*;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import com.episode6.hackit.mockspresso.util.Preconditions;
@@ -40,6 +37,11 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     mSpecialObjectMakers = new SpecialObjectMakerContainer(parentConfig.getSpecialObjectMaker());
     mMockerConfig = parentConfig.getMockerConfig();
     mInjectionConfig = parentConfig.getInjectionConfig();
+  }
+
+  @Override
+  public Mockspresso.Builder plugin(MockspressoPlugin plugin) {
+    return plugin.apply(this);
   }
 
   public Mockspresso.Builder fieldsFrom(Object objectWithFields) {

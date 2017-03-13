@@ -2,6 +2,7 @@ package com.episode6.hackit.mockspresso;
 
 import com.episode6.hackit.mockspresso.api.InjectionConfig;
 import com.episode6.hackit.mockspresso.api.MockerConfig;
+import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.rules.MethodRule;
@@ -20,6 +21,7 @@ public interface Mockspresso {
   interface Rule extends Mockspresso, MethodRule {}
 
   interface Builder {
+    Builder plugin(MockspressoPlugin plugin);
     Builder fieldsFrom(Object objectWithFields);
     Builder mockerConfig(MockerConfig mockerConfig);
     Builder injectionConfig(InjectionConfig injectionConfig);
@@ -41,12 +43,11 @@ public interface Mockspresso {
     }
     public static Builder simple() {
       return empty()
-          .injectionConfig(new com.episode6.hackit.mockspresso.inject.SimpleInjectionConfig());
+          .plugin(new com.episode6.hackit.mockspresso.plugin.simple.SimpleMockspressoPlugin());
     }
     public static Builder javaxInjection() {
       return empty()
-          .injectionConfig(new com.episode6.hackit.mockspresso.inject.JavaxInjectionConfig())
-          .specialObjectMaker(new com.episode6.hackit.mockspresso.inject.ProviderMaker());
+          .plugin(new com.episode6.hackit.mockspresso.plugin.javax.JavaxInjectMockspressoPlugin());
     }
   }
 }

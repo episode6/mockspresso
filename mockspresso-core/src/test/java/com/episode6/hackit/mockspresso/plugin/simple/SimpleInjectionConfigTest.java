@@ -1,6 +1,7 @@
-package com.episode6.hackit.mockspresso.inject;
+package com.episode6.hackit.mockspresso.plugin.simple;
 
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
+import com.episode6.hackit.mockspresso.plugin.simple.SimpleInjectionConfig;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Test;
 import org.junit.runner.RunWith;

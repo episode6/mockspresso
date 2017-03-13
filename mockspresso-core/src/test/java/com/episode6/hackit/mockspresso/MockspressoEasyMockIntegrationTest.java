@@ -1,7 +1,7 @@
 package com.episode6.hackit.mockspresso;
 
 import com.episode6.hackit.chop.Chop;
-import com.episode6.hackit.mockspresso.easymock.MockspressoEasyMockConfig;
+import com.episode6.hackit.mockspresso.easymock.MockspressoEasyMockPlugin;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 public class MockspressoEasyMockIntegrationTest {
 
   @Rule public final Mockspresso.Rule mockspresso = Mockspresso.Builders.simple()
-      .mockerConfig(new MockspressoEasyMockConfig())
+      .plugin(new MockspressoEasyMockPlugin())
       .buildRule();
 
   @Test

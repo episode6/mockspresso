@@ -1,15 +1,15 @@
 package com.episode6.hackit.mockspresso;
 
-import com.episode6.hackit.chop.Chop;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.mockito.MockspressoMockitoConfig;
-import com.episode6.hackit.mockspresso.testobject.CoffeeExample.*;
+import com.episode6.hackit.mockspresso.mockito.MockspressoMockitoPlugin;
+import com.episode6.hackit.mockspresso.testobject.CoffeeExample.CoffeeMaker;
+import com.episode6.hackit.mockspresso.testobject.CoffeeExample.Heater;
+import com.episode6.hackit.mockspresso.testobject.CoffeeExample.Pump;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 
-import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.verify;
 public class MockspressoMockitoIntegrationTest {
 
   @Rule public final Mockspresso.Rule mockspresso = Mockspresso.Builders.javaxInjection()
-      .mockerConfig(new MockspressoMockitoConfig())
+      .plugin(new MockspressoMockitoPlugin())
       .buildRule();
 
   @Mock Heater mHeater;

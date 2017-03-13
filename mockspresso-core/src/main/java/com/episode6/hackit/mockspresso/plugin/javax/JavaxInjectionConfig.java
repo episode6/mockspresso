@@ -1,4 +1,4 @@
-package com.episode6.hackit.mockspresso.inject;
+package com.episode6.hackit.mockspresso.plugin.javax;
 
 import com.episode6.hackit.mockspresso.api.InjectionConfig;
 import com.episode6.hackit.mockspresso.exception.MultipleInjectConstructorException;
