@@ -1,7 +1,6 @@
 package com.episode6.hackit.mockspresso.plugin.simple;
 
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
-import com.episode6.hackit.mockspresso.plugin.simple.SimpleInjectionConfig;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +17,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(DefaultTestRunner.class)
 public class SimpleInjectionConfigTest {
 
-  private SimpleInjectionConfig mSimpleInjectionConfig = new SimpleInjectionConfig();
+  private SimpleInjectionConfig mSimpleInjectionConfig = SimpleInjectionConfig.getInstance();
 
   @Test
   public void testFindSmalledConstructor() {

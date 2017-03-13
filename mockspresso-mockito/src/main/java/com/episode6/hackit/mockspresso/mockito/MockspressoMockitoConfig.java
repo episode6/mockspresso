@@ -13,7 +13,14 @@ import java.util.List;
  */
 public class MockspressoMockitoConfig extends AbstractMockerConfig {
 
-  public MockspressoMockitoConfig() {
+  // This object has no state, so we maintain a static instance of it
+  // instead of creating multiple instances on the fly
+  private static final MockspressoMockitoConfig INSTANCE = new MockspressoMockitoConfig();
+  public static MockspressoMockitoConfig getInstance() {
+    return INSTANCE;
+  }
+
+  private MockspressoMockitoConfig() {
     super(
         new MockitoMockMaker(),
         new MockitoFieldPreparer());

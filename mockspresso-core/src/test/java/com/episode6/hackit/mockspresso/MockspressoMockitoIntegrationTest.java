@@ -19,7 +19,7 @@ import static org.mockito.Mockito.verify;
 public class MockspressoMockitoIntegrationTest {
 
   @Rule public final Mockspresso.Rule mockspresso = Mockspresso.Builders.javaxInjection()
-      .plugin(new MockspressoMockitoPlugin())
+      .plugin(MockspressoMockitoPlugin.getInstance())
       .buildRule();
 
   @Mock Heater mHeater;

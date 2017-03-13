@@ -1,7 +1,6 @@
 package com.episode6.hackit.mockspresso.easymock;
 
 import org.easymock.Mock;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -13,12 +12,8 @@ import static org.fest.assertions.api.Assertions.assertThat;
  */
 @RunWith(JUnit4.class)
 public class MockspressoEasyMockConfigTest {
-  private MockspressoEasyMockConfig mEasyMockConfig;
 
-  @Before
-  public void setup() {
-    mEasyMockConfig = new MockspressoEasyMockConfig();
-  }
+  private final MockspressoEasyMockConfig mEasyMockConfig = MockspressoEasyMockConfig.getInstance();
 
   @SuppressWarnings("unchecked")
   @Test

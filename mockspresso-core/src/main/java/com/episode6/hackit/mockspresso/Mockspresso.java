@@ -43,11 +43,11 @@ public interface Mockspresso {
     }
     public static Builder simple() {
       return empty()
-          .plugin(new com.episode6.hackit.mockspresso.plugin.simple.SimpleMockspressoPlugin());
+          .plugin(com.episode6.hackit.mockspresso.plugin.simple.SimpleMockspressoPlugin.getInstance());
     }
     public static Builder javaxInjection() {
       return empty()
-          .plugin(new com.episode6.hackit.mockspresso.plugin.javax.JavaxInjectMockspressoPlugin());
+          .plugin(com.episode6.hackit.mockspresso.plugin.javax.JavaxInjectMockspressoPlugin.getInstance());
     }
   }
 }

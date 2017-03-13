@@ -12,7 +12,14 @@ import java.util.List;
  */
 public class MockspressoEasyMockConfig extends AbstractMockerConfig {
 
-  public MockspressoEasyMockConfig() {
+  // This object has no state, so we maintain a static instance of it
+  // instead of creating multiple instances on the fly
+  private static final MockspressoEasyMockConfig INSTANCE = new MockspressoEasyMockConfig();
+  public static MockspressoEasyMockConfig getInstance() {
+    return INSTANCE;
+  }
+
+  private MockspressoEasyMockConfig() {
     super(
         new EasyMockMockMaker(),
         new EasyMockFieldPreparer());

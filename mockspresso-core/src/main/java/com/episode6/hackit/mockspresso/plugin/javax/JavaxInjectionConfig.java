@@ -18,9 +18,19 @@ import java.util.List;
  * If multiple @Inject constructors are found, an exception will be thrown.
  */
 public class JavaxInjectionConfig implements InjectionConfig {
+
+  // This object has no state, so we maintain a static instance of it
+  // instead of creating multiple instances on the fly
+  private static final JavaxInjectionConfig INSTANCE = new JavaxInjectionConfig();
+  public static JavaxInjectionConfig getInstance() {
+    return INSTANCE;
+  }
+
   private static final List<Class<? extends Annotation>> INJECT_ANNOTATION = Collections.<Class<? extends Annotation>>singletonList(Inject.class);
 
   private final JavaxConstructorSelector mConstructorSelector = new JavaxConstructorSelector();
+
+  private JavaxInjectionConfig() {}
 
   @Override
   public ConstructorSelector provideConstructorSelector() {

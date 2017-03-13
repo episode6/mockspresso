@@ -1,6 +1,5 @@
 package com.episode6.hackit.mockspresso.mockito;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -15,12 +14,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(JUnit4.class)
 public class MockspressoMockitoConfigTest {
 
-  private MockspressoMockitoConfig mMockitoConfig;
-
-  @Before
-  public void setup() {
-    mMockitoConfig = new MockspressoMockitoConfig();
-  }
+  private final MockspressoMockitoConfig mMockitoConfig = MockspressoMockitoConfig.getInstance();
 
   @SuppressWarnings("unchecked")
   @Test

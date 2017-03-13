@@ -8,8 +8,17 @@ import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
  */
 public class SimpleMockspressoPlugin implements MockspressoPlugin {
 
+  // This object has no state, so we maintain a static instance of it
+  // instead of creating multiple instances on the fly
+  private static final SimpleMockspressoPlugin INSTANCE = new SimpleMockspressoPlugin();
+  public static SimpleMockspressoPlugin getInstance() {
+    return INSTANCE;
+  }
+
+  private SimpleMockspressoPlugin() {}
+
   @Override
   public Mockspresso.Builder apply(Mockspresso.Builder builder) {
-    return builder.injectionConfig(new SimpleInjectionConfig());
+    return builder.injectionConfig(SimpleInjectionConfig.getInstance());
   }
 }

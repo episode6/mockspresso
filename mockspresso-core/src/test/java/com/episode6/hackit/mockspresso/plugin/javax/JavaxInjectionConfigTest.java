@@ -2,7 +2,6 @@ package com.episode6.hackit.mockspresso.plugin.javax;
 
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.exception.MultipleInjectConstructorException;
-import com.episode6.hackit.mockspresso.plugin.javax.JavaxInjectionConfig;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +19,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(DefaultTestRunner.class)
 public class JavaxInjectionConfigTest {
 
-  private final JavaxInjectionConfig mInjectionConfig = new JavaxInjectionConfig();
+  private final JavaxInjectionConfig mInjectionConfig = JavaxInjectionConfig.getInstance();
 
   @Test
   public void testHasOnlyInjectAnnotation() {

@@ -2,7 +2,6 @@ package com.episode6.hackit.mockspresso.plugin.javax;
 
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.api.DependencyProvider;
-import com.episode6.hackit.mockspresso.plugin.javax.ProviderMaker;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Before;
@@ -14,9 +13,7 @@ import org.mockito.MockitoAnnotations;
 import javax.inject.Provider;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Tests {@link ProviderMaker}
@@ -33,7 +30,7 @@ public class ProviderMakerTest {
 
   @Mock DependencyProvider mDependencyProvider;
 
-  private final ProviderMaker mProviderMaker = new ProviderMaker();
+  private final ProviderMaker mProviderMaker = ProviderMaker.getInstance();
 
   @Before
   public void setup() {

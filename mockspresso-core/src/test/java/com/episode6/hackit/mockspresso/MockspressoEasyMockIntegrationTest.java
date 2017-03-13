@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 public class MockspressoEasyMockIntegrationTest {
 
   @Rule public final Mockspresso.Rule mockspresso = Mockspresso.Builders.simple()
-      .plugin(new MockspressoEasyMockPlugin())
+      .plugin(MockspressoEasyMockPlugin.getInstance())
       .buildRule();
 
   @Test
