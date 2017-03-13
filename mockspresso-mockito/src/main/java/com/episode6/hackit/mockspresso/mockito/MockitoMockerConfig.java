@@ -11,16 +11,16 @@ import java.util.List;
 /**
  * A MockerConfig for Mockito.
  */
-public class MockspressoMockitoConfig extends AbstractMockerConfig {
+public class MockitoMockerConfig extends AbstractMockerConfig {
 
   // This object has no state, so we maintain a static instance of it
   // instead of creating multiple instances on the fly
-  private static final MockspressoMockitoConfig INSTANCE = new MockspressoMockitoConfig();
-  public static MockspressoMockitoConfig getInstance() {
+  private static final MockitoMockerConfig INSTANCE = new MockitoMockerConfig();
+  public static MockitoMockerConfig getInstance() {
     return INSTANCE;
   }
 
-  private MockspressoMockitoConfig() {
+  private MockitoMockerConfig() {
     super(
         new MockitoMockMaker(),
         new MockitoFieldPreparer());

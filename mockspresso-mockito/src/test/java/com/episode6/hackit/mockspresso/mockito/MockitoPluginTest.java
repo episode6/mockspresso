@@ -15,14 +15,14 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
- * Tests {@link MockspressoMockitoPlugin}
+ * Tests {@link MockitoPlugin}
  */
 @RunWith(JUnit4.class)
-public class MockspressoMockitoPluginTest {
+public class MockitoPluginTest {
 
   @Mock Mockspresso.Builder mBuilder;
 
-  private final MockspressoMockitoPlugin mPlugin = MockspressoMockitoPlugin.getInstance();
+  private final MockitoPlugin mPlugin = MockitoPlugin.getInstance();
 
   @Before
   public void setup() {
@@ -34,7 +34,7 @@ public class MockspressoMockitoPluginTest {
   public void testConfigInstalled() {
     Mockspresso.Builder returnedBuilder = mPlugin.apply(mBuilder);
 
-    verify(mBuilder).mockerConfig(MockspressoMockitoConfig.getInstance());
+    verify(mBuilder).mockerConfig(MockitoMockerConfig.getInstance());
     assertThat(returnedBuilder)
         .isNotNull()
         .isEqualTo(mBuilder);

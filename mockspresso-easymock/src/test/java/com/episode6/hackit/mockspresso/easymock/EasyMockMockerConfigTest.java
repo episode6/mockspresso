@@ -8,12 +8,12 @@ import org.junit.runners.JUnit4;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 /**
- * Sanity checks for {@link MockspressoEasyMockConfig}
+ * Sanity checks for {@link EasyMockMockerConfig}
  */
 @RunWith(JUnit4.class)
-public class MockspressoEasyMockConfigTest {
+public class EasyMockMockerConfigTest {
 
-  private final MockspressoEasyMockConfig mEasyMockConfig = MockspressoEasyMockConfig.getInstance();
+  private final EasyMockMockerConfig mEasyMockConfig = EasyMockMockerConfig.getInstance();
 
   @SuppressWarnings("unchecked")
   @Test

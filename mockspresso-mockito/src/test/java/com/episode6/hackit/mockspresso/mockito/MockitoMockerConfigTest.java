@@ -9,12 +9,12 @@ import org.mockito.Spy;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 /**
- * Sanity checks for {@link MockspressoMockitoConfig}
+ * Sanity checks for {@link MockitoMockerConfig}
  */
 @RunWith(JUnit4.class)
-public class MockspressoMockitoConfigTest {
+public class MockitoMockerConfigTest {
 
-  private final MockspressoMockitoConfig mMockitoConfig = MockspressoMockitoConfig.getInstance();
+  private final MockitoMockerConfig mMockitoConfig = MockitoMockerConfig.getInstance();
 
   @SuppressWarnings("unchecked")
   @Test

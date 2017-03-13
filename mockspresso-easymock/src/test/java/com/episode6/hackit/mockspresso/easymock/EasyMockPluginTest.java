@@ -13,14 +13,14 @@ import static org.easymock.EasyMock.*;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 /**
- * Tests {@link MockspressoEasyMockPlugin}
+ * Tests {@link EasyMockPlugin}
  */
 @RunWith(JUnit4.class)
-public class MockspressoEasyMockPluginTest {
+public class EasyMockPluginTest {
 
   @Mock Mockspresso.Builder mBuilder;
 
-  private final MockspressoEasyMockPlugin mPlugin = MockspressoEasyMockPlugin.getInstance();
+  private final EasyMockPlugin mPlugin = EasyMockPlugin.getInstance();
 
   @Before
   public void setup() {

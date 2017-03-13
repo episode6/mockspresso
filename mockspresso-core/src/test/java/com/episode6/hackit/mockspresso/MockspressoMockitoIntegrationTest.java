@@ -1,7 +1,7 @@
 package com.episode6.hackit.mockspresso;
 
 import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.mockito.MockspressoMockitoPlugin;
+import com.episode6.hackit.mockspresso.mockito.MockitoPlugin;
 import com.episode6.hackit.mockspresso.testobject.CoffeeExample.CoffeeMaker;
 import com.episode6.hackit.mockspresso.testobject.CoffeeExample.Heater;
 import com.episode6.hackit.mockspresso.testobject.CoffeeExample.Pump;
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.verify;
 public class MockspressoMockitoIntegrationTest {
 
   @Rule public final Mockspresso.Rule mockspresso = Mockspresso.Builders.javaxInjection()
-      .plugin(MockspressoMockitoPlugin.getInstance())
+      .plugin(MockitoPlugin.getInstance())
       .buildRule();
 
   @Mock Heater mHeater;
