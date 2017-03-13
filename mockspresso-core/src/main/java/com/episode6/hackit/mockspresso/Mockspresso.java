@@ -45,7 +45,8 @@ public interface Mockspresso {
     }
     public static Builder javaxInjection() {
       return empty()
-          .injectionConfig(new com.episode6.hackit.mockspresso.inject.JavaxInjectionConfig());
+          .injectionConfig(new com.episode6.hackit.mockspresso.inject.JavaxInjectionConfig())
+          .specialObjectMaker(new com.episode6.hackit.mockspresso.inject.ProviderMaker());
     }
   }
 }
