@@ -18,6 +18,11 @@ dependencies {
   compileOnly('junit:junit')
 
   testCompile('org.mockito:mockito-core')
+  testCompile project(':mockspresso-mockito')
+
+  testCompile('org.easymock:easymock')
+  testCompile project(':mockspresso-easymock')
+
   testCompile('org.easytesting:fest-assert-core')
 }
 

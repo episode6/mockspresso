@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class MockspressoEasyMockConfig extends AbstractMockerConfig {
 
-  protected MockspressoEasyMockConfig() {
+  public MockspressoEasyMockConfig() {
     super(
         new EasyMockMockMaker(),
         new EasyMockFieldPreparer());
