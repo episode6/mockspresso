@@ -5,10 +5,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.mockito.Mockito;
 
 import java.util.HashMap;
 
+import static com.episode6.hackit.mockspresso.mockito.Conditions.mockCondition;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -30,8 +30,9 @@ public class MockitoMockMakerTest {
   public void testSimpleMock() {
     Runnable runnable = mMockMaker.makeMock(TypeToken.of(Runnable.class));
 
-    assertThat(runnable).isNotNull();
-    assertThat(Mockito.mockingDetails(runnable).isMock()).isTrue();
+    assertThat(runnable)
+        .isNotNull()
+        .is(mockCondition());
 
     runnable.run();
     verify(runnable).run();
@@ -43,8 +44,9 @@ public class MockitoMockMakerTest {
 
     HashMap<String, Integer> hashMap = mMockMaker.makeMock(typeToken);
 
-    assertThat(hashMap).isNotNull();
-    assertThat(Mockito.mockingDetails(hashMap).isMock()).isTrue();
+    assertThat(hashMap)
+        .isNotNull()
+        .is(mockCondition());
 
     when(hashMap.get("sup")).thenReturn(12);
     Integer retVal = hashMap.get("sup");

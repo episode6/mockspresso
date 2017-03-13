@@ -1,6 +1,8 @@
-package com.episode6.hackit.mockspresso;
+package com.episode6.hackit.mockspresso.integration.easymock;
 
 import com.episode6.hackit.chop.Chop;
+import com.episode6.hackit.mockspresso.DefaultTestRunner;
+import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.easymock.EasyMockPlugin;
 import org.junit.Rule;
 import org.junit.Test;

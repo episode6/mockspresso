@@ -10,12 +10,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import javax.inject.Named;
 import java.util.Arrays;
 
+import static com.episode6.hackit.mockspresso.Conditions.mockitoMock;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 /**
@@ -101,10 +101,12 @@ public class DependencyMapImporterTest {
 
     assertThat(mDependencyMap.get(key1)).isEqualTo("subclass");
     assertThat(mDependencyMap.get(key2)).isEqualTo("superclass");
-    assertThat(mDependencyMap.get(subClassInnerClassKey)).isNotNull();
-    assertThat(Mockito.mockingDetails(mDependencyMap.get(subClassInnerClassKey)).isMock()).isTrue();
-    assertThat(mDependencyMap.get(superClassInnerClassKey)).isNotNull();
-    assertThat(Mockito.mockingDetails(mDependencyMap.get(superClassInnerClassKey)).isMock()).isTrue();
+    assertThat(mDependencyMap.get(subClassInnerClassKey))
+        .isNotNull()
+        .is(mockitoMock());
+    assertThat(mDependencyMap.get(superClassInnerClassKey))
+        .isNotNull()
+        .is(mockitoMock());
   }
 
   public static class TestObject {}

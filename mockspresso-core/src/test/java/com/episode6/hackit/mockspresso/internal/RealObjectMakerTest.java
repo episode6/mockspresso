@@ -24,6 +24,8 @@ import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.episode6.hackit.mockspresso.Conditions.mockitoMock;
+import static com.episode6.hackit.mockspresso.Conditions.rawClass;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -174,9 +176,10 @@ public class RealObjectMakerTest {
   }
 
   private <T> void assertTestObjectNormal(T testObject, Class<T> expectedClass) {
-    assertThat(testObject).isNotNull();
-    assertThat(mockingDetails(testObject).isMock()).isFalse();
-    assertTrue(testObject.getClass() == expectedClass);
+    assertThat(testObject)
+        .isNotNull()
+        .isNot(mockitoMock())
+        .is(rawClass(expectedClass));
   }
 
   private void verifyDependencyProviderCalls(DependencyKey... keys) {

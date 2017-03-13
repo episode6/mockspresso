@@ -8,6 +8,7 @@ import org.junit.runners.JUnit4;
 
 import java.util.HashMap;
 
+import static com.episode6.hackit.mockspresso.easymock.Conditions.mockCondition;
 import static org.easymock.EasyMock.*;
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -28,8 +29,9 @@ public class EasyMockMockMakerTest {
   public void testSimpleMock() {
     Runnable runnable = mMockMaker.makeMock(TypeToken.of(Runnable.class));
 
-    assertThat(runnable).isNotNull();
-    assertThat(runnable.toString()).startsWith("EasyMock");
+    assertThat(runnable)
+        .isNotNull()
+        .is(mockCondition());
 
     runnable.run();
     replay(runnable);
@@ -43,8 +45,9 @@ public class EasyMockMockMakerTest {
 
     HashMap<String, Integer> hashMap = mMockMaker.makeMock(typeToken);
 
-    assertThat(hashMap).isNotNull();
-    assertThat(hashMap.toString()).startsWith("EasyMock");
+    assertThat(hashMap)
+        .isNotNull()
+        .is(mockCondition());
 
     expect(hashMap.get("sup")).andReturn(12);
     replay(hashMap);
