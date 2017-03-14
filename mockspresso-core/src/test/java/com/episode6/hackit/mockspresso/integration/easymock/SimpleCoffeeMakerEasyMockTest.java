@@ -11,9 +11,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import static com.episode6.hackit.mockspresso.Conditions.easyMockMock;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.expectLastCall;
-import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.*;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 /**
@@ -26,7 +24,6 @@ public class SimpleCoffeeMakerEasyMockTest {
   @Rule public final Mockspresso.Rule mockspresso = Mockspresso.Builders.simple()
       .plugin(EasyMockPlugin.getInstance())
       .buildRule();
-
 
   @Mock Water mWater;
   @Mock Heater mHeater;
@@ -43,6 +40,7 @@ public class SimpleCoffeeMakerEasyMockTest {
 
     Coffee coffee = mCoffeeMaker.brew();
 
+    verify(mPump, mHeater);
     assertThat(coffee).isNot(easyMockMock());
     assertThat(coffee.getWater()).isEqualTo(mWater);
     assertThat(coffee.getCoffeeGrounds())
