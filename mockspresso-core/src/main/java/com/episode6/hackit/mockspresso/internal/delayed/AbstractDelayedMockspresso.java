@@ -18,13 +18,13 @@ public abstract class AbstractDelayedMockspresso implements Mockspresso, Mockspr
 
   private static final String ERROR_MESSAGE = "Called Mockspresso.create() before delegate was created.";
   private @Nullable MockspressoInternal mDelegate = null;
-  private final Set<DelayedMockspressoBuilder> mChildBuilders = new HashSet<>();
+  private final Set<DelayedMockspressoBuilder> mDelayedBuilders = new HashSet<>();
 
-  protected synchronized void setDelegate(@Nullable MockspressoInternal delegate) {
+  synchronized void setDelegate(@Nullable MockspressoInternal delegate) {
     mDelegate = delegate;
     MockspressoConfigContainer parentConfig = delegate == null ? null : delegate.getConfig();
-    for (DelayedMockspressoBuilder childBuilder : mChildBuilders) {
-      childBuilder.setParent(parentConfig);
+    for (DelayedMockspressoBuilder delayedBuilder : mDelayedBuilders) {
+      delayedBuilder.setParent(parentConfig);
     }
   }
 
@@ -49,7 +49,7 @@ public abstract class AbstractDelayedMockspresso implements Mockspresso, Mockspr
     }
 
     DelayedMockspressoBuilder delayedBuilder = new DelayedMockspressoBuilder();
-    mChildBuilders.add(delayedBuilder);
+    mDelayedBuilders.add(delayedBuilder);
     return delayedBuilder;
   }
 

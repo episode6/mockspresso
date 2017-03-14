@@ -22,10 +22,14 @@ public class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implem
 
   private final MockspressoBuilderImpl mBuilder = new MockspressoBuilderImpl();
 
-  public void setParent(@Nullable MockspressoConfigContainer parentConfig) {
+  void setParent(@Nullable MockspressoConfigContainer parentConfig) {
     if (parentConfig == null) {
       setDelegate(null);
     } else {
+      // I'm kind of concerned about this. We're basically hoping that
+      // we never apply two completely different parents to this builder.
+      // With our current usage patterns, it shouldn't be possible, since the only
+      // place we call this is from our @Rule.
       mBuilder.setParent(parentConfig);
       setDelegate(mBuilder.buildInternal());
     }
