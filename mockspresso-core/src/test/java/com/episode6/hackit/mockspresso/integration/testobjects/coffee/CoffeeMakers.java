@@ -13,10 +13,13 @@ public class CoffeeMakers {
    */
   private static Coffee brewInternal(Pump pump, Heater heater, CoffeeGrounds coffeeGrounds) {
     Water water = pump.pump();
-    water = heater.heat(water);
+    heater.heat(water);
     return new Coffee(water, coffeeGrounds);
   }
 
+  /**
+   * The most basic coffee maker, can be created via the simple inject plugin
+   */
   public static class SimpleCoffeeMaker implements CoffeeMaker {
     private final Pump mPump;
     private final Heater mHeater;

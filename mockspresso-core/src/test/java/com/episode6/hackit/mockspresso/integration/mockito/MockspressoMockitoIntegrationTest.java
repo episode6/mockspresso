@@ -34,7 +34,6 @@ public class MockspressoMockitoIntegrationTest {
   @Test
   public void placeholderTest() {
     when(mPump.pump()).thenReturn(mWater);
-    when(mHeater.heat(mWater)).thenReturn(mWater);
 
     Coffee coffee = mCoffeeMaker.brew();
 
