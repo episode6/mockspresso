@@ -18,25 +18,30 @@ import java.util.List;
 public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   private final List<Object> mObjectsWithFields = new LinkedList<>();
+  private final DependencyMap mDependencyMap = new DependencyMap();
+  private final SpecialObjectMakerContainer mSpecialObjectMakers = new SpecialObjectMakerContainer();
 
-  private final DependencyMap mDependencyMap;
-  private final SpecialObjectMakerContainer mSpecialObjectMakers;
-
-  private @Nullable MockerConfig mMockerConfig;
-  private @Nullable InjectionConfig mInjectionConfig;
+  private @Nullable MockerConfig mMockerConfig = null;
+  private @Nullable InjectionConfig mInjectionConfig = null;
 
   public MockspressoBuilderImpl() {
-    mDependencyMap = new DependencyMap(null);
-    mSpecialObjectMakers = new SpecialObjectMakerContainer(null);
-    mMockerConfig = null;
-    mInjectionConfig = null;
+    // empty
   }
 
   MockspressoBuilderImpl(MockspressoConfigContainer parentConfig) {
-    mDependencyMap = new DependencyMap(parentConfig.getDependencyMap());
-    mSpecialObjectMakers = new SpecialObjectMakerContainer(parentConfig.getSpecialObjectMaker());
-    mMockerConfig = parentConfig.getMockerConfig();
-    mInjectionConfig = parentConfig.getInjectionConfig();
+    this();
+    setParent(parentConfig);
+  }
+
+  public void setParent(MockspressoConfigContainer parentConfig) {
+    mDependencyMap.setParentMap(parentConfig.getDependencyMap());
+    mSpecialObjectMakers.setParentMaker(parentConfig.getSpecialObjectMaker());
+    if (mMockerConfig == null) {
+      mMockerConfig = parentConfig.getMockerConfig();
+    }
+    if (mInjectionConfig == null) {
+      mInjectionConfig = parentConfig.getInjectionConfig();
+    }
   }
 
   @Override

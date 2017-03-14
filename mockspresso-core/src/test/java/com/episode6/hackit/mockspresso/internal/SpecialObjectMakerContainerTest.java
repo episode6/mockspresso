@@ -37,7 +37,7 @@ public class SpecialObjectMakerContainerTest {
 
   @Test
   public void testCanMakeWithNullParent() {
-    SpecialObjectMakerContainer specialObjectMakerContainer = new SpecialObjectMakerContainer(null);
+    SpecialObjectMakerContainer specialObjectMakerContainer = new SpecialObjectMakerContainer();
     specialObjectMakerContainer.add(specialObjectMaker1);
     specialObjectMakerContainer.add(specialObjectMaker2);
     specialObjectMakerContainer.add(specialObjectMaker3);
@@ -53,7 +53,8 @@ public class SpecialObjectMakerContainerTest {
 
   @Test
   public void testCanMakeWithNonNullParent() {
-    SpecialObjectMakerContainer specialObjectMakerContainer = new SpecialObjectMakerContainer(parentMaker);
+    SpecialObjectMakerContainer specialObjectMakerContainer = new SpecialObjectMakerContainer();
+    specialObjectMakerContainer.setParentMaker(parentMaker);
     specialObjectMakerContainer.add(specialObjectMaker1);
     specialObjectMakerContainer.add(specialObjectMaker2);
     specialObjectMakerContainer.add(specialObjectMaker3);
@@ -72,7 +73,8 @@ public class SpecialObjectMakerContainerTest {
   public void testMakeObjectInMaker() {
     when(specialObjectMaker2.canMakeObject(dependencyKey)).thenReturn(true);
     when(specialObjectMaker2.makeObject(dependencyProvider, dependencyKey)).thenReturn("testing");
-    SpecialObjectMakerContainer specialObjectMakerContainer = new SpecialObjectMakerContainer(parentMaker);
+    SpecialObjectMakerContainer specialObjectMakerContainer = new SpecialObjectMakerContainer();
+    specialObjectMakerContainer.setParentMaker(parentMaker);
     specialObjectMakerContainer.add(specialObjectMaker1);
     specialObjectMakerContainer.add(specialObjectMaker2);
     specialObjectMakerContainer.add(specialObjectMaker3);
@@ -90,7 +92,8 @@ public class SpecialObjectMakerContainerTest {
   public void testMakeObjectInParent() {
     when(parentMaker.canMakeObject(dependencyKey)).thenReturn(true);
     when(parentMaker.makeObject(dependencyProvider, dependencyKey)).thenReturn("testing");
-    SpecialObjectMakerContainer specialObjectMakerContainer = new SpecialObjectMakerContainer(parentMaker);
+    SpecialObjectMakerContainer specialObjectMakerContainer = new SpecialObjectMakerContainer();
+    specialObjectMakerContainer.setParentMaker(parentMaker);
     specialObjectMakerContainer.add(specialObjectMaker1);
     specialObjectMakerContainer.add(specialObjectMaker2);
     specialObjectMakerContainer.add(specialObjectMaker3);

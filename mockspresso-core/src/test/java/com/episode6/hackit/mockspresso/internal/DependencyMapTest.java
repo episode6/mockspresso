@@ -30,7 +30,7 @@ public class DependencyMapTest {
 
   @Test
   public void testSimplePutAndGet() {
-    DependencyMap dependencyMap = new DependencyMap(null);
+    DependencyMap dependencyMap = new DependencyMap();
     TestClass value = new TestClass();
     DependencyKey<TestClass> key = new DependencyKey<>(TypeToken.of(TestClass.class), null);
 
@@ -42,7 +42,7 @@ public class DependencyMapTest {
 
   @Test
   public void testPutImplGetInterface() {
-    DependencyMap dependencyMap = new DependencyMap(null);
+    DependencyMap dependencyMap = new DependencyMap();
     TestClass value = new TestClass();
     DependencyKey<TestInterface> key = new DependencyKey<>(TypeToken.of(TestInterface.class), null);
 
@@ -56,7 +56,8 @@ public class DependencyMapTest {
 
   @Test
   public void testParentCalledWhenDepMissing() {
-    DependencyMap dependencyMap = new DependencyMap(mMockDependencyMap);
+    DependencyMap dependencyMap = new DependencyMap();
+    dependencyMap.setParentMap(mMockDependencyMap);
     DependencyKey<TestInterface> key = new DependencyKey<>(TypeToken.of(TestInterface.class), null);
 
     dependencyMap.containsKey(key);
@@ -68,7 +69,8 @@ public class DependencyMapTest {
 
   @Test
   public void testParentNotCalledWhenDepExists() {
-    DependencyMap dependencyMap = new DependencyMap(mMockDependencyMap);
+    DependencyMap dependencyMap = new DependencyMap();
+    dependencyMap.setParentMap(mMockDependencyMap);
     DependencyKey<TestInterface> key = new DependencyKey<>(TypeToken.of(TestInterface.class), null);
     TestClass value = new TestClass();
     dependencyMap.put(key, value);
@@ -83,7 +85,7 @@ public class DependencyMapTest {
 
   @Test(expected = RepeatedDependencyDefinedException.class)
   public void testCantOverwrite() {
-    DependencyMap dependencyMap = new DependencyMap(null);
+    DependencyMap dependencyMap = new DependencyMap();
     DependencyKey<TestClass> key = new DependencyKey<>(TypeToken.of(TestClass.class), null);
     TestClass value1 = new TestClass();
     TestClass value2 = new TestClass();
@@ -94,8 +96,9 @@ public class DependencyMapTest {
 
   @Test
   public void testCanOverwriteParent() {
-    DependencyMap parentMap = new DependencyMap(null);
-    DependencyMap dependencyMap = new DependencyMap(parentMap);
+    DependencyMap parentMap = new DependencyMap();
+    DependencyMap dependencyMap = new DependencyMap();
+    dependencyMap.setParentMap(parentMap);
     DependencyKey<TestClass> key = new DependencyKey<>(TypeToken.of(TestClass.class), null);
     TestClass value1 = new TestClass();
     TestClass value2 = new TestClass();
