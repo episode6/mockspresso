@@ -3,6 +3,7 @@ package com.episode6.hackit.mockspresso.internal;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.api.*;
+import com.episode6.hackit.mockspresso.internal.delayed.MockspressoRuleImpl;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import com.episode6.hackit.mockspresso.util.Preconditions;
@@ -23,15 +24,6 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   private @Nullable MockerConfig mMockerConfig = null;
   private @Nullable InjectionConfig mInjectionConfig = null;
-
-  public MockspressoBuilderImpl() {
-    // empty
-  }
-
-  MockspressoBuilderImpl(MockspressoConfigContainer parentConfig) {
-    this();
-    setParent(parentConfig);
-  }
 
   public void setParent(MockspressoConfigContainer parentConfig) {
     mDependencyMap.setParentMap(parentConfig.getDependencyMap());

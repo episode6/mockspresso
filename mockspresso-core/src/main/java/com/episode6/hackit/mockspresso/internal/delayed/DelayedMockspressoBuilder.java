@@ -1,10 +1,12 @@
-package com.episode6.hackit.mockspresso.internal;
+package com.episode6.hackit.mockspresso.internal.delayed;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.api.InjectionConfig;
 import com.episode6.hackit.mockspresso.api.MockerConfig;
 import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
+import com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl;
+import com.episode6.hackit.mockspresso.internal.MockspressoConfigContainer;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 
 import javax.annotation.Nullable;
@@ -12,7 +14,9 @@ import java.lang.annotation.Annotation;
 import java.util.List;
 
 /**
- *
+ * An implementation of {@link Mockspresso.Builder} that also acts as its own Mockspresso instance.
+ * This allows us to buildUpon an "incomplete" @Rule, and as long as none of the 'create' methods are
+ * called before the rule has a statement applied to it, everything should still work.
  */
 public class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implements Mockspresso.Builder {
 

@@ -1,6 +1,8 @@
-package com.episode6.hackit.mockspresso.internal;
+package com.episode6.hackit.mockspresso.internal.delayed;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
+import com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl;
+import com.episode6.hackit.mockspresso.internal.MockspressoInternal;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
 
@@ -21,8 +23,10 @@ public class MockspressoRuleImpl extends AbstractDelayedMockspresso implements M
     return new Statement() {
       @Override
       public void evaluate() throws Throwable {
-        MockspressoBuilderImpl builder = new MockspressoBuilderImpl(mOriginal.getConfig());
+        MockspressoBuilderImpl builder = new MockspressoBuilderImpl();
+        builder.setParent(mOriginal.getConfig());
         builder.fieldsFrom(target);
+
         setDelegate(builder.buildInternal());
         base.evaluate();
         setDelegate(null);
