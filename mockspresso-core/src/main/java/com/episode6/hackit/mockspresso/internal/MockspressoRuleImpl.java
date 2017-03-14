@@ -10,9 +10,9 @@ import org.junit.runners.model.Statement;
  **/
 public class MockspressoRuleImpl extends AbstractDelayedMockspresso implements Mockspresso.Rule {
 
-  private final Mockspresso mOriginal;
+  private final MockspressoInternal mOriginal;
 
-  public MockspressoRuleImpl(Mockspresso original) {
+  public MockspressoRuleImpl(MockspressoInternal original) {
     mOriginal = original;
   }
 
@@ -21,7 +21,9 @@ public class MockspressoRuleImpl extends AbstractDelayedMockspresso implements M
     return new Statement() {
       @Override
       public void evaluate() throws Throwable {
-        setDelegate(mOriginal.buildUpon().fieldsFrom(target).build());
+        MockspressoBuilderImpl builder = new MockspressoBuilderImpl(mOriginal.getConfig());
+        builder.fieldsFrom(target);
+        setDelegate(builder.buildInternal());
         base.evaluate();
         setDelegate(null);
       }

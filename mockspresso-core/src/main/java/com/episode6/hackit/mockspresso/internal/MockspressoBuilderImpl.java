@@ -99,9 +99,17 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     return this;
   }
 
-  //TODO: fill in
+  @Override
   public Mockspresso build() {
+    return buildInternal();
+  }
 
+  @Override
+  public Mockspresso.Rule buildRule() {
+    return new MockspressoRuleImpl(buildInternal());
+  }
+
+  public MockspressoInternal buildInternal() {
     // verify
     Preconditions.assertNotNull(mMockerConfig, "MockerConfig missing from mockspresso builder");
     Preconditions.assertNotNull(mInjectionConfig, "InjectionConfig missing from mockspresso builder");
@@ -145,9 +153,5 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
         mDependencyMap,
         mSpecialObjectMakers);
     return new MockspressoImpl(configContainer, dependencyProvider, realObjectMaker);
-  }
-
-  public Mockspresso.Rule buildRule() {
-    return new MockspressoRuleImpl(build());
   }
 }
