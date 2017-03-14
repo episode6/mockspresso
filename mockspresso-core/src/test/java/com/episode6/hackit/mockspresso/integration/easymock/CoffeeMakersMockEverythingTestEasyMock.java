@@ -32,9 +32,13 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(JUnit4.class)
 public class CoffeeMakersMockEverythingTestEasyMock {
 
-  @Rule public final Mockspresso.Rule mockspresso = Mockspresso.Builders.simple()
+  @Rule public final Mockspresso.Rule simpleMockspresso = Mockspresso.Builders.simple()
       .plugin(EasyMockPlugin.getInstance())
       .buildRule();
+
+  private final Mockspresso injectionMockspresso = simpleMockspresso.buildUpon()
+      .plugin(JavaxInjectMockspressoPlugin.getInstance())
+      .build();
 
   @Mock Water mWater;
   @Mock Heater mHeater;
@@ -70,7 +74,7 @@ public class CoffeeMakersMockEverythingTestEasyMock {
    */
   @Test
   public void testConstructorInjectedCoffeeMaker() {
-    ConstructorInjectedCofferMaker cofferMaker = injectionMockspresso()
+    ConstructorInjectedCofferMaker cofferMaker = injectionMockspresso
         .create(ConstructorInjectedCofferMaker.class);
     assertThat(cofferMaker).is(rawClass(ConstructorInjectedCofferMaker.class));
 
@@ -85,7 +89,7 @@ public class CoffeeMakersMockEverythingTestEasyMock {
    */
   @Test
   public void testFieldInjedCoffeeMaker() {
-    FieldInjectedCoffeeMakerWithGroundsProvider cofferMaker = injectionMockspresso()
+    FieldInjectedCoffeeMakerWithGroundsProvider cofferMaker = injectionMockspresso
         .create(FieldInjectedCoffeeMakerWithGroundsProvider.class);
     assertThat(cofferMaker).is(rawClass(FieldInjectedCoffeeMakerWithGroundsProvider.class));
 
@@ -100,7 +104,7 @@ public class CoffeeMakersMockEverythingTestEasyMock {
    */
   @Test
   public void testMethodInjectedCoffeeMaker() {
-    MethodInjectedCoffeeMaker cofferMaker = injectionMockspresso()
+    MethodInjectedCoffeeMaker cofferMaker = injectionMockspresso
         .create(MethodInjectedCoffeeMaker.class);
     assertThat(cofferMaker).is(rawClass(MethodInjectedCoffeeMaker.class));
 
@@ -115,22 +119,13 @@ public class CoffeeMakersMockEverythingTestEasyMock {
    */
   @Test
   public void testMixedInjectionCoffeeMaker() {
-    MixedInjectionCoffeeMaker cofferMaker = injectionMockspresso()
+    MixedInjectionCoffeeMaker cofferMaker = injectionMockspresso
         .create(MixedInjectionCoffeeMaker.class);
     assertThat(cofferMaker).is(rawClass(MixedInjectionCoffeeMaker.class));
 
     Coffee coffee = cofferMaker.brew();
 
     verifyInterationsAndCoffeeObject(coffee);
-  }
-
-  /**
-   * @return a new mockspresso instance with the {@link JavaxInjectMockspressoPlugin} applied.
-   */
-  private Mockspresso injectionMockspresso() {
-    return mockspresso.buildUpon()
-        .plugin(JavaxInjectMockspressoPlugin.getInstance())
-        .build();
   }
 
   private void verifyInterationsAndCoffeeObject(Coffee coffee) {

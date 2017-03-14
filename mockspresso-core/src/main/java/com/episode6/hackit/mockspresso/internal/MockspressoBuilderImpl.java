@@ -3,6 +3,7 @@ package com.episode6.hackit.mockspresso.internal;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.api.*;
+import com.episode6.hackit.mockspresso.internal.delayed.MockspressoRuleImpl;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import com.episode6.hackit.mockspresso.util.Preconditions;
@@ -18,25 +19,21 @@ import java.util.List;
 public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   private final List<Object> mObjectsWithFields = new LinkedList<>();
+  private final DependencyMap mDependencyMap = new DependencyMap();
+  private final SpecialObjectMakerContainer mSpecialObjectMakers = new SpecialObjectMakerContainer();
 
-  private final DependencyMap mDependencyMap;
-  private final SpecialObjectMakerContainer mSpecialObjectMakers;
+  private @Nullable MockerConfig mMockerConfig = null;
+  private @Nullable InjectionConfig mInjectionConfig = null;
 
-  private @Nullable MockerConfig mMockerConfig;
-  private @Nullable InjectionConfig mInjectionConfig;
-
-  public MockspressoBuilderImpl() {
-    mDependencyMap = new DependencyMap(null);
-    mSpecialObjectMakers = new SpecialObjectMakerContainer(null);
-    mMockerConfig = null;
-    mInjectionConfig = null;
-  }
-
-  MockspressoBuilderImpl(MockspressoConfigContainer parentConfig) {
-    mDependencyMap = new DependencyMap(parentConfig.getDependencyMap());
-    mSpecialObjectMakers = new SpecialObjectMakerContainer(parentConfig.getSpecialObjectMaker());
-    mMockerConfig = parentConfig.getMockerConfig();
-    mInjectionConfig = parentConfig.getInjectionConfig();
+  public void setParent(MockspressoConfigContainer parentConfig) {
+    mDependencyMap.setParentMap(parentConfig.getDependencyMap());
+    mSpecialObjectMakers.setParentMaker(parentConfig.getSpecialObjectMaker());
+    if (mMockerConfig == null) {
+      mMockerConfig = parentConfig.getMockerConfig();
+    }
+    if (mInjectionConfig == null) {
+      mInjectionConfig = parentConfig.getInjectionConfig();
+    }
   }
 
   @Override
@@ -94,9 +91,17 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     return this;
   }
 
-  //TODO: fill in
+  @Override
   public Mockspresso build() {
+    return buildInternal();
+  }
 
+  @Override
+  public Mockspresso.Rule buildRule() {
+    return new MockspressoRuleImpl(buildInternal());
+  }
+
+  public MockspressoInternal buildInternal() {
     // verify
     Preconditions.assertNotNull(mMockerConfig, "MockerConfig missing from mockspresso builder");
     Preconditions.assertNotNull(mInjectionConfig, "InjectionConfig missing from mockspresso builder");
@@ -140,9 +145,5 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
         mDependencyMap,
         mSpecialObjectMakers);
     return new MockspressoImpl(configContainer, dependencyProvider, realObjectMaker);
-  }
-
-  public Mockspresso.Rule buildRule() {
-    return new MockspressoRuleImpl(build());
   }
 }

@@ -15,12 +15,11 @@ import java.util.List;
  */
 public class SpecialObjectMakerContainer implements SpecialObjectMaker {
 
-  private final @Nullable SpecialObjectMaker mParentMaker;
-  private final List<SpecialObjectMaker> mSpecialObjectMakers;
+  private @Nullable SpecialObjectMaker mParentMaker = null;
+  private final List<SpecialObjectMaker> mSpecialObjectMakers = new LinkedList<>();
 
-  public SpecialObjectMakerContainer(@Nullable SpecialObjectMaker parentMaker) {
+  public void setParentMaker(SpecialObjectMaker parentMaker) {
     mParentMaker = parentMaker;
-    mSpecialObjectMakers = new LinkedList<>();
   }
 
   public void add(SpecialObjectMaker specialObjectMaker) {
