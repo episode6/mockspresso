@@ -6,16 +6,16 @@ import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
 /**
  * Encapsulates the simplest viable mockspresso components (excluding a mockerConfig).
  */
-public class SimpleMockspressoPlugin implements MockspressoPlugin {
+public class SimpleInjectMockspressoPlugin implements MockspressoPlugin {
 
   // This object has no state, so we maintain a static instance of it
   // instead of creating multiple instances on the fly
-  private static final SimpleMockspressoPlugin INSTANCE = new SimpleMockspressoPlugin();
-  public static SimpleMockspressoPlugin getInstance() {
+  private static final SimpleInjectMockspressoPlugin INSTANCE = new SimpleInjectMockspressoPlugin();
+  public static SimpleInjectMockspressoPlugin getInstance() {
     return INSTANCE;
   }
 
-  private SimpleMockspressoPlugin() {}
+  private SimpleInjectMockspressoPlugin() {}
 
   @Override
   public Mockspresso.Builder apply(Mockspresso.Builder builder) {

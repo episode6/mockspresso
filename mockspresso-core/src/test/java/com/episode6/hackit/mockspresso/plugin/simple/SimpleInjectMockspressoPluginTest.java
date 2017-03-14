@@ -15,14 +15,14 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
- * Tests {@link SimpleMockspressoPlugin}
+ * Tests {@link SimpleInjectMockspressoPlugin}
  */
 @RunWith(DefaultTestRunner.class)
-public class SimpleMockspressoPluginTest {
+public class SimpleInjectMockspressoPluginTest {
 
   @Mock Mockspresso.Builder mBuilder;
 
-  private final SimpleMockspressoPlugin mPlugin = SimpleMockspressoPlugin.getInstance();
+  private final SimpleInjectMockspressoPlugin mPlugin = SimpleInjectMockspressoPlugin.getInstance();
 
   @Before
   public void setup() {

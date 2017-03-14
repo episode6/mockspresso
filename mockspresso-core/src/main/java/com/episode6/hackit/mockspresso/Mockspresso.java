@@ -43,7 +43,7 @@ public interface Mockspresso {
     }
     public static Builder simple() {
       return empty()
-          .plugin(com.episode6.hackit.mockspresso.plugin.simple.SimpleMockspressoPlugin.getInstance());
+          .plugin(com.episode6.hackit.mockspresso.plugin.simple.SimpleInjectMockspressoPlugin.getInstance());
     }
     public static Builder javaxInjection() {
       return empty()
