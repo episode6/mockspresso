@@ -28,13 +28,20 @@ public class DependencyProviderImplTest {
   @Mock MockerConfig.MockMaker mMockMaker;
   @Mock DependencyMap mDependencyMap;
   @Mock SpecialObjectMaker mSpecialObjectMaker;
+  @Mock RealObjectMapping mRealObjectMapping;
+  @Mock RealObjectMaker mRealObjectMaker;
 
   private DependencyProvider mDependencyProvider;
 
   @Before
   public void setup() {
     MockitoAnnotations.initMocks(this);
-    mDependencyProvider = new DependencyProviderImpl(mMockMaker, mDependencyMap, mSpecialObjectMaker);
+    mDependencyProvider = new DependencyProviderImpl(
+        mMockMaker,
+        mDependencyMap,
+        mSpecialObjectMaker,
+        mRealObjectMapping,
+        mRealObjectMaker);
   }
 
   @Test
@@ -45,9 +52,48 @@ public class DependencyProviderImplTest {
     String result = mDependencyProvider.get(mKey);
 
     assertThat(result).isEqualTo("hello");
-    InOrder inOrder = Mockito.inOrder(mMockMaker, mDependencyMap, mSpecialObjectMaker);
+    InOrder inOrder = Mockito.inOrder(mMockMaker, mDependencyMap, mSpecialObjectMaker, mRealObjectMapping, mRealObjectMaker);
     inOrder.verify(mDependencyMap).containsKey(mKey);
     inOrder.verify(mDependencyMap).get(mKey);
+    inOrder.verifyNoMoreInteractions();
+  }
+
+  @Test
+  public void testRealObjectMapped() {
+    when(mRealObjectMapping.containsKey(mKey)).thenReturn(true);
+    when(mRealObjectMapping.getImplementation(mKey)).thenReturn(mKey.typeToken);
+    when(mRealObjectMapping.shouldMapDependency(mKey)).thenReturn(true);
+    when(mRealObjectMaker.createObject(mDependencyProvider, mKey.typeToken)).thenReturn("hello");
+
+    String result = mDependencyProvider.get(mKey);
+
+    assertThat(result).isEqualTo("hello");
+    InOrder inOrder = Mockito.inOrder(mMockMaker, mDependencyMap, mSpecialObjectMaker, mRealObjectMapping, mRealObjectMaker);
+    inOrder.verify(mDependencyMap).containsKey(mKey);
+    inOrder.verify(mRealObjectMapping).containsKey(mKey);
+    inOrder.verify(mRealObjectMapping).getImplementation(mKey);
+    inOrder.verify(mRealObjectMaker).createObject(mDependencyProvider, mKey.typeToken);
+    inOrder.verify(mRealObjectMapping).shouldMapDependency(mKey);
+    inOrder.verify(mDependencyMap).put(mKey, "hello");
+    inOrder.verifyNoMoreInteractions();
+  }
+
+  @Test
+  public void testRealObjectNotMapped() {
+    when(mRealObjectMapping.containsKey(mKey)).thenReturn(true);
+    when(mRealObjectMapping.getImplementation(mKey)).thenReturn(mKey.typeToken);
+    when(mRealObjectMapping.shouldMapDependency(mKey)).thenReturn(false);
+    when(mRealObjectMaker.createObject(mDependencyProvider, mKey.typeToken)).thenReturn("hello");
+
+    String result = mDependencyProvider.get(mKey);
+
+    assertThat(result).isEqualTo("hello");
+    InOrder inOrder = Mockito.inOrder(mMockMaker, mDependencyMap, mSpecialObjectMaker, mRealObjectMapping, mRealObjectMaker);
+    inOrder.verify(mDependencyMap).containsKey(mKey);
+    inOrder.verify(mRealObjectMapping).containsKey(mKey);
+    inOrder.verify(mRealObjectMapping).getImplementation(mKey);
+    inOrder.verify(mRealObjectMaker).createObject(mDependencyProvider, mKey.typeToken);
+    inOrder.verify(mRealObjectMapping).shouldMapDependency(mKey);
     inOrder.verifyNoMoreInteractions();
   }
 
@@ -59,8 +105,9 @@ public class DependencyProviderImplTest {
     String result = mDependencyProvider.get(mKey);
 
     assertThat(result).isEqualTo("testing");
-    InOrder inOrder = Mockito.inOrder(mMockMaker, mDependencyMap, mSpecialObjectMaker);
+    InOrder inOrder = Mockito.inOrder(mMockMaker, mDependencyMap, mSpecialObjectMaker, mRealObjectMapping, mRealObjectMaker);
     inOrder.verify(mDependencyMap).containsKey(mKey);
+    inOrder.verify(mRealObjectMapping).containsKey(mKey);
     inOrder.verify(mSpecialObjectMaker).canMakeObject(mKey);
     inOrder.verify(mSpecialObjectMaker).makeObject(mDependencyProvider, mKey);
     inOrder.verifyNoMoreInteractions();
@@ -73,8 +120,9 @@ public class DependencyProviderImplTest {
     String result = mDependencyProvider.get(mKey);
 
     assertThat(result).isEqualTo("testing again");
-    InOrder inOrder = Mockito.inOrder(mMockMaker, mDependencyMap, mSpecialObjectMaker);
+    InOrder inOrder = Mockito.inOrder(mMockMaker, mDependencyMap, mSpecialObjectMaker, mRealObjectMapping, mRealObjectMaker);
     inOrder.verify(mDependencyMap).containsKey(mKey);
+    inOrder.verify(mRealObjectMapping).containsKey(mKey);
     inOrder.verify(mSpecialObjectMaker).canMakeObject(mKey);
     inOrder.verify(mMockMaker).makeMock(mKey.typeToken);
     inOrder.verifyNoMoreInteractions();
