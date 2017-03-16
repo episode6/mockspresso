@@ -22,10 +22,6 @@ public class RealObjectMapping {
     mParentMap = parentMap;
   }
 
-  public <T> void put(DependencyKey<T> key, boolean shouldMapDependency) {
-    put(key, key.typeToken, shouldMapDependency);
-  }
-
   public <T> void put(DependencyKey<T> key, TypeToken<? extends T> implementationToken, boolean shouldMapDependency) {
     if (mMap.containsKey(key)) {
       throw new RepeatedDependencyDefinedException(key);

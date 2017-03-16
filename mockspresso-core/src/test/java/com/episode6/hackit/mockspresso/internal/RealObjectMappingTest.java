@@ -43,7 +43,7 @@ public class RealObjectMappingTest {
 
   @Test
   public void testSimplePutAndGet() {
-    mRealObjectMapping.put(testClassDependencyKey, true);
+    mRealObjectMapping.put(testClassDependencyKey, testClassTypeToken, true);
 
     boolean containsKey = mRealObjectMapping.containsKey(testClassDependencyKey);
     TypeToken implementationToken = mRealObjectMapping.getImplementation(testClassDependencyKey);
@@ -89,7 +89,7 @@ public class RealObjectMappingTest {
   @Test
   public void testParentNotCalledWhenDepExists() {
     mRealObjectMapping.setParentMap(mParentMap);
-    mRealObjectMapping.put(testClassDependencyKey, true);
+    mRealObjectMapping.put(testClassDependencyKey, testClassTypeToken, true);
 
     boolean containsKey = mRealObjectMapping.containsKey(testClassDependencyKey);
     TypeToken implementationToken = mRealObjectMapping.getImplementation(testClassDependencyKey);
