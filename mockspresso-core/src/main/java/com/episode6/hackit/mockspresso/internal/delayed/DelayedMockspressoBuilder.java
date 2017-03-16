@@ -96,6 +96,42 @@ public class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implem
   }
 
   @Override
+  public <T> Builder useRealObject(Class<T> objectClass) {
+    mBuilder.useRealObject(objectClass);
+    return this;
+  }
+
+  @Override
+  public <T> Builder useRealObject(TypeToken<T> objectToken) {
+    mBuilder.useRealObject(objectToken);
+    return this;
+  }
+
+  @Override
+  public <T> Builder useRealObject(Class<T> keyClass, Class<? extends T> implementationClass) {
+    mBuilder.useRealObject(keyClass, implementationClass);
+    return this;
+  }
+
+  @Override
+  public <T> Builder useRealObject(Class<T> keyClass, Annotation keyAnnotation, Class<? extends T> implementationClass) {
+    mBuilder.useRealObject(keyClass, keyAnnotation, implementationClass);
+    return this;
+  }
+
+  @Override
+  public <T> Builder useRealObject(TypeToken<T> keyToken, TypeToken<? extends T> implementationToken) {
+    mBuilder.useRealObject(keyToken, implementationToken);
+    return this;
+  }
+
+  @Override
+  public <T> Builder useRealObject(TypeToken<T> keyToken, Annotation keyAnnotation, TypeToken<? extends T> implementationToken) {
+    mBuilder.useRealObject(keyToken, keyAnnotation, implementationToken);
+    return this;
+  }
+
+  @Override
   public Mockspresso build() {
     return this;
   }
