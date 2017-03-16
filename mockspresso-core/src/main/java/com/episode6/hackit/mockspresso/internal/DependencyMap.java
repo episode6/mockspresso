@@ -36,8 +36,4 @@ public class DependencyMap {
   public boolean containsKey(DependencyKey key) {
     return mDependencies.containsKey(key) || (mParentMap != null && mParentMap.containsKey(key));
   }
-
-  public DependencyMapImporter importFrom() {
-    return new DependencyMapImporter(this);
-  }
 }

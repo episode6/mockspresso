@@ -154,6 +154,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
         realObjectMaker,
         mDependencyMap,
         dependencyProvider);
+    DependencyMapImporter importer = new DependencyMapImporter(mDependencyMap);
     MockerConfig.FieldPreparer mockFieldPreparer = mMockerConfig.provideFieldPreparer();
     List<Class<? extends Annotation>> mockAnnotations = mMockerConfig.provideMockAnnotations();
     for (Object o : mObjectsWithFields) {
@@ -161,7 +162,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
       mockFieldPreparer.prepareFields(o);
 
       // import mocks and non-null real objects into dependency map
-      mDependencyMap.importFrom()
+      importer
           .annotatedFields(o, mockAnnotations)
           .annotatedFields(o, RealObject.class);
 
