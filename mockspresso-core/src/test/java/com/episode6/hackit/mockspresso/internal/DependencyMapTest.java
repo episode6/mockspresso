@@ -8,6 +8,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -111,5 +114,27 @@ public class DependencyMapTest {
     assertThat(result)
         .isEqualTo(value2)
         .isNotEqualTo(value1);
+  }
+
+  @Test
+  public void testAssertDoesNotContainAnyPasses() {
+    DependencyMap dependencyMap = new DependencyMap();
+    TestClass value = new TestClass();
+    DependencyKey<TestClass> classKey = new DependencyKey<>(TypeToken.of(TestClass.class), null);
+    DependencyKey<TestInterface> interfaceKey = new DependencyKey<>(TypeToken.of(TestInterface.class), null);
+
+    dependencyMap.put(classKey, value);
+    dependencyMap.assertDoesNotContainAny(Collections.<DependencyKey>singleton(interfaceKey));
+  }
+
+  @Test(expected = RepeatedDependencyDefinedException.class)
+  public void testAssertDoesNotContainAnyFails() {
+    DependencyMap dependencyMap = new DependencyMap();
+    TestClass value = new TestClass();
+    DependencyKey<TestClass> classKey = new DependencyKey<>(TypeToken.of(TestClass.class), null);
+    DependencyKey<TestInterface> interfaceKey = new DependencyKey<>(TypeToken.of(TestInterface.class), null);
+
+    dependencyMap.put(classKey, value);
+    dependencyMap.assertDoesNotContainAny(Arrays.<DependencyKey>asList(interfaceKey, classKey));
   }
 }

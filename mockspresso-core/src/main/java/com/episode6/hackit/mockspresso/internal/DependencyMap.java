@@ -4,6 +4,7 @@ import com.episode6.hackit.mockspresso.exception.RepeatedDependencyDefinedExcept
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 
 import javax.annotation.Nullable;
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -35,5 +36,13 @@ public class DependencyMap {
 
   public boolean containsKey(DependencyKey key) {
     return mDependencies.containsKey(key) || (mParentMap != null && mParentMap.containsKey(key));
+  }
+
+  public void assertDoesNotContainAny(Collection<DependencyKey> newKeys) {
+    for (DependencyKey key : newKeys) {
+      if (containsKey(key)) {
+        throw new RepeatedDependencyDefinedException(key);
+      }
+    }
   }
 }
