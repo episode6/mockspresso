@@ -21,6 +21,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   private final List<Object> mObjectsWithFields = new LinkedList<>();
   private final DependencyMap mDependencyMap = new DependencyMap();
   private final SpecialObjectMakerContainer mSpecialObjectMakers = new SpecialObjectMakerContainer();
+  private final RealObjectMapping mRealObjectMapping = new RealObjectMapping();
 
   private @Nullable MockerConfig mMockerConfig = null;
   private @Nullable InjectionConfig mInjectionConfig = null;
@@ -28,6 +29,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   public void setParent(MockspressoConfigContainer parentConfig) {
     mDependencyMap.setParentMap(parentConfig.getDependencyMap());
     mSpecialObjectMakers.setParentMaker(parentConfig.getSpecialObjectMaker());
+    mRealObjectMapping.setParentMap(parentConfig.getRealObjectMapping());
     if (mMockerConfig == null) {
       mMockerConfig = parentConfig.getMockerConfig();
     }
@@ -143,7 +145,8 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
         mMockerConfig,
         mInjectionConfig,
         mDependencyMap,
-        mSpecialObjectMakers);
+        mSpecialObjectMakers,
+        mRealObjectMapping);
     return new MockspressoImpl(configContainer, dependencyProvider, realObjectMaker);
   }
 }
