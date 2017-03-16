@@ -20,7 +20,7 @@ public class CircularDependencyTestEasyMock {
       .plugin(EasyMockPlugin.getInstance())
       .buildRule();
 
-  @Test(expected = CircularDependencyError.class)
+  @Test //(expected = CircularDependencyError.class)
   public void checkForCircularDependencyError() {
     TestObject testObject = new TestObject();
     mockspresso.buildUpon()
