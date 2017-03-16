@@ -52,7 +52,7 @@ public class DependencyMapImporterTest {
 
   @Test
   public void testImportingRealObjects() {
-    mImporter.annotatedFields(this, RealObject.class);
+    mImporter.importAnnotatedFields(this, RealObject.class);
 
     verify(mDependencyMap).put(key1, testObj1);
     verify(mDependencyMap).put(key2, testObj2);
@@ -62,7 +62,7 @@ public class DependencyMapImporterTest {
 
   @Test
   public void testImportingMocks() {
-    mImporter.annotatedFields(this, Mock.class);
+    mImporter.importAnnotatedFields(this, Mock.class);
 
     verify(mDependencyMap).put(key5, testObj5);
     verify(mDependencyMap).put(key6, testObj6);
@@ -72,7 +72,7 @@ public class DependencyMapImporterTest {
 
   @Test
   public void testImportBothMocksAndRealObjects() {
-    mImporter.annotatedFields(this, Arrays.asList(Mock.class, RealObject.class));
+    mImporter.importAnnotatedFields(this, Arrays.asList(Mock.class, RealObject.class));
 
     verify(mDependencyMap).put(key1, testObj1);
     verify(mDependencyMap).put(key2, testObj2);
@@ -93,7 +93,7 @@ public class DependencyMapImporterTest {
     DependencyKey<SuperclassTestObject.SuperClassInnerClass> superClassInnerClassKey = new DependencyKey<>(TypeToken.of(SuperclassTestObject.SuperClassInnerClass.class), null);
 
     MockitoAnnotations.initMocks(testObject);
-    mImporter.annotatedFields(testObject, Arrays.asList(RealObject.class, Mock.class));
+    mImporter.importAnnotatedFields(testObject, Arrays.asList(RealObject.class, Mock.class));
 
     verify(mDependencyMap).put(key1, "subclass");
     verify(mDependencyMap).put(key2, "superclass");
