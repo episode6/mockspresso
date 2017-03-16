@@ -151,9 +151,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
     // prepare mObjectsWithFields
     RealObjectFieldTracker realObjectFieldTracker = new RealObjectFieldTracker(
-        realObjectMaker,
-        mDependencyMap,
-        dependencyProvider);
+        mRealObjectMapping);
     DependencyMapImporter mDependencyMapImporter = new DependencyMapImporter(mDependencyMap);
     MockerConfig.FieldPreparer mockFieldPreparer = mMockerConfig.provideFieldPreparer();
     List<Class<? extends Annotation>> mockAnnotations = mMockerConfig.provideMockAnnotations();
@@ -169,8 +167,11 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
       realObjectFieldTracker.scanNullRealObjectFields(o);
     }
 
-    // build missing real objects, and assign them
-    realObjectFieldTracker.createAndAssignTrackedRealObjects();
+    // since we haven't built any real objects yet, assert that we haven't
+    // accidentally mapped a mock or other dependency to any of our RealObject keys
+    mDependencyMap.assertDoesNotContainAny(realObjectFieldTracker.keySet());
+
+    // TODO: build missing real objects, and assign them
 
     MockspressoConfigContainer configContainer = new MockspressoConfigContainer(
         mMockerConfig,

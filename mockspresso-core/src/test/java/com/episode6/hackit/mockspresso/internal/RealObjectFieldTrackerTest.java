@@ -3,7 +3,6 @@ package com.episode6.hackit.mockspresso.internal;
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.annotation.TestQualifierAnnotation;
-import com.episode6.hackit.mockspresso.api.DependencyProvider;
 import com.episode6.hackit.mockspresso.exception.RealObjectMappingMismatchException;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
@@ -12,15 +11,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
-
-import javax.inject.Provider;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 /**
  * Tests {@link RealObjectFieldTracker}
@@ -29,11 +23,8 @@ import static org.mockito.Mockito.*;
 public class RealObjectFieldTrackerTest {
   private static final DependencyKey<TestRunnable> testRunnableKey = new DependencyKey<>(TypeToken.of(TestRunnable.class), null);
   private static final DependencyKey<Runnable> runnableKey = new DependencyKey<>(TypeToken.of(Runnable.class), null);
-  private static final DependencyKey<TestProvider> testProviderKey = new DependencyKey<>(TypeToken.of(TestProvider.class), null);
 
-  @Mock RealObjectMaker mRealObjectMaker;
-  @Mock DependencyMap mDependencyMap;
-  @Mock DependencyProvider mDependencyProvider;
+  @Mock RealObjectMapping mRealObjectMapping;
 
   private RealObjectFieldTracker mRealObjectFieldTracker;
 
@@ -41,48 +32,54 @@ public class RealObjectFieldTrackerTest {
   public void setup() {
     MockitoAnnotations.initMocks(this);
 
-    mRealObjectFieldTracker = new RealObjectFieldTracker(
-        mRealObjectMaker,
-        mDependencyMap,
-        mDependencyProvider);
+    mRealObjectFieldTracker = new RealObjectFieldTracker(mRealObjectMapping);
   }
 
   @Test
-  public void testCreateAndApply() {
+  public void testBasicScanning() {
     TestClass1 testObject = new TestClass1();
-    TestRunnable expectedObj = new TestRunnable();
-    when(mRealObjectMaker.createObject(any(DependencyProvider.class), eq(testRunnableKey.typeToken)))
-        .thenReturn(expectedObj);
 
     mRealObjectFieldTracker.scanNullRealObjectFields(testObject);
-    mRealObjectFieldTracker.createAndAssignTrackedRealObjects();
 
-    verify(mRealObjectMaker).createObject(any(DependencyProvider.class), eq(testRunnableKey.typeToken));
-    verify(mDependencyMap).put(runnableKey, expectedObj);
-    verifyNoMoreInteractions(mRealObjectMaker, mDependencyMap, mDependencyProvider);
+    verify(mRealObjectMapping).put(runnableKey, testRunnableKey.typeToken, true);
+    verify(mRealObjectMapping).put(testRunnableKey, testRunnableKey.typeToken, true);
+    verifyNoMoreInteractions(mRealObjectMapping);
 
-    assertThat(testObject.mRealRunnable).isEqualTo(expectedObj);
+    assertThat(mRealObjectFieldTracker.keySet()).containsOnly(runnableKey, testRunnableKey);
+  }
+
+  @Test
+  public void testScanThenSet() {
+    TestClass1 testObject = new TestClass1();
+    TestRunnable valueForRunnableKey = new TestRunnable();
+    TestRunnable valueForTestRunnableKey = new TestRunnable();
+
+    mRealObjectFieldTracker.scanNullRealObjectFields(testObject);
+    mRealObjectFieldTracker.applyValueToFields(runnableKey, valueForRunnableKey);
+    mRealObjectFieldTracker.applyValueToFields(testRunnableKey, valueForTestRunnableKey);
+
+    assertThat(testObject.mRealRunnableWithImpl)
+        .isNotNull()
+        .isEqualTo(valueForRunnableKey);
+    assertThat(testObject.mRealTestRunnable)
+        .isNotNull()
+        .isEqualTo(valueForTestRunnableKey);
   }
 
   @Test
   public void testSameObjectMappedTwice() {
     TestClass1 testObject1 = new TestClass1();
     TestClass2 testObject2 = new TestClass2();
-    TestRunnable expectedObj = new TestRunnable();
-    when(mRealObjectMaker.createObject(any(DependencyProvider.class), eq(testRunnableKey.typeToken)))
-        .thenReturn(expectedObj);
+    TestRunnable valueForRunnableKey = new TestRunnable();
 
     mRealObjectFieldTracker.scanNullRealObjectFields(testObject1);
     mRealObjectFieldTracker.scanNullRealObjectFields(testObject2);
-    mRealObjectFieldTracker.createAndAssignTrackedRealObjects();
+    mRealObjectFieldTracker.applyValueToFields(runnableKey, valueForRunnableKey);
 
-    verify(mRealObjectMaker).createObject(any(DependencyProvider.class), eq(testRunnableKey.typeToken));
-    verify(mDependencyMap).put(runnableKey, expectedObj);
-    verifyNoMoreInteractions(mRealObjectMaker, mDependencyMap, mDependencyProvider);
-
-    assertThat(testObject1.mRealRunnable)
-        .isEqualTo(testObject2.mRealRunnable)
-        .isEqualTo(expectedObj);
+    assertThat(testObject1.mRealRunnableWithImpl)
+        .isNotNull()
+        .isEqualTo(testObject2.mRealRunnableWithImpl)
+        .isEqualTo(valueForRunnableKey);
   }
 
   @Test(expected = RealObjectMappingMismatchException.class)
@@ -92,66 +89,17 @@ public class RealObjectFieldTrackerTest {
 
     mRealObjectFieldTracker.scanNullRealObjectFields(testObject1);
     mRealObjectFieldTracker.scanNullRealObjectFields(testObject2);
-    mRealObjectFieldTracker.createAndAssignTrackedRealObjects();
-  }
-
-  @Test
-  public void testDependencyProvider() {
-    TestClassDependencies testObject1 = new TestClassDependencies();
-    TestClass2 testObject2 = new TestClass2();
-    TestRunnable expectedRunnable = new TestRunnable();
-    when(mRealObjectMaker.createObject(any(DependencyProvider.class), eq(testRunnableKey.typeToken)))
-        .thenReturn(expectedRunnable);
-    doAnswer(new Answer() {
-      @Override
-      public Object answer(InvocationOnMock invocation) throws Throwable {
-        // when we put the Runnable in the dependency map, setup the dependencyProvider to return it
-        // this is a functionality that we depend on.
-        Runnable value = invocation.getArgument(1);
-        when(mDependencyProvider.get(runnableKey)).thenReturn(value);
-        return null;
-      }
-    }).when(mDependencyMap).put(eq(runnableKey), any(Runnable.class));
-    when(mRealObjectMaker.createObject(any(DependencyProvider.class), eq(testProviderKey.typeToken)))
-        .thenAnswer(new Answer<TestProvider>() {
-          @Override
-          public TestProvider answer(InvocationOnMock invocation) throws Throwable {
-            // this is how we'd expect the real object maker to act. TestProvider has a dependency on
-            // Runnable, so the dependency provider should be queried, and the result used to create the object
-            DependencyProvider dependencyProvider = invocation.getArgument(0);
-            Runnable runnable = dependencyProvider.get(runnableKey);
-            return new TestProvider(runnable);
-          }
-        });
-
-    mRealObjectFieldTracker.scanNullRealObjectFields(testObject1);
-    mRealObjectFieldTracker.scanNullRealObjectFields(testObject2);
-    mRealObjectFieldTracker.createAndAssignTrackedRealObjects();
-
-    verify(mRealObjectMaker).createObject(any(DependencyProvider.class), eq(testProviderKey.typeToken));
-    verify(mRealObjectMaker).createObject(any(DependencyProvider.class), eq(testRunnableKey.typeToken));
-    verify(mDependencyMap).put(runnableKey, expectedRunnable);
-    verify(mDependencyProvider).get(runnableKey);
-    verify(mDependencyMap).put(eq(testProviderKey), any(TestProvider.class));
-    verifyNoMoreInteractions(mRealObjectMaker, mDependencyMap, mDependencyProvider);
-
-    assertThat(testObject1.mTestProvider.get())
-        .isEqualTo(testObject2.mRealRunnable)
-        .isEqualTo(expectedRunnable);
   }
 
   public static class TestClass1 {
     @RealObject String mPresetString = "teststring"; // ignored because it's non-null
-    @RealObject(implementation = TestRunnable.class) Runnable mRealRunnable;
+    @RealObject(implementation = TestRunnable.class) Runnable mRealRunnableWithImpl;
+    @RealObject TestRunnable mRealTestRunnable;
     @TestQualifierAnnotation TestRunnable unboundRunnable; // ignored because it has no @RealObject annotation
   }
 
   public static class TestClass2 {
-    @RealObject(implementation = TestRunnable.class) Runnable mRealRunnable;
-  }
-
-  public static class TestClassDependencies {
-    @RealObject TestProvider mTestProvider;
+    @RealObject(implementation = TestRunnable.class) Runnable mRealRunnableWithImpl;
   }
 
   public static class TestClassMisMatch {
@@ -162,20 +110,6 @@ public class RealObjectFieldTrackerTest {
     @Override
     public void run() {
 
-    }
-  }
-
-  public static class TestProvider implements Provider<Runnable> {
-
-    private final Runnable mRunnable;
-
-    public TestProvider(Runnable runnable) {
-      mRunnable = runnable;
-    }
-
-    @Override
-    public Runnable get() {
-      return mRunnable;
     }
   }
 }
