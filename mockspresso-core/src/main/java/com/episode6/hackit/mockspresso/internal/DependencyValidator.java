@@ -27,18 +27,37 @@ public class DependencyValidator {
   }
 
   public DependencyValidator child(DependencyKey key) {
-    validate(key);
+    validateUp(key);
     DependencyValidator newChild = new DependencyValidator(this, key);
     mChildren.add(newChild);
     return newChild;
   }
 
-  private void validate(DependencyKey otherKey) {
+  public void append(@Nullable DependencyValidator childDependencyValidator) {
+    if (childDependencyValidator == null) {
+      return;
+    }
+
+    if (!childDependencyValidator.mKey.equals(mKey)) {
+      throw new RuntimeException(
+          String.format(
+              "DependencyValidator append mismatch, tried to append %s to %s",
+              childDependencyValidator.mKey,
+              mKey));
+    }
+
+    // TODO: this could be faster since the existing validator has already been validated
+    for (DependencyValidator otherChildValidator : childDependencyValidator.mChildren) {
+      child(otherChildValidator.mKey).append(otherChildValidator);
+    }
+  }
+
+  private void validateUp(DependencyKey otherKey) {
     if (mKey.equals(otherKey)) {
       throw new CircularDependencyError();
     }
     if (mParent != null) {
-      mParent.validate(otherKey);
+      mParent.validateUp(otherKey);
     }
   }
 }

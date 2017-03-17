@@ -2,7 +2,10 @@ package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.api.*;
+import com.episode6.hackit.mockspresso.api.InjectionConfig;
+import com.episode6.hackit.mockspresso.api.MockerConfig;
+import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
+import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import com.episode6.hackit.mockspresso.internal.delayed.MockspressoRuleImpl;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
@@ -89,7 +92,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   @Override
   public <T> Mockspresso.Builder dependency(TypeToken<T> typeToken, Annotation annotation, T value) {
-    mDependencyMap.put(new DependencyKey<T>(typeToken, annotation), value);
+    mDependencyMap.put(new DependencyKey<T>(typeToken, annotation), value, null);
     return this;
   }
 

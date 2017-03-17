@@ -20,7 +20,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 /**
- *
+ * Tests {@link DependencyProviderFactory}
  */
 @RunWith(DefaultTestRunner.class)
 public class DependencyProviderFactoryTest {
@@ -49,14 +49,14 @@ public class DependencyProviderFactoryTest {
   @Test
   public void testDependencyMapHasKey() {
     when(mDependencyMap.containsKey(mKey)).thenReturn(true);
-    when(mDependencyMap.get(mKey)).thenReturn("hello");
+    when(mDependencyMap.get(eq(mKey), any(DependencyValidator.class))).thenReturn("hello");
 
     String result = mDependencyProvider.get(mKey);
 
     assertThat(result).isEqualTo("hello");
     InOrder inOrder = Mockito.inOrder(mMockMaker, mDependencyMap, mSpecialObjectMaker, mRealObjectMapping, mRealObjectMaker);
     inOrder.verify(mDependencyMap).containsKey(mKey);
-    inOrder.verify(mDependencyMap).get(mKey);
+    inOrder.verify(mDependencyMap).get(eq(mKey), any(DependencyValidator.class));
     inOrder.verifyNoMoreInteractions();
   }
 
@@ -76,7 +76,7 @@ public class DependencyProviderFactoryTest {
     inOrder.verify(mRealObjectMapping).getImplementation(mKey);
     inOrder.verify(mRealObjectMaker).createObject(any(DependencyProvider.class), eq(mKey.typeToken));
     inOrder.verify(mRealObjectMapping).shouldMapDependency(mKey);
-    inOrder.verify(mDependencyMap).put(mKey, "hello");
+    inOrder.verify(mDependencyMap).put(eq(mKey), eq("hello"), any(DependencyValidator.class));
     inOrder.verifyNoMoreInteractions();
   }
 

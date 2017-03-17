@@ -59,13 +59,13 @@ public class DependencyProviderFactory {
       DependencyProvider childProvider = new DependencyProviderImpl(childValidator);
 
       if (mDependencyMap.containsKey(key)) {
-        return mDependencyMap.get(key);
+        return mDependencyMap.get(key, childValidator);
       }
       if (mRealObjectMapping.containsKey(key)) {
         TypeToken<? extends T> implementationToken = mRealObjectMapping.getImplementation(key);
         T obj = mRealObjectMaker.createObject(childProvider, implementationToken);
         if (mRealObjectMapping.shouldMapDependency(key)) {
-          mDependencyMap.put(key, obj);
+          mDependencyMap.put(key, obj, childValidator);
         }
         return obj;
       }

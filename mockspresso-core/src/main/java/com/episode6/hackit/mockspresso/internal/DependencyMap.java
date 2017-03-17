@@ -12,26 +12,31 @@ import java.util.HashMap;
  */
 public class DependencyMap {
   private @Nullable DependencyMap mParentMap = null;
-  private final HashMap<DependencyKey, Object> mDependencies = new HashMap<>();
+  private final HashMap<DependencyKey, InstanceContainer> mDependencies = new HashMap<>();
 
   public void setParentMap(DependencyMap parentMap) {
     mParentMap = parentMap;
   }
 
   @SuppressWarnings("unchecked")
-  public <T, V extends T> void put(DependencyKey<T> key, V value) {
+  public <T, V extends T> void put(
+      DependencyKey<T> key,
+      V value,
+      @Nullable DependencyValidator dependencyValidator) {
     if (mDependencies.containsKey(key)) {
       throw new RepeatedDependencyDefinedException(key);
     }
-    mDependencies.put(key, value);
+    mDependencies.put(key, new InstanceContainer(value, dependencyValidator));
   }
 
   @SuppressWarnings("unchecked")
-  public @Nullable <T> T get(DependencyKey<T> key) {
+  public @Nullable <T> T get(DependencyKey<T> key, DependencyValidator dependencyValidator) {
     if (mDependencies.containsKey(key)) {
-      return (T) mDependencies.get(key);
+      InstanceContainer container = mDependencies.get(key);
+      dependencyValidator.append(container.dependencyValidator);
+      return (T) container.object;
     }
-    return mParentMap == null ? null : mParentMap.get(key);
+    return mParentMap == null ? null : mParentMap.get(key, dependencyValidator);
   }
 
   public boolean containsKey(DependencyKey key) {
@@ -43,6 +48,16 @@ public class DependencyMap {
       if (containsKey(key)) {
         throw new RepeatedDependencyDefinedException(key);
       }
+    }
+  }
+
+  private static class InstanceContainer {
+    private final Object object;
+    private final DependencyValidator dependencyValidator;
+
+    InstanceContainer(Object object, DependencyValidator dependencyValidator) {
+      this.object = object;
+      this.dependencyValidator = dependencyValidator;
     }
   }
 }

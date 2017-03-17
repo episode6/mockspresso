@@ -37,9 +37,34 @@ public class CircularDependencyTestMockito {
         .create(CircularDependencies.C.class);
   }
 
+  @Test(expected = CircularDependencyError.class)
+  public void checkForCircularDependencyErrorFieldsProvider() {
+    TestObjectProviders testObject = new TestObjectProviders();
+    mockspresso.buildUpon()
+        .fieldsFrom(testObject)
+        .build();
+    testObject.mA.mB.get().mC.get().mA.get();
+  }
+
+  @Test(expected = CircularDependencyError.class)
+  public void checkForCircularDependencyErrorDynamicProvider() {
+    CircularDependencies.CProvider c = mockspresso.buildUpon()
+        .useRealObject(CircularDependencies.AProvider.class)
+        .useRealObject(CircularDependencies.BProvider.class)
+        .build()
+        .create(CircularDependencies.CProvider.class);
+    c.mA.get().mB.get().mC.get();
+  }
+
   private static class TestObject {
     @RealObject CircularDependencies.A mA;
     @RealObject CircularDependencies.B mB;
     @RealObject CircularDependencies.C mC;
+  }
+
+  private static class TestObjectProviders {
+    @RealObject CircularDependencies.AProvider mA;
+    @RealObject CircularDependencies.BProvider mB;
+    @RealObject CircularDependencies.CProvider mC;
   }
 }

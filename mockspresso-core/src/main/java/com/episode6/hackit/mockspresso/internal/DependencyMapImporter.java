@@ -35,7 +35,7 @@ public class DependencyMapImporter {
         Object fieldValue = field.get(importFrom);
         if (fieldValue != null) {
           DependencyKey key = DependencyKey.fromField(field);
-          mDependencyMap.put(key, fieldValue);
+          mDependencyMap.put(key, fieldValue, null);
         }
       }
     } catch (IllegalAccessException e) {

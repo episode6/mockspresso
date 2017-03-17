@@ -54,9 +54,9 @@ public class DependencyMapImporterTest {
   public void testImportingRealObjects() {
     mImporter.importAnnotatedFields(this, RealObject.class);
 
-    verify(mDependencyMap).put(key1, testObj1);
-    verify(mDependencyMap).put(key2, testObj2);
-    verify(mDependencyMap).put(key3, testObj3);
+    verify(mDependencyMap).put(key1, testObj1, null);
+    verify(mDependencyMap).put(key2, testObj2, null);
+    verify(mDependencyMap).put(key3, testObj3, null);
     verifyNoMoreInteractions(mDependencyMap);
   }
 
@@ -64,9 +64,9 @@ public class DependencyMapImporterTest {
   public void testImportingMocks() {
     mImporter.importAnnotatedFields(this, Mock.class);
 
-    verify(mDependencyMap).put(key5, testObj5);
-    verify(mDependencyMap).put(key6, testObj6);
-    verify(mDependencyMap).put(key7, testObj7);
+    verify(mDependencyMap).put(key5, testObj5, null);
+    verify(mDependencyMap).put(key6, testObj6, null);
+    verify(mDependencyMap).put(key7, testObj7, null);
     verifyNoMoreInteractions(mDependencyMap);
   }
 
@@ -74,13 +74,13 @@ public class DependencyMapImporterTest {
   public void testImportBothMocksAndRealObjects() {
     mImporter.importAnnotatedFields(this, Arrays.asList(Mock.class, RealObject.class));
 
-    verify(mDependencyMap).put(key1, testObj1);
-    verify(mDependencyMap).put(key2, testObj2);
-    verify(mDependencyMap).put(key3, testObj3);
+    verify(mDependencyMap).put(key1, testObj1, null);
+    verify(mDependencyMap).put(key2, testObj2, null);
+    verify(mDependencyMap).put(key3, testObj3, null);
     // skip 4 because it's null
-    verify(mDependencyMap).put(key5, testObj5);
-    verify(mDependencyMap).put(key6, testObj6);
-    verify(mDependencyMap).put(key7, testObj7);
+    verify(mDependencyMap).put(key5, testObj5, null);
+    verify(mDependencyMap).put(key6, testObj6, null);
+    verify(mDependencyMap).put(key7, testObj7, null);
     verifyNoMoreInteractions(mDependencyMap);
   }
 
@@ -95,10 +95,16 @@ public class DependencyMapImporterTest {
     MockitoAnnotations.initMocks(testObject);
     mImporter.importAnnotatedFields(testObject, Arrays.asList(RealObject.class, Mock.class));
 
-    verify(mDependencyMap).put(key1, "subclass");
-    verify(mDependencyMap).put(key2, "superclass");
-    verify(mDependencyMap).put(eq(subClassInnerClassKey), any(SubclassTestObject.SubClassInnerClass.class));
-    verify(mDependencyMap).put(eq(superClassInnerClassKey), any(SuperclassTestObject.SuperClassInnerClass.class));
+    verify(mDependencyMap).put(key1, "subclass", null);
+    verify(mDependencyMap).put(key2, "superclass", null);
+    verify(mDependencyMap).put(
+        eq(subClassInnerClassKey),
+        any(SubclassTestObject.SubClassInnerClass.class),
+        nullable(DependencyValidator.class));
+    verify(mDependencyMap).put(
+        eq(superClassInnerClassKey),
+        any(SuperclassTestObject.SuperClassInnerClass.class),
+        nullable(DependencyValidator.class));
     verifyNoMoreInteractions(mDependencyMap);
   }
 
