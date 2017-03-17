@@ -2,6 +2,7 @@ package com.episode6.hackit.mockspresso.integration.mockito;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
+import com.episode6.hackit.mockspresso.exception.CircularDependencyError;
 import com.episode6.hackit.mockspresso.integration.testobjects.CircularDependencies;
 import com.episode6.hackit.mockspresso.mockito.MockitoPlugin;
 import org.junit.Rule;
@@ -19,13 +20,21 @@ public class CircularDependencyTestMockito {
       .plugin(MockitoPlugin.getInstance())
       .buildRule();
 
-  // TODO: should be our own error here, don't want to rely on stack overflows
-  @Test(expected = StackOverflowError.class)
-  public void checkForCircularDependencyError() {
+  @Test(expected = CircularDependencyError.class)
+  public void checkForCircularDependencyErrorFields() {
     TestObject testObject = new TestObject();
     mockspresso.buildUpon()
         .fieldsFrom(testObject)
         .build();
+  }
+
+  @Test(expected = CircularDependencyError.class)
+  public void checkForCircularDependencyErrorDynamic() {
+    CircularDependencies.C c = mockspresso.buildUpon()
+        .useRealObject(CircularDependencies.A.class)
+        .useRealObject(CircularDependencies.B.class)
+        .build()
+        .create(CircularDependencies.C.class);
   }
 
   private static class TestObject {

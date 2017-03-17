@@ -15,13 +15,15 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 /**
  *
  */
 @RunWith(DefaultTestRunner.class)
-public class DependencyProviderImplTest {
+public class DependencyProviderFactoryTest {
 
   DependencyKey<String> mKey = new DependencyKey<>(TypeToken.of(String.class), null);
 
@@ -36,12 +38,12 @@ public class DependencyProviderImplTest {
   @Before
   public void setup() {
     MockitoAnnotations.initMocks(this);
-    mDependencyProvider = new DependencyProviderImpl(
+    mDependencyProvider = new DependencyProviderFactory(
         mMockMaker,
         mDependencyMap,
         mSpecialObjectMaker,
         mRealObjectMapping,
-        mRealObjectMaker);
+        mRealObjectMaker).getBlankDependencyProvider();
   }
 
   @Test
@@ -63,7 +65,7 @@ public class DependencyProviderImplTest {
     when(mRealObjectMapping.containsKey(mKey)).thenReturn(true);
     when(mRealObjectMapping.getImplementation(mKey)).thenReturn(mKey.typeToken);
     when(mRealObjectMapping.shouldMapDependency(mKey)).thenReturn(true);
-    when(mRealObjectMaker.createObject(mDependencyProvider, mKey.typeToken)).thenReturn("hello");
+    when(mRealObjectMaker.createObject(any(DependencyProvider.class), eq(mKey.typeToken))).thenReturn("hello");
 
     String result = mDependencyProvider.get(mKey);
 
@@ -72,7 +74,7 @@ public class DependencyProviderImplTest {
     inOrder.verify(mDependencyMap).containsKey(mKey);
     inOrder.verify(mRealObjectMapping).containsKey(mKey);
     inOrder.verify(mRealObjectMapping).getImplementation(mKey);
-    inOrder.verify(mRealObjectMaker).createObject(mDependencyProvider, mKey.typeToken);
+    inOrder.verify(mRealObjectMaker).createObject(any(DependencyProvider.class), eq(mKey.typeToken));
     inOrder.verify(mRealObjectMapping).shouldMapDependency(mKey);
     inOrder.verify(mDependencyMap).put(mKey, "hello");
     inOrder.verifyNoMoreInteractions();
@@ -83,7 +85,7 @@ public class DependencyProviderImplTest {
     when(mRealObjectMapping.containsKey(mKey)).thenReturn(true);
     when(mRealObjectMapping.getImplementation(mKey)).thenReturn(mKey.typeToken);
     when(mRealObjectMapping.shouldMapDependency(mKey)).thenReturn(false);
-    when(mRealObjectMaker.createObject(mDependencyProvider, mKey.typeToken)).thenReturn("hello");
+    when(mRealObjectMaker.createObject(any(DependencyProvider.class), eq(mKey.typeToken))).thenReturn("hello");
 
     String result = mDependencyProvider.get(mKey);
 
@@ -92,7 +94,7 @@ public class DependencyProviderImplTest {
     inOrder.verify(mDependencyMap).containsKey(mKey);
     inOrder.verify(mRealObjectMapping).containsKey(mKey);
     inOrder.verify(mRealObjectMapping).getImplementation(mKey);
-    inOrder.verify(mRealObjectMaker).createObject(mDependencyProvider, mKey.typeToken);
+    inOrder.verify(mRealObjectMaker).createObject(any(DependencyProvider.class), eq(mKey.typeToken));
     inOrder.verify(mRealObjectMapping).shouldMapDependency(mKey);
     inOrder.verifyNoMoreInteractions();
   }
@@ -100,7 +102,7 @@ public class DependencyProviderImplTest {
   @Test
   public void testSpecialObjectSupportKey() {
     when(mSpecialObjectMaker.canMakeObject(mKey)).thenReturn(true);
-    when(mSpecialObjectMaker.makeObject(mDependencyProvider, mKey)).thenReturn("testing");
+    when(mSpecialObjectMaker.makeObject(any(DependencyProvider.class), eq(mKey))).thenReturn("testing");
 
     String result = mDependencyProvider.get(mKey);
 
@@ -109,7 +111,7 @@ public class DependencyProviderImplTest {
     inOrder.verify(mDependencyMap).containsKey(mKey);
     inOrder.verify(mRealObjectMapping).containsKey(mKey);
     inOrder.verify(mSpecialObjectMaker).canMakeObject(mKey);
-    inOrder.verify(mSpecialObjectMaker).makeObject(mDependencyProvider, mKey);
+    inOrder.verify(mSpecialObjectMaker).makeObject(any(DependencyProvider.class), eq(mKey));
     inOrder.verifyNoMoreInteractions();
   }
 

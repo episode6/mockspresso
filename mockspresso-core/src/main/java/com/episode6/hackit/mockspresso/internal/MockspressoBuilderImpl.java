@@ -144,7 +144,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
         mInjectionConfig.provideConstructorSelector(),
         mInjectionConfig.provideInjectableFieldAnnotations(),
         mInjectionConfig.provideInjectableMethodAnnotations());
-    DependencyProvider dependencyProvider = new DependencyProviderImpl(
+    DependencyProviderFactory dependencyProviderFactory = new DependencyProviderFactory(
         mMockerConfig.provideMockMaker(),
         mDependencyMap,
         mSpecialObjectMakers,
@@ -176,7 +176,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     // fetch real object values from the dependencyProvider (now that they've been mapped)
     // and apply them to the fields found in realObjectFieldTracker
     for (DependencyKey key : realObjectFieldTracker.keySet()) {
-      realObjectFieldTracker.applyValueToFields(key, dependencyProvider.get(key));
+      realObjectFieldTracker.applyValueToFields(key, dependencyProviderFactory.getBlankDependencyProvider().get(key));
     }
 
     MockspressoConfigContainer configContainer = new MockspressoConfigContainer(
@@ -185,6 +185,6 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
         mDependencyMap,
         mSpecialObjectMakers,
         mRealObjectMapping);
-    return new MockspressoImpl(configContainer, dependencyProvider, realObjectMaker);
+    return new MockspressoImpl(configContainer, dependencyProviderFactory, realObjectMaker);
   }
 }
