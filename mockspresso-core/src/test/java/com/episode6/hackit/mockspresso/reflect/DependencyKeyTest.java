@@ -4,9 +4,6 @@ import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.annotation.TestQualifierAnnotation;
 import com.episode6.hackit.mockspresso.exception.MultipleQualifierAnnotationException;
-import com.episode6.hackit.mockspresso.reflect.DependencyKey;
-import com.episode6.hackit.mockspresso.reflect.NamedAnnotationLiteral;
-import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -58,11 +55,11 @@ public class DependencyKeyTest {
   @Test
   public void testCustomKeyEquality() {
     DependencyKey key1 = DependencyKey.fromField(prop("testProp1"));
-    DependencyKey customKey1 = new DependencyKey<>(
-        TypeToken.of(Integer.class),
+    DependencyKey customKey1 = DependencyKey.of(
+        Integer.class,
         new NamedAnnotationLiteral("test1"));
     DependencyKey key2 = DependencyKey.fromField(prop("testProp2"));
-    DependencyKey customKey2 = new DependencyKey<>(
+    DependencyKey customKey2 = DependencyKey.of(
         new TypeToken<HashMap<String, Provider<Integer>>>() {},
         new NamedAnnotationLiteral());
 

@@ -3,7 +3,10 @@ package com.episode6.hackit.mockspresso.internal;
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.annotation.TestQualifierAnnotation;
-import com.episode6.hackit.mockspresso.reflect.*;
+import com.episode6.hackit.mockspresso.reflect.AnnotationLiteral;
+import com.episode6.hackit.mockspresso.reflect.AnnotationLiteralTest;
+import com.episode6.hackit.mockspresso.reflect.DependencyKey;
+import com.episode6.hackit.mockspresso.reflect.NamedAnnotationLiteral;
 import com.episode6.hackit.mockspresso.testobject.SubclassTestObject;
 import com.episode6.hackit.mockspresso.testobject.SuperclassTestObject;
 import org.junit.Before;
@@ -24,13 +27,13 @@ import static org.mockito.Mockito.*;
 public class DependencyMapImporterTest {
   public static class TestQualifierAnnotationLiteral extends AnnotationLiteral<TestQualifierAnnotation> implements TestQualifierAnnotation {}
 
-  DependencyKey<String> key1 = new DependencyKey<>(TypeToken.of(String.class), null);
-  DependencyKey<String> key2 = new DependencyKey<>(TypeToken.of(String.class), new TestQualifierAnnotationLiteral());
-  DependencyKey<String> key3 = new DependencyKey<>(TypeToken.of(String.class), new NamedAnnotationLiteral("somename"));
-  DependencyKey<String> key4 = new DependencyKey<>(TypeToken.of(String.class), new NamedAnnotationLiteral("diffname"));
-  DependencyKey<TestObject> key5 = new DependencyKey<>(TypeToken.of(TestObject.class), null);
-  DependencyKey<TestObject> key6 = new DependencyKey<>(TypeToken.of(TestObject.class), new AnnotationLiteralTest.TestQualifierAnnotationLiteral());
-  DependencyKey<TestObject> key7 = new DependencyKey<>(TypeToken.of(TestObject.class), new NamedAnnotationLiteral("somename"));
+  DependencyKey<String> key1 = DependencyKey.of(String.class);
+  DependencyKey<String> key2 = DependencyKey.of(String.class, new TestQualifierAnnotationLiteral());
+  DependencyKey<String> key3 = DependencyKey.of(String.class, new NamedAnnotationLiteral("somename"));
+  DependencyKey<String> key4 = DependencyKey.of(String.class, new NamedAnnotationLiteral("diffname"));
+  DependencyKey<TestObject> key5 = DependencyKey.of(TestObject.class, null);
+  DependencyKey<TestObject> key6 = DependencyKey.of(TestObject.class, new AnnotationLiteralTest.TestQualifierAnnotationLiteral());
+  DependencyKey<TestObject> key7 = DependencyKey.of(TestObject.class, new NamedAnnotationLiteral("somename"));
 
   @RealObject String testObj1 = "sup fool";
   @RealObject @TestQualifierAnnotation String testObj2 = "yoo";
@@ -89,8 +92,10 @@ public class DependencyMapImporterTest {
   @Test
   public void testImportFromSubAndSuperClasses() {
     SubclassTestObject testObject = new SubclassTestObject();
-    DependencyKey<SubclassTestObject.SubClassInnerClass> subClassInnerClassKey = new DependencyKey<>(TypeToken.of(SubclassTestObject.SubClassInnerClass.class), null);
-    DependencyKey<SuperclassTestObject.SuperClassInnerClass> superClassInnerClassKey = new DependencyKey<>(TypeToken.of(SuperclassTestObject.SuperClassInnerClass.class), null);
+    DependencyKey<SubclassTestObject.SubClassInnerClass> subClassInnerClassKey =
+        DependencyKey.of(SubclassTestObject.SubClassInnerClass.class);
+    DependencyKey<SuperclassTestObject.SuperClassInnerClass> superClassInnerClassKey =
+        DependencyKey.of(SuperclassTestObject.SuperClassInnerClass.class);
 
     MockitoAnnotations.initMocks(testObject);
     mImporter.importAnnotatedFields(testObject, Arrays.asList(RealObject.class, Mock.class));

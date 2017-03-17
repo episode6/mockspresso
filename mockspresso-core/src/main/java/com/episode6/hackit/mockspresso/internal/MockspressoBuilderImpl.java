@@ -92,7 +92,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   @Override
   public <T> Mockspresso.Builder dependency(TypeToken<T> typeToken, Annotation annotation, T value) {
-    mDependencyMap.put(new DependencyKey<T>(typeToken, annotation), value, null);
+    mDependencyMap.put(DependencyKey.of(typeToken, annotation), value, null);
     return this;
   }
 
@@ -123,7 +123,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   @Override
   public <T> Mockspresso.Builder useRealObject(TypeToken<T> keyToken, Annotation keyAnnotation, TypeToken<? extends T> implementationToken) {
-    mRealObjectMapping.put(new DependencyKey<T>(keyToken, keyAnnotation), implementationToken, false);
+    mRealObjectMapping.put(DependencyKey.of(keyToken, keyAnnotation), implementationToken, false);
     return this;
   }
 

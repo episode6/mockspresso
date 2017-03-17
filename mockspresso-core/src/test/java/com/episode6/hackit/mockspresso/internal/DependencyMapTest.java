@@ -2,7 +2,6 @@ package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.exception.RepeatedDependencyDefinedException;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
-import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -38,7 +37,7 @@ public class DependencyMapTest {
   public void testSimplePutAndGet() {
     DependencyMap dependencyMap = new DependencyMap();
     TestClass value = new TestClass();
-    DependencyKey<TestClass> key = new DependencyKey<>(TypeToken.of(TestClass.class), null);
+    DependencyKey<TestClass> key = DependencyKey.of(TestClass.class);
 
     dependencyMap.put(key, value, mPutValidator);
     TestClass output = dependencyMap.get(key, mGetValidator);
@@ -51,7 +50,7 @@ public class DependencyMapTest {
   public void testPutImplGetInterface() {
     DependencyMap dependencyMap = new DependencyMap();
     TestClass value = new TestClass();
-    DependencyKey<TestInterface> key = new DependencyKey<>(TypeToken.of(TestInterface.class), null);
+    DependencyKey<TestInterface> key = DependencyKey.of(TestInterface.class);
 
     dependencyMap.put(key, value, mPutValidator);
     TestInterface output = dependencyMap.get(key, mGetValidator);
@@ -66,7 +65,7 @@ public class DependencyMapTest {
   public void testParentCalledWhenDepMissing() {
     DependencyMap dependencyMap = new DependencyMap();
     dependencyMap.setParentMap(mMockDependencyMap);
-    DependencyKey<TestInterface> key = new DependencyKey<>(TypeToken.of(TestInterface.class), null);
+    DependencyKey<TestInterface> key = DependencyKey.of(TestInterface.class);
 
     dependencyMap.containsKey(key);
     dependencyMap.get(key, mGetValidator);
@@ -79,7 +78,7 @@ public class DependencyMapTest {
   public void testParentNotCalledWhenDepExists() {
     DependencyMap dependencyMap = new DependencyMap();
     dependencyMap.setParentMap(mMockDependencyMap);
-    DependencyKey<TestInterface> key = new DependencyKey<>(TypeToken.of(TestInterface.class), null);
+    DependencyKey<TestInterface> key = DependencyKey.of(TestInterface.class);
     TestClass value = new TestClass();
     dependencyMap.put(key, value, mPutValidator);
 
@@ -94,7 +93,7 @@ public class DependencyMapTest {
   @Test(expected = RepeatedDependencyDefinedException.class)
   public void testCantOverwrite() {
     DependencyMap dependencyMap = new DependencyMap();
-    DependencyKey<TestClass> key = new DependencyKey<>(TypeToken.of(TestClass.class), null);
+    DependencyKey<TestClass> key = DependencyKey.of(TestClass.class);
     TestClass value1 = new TestClass();
     TestClass value2 = new TestClass();
 
@@ -107,7 +106,7 @@ public class DependencyMapTest {
     DependencyMap parentMap = new DependencyMap();
     DependencyMap dependencyMap = new DependencyMap();
     dependencyMap.setParentMap(parentMap);
-    DependencyKey<TestClass> key = new DependencyKey<>(TypeToken.of(TestClass.class), null);
+    DependencyKey<TestClass> key = DependencyKey.of(TestClass.class);
     TestClass value1 = new TestClass();
     TestClass value2 = new TestClass();
 
@@ -125,8 +124,8 @@ public class DependencyMapTest {
   public void testAssertDoesNotContainAnyPasses() {
     DependencyMap dependencyMap = new DependencyMap();
     TestClass value = new TestClass();
-    DependencyKey<TestClass> classKey = new DependencyKey<>(TypeToken.of(TestClass.class), null);
-    DependencyKey<TestInterface> interfaceKey = new DependencyKey<>(TypeToken.of(TestInterface.class), null);
+    DependencyKey<TestClass> classKey = DependencyKey.of(TestClass.class);
+    DependencyKey<TestInterface> interfaceKey = DependencyKey.of(TestInterface.class);
 
     dependencyMap.put(classKey, value, mPutValidator);
     dependencyMap.assertDoesNotContainAny(Collections.<DependencyKey>singleton(interfaceKey));
@@ -136,8 +135,8 @@ public class DependencyMapTest {
   public void testAssertDoesNotContainAnyFails() {
     DependencyMap dependencyMap = new DependencyMap();
     TestClass value = new TestClass();
-    DependencyKey<TestClass> classKey = new DependencyKey<>(TypeToken.of(TestClass.class), null);
-    DependencyKey<TestInterface> interfaceKey = new DependencyKey<>(TypeToken.of(TestInterface.class), null);
+    DependencyKey<TestClass> classKey = DependencyKey.of(TestClass.class);
+    DependencyKey<TestInterface> interfaceKey = DependencyKey.of(TestInterface.class);
 
     dependencyMap.put(classKey, value, mPutValidator);
     dependencyMap.assertDoesNotContainAny(Arrays.<DependencyKey>asList(interfaceKey, classKey));

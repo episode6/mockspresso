@@ -21,12 +21,9 @@ import static org.mockito.Mockito.*;
 @RunWith(DefaultTestRunner.class)
 public class ProviderMakerTest {
 
-  private static final DependencyKey<TestClass> testClassKey = new DependencyKey<>(
-      TypeToken.of(TestClass.class),
-      null);
-  private static final DependencyKey<Provider<TestClass>> testClassProviderKey = new DependencyKey<>(
-      new TypeToken<Provider<TestClass>>() {},
-      null);
+  private static final DependencyKey<TestClass> testClassKey = DependencyKey.of(TestClass.class);
+  private static final DependencyKey<Provider<TestClass>> testClassProviderKey =
+      DependencyKey.of(new TypeToken<Provider<TestClass>>() {});
 
   @Mock DependencyProvider mDependencyProvider;
 

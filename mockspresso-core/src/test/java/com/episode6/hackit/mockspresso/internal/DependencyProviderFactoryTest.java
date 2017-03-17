@@ -5,7 +5,6 @@ import com.episode6.hackit.mockspresso.api.DependencyProvider;
 import com.episode6.hackit.mockspresso.api.MockerConfig;
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
-import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +24,7 @@ import static org.mockito.Mockito.when;
 @RunWith(DefaultTestRunner.class)
 public class DependencyProviderFactoryTest {
 
-  DependencyKey<String> mKey = new DependencyKey<>(TypeToken.of(String.class), null);
+  DependencyKey<String> mKey = DependencyKey.of(String.class);
 
   @Mock MockerConfig.MockMaker mMockMaker;
   @Mock DependencyMap mDependencyMap;

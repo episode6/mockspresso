@@ -5,7 +5,6 @@ import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.annotation.TestQualifierAnnotation;
 import com.episode6.hackit.mockspresso.exception.RealObjectMappingMismatchException;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
-import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,8 +20,8 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
  */
 @RunWith(DefaultTestRunner.class)
 public class RealObjectFieldTrackerTest {
-  private static final DependencyKey<TestRunnable> testRunnableKey = new DependencyKey<>(TypeToken.of(TestRunnable.class), null);
-  private static final DependencyKey<Runnable> runnableKey = new DependencyKey<>(TypeToken.of(Runnable.class), null);
+  private static final DependencyKey<TestRunnable> testRunnableKey = DependencyKey.of(TestRunnable.class);
+  private static final DependencyKey<Runnable> runnableKey = DependencyKey.of(Runnable.class);
 
   @Mock RealObjectMapping mRealObjectMapping;
 

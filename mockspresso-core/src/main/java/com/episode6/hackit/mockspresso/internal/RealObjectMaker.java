@@ -75,7 +75,7 @@ public class RealObjectMaker  {
     @Nullable Annotation qualifierAnnotation = ReflectUtil.findQualifierAnnotation(
         paramAnnotations,
         String.format("%s, Param (%s)", description, paramToken));
-    DependencyKey<?> paramKey = new DependencyKey<>(paramToken, qualifierAnnotation);
+    DependencyKey<?> paramKey = DependencyKey.of(paramToken, qualifierAnnotation);
     return dependencyProvider.get(paramKey);
   }
 

@@ -27,7 +27,6 @@ import java.util.List;
 import static com.episode6.hackit.mockspresso.Conditions.mockitoMock;
 import static com.episode6.hackit.mockspresso.Conditions.rawClass;
 import static org.fest.assertions.api.Assertions.assertThat;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -38,8 +37,8 @@ import static org.mockito.Mockito.*;
 @RunWith(DefaultTestRunner.class)
 public class RealObjectMakerTest {
 
-  static final DependencyKey<Runnable> runnableKey = new DependencyKey<>(TypeToken.of(Runnable.class), null);
-  static final DependencyKey<Provider<Runnable>> runnableProviderKey = new DependencyKey<>(
+  static final DependencyKey<Runnable> runnableKey = DependencyKey.of(Runnable.class);
+  static final DependencyKey<Provider<Runnable>> runnableProviderKey = DependencyKey.of(
       new TypeToken<Provider<Runnable>>() {},
       new NamedAnnotationLiteral("testprovider"));
 

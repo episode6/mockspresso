@@ -29,8 +29,8 @@ public class RealObjectMappingTest {
   private static final TypeToken<TestInterface> testInterfaceTypeToken = TypeToken.of(TestInterface.class);
   private static final TypeToken<TestClass> testClassTypeToken = TypeToken.of(TestClass.class);
   private static final TypeToken<TestClass2> testClass2TypeToken = TypeToken.of(TestClass2.class);
-  private static final DependencyKey<TestInterface> testInterfaceDependencyKey = new DependencyKey<>(testInterfaceTypeToken, null);
-  private static final DependencyKey<TestClass> testClassDependencyKey = new DependencyKey<>(testClassTypeToken, null);
+  private static final DependencyKey<TestInterface> testInterfaceDependencyKey = DependencyKey.of(testInterfaceTypeToken);
+  private static final DependencyKey<TestClass> testClassDependencyKey = DependencyKey.of(testClassTypeToken);
 
   @Mock RealObjectMapping mParentMap;
 

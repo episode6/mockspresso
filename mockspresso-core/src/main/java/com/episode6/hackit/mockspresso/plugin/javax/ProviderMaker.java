@@ -36,7 +36,7 @@ public class ProviderMaker implements SpecialObjectMaker {
     }
 
     Type paramType = ((ParameterizedType)key.typeToken.getType()).getActualTypeArguments()[0];
-    DependencyKey<?> subKey = new DependencyKey<>(TypeToken.of(paramType), key.identityAnnotation);
+    DependencyKey<?> subKey = DependencyKey.of(TypeToken.of(paramType), key.identityAnnotation);
     return (T) new DependencyInstanceProvider(dependencyProvider, subKey);
   }
 

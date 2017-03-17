@@ -9,6 +9,22 @@ import java.lang.reflect.Field;
  */
 public final class DependencyKey<V> {
 
+  public static <T> DependencyKey<T> of(Class<T> clazz) {
+    return of(TypeToken.of(clazz));
+  }
+
+  public static <T> DependencyKey<T> of(TypeToken<T> typeToken) {
+    return new DependencyKey<T>(typeToken, null);
+  }
+
+  public static <T> DependencyKey<T> of(Class<T> clazz, Annotation identityAnnotation) {
+    return of(TypeToken.of(clazz), identityAnnotation);
+  }
+
+  public static <T> DependencyKey<T> of(TypeToken<T> typeToken, Annotation identityAnnotation) {
+    return new DependencyKey<T>(typeToken, identityAnnotation);
+  }
+
   public static DependencyKey<?> fromField(Field field) {
     return new DependencyKey<>(TypeToken.of(field), ReflectUtil.findQualifierAnnotation(field));
   }
@@ -16,7 +32,7 @@ public final class DependencyKey<V> {
   public final TypeToken<V> typeToken;
   public final @Nullable Annotation identityAnnotation;
 
-  public DependencyKey(TypeToken<V> typeToken, @Nullable Annotation identityAnnotation) {
+  private DependencyKey(TypeToken<V> typeToken, @Nullable Annotation identityAnnotation) {
     this.typeToken = typeToken;
     this.identityAnnotation = identityAnnotation;
   }

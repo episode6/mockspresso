@@ -31,7 +31,7 @@ public class MockspressoImpl implements Mockspresso, MockspressoInternal {
   @Override
   public <T> T create(TypeToken<T> typeToken) {
     DependencyProvider dependencyProvider = mDependencyProviderFactory.getDependencyProviderFor(
-        new DependencyKey(typeToken, null));
+        DependencyKey.of(typeToken));
     return mRealObjectMaker.createObject(
         dependencyProvider,
         typeToken);
