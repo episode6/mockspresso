@@ -2,7 +2,10 @@ package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.api.*;
+import com.episode6.hackit.mockspresso.api.InjectionConfig;
+import com.episode6.hackit.mockspresso.api.MockerConfig;
+import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
+import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import com.episode6.hackit.mockspresso.internal.delayed.MockspressoRuleImpl;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
@@ -21,6 +24,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   private final List<Object> mObjectsWithFields = new LinkedList<>();
   private final DependencyMap mDependencyMap = new DependencyMap();
   private final SpecialObjectMakerContainer mSpecialObjectMakers = new SpecialObjectMakerContainer();
+  private final RealObjectMapping mRealObjectMapping = new RealObjectMapping();
 
   private @Nullable MockerConfig mMockerConfig = null;
   private @Nullable InjectionConfig mInjectionConfig = null;
@@ -28,6 +32,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   public void setParent(MockspressoConfigContainer parentConfig) {
     mDependencyMap.setParentMap(parentConfig.getDependencyMap());
     mSpecialObjectMakers.setParentMaker(parentConfig.getSpecialObjectMaker());
+    mRealObjectMapping.setParentMap(parentConfig.getRealObjectMapping());
     if (mMockerConfig == null) {
       mMockerConfig = parentConfig.getMockerConfig();
     }
@@ -87,7 +92,38 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   @Override
   public <T> Mockspresso.Builder dependency(TypeToken<T> typeToken, Annotation annotation, T value) {
-    mDependencyMap.put(new DependencyKey<T>(typeToken, annotation), value);
+    mDependencyMap.put(new DependencyKey<T>(typeToken, annotation), value, null);
+    return this;
+  }
+
+  @Override
+  public <T> Mockspresso.Builder useRealObject(Class<T> objectClass) {
+    return useRealObject(TypeToken.of(objectClass));
+  }
+
+  @Override
+  public <T> Mockspresso.Builder useRealObject(TypeToken<T> objectToken) {
+    return useRealObject(objectToken, null, objectToken);
+  }
+
+  @Override
+  public <T> Mockspresso.Builder useRealObject(Class<T> keyClass, Class<? extends T> implementationClass) {
+    return useRealObject(TypeToken.of(keyClass), null, TypeToken.of(implementationClass));
+  }
+
+  @Override
+  public <T> Mockspresso.Builder useRealObject(Class<T> keyClass, Annotation keyAnnotation, Class<? extends T> implementationClass) {
+    return useRealObject(TypeToken.of(keyClass), keyAnnotation, TypeToken.of(implementationClass));
+  }
+
+  @Override
+  public <T> Mockspresso.Builder useRealObject(TypeToken<T> keyToken, TypeToken<? extends T> implementationToken) {
+    return useRealObject(keyToken, null, implementationToken);
+  }
+
+  @Override
+  public <T> Mockspresso.Builder useRealObject(TypeToken<T> keyToken, Annotation keyAnnotation, TypeToken<? extends T> implementationToken) {
+    mRealObjectMapping.put(new DependencyKey<T>(keyToken, keyAnnotation), implementationToken, false);
     return this;
   }
 
@@ -111,16 +147,17 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
         mInjectionConfig.provideConstructorSelector(),
         mInjectionConfig.provideInjectableFieldAnnotations(),
         mInjectionConfig.provideInjectableMethodAnnotations());
-    DependencyProvider dependencyProvider = new DependencyProviderImpl(
+    DependencyProviderFactory dependencyProviderFactory = new DependencyProviderFactory(
         mMockerConfig.provideMockMaker(),
         mDependencyMap,
-        mSpecialObjectMakers);
+        mSpecialObjectMakers,
+        mRealObjectMapping,
+        realObjectMaker);
 
     // prepare mObjectsWithFields
     RealObjectFieldTracker realObjectFieldTracker = new RealObjectFieldTracker(
-        realObjectMaker,
-        mDependencyMap,
-        dependencyProvider);
+        mRealObjectMapping);
+    DependencyMapImporter mDependencyMapImporter = new DependencyMapImporter(mDependencyMap);
     MockerConfig.FieldPreparer mockFieldPreparer = mMockerConfig.provideFieldPreparer();
     List<Class<? extends Annotation>> mockAnnotations = mMockerConfig.provideMockAnnotations();
     for (Object o : mObjectsWithFields) {
@@ -128,22 +165,29 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
       mockFieldPreparer.prepareFields(o);
 
       // import mocks and non-null real objects into dependency map
-      mDependencyMap.importFrom()
-          .annotatedFields(o, mockAnnotations)
-          .annotatedFields(o, RealObject.class);
+      mDependencyMapImporter.importAnnotatedFields(o, mockAnnotations);
+      mDependencyMapImporter.importAnnotatedFields(o, RealObject.class);
 
       // track down any @RealObjects that are null
       realObjectFieldTracker.scanNullRealObjectFields(o);
     }
 
-    // build missing real objects, and assign them
-    realObjectFieldTracker.createAndAssignTrackedRealObjects();
+    // since we haven't built any real objects yet, assert that we haven't
+    // accidentally mapped a mock or other dependency to any of our RealObject keys
+    mDependencyMap.assertDoesNotContainAny(realObjectFieldTracker.keySet());
+
+    // fetch real object values from the dependencyProvider (now that they've been mapped)
+    // and apply them to the fields found in realObjectFieldTracker
+    for (DependencyKey key : realObjectFieldTracker.keySet()) {
+      realObjectFieldTracker.applyValueToFields(key, dependencyProviderFactory.getBlankDependencyProvider().get(key));
+    }
 
     MockspressoConfigContainer configContainer = new MockspressoConfigContainer(
         mMockerConfig,
         mInjectionConfig,
         mDependencyMap,
-        mSpecialObjectMakers);
-    return new MockspressoImpl(configContainer, dependencyProvider, realObjectMaker);
+        mSpecialObjectMakers,
+        mRealObjectMapping);
+    return new MockspressoImpl(configContainer, dependencyProviderFactory, realObjectMaker);
   }
 }

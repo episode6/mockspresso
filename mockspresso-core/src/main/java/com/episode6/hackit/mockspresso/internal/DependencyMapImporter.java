@@ -19,12 +19,12 @@ public class DependencyMapImporter {
     mDependencyMap = dependencyMap;
   }
 
-  public DependencyMapImporter annotatedFields(Object importFrom, Class<? extends Annotation> annotation) {
-    return annotatedFields(importFrom, Collections.<Class<? extends Annotation>>singletonList(annotation));
+  public void importAnnotatedFields(Object importFrom, Class<? extends Annotation> annotation) {
+    importAnnotatedFields(importFrom, Collections.<Class<? extends Annotation>>singletonList(annotation));
   }
 
   @SuppressWarnings("unchecked")
-  public DependencyMapImporter annotatedFields(Object importFrom, List<Class<? extends Annotation>> annotations) {
+  public void importAnnotatedFields(Object importFrom, List<Class<? extends Annotation>> annotations) {
     try {
       for (Field field : ReflectUtil.getAllDeclaredFields(importFrom.getClass())) {
         if (!ReflectUtil.isAnyAnnotationPresent(field, annotations)) {
@@ -35,12 +35,11 @@ public class DependencyMapImporter {
         Object fieldValue = field.get(importFrom);
         if (fieldValue != null) {
           DependencyKey key = DependencyKey.fromField(field);
-          mDependencyMap.put(key, fieldValue);
+          mDependencyMap.put(key, fieldValue, null);
         }
       }
     } catch (IllegalAccessException e) {
       throw new RuntimeException(e);
     }
-    return this;
   }
 }

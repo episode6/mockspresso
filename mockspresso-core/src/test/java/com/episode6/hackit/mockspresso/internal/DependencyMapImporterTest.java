@@ -15,8 +15,7 @@ import org.mockito.MockitoAnnotations;
 import javax.inject.Named;
 import java.util.Arrays;
 
-import static com.episode6.hackit.mockspresso.Conditions.mockitoMock;
-import static org.fest.assertions.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 
 /**
  * Tests {@link DependencyMapImporter}
@@ -42,50 +41,47 @@ public class DependencyMapImporterTest {
   @Mock @Named("somename") TestObject testObj7;
 
   private DependencyMap mDependencyMap;
+  private DependencyMapImporter mImporter;
 
   @Before
   public void setup() {
     MockitoAnnotations.initMocks(this);
-    mDependencyMap = new DependencyMap();
+    mDependencyMap = mock(DependencyMap.class);
+    mImporter = new DependencyMapImporter(mDependencyMap);
   }
 
   @Test
   public void testImportingRealObjects() {
-    mDependencyMap.importFrom().annotatedFields(this, RealObject.class);
+    mImporter.importAnnotatedFields(this, RealObject.class);
 
-    assertThat(mDependencyMap.get(key1)).isEqualTo(testObj1);
-    assertThat(mDependencyMap.get(key2)).isEqualTo(testObj2);
-    assertThat(mDependencyMap.get(key3)).isEqualTo(testObj3);
-    assertThat(mDependencyMap.containsKey(key4)).isFalse();
-    assertThat(mDependencyMap.containsKey(key5)).isFalse();
-    assertThat(mDependencyMap.containsKey(key6)).isFalse();
-    assertThat(mDependencyMap.containsKey(key7)).isFalse();
+    verify(mDependencyMap).put(key1, testObj1, null);
+    verify(mDependencyMap).put(key2, testObj2, null);
+    verify(mDependencyMap).put(key3, testObj3, null);
+    verifyNoMoreInteractions(mDependencyMap);
   }
 
   @Test
   public void testImportingMocks() {
-    mDependencyMap.importFrom().annotatedFields(this, Mock.class);
+    mImporter.importAnnotatedFields(this, Mock.class);
 
-    assertThat(mDependencyMap.containsKey(key1)).isFalse();
-    assertThat(mDependencyMap.containsKey(key2)).isFalse();
-    assertThat(mDependencyMap.containsKey(key3)).isFalse();
-    assertThat(mDependencyMap.containsKey(key4)).isFalse();
-    assertThat(mDependencyMap.get(key5)).isEqualTo(testObj5);
-    assertThat(mDependencyMap.get(key6)).isEqualTo(testObj6);
-    assertThat(mDependencyMap.get(key7)).isEqualTo(testObj7);
+    verify(mDependencyMap).put(key5, testObj5, null);
+    verify(mDependencyMap).put(key6, testObj6, null);
+    verify(mDependencyMap).put(key7, testObj7, null);
+    verifyNoMoreInteractions(mDependencyMap);
   }
 
   @Test
   public void testImportBothMocksAndRealObjects() {
-    mDependencyMap.importFrom().annotatedFields(this, Arrays.asList(Mock.class, RealObject.class));
+    mImporter.importAnnotatedFields(this, Arrays.asList(Mock.class, RealObject.class));
 
-    assertThat(mDependencyMap.get(key1)).isEqualTo(testObj1);
-    assertThat(mDependencyMap.get(key2)).isEqualTo(testObj2);
-    assertThat(mDependencyMap.get(key3)).isEqualTo(testObj3);
-    assertThat(mDependencyMap.containsKey(key4)).isFalse();
-    assertThat(mDependencyMap.get(key5)).isEqualTo(testObj5);
-    assertThat(mDependencyMap.get(key6)).isEqualTo(testObj6);
-    assertThat(mDependencyMap.get(key7)).isEqualTo(testObj7);
+    verify(mDependencyMap).put(key1, testObj1, null);
+    verify(mDependencyMap).put(key2, testObj2, null);
+    verify(mDependencyMap).put(key3, testObj3, null);
+    // skip 4 because it's null
+    verify(mDependencyMap).put(key5, testObj5, null);
+    verify(mDependencyMap).put(key6, testObj6, null);
+    verify(mDependencyMap).put(key7, testObj7, null);
+    verifyNoMoreInteractions(mDependencyMap);
   }
 
   // TODO: part of this test relies on mockito's functionality to handle all declared fields from super-classes
@@ -97,16 +93,19 @@ public class DependencyMapImporterTest {
     DependencyKey<SuperclassTestObject.SuperClassInnerClass> superClassInnerClassKey = new DependencyKey<>(TypeToken.of(SuperclassTestObject.SuperClassInnerClass.class), null);
 
     MockitoAnnotations.initMocks(testObject);
-    mDependencyMap.importFrom().annotatedFields(testObject, Arrays.asList(RealObject.class, Mock.class));
+    mImporter.importAnnotatedFields(testObject, Arrays.asList(RealObject.class, Mock.class));
 
-    assertThat(mDependencyMap.get(key1)).isEqualTo("subclass");
-    assertThat(mDependencyMap.get(key2)).isEqualTo("superclass");
-    assertThat(mDependencyMap.get(subClassInnerClassKey))
-        .isNotNull()
-        .is(mockitoMock());
-    assertThat(mDependencyMap.get(superClassInnerClassKey))
-        .isNotNull()
-        .is(mockitoMock());
+    verify(mDependencyMap).put(key1, "subclass", null);
+    verify(mDependencyMap).put(key2, "superclass", null);
+    verify(mDependencyMap).put(
+        eq(subClassInnerClassKey),
+        any(SubclassTestObject.SubClassInnerClass.class),
+        nullable(DependencyValidator.class));
+    verify(mDependencyMap).put(
+        eq(superClassInnerClassKey),
+        any(SuperclassTestObject.SuperClassInnerClass.class),
+        nullable(DependencyValidator.class));
+    verifyNoMoreInteractions(mDependencyMap);
   }
 
   public static class TestObject {}

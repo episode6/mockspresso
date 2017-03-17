@@ -2,6 +2,7 @@ package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.api.DependencyProvider;
+import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 
 /**
@@ -10,15 +11,15 @@ import com.episode6.hackit.mockspresso.reflect.TypeToken;
 public class MockspressoImpl implements Mockspresso, MockspressoInternal {
 
   private final MockspressoConfigContainer mMockspressoConfigContainer;
-  private final DependencyProvider mDependencyProvider;
+  private final DependencyProviderFactory mDependencyProviderFactory;
   private final RealObjectMaker mRealObjectMaker;
 
   MockspressoImpl(
       MockspressoConfigContainer mockspressoConfigContainer,
-      DependencyProvider dependencyProvider,
+      DependencyProviderFactory dependencyProviderFactory,
       RealObjectMaker realObjectMaker) {
     mMockspressoConfigContainer = mockspressoConfigContainer;
-    mDependencyProvider = dependencyProvider;
+    mDependencyProviderFactory = dependencyProviderFactory;
     mRealObjectMaker = realObjectMaker;
   }
 
@@ -29,7 +30,11 @@ public class MockspressoImpl implements Mockspresso, MockspressoInternal {
 
   @Override
   public <T> T create(TypeToken<T> typeToken) {
-    return mRealObjectMaker.createObject(mDependencyProvider, typeToken);
+    DependencyProvider dependencyProvider = mDependencyProviderFactory.getDependencyProviderFor(
+        new DependencyKey(typeToken, null));
+    return mRealObjectMaker.createObject(
+        dependencyProvider,
+        typeToken);
   }
 
   @Override
