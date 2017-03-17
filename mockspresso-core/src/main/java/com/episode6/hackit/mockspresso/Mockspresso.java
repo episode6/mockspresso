@@ -4,6 +4,7 @@ import com.episode6.hackit.mockspresso.api.InjectionConfig;
 import com.episode6.hackit.mockspresso.api.MockerConfig;
 import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
+import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.rules.MethodRule;
 
@@ -30,15 +31,12 @@ public interface Mockspresso {
 
     <T> Builder dependency(Class<T> clazz, T value);
     <T> Builder dependency(TypeToken<T> typeToken, T value);
-    <T> Builder dependency(Class<T> clazz, Annotation annotation, T value);
-    <T> Builder dependency(TypeToken<T> typeToken, Annotation annotation, T value);
+    <T> Builder dependency(DependencyKey<T> key, T value);
 
     <T> Builder useRealObject(Class<T> objectClass);
     <T> Builder useRealObject(TypeToken<T> objectToken);
-    <T> Builder useRealObject(Class<T> keyClass, Class<? extends T> implementationClass);
-    <T> Builder useRealObject(Class<T> keyClass, Annotation keyAnnotation, Class<? extends T> implementationClass);
-    <T> Builder useRealObject(TypeToken<T> keyToken, TypeToken<? extends T> implementationToken);
-    <T> Builder useRealObject(TypeToken<T> keyToken, Annotation keyAnnotation, TypeToken<? extends T> implementationToken);
+    <T> Builder useRealObject(DependencyKey<T> key, Class<? extends T> implementationClass);
+    <T> Builder useRealObject(DependencyKey<T> key, TypeToken<? extends T> implementationToken);
 
     Mockspresso build();
     Rule buildRule();

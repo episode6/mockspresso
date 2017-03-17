@@ -7,10 +7,10 @@ import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl;
 import com.episode6.hackit.mockspresso.internal.MockspressoConfigContainer;
+import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 
 import javax.annotation.Nullable;
-import java.lang.annotation.Annotation;
 import java.util.List;
 
 /**
@@ -84,14 +84,8 @@ public class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implem
   }
 
   @Override
-  public <T> Builder dependency(Class<T> clazz, Annotation annotation, T value) {
-    mBuilder.dependency(clazz, annotation, value);
-    return this;
-  }
-
-  @Override
-  public <T> Builder dependency(TypeToken<T> typeToken, Annotation annotation, T value) {
-    mBuilder.dependency(typeToken, annotation, value);
+  public <T> Builder dependency(DependencyKey<T> key, T value) {
+    mBuilder.dependency(key, value);
     return this;
   }
 
@@ -108,26 +102,14 @@ public class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implem
   }
 
   @Override
-  public <T> Builder useRealObject(Class<T> keyClass, Class<? extends T> implementationClass) {
-    mBuilder.useRealObject(keyClass, implementationClass);
+  public <T> Builder useRealObject(DependencyKey<T> key, Class<? extends T> implementationClass) {
+    mBuilder.useRealObject(key, implementationClass);
     return this;
   }
 
   @Override
-  public <T> Builder useRealObject(Class<T> keyClass, Annotation keyAnnotation, Class<? extends T> implementationClass) {
-    mBuilder.useRealObject(keyClass, keyAnnotation, implementationClass);
-    return this;
-  }
-
-  @Override
-  public <T> Builder useRealObject(TypeToken<T> keyToken, TypeToken<? extends T> implementationToken) {
-    mBuilder.useRealObject(keyToken, implementationToken);
-    return this;
-  }
-
-  @Override
-  public <T> Builder useRealObject(TypeToken<T> keyToken, Annotation keyAnnotation, TypeToken<? extends T> implementationToken) {
-    mBuilder.useRealObject(keyToken, keyAnnotation, implementationToken);
+  public <T> Builder useRealObject(DependencyKey<T> key, TypeToken<? extends T> implementationToken) {
+    mBuilder.useRealObject(key, implementationToken);
     return this;
   }
 

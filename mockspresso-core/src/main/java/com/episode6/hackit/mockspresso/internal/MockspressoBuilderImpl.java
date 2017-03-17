@@ -77,22 +77,17 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   @Override
   public <T> Mockspresso.Builder dependency(Class<T> clazz, T value) {
-    return dependency(TypeToken.of(clazz), null, value);
+    return dependency(DependencyKey.of(clazz), value);
   }
 
   @Override
   public <T> Mockspresso.Builder dependency(TypeToken<T> typeToken, T value) {
-    return dependency(typeToken, null, value);
+    return dependency(DependencyKey.of(typeToken), value);
   }
 
   @Override
-  public <T> Mockspresso.Builder dependency(Class<T> clazz, Annotation annotation, T value) {
-    return dependency(TypeToken.of(clazz), annotation, value);
-  }
-
-  @Override
-  public <T> Mockspresso.Builder dependency(TypeToken<T> typeToken, Annotation annotation, T value) {
-    mDependencyMap.put(DependencyKey.of(typeToken, annotation), value, null);
+  public <T> Mockspresso.Builder dependency(DependencyKey<T> key, T value) {
+    mDependencyMap.put(key, value, null);
     return this;
   }
 
@@ -103,27 +98,17 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   @Override
   public <T> Mockspresso.Builder useRealObject(TypeToken<T> objectToken) {
-    return useRealObject(objectToken, null, objectToken);
+    return useRealObject(DependencyKey.of(objectToken), objectToken);
   }
 
   @Override
-  public <T> Mockspresso.Builder useRealObject(Class<T> keyClass, Class<? extends T> implementationClass) {
-    return useRealObject(TypeToken.of(keyClass), null, TypeToken.of(implementationClass));
+  public <T> Mockspresso.Builder useRealObject(DependencyKey<T> key, Class<? extends T> implementationClass) {
+    return useRealObject(key, TypeToken.of(implementationClass));
   }
 
   @Override
-  public <T> Mockspresso.Builder useRealObject(Class<T> keyClass, Annotation keyAnnotation, Class<? extends T> implementationClass) {
-    return useRealObject(TypeToken.of(keyClass), keyAnnotation, TypeToken.of(implementationClass));
-  }
-
-  @Override
-  public <T> Mockspresso.Builder useRealObject(TypeToken<T> keyToken, TypeToken<? extends T> implementationToken) {
-    return useRealObject(keyToken, null, implementationToken);
-  }
-
-  @Override
-  public <T> Mockspresso.Builder useRealObject(TypeToken<T> keyToken, Annotation keyAnnotation, TypeToken<? extends T> implementationToken) {
-    mRealObjectMapping.put(DependencyKey.of(keyToken, keyAnnotation), implementationToken, false);
+  public <T> Mockspresso.Builder useRealObject(DependencyKey<T> key, TypeToken<? extends T> implementationToken) {
+    mRealObjectMapping.put(key, implementationToken, false);
     return this;
   }
 
