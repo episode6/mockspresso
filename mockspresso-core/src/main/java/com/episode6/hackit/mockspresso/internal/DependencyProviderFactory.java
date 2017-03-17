@@ -9,10 +9,17 @@ import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import javax.annotation.Nullable;
 
 /**
- * Implementation of dependency provider.
- * First checks the dependency map for an explicit dep
- * Second checks the special object maker(s) to see if key is supported
- * Third returns a mock
+ * Factory that spits out the actual {@link DependencyProvider}s which are instances
+ * of a non-static inner class. We do this so each instance of our {@link DependencyProvider}
+ * can own their own {@link DependencyValidator}, but we can keep that object completely
+ * shielded from the external api.
+ *
+ * The acutal {@link DependencyProvider} checks our properties in the following order
+ *
+ * 1) DependencyMap
+ * 2) RealObjectMapping / RealObjectMaker
+ * 3) SpecialObjectMaker
+ * 4) MockMaker
  */
 public class DependencyProviderFactory {
 
@@ -36,7 +43,7 @@ public class DependencyProviderFactory {
   }
 
   public DependencyProvider getDependencyProviderFor(DependencyKey topLevelKey) {
-    return new DependencyProviderImpl(DependencyValidator.validatorFor(topLevelKey));
+    return new DependencyProviderImpl(new DependencyValidator(topLevelKey));
   }
 
   public DependencyProvider getBlankDependencyProvider() {
@@ -53,9 +60,7 @@ public class DependencyProviderFactory {
 
     @Override
     public <T> T get(DependencyKey<T> key) {
-      DependencyValidator childValidator = mDependencyValidator == null ?
-          DependencyValidator.validatorFor(key) :
-          mDependencyValidator.child(key);
+      DependencyValidator childValidator = DependencyValidator.childOrNew(mDependencyValidator, key);
       DependencyProvider childProvider = new DependencyProviderImpl(childValidator);
 
       if (mDependencyMap.containsKey(key)) {

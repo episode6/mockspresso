@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class CircularDependencyError extends VerifyError {
 
-  public CircularDependencyError() {
-    super("Attempted to create circular dependency of @RealObjects: [TODO!]");
+  public CircularDependencyError(DependencyKey key) {
+    super("Attempted to create circular dependency of @RealObjects failed on: " + key.toString());
   }
 }
