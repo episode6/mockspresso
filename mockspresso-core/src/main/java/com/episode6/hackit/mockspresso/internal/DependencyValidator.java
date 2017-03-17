@@ -13,23 +13,26 @@ import java.util.Set;
 public class DependencyValidator {
 
   public static DependencyValidator validatorFor(DependencyKey key) {
-    return new DependencyValidator(null, key);
+    return new DependencyValidator(key);
   }
 
-  private final @Nullable DependencyValidator mParent;
+  private final Set<DependencyValidator> mParents;
   private final Set<DependencyValidator> mChildren;
   private final DependencyKey mKey;
 
-  private DependencyValidator(DependencyValidator parent, DependencyKey key) {
-    mParent = parent;
+  private DependencyValidator(DependencyKey key) {
     mKey = key;
+    mParents = new HashSet<>();
     mChildren = new HashSet<>();
   }
 
   public DependencyValidator child(DependencyKey key) {
-    validateUp(key);
-    DependencyValidator newChild = new DependencyValidator(this, key);
+    validatePotentialChild(key);
+    DependencyValidator newChild = new DependencyValidator(key);
+
+    newChild.mParents.add(this);
     mChildren.add(newChild);
+
     return newChild;
   }
 
@@ -46,18 +49,31 @@ public class DependencyValidator {
               mKey));
     }
 
-    // TODO: this could be faster since the existing validator has already been validated
     for (DependencyValidator otherChildValidator : childDependencyValidator.mChildren) {
-      child(otherChildValidator.mKey).append(otherChildValidator);
+      otherChildValidator.addParent(this);
     }
   }
 
-  private void validateUp(DependencyKey otherKey) {
-    if (mKey.equals(otherKey)) {
+  private void addParent(DependencyValidator newParent) {
+    validatePotentialParent(newParent);
+
+    mParents.add(newParent);
+    newParent.mChildren.add(this);
+  }
+
+  private void validatePotentialChild(DependencyKey potentialChildKey) {
+    if (mKey.equals(potentialChildKey)) {
       throw new CircularDependencyError();
     }
-    if (mParent != null) {
-      mParent.validateUp(otherKey);
+    for (DependencyValidator parent : mParents) {
+      parent.validatePotentialChild(potentialChildKey);
+    }
+  }
+
+  private void validatePotentialParent(DependencyValidator potentialParent) {
+    potentialParent.validatePotentialChild(mKey);
+    for (DependencyValidator child : mChildren) {
+      child.validatePotentialParent(potentialParent);
     }
   }
 }
