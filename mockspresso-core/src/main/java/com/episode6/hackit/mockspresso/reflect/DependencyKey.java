@@ -57,6 +57,11 @@ public final class DependencyKey<V> {
 
   @Override
   public String toString() {
-    return String.format("Type: %s, Annotation: %s", typeToken, identityAnnotation);
+    StringBuilder tsBuilder = new StringBuilder("DependencyKey{typeToken=")
+        .append(typeToken);
+    if (identityAnnotation != null) {
+      tsBuilder.append(", identityAnnotation=").append(identityAnnotation);
+    }
+    return tsBuilder.append("}").toString();
   }
 }
