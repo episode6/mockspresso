@@ -60,6 +60,16 @@ public class JavaxInjectionConfigTest {
     assertThat(constructor).isNull();
   }
 
+  @Test
+  public void testFindFallbackConstructorWhenNoneDeclared() {
+    Constructor<TestClassWithNoDefinedConstructors> constructor = mInjectionConfig.provideConstructorSelector()
+        .chooseConstructor(TypeToken.of(TestClassWithNoDefinedConstructors.class));
+
+    assertThat(constructor).isNotNull();
+    assertThat(constructor.isAnnotationPresent(Inject.class)).isFalse();
+    assertThat(constructor.getParameterCount()).isEqualTo(0);
+  }
+
   public static class TestClassWithMultipleConstructorsButOnlyOneInject {
 
     public TestClassWithMultipleConstructorsButOnlyOneInject() {}
@@ -86,4 +96,6 @@ public class JavaxInjectionConfigTest {
     public TestClassWithNoValidConstructor(Runnable runnable, String string) {}
     public TestClassWithNoValidConstructor(Runnable runnable, String string, Provider<String> stringProvider) {}
   }
+
+  public static class TestClassWithNoDefinedConstructors {}
 }
