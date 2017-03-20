@@ -92,22 +92,22 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   }
 
   @Override
-  public <T> Mockspresso.Builder useRealObject(Class<T> objectClass) {
-    return useRealObject(TypeToken.of(objectClass));
+  public <T> Mockspresso.Builder realObject(Class<T> objectClass) {
+    return realObject(TypeToken.of(objectClass));
   }
 
   @Override
-  public <T> Mockspresso.Builder useRealObject(TypeToken<T> objectToken) {
-    return useRealObject(DependencyKey.of(objectToken), objectToken);
+  public <T> Mockspresso.Builder realObject(TypeToken<T> objectToken) {
+    return realObject(DependencyKey.of(objectToken), objectToken);
   }
 
   @Override
-  public <T> Mockspresso.Builder useRealObject(DependencyKey<T> key, Class<? extends T> implementationClass) {
-    return useRealObject(key, TypeToken.of(implementationClass));
+  public <T> Mockspresso.Builder realObject(DependencyKey<T> key, Class<? extends T> implementationClass) {
+    return realObject(key, TypeToken.of(implementationClass));
   }
 
   @Override
-  public <T> Mockspresso.Builder useRealObject(DependencyKey<T> key, TypeToken<? extends T> implementationToken) {
+  public <T> Mockspresso.Builder realObject(DependencyKey<T> key, TypeToken<? extends T> implementationToken) {
     mRealObjectMapping.put(key, implementationToken, false);
     return this;
   }

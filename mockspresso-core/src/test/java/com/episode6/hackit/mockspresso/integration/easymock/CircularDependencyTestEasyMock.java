@@ -31,8 +31,8 @@ public class CircularDependencyTestEasyMock {
   @Test(expected = CircularDependencyError.class)
   public void checkForCircularDependencyErrorDynamic() {
     CircularDependencies.C c = mockspresso.buildUpon()
-        .useRealObject(CircularDependencies.A.class)
-        .useRealObject(CircularDependencies.B.class)
+        .realObject(CircularDependencies.A.class)
+        .realObject(CircularDependencies.B.class)
         .build()
         .create(CircularDependencies.C.class);
   }
@@ -49,8 +49,8 @@ public class CircularDependencyTestEasyMock {
   @Test(expected = CircularDependencyError.class)
   public void checkForCircularDependencyErrorDynamicProvider() {
     CircularDependencies.CProvider c = mockspresso.buildUpon()
-        .useRealObject(CircularDependencies.AProvider.class)
-        .useRealObject(CircularDependencies.BProvider.class)
+        .realObject(CircularDependencies.AProvider.class)
+        .realObject(CircularDependencies.BProvider.class)
         .build()
         .create(CircularDependencies.CProvider.class);
     c.mA.get().mB.get().mC.get();

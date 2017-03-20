@@ -33,10 +33,10 @@ public interface Mockspresso {
     <T> Builder dependency(TypeToken<T> typeToken, T value);
     <T> Builder dependency(DependencyKey<T> key, T value);
 
-    <T> Builder useRealObject(Class<T> objectClass);
-    <T> Builder useRealObject(TypeToken<T> objectToken);
-    <T> Builder useRealObject(DependencyKey<T> key, Class<? extends T> implementationClass);
-    <T> Builder useRealObject(DependencyKey<T> key, TypeToken<? extends T> implementationToken);
+    <T> Builder realObject(Class<T> objectClass);
+    <T> Builder realObject(TypeToken<T> objectToken);
+    <T> Builder realObject(DependencyKey<T> key, Class<? extends T> implementationClass);
+    <T> Builder realObject(DependencyKey<T> key, TypeToken<? extends T> implementationToken);
 
     Mockspresso build();
     Rule buildRule();
