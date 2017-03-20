@@ -20,7 +20,7 @@ import static org.easymock.EasyMock.*;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 /**
- * Mockspresso integration test / example
+ * Mockspresso integration test
  * Tests {@link CoffeeMakers} with EasyMock
  *
  * In this test, we mock all dependencies of the target classes we're testing.

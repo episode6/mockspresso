@@ -21,7 +21,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
- * Mockspresso integration test / example
+ * Mockspresso integration test
  * Tests {@link CoffeeMakers} with Mockito
  *
  * In this test, we mock all dependencies of the target classes we're testing.
