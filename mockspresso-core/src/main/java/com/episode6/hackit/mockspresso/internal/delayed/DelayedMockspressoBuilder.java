@@ -102,6 +102,12 @@ public class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implem
   }
 
   @Override
+  public <T> Builder realObject(DependencyKey<T> keyAndImplementation) {
+    mBuilder.realObject(keyAndImplementation);
+    return this;
+  }
+
+  @Override
   public <T> Builder realObject(DependencyKey<T> key, Class<? extends T> implementationClass) {
     mBuilder.realObject(key, implementationClass);
     return this;

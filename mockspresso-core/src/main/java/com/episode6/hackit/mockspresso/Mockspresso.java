@@ -35,6 +35,7 @@ public interface Mockspresso {
 
     <T> Builder realObject(Class<T> objectClass);
     <T> Builder realObject(TypeToken<T> objectToken);
+    <T> Builder realObject(DependencyKey<T> keyAndImplementation);
     <T> Builder realObject(DependencyKey<T> key, Class<? extends T> implementationClass);
     <T> Builder realObject(DependencyKey<T> key, TypeToken<? extends T> implementationToken);
 

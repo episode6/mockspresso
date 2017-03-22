@@ -98,7 +98,12 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   @Override
   public <T> Mockspresso.Builder realObject(TypeToken<T> objectToken) {
-    return realObject(DependencyKey.of(objectToken), objectToken);
+    return realObject(DependencyKey.of(objectToken));
+  }
+
+  @Override
+  public <T> Mockspresso.Builder realObject(DependencyKey<T> keyAndImplementation) {
+    return realObject(keyAndImplementation, keyAndImplementation.typeToken);
   }
 
   @Override
