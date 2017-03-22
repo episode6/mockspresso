@@ -13,6 +13,8 @@ public class MethodRules {
 
   /**
    * Wrap a {@link TestRule} in a {@link MethodRule} for compatibility.
+   * @param testRule The {@link TestRule} to wrap
+   * @return a {@link MethodRule} that will execute the provided testRule when applied
    */
   public static MethodRule wrapTestRule(TestRule testRule) {
     return new MethodRuleWrapper(testRule);

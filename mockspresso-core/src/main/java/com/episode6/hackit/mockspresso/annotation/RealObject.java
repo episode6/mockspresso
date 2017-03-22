@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 public @interface RealObject {
 
   /**
-   * Class to be used for implementation of this object.
+   * @return Class to be used for implementation of this object.
    */
   Class<?> implementation() default RealObject.class;
 }

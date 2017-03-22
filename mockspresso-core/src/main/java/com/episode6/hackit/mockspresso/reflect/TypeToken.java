@@ -122,14 +122,14 @@ public abstract class TypeToken<T> {
   }
 
   /**
-   * Gets the raw type.
+   * @return the raw type.
    */
   public Class<? super T> getRawType() {
     return rawType;
   }
 
   /**
-   * Gets underlying {@code Type} instance.
+   * @return the underlying {@code Type} instance.
    */
   public Type getType() {
     return type;
@@ -185,19 +185,29 @@ public abstract class TypeToken<T> {
   }
 
   /**
-   * Gets type token for the given {@code Type} instance.
+   * Gets type token for the given {@link Type} instance.
+   * @param type The {@link Type} we want to represent via a TypeToken
+   * @return The TypeToken representing the supplied {@link Type}
    */
   public static TypeToken<?> of(Type type) {
     return new SimpleTypeToken<Object>(type);
   }
 
   /**
-   * Gets type token for the given {@code Class} instance.
+   * Gets type token for the given {@link Class} instance.
+   * @param type The {@link Class} we want to represent via a TypeToken
+   * @param <T> The type of the class we want to represent.
+   * @return The TypeToken representing the supplied {@link Class}
    */
   public static <T> TypeToken<T> of(Class<T> type) {
     return new SimpleTypeToken<T>(type);
   }
 
+  /**
+   * Gets type token for the given {@link Field}.
+   * @param field The {@link Field} whose type we want to represent via a TypeToken
+   * @return The TypeToken representing the type of the supplied {@link Field}
+   */
   public static TypeToken<?> of(Field field) {
     return of(field.getGenericType());
   }
