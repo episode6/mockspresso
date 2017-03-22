@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'com.episode6.hackit.deployable.jar'
 apply plugin: 'com.episode6.hackit.gdmc'
 
 sourceCompatibility = 1.7
