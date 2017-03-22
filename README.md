@@ -121,5 +121,12 @@ In mockspresso, a `Plugin` is simple a class to package up multiple calls to a M
 - mockspresso-easymock
   - `EasyMockPlugin`: Applies the `EasyMockMockerConfig` to provide compatibility with easymock.
 
+### TODO
+Mockspresso is still in very early stages of development. The basics should all work, but we hope to implement the following functionality in future support modules (we have no timeline for any of this support and would welcome contributions).
+
+- Guava plugin: special object handling for things like Suppliers and Futures
+- Dagger1 plugin + ObjectGraph support: special object handling for Lazys and (powermock enabled) support for a working MockspressoObjectGraph
+- Dagger2 plugin + Component support: similar to dagger1 support, but for dagger2
+
 ## License
 MIT: https://github.com/episode6/mockspresso/blob/master/LICENSE
