@@ -106,7 +106,7 @@ public void testWithRealHeater() {
 ```
 
 ### Special Object Handling
-One of the things that make's mockspresso's dependency mapping stand out is its concept of "special objects." A special object is simply defined as an object type that should not be mocked by default. One can add `SpecialObjectMaker`s via the `Mockspresso.Builder.specialObjectMaker()` method (or via a plugin).
+A key feature of mockspresso's dependency mapping is its concept of "special objects." A special object is simply defined as an object type that should not be mocked by default. One can add `SpecialObjectMaker`s via the `Mockspresso.Builder.specialObjectMaker()` method (or via a plugin).
 
 For example, the built in `JavaxInjectMockspressoPlugin` includes a SpecialObjectMaker called `ProviderMaker` which handles the creation of `javax.inject.Provider<>`s. With this plugin, every-time mockspresso encounters a dependency for a Provider, it will return a real Provider, that in turn fetches its true dependency when `get()` is called. Basically it means, if your real object depends on `Provider<Foo>`, you only need to `@Mock Foo mFoo`, and the mapping will be handled for you.
 
