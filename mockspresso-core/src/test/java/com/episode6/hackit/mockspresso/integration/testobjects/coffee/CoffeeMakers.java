@@ -40,6 +40,10 @@ public class CoffeeMakers {
     public Coffee brew() {
       return brewInternal(mPump, mHeater, mCoffeeGrounds);
     }
+
+    public Heater getHeater() {
+      return mHeater;
+    }
   }
 
   /**

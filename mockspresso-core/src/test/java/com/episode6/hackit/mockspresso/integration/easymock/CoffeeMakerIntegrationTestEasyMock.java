@@ -11,6 +11,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import javax.inject.Named;
+
 import static com.episode6.hackit.mockspresso.Conditions.rawClass;
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -33,6 +35,10 @@ public class CoffeeMakerIntegrationTestEasyMock {
   private final Mockspresso injectionMockspresso = simpleMockspresso.buildUpon()
       .plugin(JavaxInjectMockspressoPlugin.getInstance())
       .build();
+
+  @RealObject @Named("heater_name") final String heaterName = "NamedHeaterExample";
+  @RealObject @Named("heater_number") final int heaterNumber = 12;
+  @RealObject @Named("heater_numbers") final int[] heaterNumbers = new int[] {13, 17, 22};
 
   @RealObject(implementation = CoffeeMakerComponents.RealCoffeeGrounds.class) CoffeeGrounds mCoffeeGrounds;
 
@@ -82,6 +88,54 @@ public class CoffeeMakerIntegrationTestEasyMock {
 
     Coffee coffee = coffeeMaker.brew();
 
+    assertCoffeeIsAsExpected(coffee);
+  }
+
+  @Test
+  public void testNamedHeaterRealObjectMapping() {
+    CoffeeMakers.SimpleCoffeeMaker coffeeMaker = simpleMockspresso.buildUpon()
+        .realObject(DependencyKey.of(Heater.class), CoffeeMakerComponents.NamedHeater.class)
+        .build()
+        .create(CoffeeMakers.SimpleCoffeeMaker.class);
+
+    Coffee coffee = coffeeMaker.brew();
+
+    assertThat(coffeeMaker.getHeater())
+        .is(rawClass(CoffeeMakerComponents.NamedHeater.class));
+    assertThat(((CoffeeMakerComponents.NamedHeater)coffeeMaker.getHeater()).getName())
+        .isEqualTo("NamedHeaterExample");
+    assertCoffeeIsAsExpected(coffee);
+  }
+
+  @Test
+  public void testNumberedHeaterRealObjectMapping() {
+    CoffeeMakers.SimpleCoffeeMaker coffeeMaker = simpleMockspresso.buildUpon()
+        .realObject(DependencyKey.of(Heater.class), CoffeeMakerComponents.NumberedHeater.class)
+        .build()
+        .create(CoffeeMakers.SimpleCoffeeMaker.class);
+
+    Coffee coffee = coffeeMaker.brew();
+
+    assertThat(coffeeMaker.getHeater())
+        .is(rawClass(CoffeeMakerComponents.NumberedHeater.class));
+    assertThat(((CoffeeMakerComponents.NumberedHeater)coffeeMaker.getHeater()).getNumber())
+        .isEqualTo(12);
+    assertCoffeeIsAsExpected(coffee);
+  }
+
+  @Test
+  public void testNumberedArrayHeaterRealObjectMapping() {
+    CoffeeMakers.SimpleCoffeeMaker coffeeMaker = simpleMockspresso.buildUpon()
+        .realObject(DependencyKey.of(Heater.class), CoffeeMakerComponents.NumberedArrayHeater.class)
+        .build()
+        .create(CoffeeMakers.SimpleCoffeeMaker.class);
+
+    Coffee coffee = coffeeMaker.brew();
+
+    assertThat(coffeeMaker.getHeater())
+        .is(rawClass(CoffeeMakerComponents.NumberedArrayHeater.class));
+    assertThat(((CoffeeMakerComponents.NumberedArrayHeater)coffeeMaker.getHeater()).getNumbers())
+        .containsOnly(13, 17, 22);
     assertCoffeeIsAsExpected(coffee);
   }
 
