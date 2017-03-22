@@ -111,5 +111,15 @@ One of the things that make's mockspresso's dependency mapping stand out is its 
 For example, the built in `JavaxInjectMockspressoPlugin` includes a SpecialObjectMaker called `ProviderMaker` which handles the creation of `javax.inject.Provider<>`s. With this plugin, every-time mockspresso encounters a dependency for a Provider, it will return a real Provider, that in turn fetches its true dependency when `get()` is called. Basically it means, if your real object depends on `Provider<Foo>`, you only need to `@Mock Foo mFoo`, and the mapping will be handled for you.
 
 
+### Plugins
+In mockspresso, a `Plugin` is simple a class to package up multiple calls to a Mockspresso.Builder for related functionality. Mockspresso ships with a few plugins to get started.
+- mockspresso-core
+  - `SimpleInjectMockspressoPlugin` (usually accessed via `Mockspresso.Builders.simple()`): the most basic plugin we have. Applies the `SimpleInjectionConfig` so that mockspresso can create normal (non-DI) POJOs via their constructor. When creating real objects, the constructor with the fewest arguments will be chosen, and no post-processing will be applied.
+  - `JavaxInjectMockspressoPlugin` (usually accessed via `Mockspresso.Builders.javaxInjection()`): create objects that are compatible with `javax.inject` dependency injection frameworks. When creating objects, mockspresso will only select a constructor annotated with @Inject OR (if none is found) a completely empty constructor. After the object is constructed, field/member injection is performed, followed by method injection. This plugin also applies the above-mentioned `ProviderMaker` for special handling of `javax.inject.Provider<>`
+- mockspresso-mockito
+  - `MockitoPlugin`: Applies the `MockitoMockerConfig` to provide compatibility with mockito.
+- mockspresso-easymock
+  - `EasyMockPlugin`: Applies the `EasyMockMockerConfig` to provide compatibility with easymock.
+
 ## License
 MIT: https://github.com/episode6/mockspresso/blob/master/LICENSE
