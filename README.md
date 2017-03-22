@@ -65,6 +65,46 @@ You can think of the `@RealObject` annotation kind of like [Mockito's @InjectMoc
 - Declare the `implementation` property of @RealObject to specify a specific implementation be used to create the object.
   - example: If you define the following field on your test, `@RealObject(implementation = ElectricHeater.class) Heater mHeater;` An `ElectricHeater` will be created and set in that field, but in mockspresso's DependencyMap, it will be mapped to the key for `Heater`, and provided as a dependency for any object that required a generic Heater.
 
+
+### Programmatic Usage
+Mockspresso's functionality isn't limited to @Rules, instances of Mockspresso can be created or built-upon on the fly at runtime as well. For example, to build a functional equivalent of the above Mockspresso.Rule, you could implement the following setup method to your test
+```java
+private Mockspresso mockspresso;
+
+@Before
+public void setup() {
+  mockspresso = Mockspresso.Builders.simple()
+      .plugin(MockitoPlugin.getInstance()) // or EasyMockPlugin.getInstance()
+      .fieldsFrom(this) // scan this testObject for @Mocks and @RealObjects
+      .build(); // use build() instead of buildRule() for a raw instance of Mockspresso
+}
+```
+
+You can also create real objects at runtime, using `Mockspresso.create()`
+```java
+@Test
+public void testCoffeeMaker() {
+    CoffeeMaker realCoffeeMaker = mockspresso.create(CoffeeMaker.class);
+
+    // test realCoffeeMaker...
+}
+```
+
+You can also buildUpon existing mockspresso instances if some tests require different properties/dependencies.
+```java
+@Test
+public void testWithRealHeater() {
+    RealHeater realHeater = new RealHeater();
+    CoffeeMaker coffeeMakerWithRealHeaterAndPump = mockspresso.buildUpon()
+        .dependency(Heater.class, realHeater) // apply a specific instance of a dependency
+        .realObject(Pump.class) // tell mockspresso to create a real Pump instead of mocking it.
+        .build() // builds the new mockspresso instance
+        .create(CoffeeMaker.class);
+
+    // test coffeeMakerWithRealHeaterAndPump...
+}
+```
+
 ### Dependency Keys
 To supply the dependencies for real objects, mockspresso constructs an internal DependencyMap, and translates every dependency into a `DependencyKey`. These DependencyKeys are made up two components, (a) the `Type` of the dependency and (b) an optional "Qualifier" annotation (applied to the dependent field or constructor param). A Qualifier annotation is defined as any annotation that contains the `javax.inject.Qualifier` annotation (example: `javax.inject.Named`).
 - When you define any @Mock or @RealObject on your test, you are mapping the object to a DependencyKey matching that field. You may add a single Qualifier annotation to the @Mock or @RealObject. I.e. If your CoffeeMaker depends on `@Named("forCoffeeMaker") Heater heater;`
