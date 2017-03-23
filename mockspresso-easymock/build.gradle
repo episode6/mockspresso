@@ -1,0 +1,28 @@
+apply plugin: 'java'
+apply plugin: 'com.episode6.hackit.deployable.jar'
+apply plugin: 'com.episode6.hackit.gdmc'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+configurations {
+  // add provided deps to testCompile
+  testCompile.extendsFrom compileOnly
+}
+
+dependencies {
+  compile('net.sourceforge.findbugs:jsr305')
+
+  // provided deps
+  compileOnly project(':mockspresso-core')
+  compileOnly('org.easymock:easymock')
+
+  testCompile('junit:junit')
+  testCompile('org.easytesting:fest-assert-core')
+}
+
+test {
+  testLogging {
+    showStandardStreams = true
+  }
+}

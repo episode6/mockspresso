@@ -1,0 +1,3 @@
+[submodule "gdmc"]
+	path = gdmc
+	url = git@github.com:episode6/hackit-gdmc.git
