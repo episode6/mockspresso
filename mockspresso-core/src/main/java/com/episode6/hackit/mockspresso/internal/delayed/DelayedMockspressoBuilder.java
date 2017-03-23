@@ -72,19 +72,19 @@ public class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implem
   }
 
   @Override
-  public <T> Builder dependency(Class<T> clazz, T value) {
+  public <T, V extends T> Builder dependency(Class<T> clazz, V value) {
     mBuilder.dependency(clazz, value);
     return this;
   }
 
   @Override
-  public <T> Builder dependency(TypeToken<T> typeToken, T value) {
+  public <T, V extends T> Builder dependency(TypeToken<T> typeToken, V value) {
     mBuilder.dependency(typeToken, value);
     return this;
   }
 
   @Override
-  public <T> Builder dependency(DependencyKey<T> key, T value) {
+  public <T, V extends T> Builder dependency(DependencyKey<T> key, V value) {
     mBuilder.dependency(key, value);
     return this;
   }

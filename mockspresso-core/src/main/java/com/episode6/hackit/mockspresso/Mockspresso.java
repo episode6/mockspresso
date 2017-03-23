@@ -29,9 +29,17 @@ public interface Mockspresso {
     Builder specialObjectMaker(SpecialObjectMaker specialObjectMaker);
     Builder specialObjectMakers(List<SpecialObjectMaker> specialObjectMakers);
 
-    <T> Builder dependency(Class<T> clazz, T value);
-    <T> Builder dependency(TypeToken<T> typeToken, T value);
-    <T> Builder dependency(DependencyKey<T> key, T value);
+    /**
+     * Apply a specific instance of an object as a mockspresso dependency.
+     * @param clazz The class of the dependency we're applying
+     * @param value The instance of the dependency we're applying
+     * @param <T> clazz type
+     * @param <V> value type
+     * @return this
+     */
+    <T, V extends T> Builder dependency(Class<T> clazz, V value);
+    <T, V extends T> Builder dependency(TypeToken<T> typeToken, V value);
+    <T, V extends T> Builder dependency(DependencyKey<T> key, V value);
 
     <T> Builder realObject(Class<T> objectClass);
     <T> Builder realObject(TypeToken<T> objectToken);
