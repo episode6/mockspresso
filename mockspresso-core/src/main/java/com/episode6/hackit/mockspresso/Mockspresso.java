@@ -7,6 +7,7 @@ import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.rules.MethodRule;
+import org.junit.rules.TestRule;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
@@ -41,7 +42,22 @@ public interface Mockspresso {
   /**
    * An implementation of Mockspresso that also implements JUnit's {@link MethodRule}.
    */
-  interface Rule extends Mockspresso, MethodRule {}
+  interface Rule extends Mockspresso, MethodRule {
+
+    /**
+     * Chain a {@link TestRule} inside this Mockspresso.Rule
+     * @param testRule The inner test rule to chain
+     * @return this Rule with the new RuleChain applied
+     */
+    Rule chainAround(TestRule testRule);
+
+    /**
+     * Chain a {@link MethodRule} inside this Mockspresso.Rule
+     * @param methodRule The inner test rule to chain
+     * @return this Rule with the new RuleChain applied
+     */
+    Rule chainAround(MethodRule methodRule);
+  }
 
   /**
    * Class used to build Mockspresso and Mockspresso.Rule instances.
