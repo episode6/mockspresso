@@ -136,7 +136,7 @@ public interface Mockspresso {
      * @param value The instance of the dependency we're applying.
      * @param <T> key type
      * @param <V> instance type
-     * @return
+     * @return this
      */
     <T, V extends T> Builder dependency(DependencyKey<T> key, V value);
 
