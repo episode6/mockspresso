@@ -39,9 +39,7 @@ public class MockspressoImpl implements Mockspresso, MockspressoInternal {
 
   @Override
   public Builder buildUpon() {
-    MockspressoBuilderImpl builder = new MockspressoBuilderImpl();
-    builder.setParent(getConfig());
-    return builder;
+    return getConfig().newBuilder();
   }
 
   @Override

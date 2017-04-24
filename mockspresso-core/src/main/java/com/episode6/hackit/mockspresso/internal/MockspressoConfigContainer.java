@@ -47,4 +47,10 @@ public class MockspressoConfigContainer {
   public RealObjectMapping getRealObjectMapping() {
     return mRealObjectMapping;
   }
+
+  public MockspressoBuilderImpl newBuilder() {
+    MockspressoBuilderImpl builder = new MockspressoBuilderImpl();
+    builder.setParent(this);
+    return builder;
+  }
 }

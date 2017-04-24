@@ -48,8 +48,7 @@ public class MockspressoRuleImpl extends AbstractDelayedMockspresso implements M
         public void evaluate() throws Throwable {
           // Create a builder for the actual mockspresso instance to be used using
           // mOriginal as the parent and adding fields from the Statement's target (the test)
-          MockspressoBuilderImpl builder = new MockspressoBuilderImpl();
-          builder.setParent(mOriginal.getConfig());
+          MockspressoBuilderImpl builder = mOriginal.getConfig().newBuilder();
           builder.fieldsFrom(target);
 
           // build the delegate instance and set it, then evaluate the Statement,
