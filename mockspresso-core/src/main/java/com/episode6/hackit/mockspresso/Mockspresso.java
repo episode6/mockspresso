@@ -73,8 +73,8 @@ public interface Mockspresso {
      * and adds them to our dependency map. Will also call any methods annotated with {@link org.junit.Before} during
      * the initialization process, and any methods annotated with {@link org.junit.After} during the teardown process.
      *
-     * Don't pass the actual test class to this method, as it will result in multiple calls to your
-     * @Before and @After methods. Instead use {@link #testResourcesWithoutLifecycle(Object)}
+     * Don't pass the actual test class to this method, as it will result in multiple calls to your @Before
+     * and @After methods. Instead use {@link #testResourcesWithoutLifecycle(Object)}
      *
      * @param objectWithResources The object to scan, set fields on and initialize
      * @return this
