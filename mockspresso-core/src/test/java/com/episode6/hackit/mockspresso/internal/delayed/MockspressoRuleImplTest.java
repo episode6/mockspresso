@@ -19,6 +19,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 
 /**
@@ -30,6 +31,7 @@ public class MockspressoRuleImplTest {
   @Mock MockspressoInternal mOriginal;
   @Mock MockspressoInternal mChildMockspresso;
   @Mock MockspressoConfigContainer mConfig;
+  @Mock MockspressoConfigContainer mChildConfig;
 
   @Mock MockspressoBuilderImpl mBuilder;
 
@@ -43,6 +45,7 @@ public class MockspressoRuleImplTest {
     MockitoAnnotations.initMocks(this);
 
     when(mOriginal.getConfig()).thenReturn(mConfig);
+    when(mChildMockspresso.getConfig()).thenReturn(mChildConfig);
     when(mConfig.newBuilder()).thenReturn(mBuilder);
     when(mBuilder.buildInternal()).thenReturn(mChildMockspresso);
 
@@ -56,11 +59,17 @@ public class MockspressoRuleImplTest {
     Statement result = mRule.apply(base, mFrameworkMethod, mTarget);
     result.evaluate();
 
-    InOrder inOrder = Mockito.inOrder(mConfig, mBuilder, base);
+    InOrder inOrder = Mockito.inOrder(mConfig, mBuilder, base, mConfig, mChildConfig);
+    inOrder.verify(mConfig).setup(mOriginal);
     inOrder.verify(mConfig).newBuilder();
     inOrder.verify(mBuilder).fieldsFrom(mTarget);
     inOrder.verify(mBuilder).buildInternal();
+    inOrder.verify(mChildConfig).setup(mChildMockspresso);
     inOrder.verify(base).evaluate();
+    inOrder.verify(mChildConfig).teardown();
+    inOrder.verify(mConfig).teardown();
+
+    assertRuleNoLongerWorks();
   }
 
   @Test
@@ -78,6 +87,8 @@ public class MockspressoRuleImplTest {
         mConfig,
         mBuilder,
         base,
+        mConfig,
+        mChildConfig,
         innerRule1,
         innerRule1.returnStatement,
         innerRule2,
@@ -88,12 +99,18 @@ public class MockspressoRuleImplTest {
     inOrder.verify(innerRule1).apply(eq(innerRule2.returnStatement), any(Description.class));
 
     // eval happens in correct order, first mockspresso, then innerRule1, then innerRule2, then base
+    inOrder.verify(mConfig).setup(mOriginal);
     inOrder.verify(mConfig).newBuilder();
     inOrder.verify(mBuilder).fieldsFrom(mTarget);
     inOrder.verify(mBuilder).buildInternal();
+    inOrder.verify(mChildConfig).setup(mChildMockspresso);
     inOrder.verify(innerRule1.returnStatement).evaluate();
     inOrder.verify(innerRule2.returnStatement).evaluate();
     inOrder.verify(base).evaluate();
+    inOrder.verify(mChildConfig).teardown();
+    inOrder.verify(mConfig).teardown();
+
+    assertRuleNoLongerWorks();
   }
 
   // create a (spy) Statement that, when evaluated, makes some calls to mRule and verifies
@@ -112,6 +129,21 @@ public class MockspressoRuleImplTest {
         inOrder.verify(mChildMockspresso).buildUpon();
       }
     });
+  }
+
+  private void assertRuleNoLongerWorks() {
+    try {
+      mRule.create(String.class);
+      fail("Expected a NullPointerException");
+    } catch (NullPointerException e) {
+      // pass
+    }
+    try {
+      mRule.create(TypeToken.of(Integer.class));
+      fail("Expected a NullPointerException");
+    } catch (NullPointerException e) {
+      // pass
+    }
   }
 
   private class TestTestRule implements TestRule {

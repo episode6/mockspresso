@@ -11,15 +11,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Logic to initialize the last mile of a mockspresso config.
+ * Logic to initialize and tear-down the last mile of a mockspresso config.
  * Includes field scanning and initializer calls
  */
-public class ConfigInitializer {
+public class ConfigLifecycle {
   private final DependencyProviderFactory mDependencyProviderFactory;
   private final List<Object> mObjectsWithFields;
   private final List<MockspressoInitializer> mInitializers;
 
-  public ConfigInitializer(
+  public ConfigLifecycle(
       DependencyProviderFactory dependencyProviderFactory,
       List<Object> objectsWithFields,
       List<MockspressoInitializer> initializers) {
@@ -28,13 +28,17 @@ public class ConfigInitializer {
     mInitializers = new LinkedList<>(initializers);
   }
 
-  public void init(MockspressoInternal mockspresso) {
+  public void setup(MockspressoInternal mockspresso) {
     MockspressoConfigContainer config = mockspresso.getConfig();
     performFieldScanningAndInjection(
         config.getMockerConfig(),
         config.getDependencyMap(),
         config.getRealObjectMapping());
     callInitializers(mockspresso);
+  }
+
+  public void teardown() {
+
   }
 
   private void performFieldScanningAndInjection(

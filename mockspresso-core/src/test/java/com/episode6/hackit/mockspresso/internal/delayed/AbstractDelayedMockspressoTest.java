@@ -33,6 +33,8 @@ public class AbstractDelayedMockspressoTest {
   @Before
   public void setup() {
     MockitoAnnotations.initMocks(this);
+
+    when(mMockspressoInternal.getConfig()).thenReturn(mMockspressoConfigContainer);
   }
 
   @Test(expected = NullPointerException.class)
@@ -54,7 +56,6 @@ public class AbstractDelayedMockspressoTest {
   public void testEarlyBuildUponWorksWithAfterTheFactDelegate() {
     when(mMockspressoConfigContainer.getInjectionConfig()).thenReturn(SimpleInjectionConfig.getInstance());
     when(mMockspressoConfigContainer.getMockerConfig()).thenReturn(MockitoMockerConfig.getInstance());
-    when(mMockspressoInternal.getConfig()).thenReturn(mMockspressoConfigContainer);
 
     Mockspresso childMockspresso = mMockspresso.buildUpon().build();
     mMockspresso.setDelegate(mMockspressoInternal);

@@ -15,7 +15,7 @@ public class MockspressoConfigContainer {
   private final DependencyMap mDependencyMap;
   private final SpecialObjectMaker mSpecialObjectMaker;
   private final RealObjectMapping mRealObjectMapping;
-  private final ConfigInitializer mConfigInitializer;
+  private final ConfigLifecycle mConfigLifecycle;
 
   public MockspressoConfigContainer(
       MockerConfig mockerConfig,
@@ -23,13 +23,13 @@ public class MockspressoConfigContainer {
       DependencyMap dependencyMap,
       SpecialObjectMaker specialObjectMaker,
       RealObjectMapping realObjectMapping,
-      ConfigInitializer configInitializer) {
+      ConfigLifecycle configLifecycle) {
     mMockerConfig = mockerConfig;
     mInjectionConfig = injectionConfig;
     mDependencyMap = dependencyMap;
     mSpecialObjectMaker = specialObjectMaker;
     mRealObjectMapping = realObjectMapping;
-    mConfigInitializer = configInitializer;
+    mConfigLifecycle = configLifecycle;
   }
 
   public MockerConfig getMockerConfig() {
@@ -58,7 +58,11 @@ public class MockspressoConfigContainer {
     return builder;
   }
 
-  public void init(MockspressoInternal instance) {
-    mConfigInitializer.init(instance);
+  public void setup(MockspressoInternal instance) {
+    mConfigLifecycle.setup(instance);
+  }
+
+  public void teardown() {
+    mConfigLifecycle.teardown();
   }
 }

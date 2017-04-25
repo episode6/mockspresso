@@ -21,13 +21,21 @@ public abstract class AbstractDelayedMockspresso implements Mockspresso, Mockspr
   private final Set<DelayedMockspressoBuilder> mDelayedBuilders = new HashSet<>();
 
   synchronized void setDelegate(@Nullable MockspressoInternal delegate) {
-    MockspressoConfigContainer parentConfig = delegate == null ? null : delegate.getConfig();
-    // exec and clear initializers before passing this config onto
-    // out delayed builders
-    if (parentConfig != null) {
-      parentConfig.init(delegate);
+    if (mDelegate != null) {
+      passParentToDelayedBuilders(null);
+      mDelegate.getConfig().teardown();
     }
+
     mDelegate = delegate;
+
+    if (delegate != null) {
+      MockspressoConfigContainer newConfig = delegate.getConfig();
+      newConfig.setup(delegate);
+      passParentToDelayedBuilders(newConfig);
+    }
+  }
+
+  private void passParentToDelayedBuilders(@Nullable MockspressoConfigContainer parentConfig) {
     for (DelayedMockspressoBuilder delayedBuilder : mDelayedBuilders) {
       delayedBuilder.setParent(parentConfig);
     }

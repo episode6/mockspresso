@@ -129,7 +129,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   @Override
   public Mockspresso build() {
     MockspressoInternal instance = buildInternal();
-    instance.getConfig().init(instance);
+    instance.getConfig().setup(instance);
     return instance;
   }
 
@@ -162,7 +162,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
         realObjectMapping,
         realObjectMaker);
 
-    ConfigInitializer configInitializer = new ConfigInitializer(
+    ConfigLifecycle configLifecycle = new ConfigLifecycle(
         dependencyProviderFactory,
         mObjectsWithFields,
         mInitializers);
@@ -173,7 +173,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
         dependencyMap,
         mSpecialObjectMakers,
         realObjectMapping,
-        configInitializer);
+        configLifecycle);
 
     return new MockspressoImpl(
         configContainer,
