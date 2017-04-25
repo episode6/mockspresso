@@ -1,11 +1,14 @@
 package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
+import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.api.InjectionConfig;
 import com.episode6.hackit.mockspresso.api.MockerConfig;
 import com.episode6.hackit.mockspresso.api.MockspressoInitializer;
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
+import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 
+import java.lang.annotation.Annotation;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,7 +23,7 @@ public class MockspressoConfigContainer {
   private final DependencyMap mDependencyMap;
   private final SpecialObjectMaker mSpecialObjectMaker;
   private final RealObjectMapping mRealObjectMapping;
-  private final List<MockspressoInitializer> mInitializers;
+  private final ConfigInitializer mConfigInitializer;
 
   public MockspressoConfigContainer(
       MockerConfig mockerConfig,
@@ -28,13 +31,13 @@ public class MockspressoConfigContainer {
       DependencyMap dependencyMap,
       SpecialObjectMaker specialObjectMaker,
       RealObjectMapping realObjectMapping,
-      List<MockspressoInitializer> initializers) {
+      ConfigInitializer configInitializer) {
     mMockerConfig = mockerConfig;
     mInjectionConfig = injectionConfig;
     mDependencyMap = dependencyMap;
     mSpecialObjectMaker = specialObjectMaker;
     mRealObjectMapping = realObjectMapping;
-    mInitializers = new LinkedList<>(initializers);
+    mConfigInitializer = configInitializer;
   }
 
   public MockerConfig getMockerConfig() {
@@ -57,15 +60,13 @@ public class MockspressoConfigContainer {
     return mRealObjectMapping;
   }
 
-  public void init(Mockspresso instance) {
-    for (MockspressoInitializer initializer : mInitializers) {
-      initializer.setup(instance);
-    }
-  }
-
   public MockspressoBuilderImpl newBuilder() {
     MockspressoBuilderImpl builder = new MockspressoBuilderImpl();
     builder.setParent(this);
     return builder;
+  }
+
+  public void init(Mockspresso instance) {
+    mConfigInitializer.init(instance);
   }
 }
