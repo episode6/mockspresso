@@ -143,6 +143,12 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     Preconditions.assertNotNull(mMockerConfig, "MockerConfig missing from mockspresso builder");
     Preconditions.assertNotNull(mInjectionConfig, "InjectionConfig missing from mockspresso builder");
 
+    DependencyMap dependencyMap = new DependencyMap();
+    dependencyMap.setParentMap(mDependencyMap);
+
+    RealObjectMapping realObjectMapping = new RealObjectMapping();
+    realObjectMapping.setParentMap(mRealObjectMapping);
+
     // create the objects we use to create objects
     RealObjectMaker realObjectMaker = new RealObjectMaker(
         mInjectionConfig.provideConstructorSelector(),
@@ -151,9 +157,9 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
     DependencyProviderFactory dependencyProviderFactory = new DependencyProviderFactory(
         mMockerConfig.provideMockMaker(),
-        mDependencyMap,
+        dependencyMap,
         mSpecialObjectMakers,
-        mRealObjectMapping,
+        realObjectMapping,
         realObjectMaker);
 
     ConfigInitializer configInitializer = new ConfigInitializer(
@@ -164,9 +170,9 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     MockspressoConfigContainer configContainer = new MockspressoConfigContainer(
         mMockerConfig,
         mInjectionConfig,
-        mDependencyMap,
+        dependencyMap,
         mSpecialObjectMakers,
-        mRealObjectMapping,
+        realObjectMapping,
         configInitializer);
 
     return new MockspressoImpl(
