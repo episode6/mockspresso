@@ -1,12 +1,14 @@
 package com.episode6.hackit.mockspresso.internal.delayed;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
+import com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl;
 import com.episode6.hackit.mockspresso.internal.MockspressoConfigContainer;
 import com.episode6.hackit.mockspresso.internal.MockspressoInternal;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import com.episode6.hackit.mockspresso.util.Preconditions;
 
 import javax.annotation.Nullable;
+import javax.inject.Provider;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,6 +21,12 @@ public abstract class AbstractDelayedMockspresso implements Mockspresso, Mockspr
   private static final String ERROR_MESSAGE = "Called Mockspresso.create() before delegate was created.";
   private @Nullable MockspressoInternal mDelegate = null;
   private final Set<DelayedMockspressoBuilder> mDelayedBuilders = new HashSet<>();
+
+  private final Provider<MockspressoBuilderImpl> mBuilderProvider;
+
+  protected AbstractDelayedMockspresso(Provider<MockspressoBuilderImpl> builderProvider) {
+    mBuilderProvider = builderProvider;
+  }
 
   synchronized void setDelegate(@Nullable MockspressoInternal delegate) {
     if (mDelegate != null) {
@@ -61,7 +69,7 @@ public abstract class AbstractDelayedMockspresso implements Mockspresso, Mockspr
       return mDelegate.buildUpon();
     }
 
-    DelayedMockspressoBuilder delayedBuilder = newDelayedBuilder();
+    DelayedMockspressoBuilder delayedBuilder = new DelayedMockspressoBuilder(mBuilderProvider);
     mDelayedBuilders.add(delayedBuilder);
     return delayedBuilder;
   }
@@ -70,6 +78,4 @@ public abstract class AbstractDelayedMockspresso implements Mockspresso, Mockspr
   public MockspressoConfigContainer getConfig() {
     return getDelegate().getConfig();
   }
-
-  abstract protected DelayedMockspressoBuilder newDelayedBuilder();
 }

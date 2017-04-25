@@ -2,11 +2,9 @@ package com.episode6.hackit.mockspresso.internal.delayed;
 
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.Mockspresso;
-import com.episode6.hackit.mockspresso.api.InjectionConfig;
 import com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl;
 import com.episode6.hackit.mockspresso.internal.MockspressoConfigContainer;
 import com.episode6.hackit.mockspresso.internal.MockspressoInternal;
-import com.episode6.hackit.mockspresso.plugin.simple.SimpleInjectionConfig;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +20,6 @@ import org.mockito.stubbing.Answer;
 
 import javax.inject.Provider;
 
-import static com.episode6.hackit.mockspresso.Conditions.mockitoMock;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
@@ -38,8 +35,10 @@ public class MockspressoRuleImplTest {
   @Mock MockspressoConfigContainer mConfig;
   @Mock MockspressoConfigContainer mChildConfig;
 
-  /*Mock*/ DelayedMockspressoBuilder mGrandChildMockspresso;
-  @Mock Provider<DelayedMockspressoBuilder> mGrandChildProvider;
+  @Mock MockspressoBuilderImpl mGrandChildMockspressoBackingBuilder;
+  @Mock MockspressoInternal mGrandChildMockspresso;
+  @Mock MockspressoConfigContainer mGrandChildConfig;
+  @Mock Provider<MockspressoBuilderImpl> mGrandChildProvider;
 
   @Mock MockspressoBuilderImpl mBuilder;
 
@@ -57,8 +56,9 @@ public class MockspressoRuleImplTest {
     when(mConfig.newBuilder()).thenReturn(mBuilder);
     when(mBuilder.buildInternal()).thenReturn(mChildMockspresso);
 
-    mGrandChildMockspresso = mock(DelayedMockspressoBuilder.class, new BuilderAnswer());
-    when(mGrandChildProvider.get()).thenReturn(mGrandChildMockspresso);
+    when(mGrandChildProvider.get()).thenReturn(mGrandChildMockspressoBackingBuilder);
+    when(mGrandChildMockspressoBackingBuilder.buildInternal()).thenReturn(mGrandChildMockspresso);
+    when(mGrandChildMockspresso.getConfig()).thenReturn(mGrandChildConfig);
 
     mRule = new MockspressoRuleImpl(mOriginal, mGrandChildProvider);
   }
@@ -86,27 +86,26 @@ public class MockspressoRuleImplTest {
   @Test
   public void testEarlyBuildUponUsage() throws Throwable {
     // simulate building upon a final @Rule at the class-level
-    final Mockspresso mockspresso = mRule.buildUpon().build();
-    // ensure we wired up correct, our mockspresso is a delayed instance because
-    // we called buildUpon before applying the @Rule
-    assertThat(mockspresso).isEqualTo(mGrandChildMockspresso);
-    Statement base = mock(Statement.class);
+    Mockspresso mockspresso = mRule.buildUpon().build();
+    Statement base = verifyChildDelegateStatement(mockspresso, mGrandChildMockspresso);
 
     Statement result = mRule.apply(base, mFrameworkMethod, mTarget);
     result.evaluate();
 
-    InOrder inOrder = Mockito.inOrder(mConfig, mBuilder, base, mConfig, mChildConfig, mGrandChildMockspresso);
+    InOrder inOrder = Mockito.inOrder(mConfig, mBuilder, base, mConfig, mChildConfig, mGrandChildMockspressoBackingBuilder, mGrandChildConfig);
     inOrder.verify(mConfig).setup(mOriginal);
     inOrder.verify(mConfig).newBuilder();
     inOrder.verify(mBuilder).fieldsFrom(mTarget);
     inOrder.verify(mBuilder).buildInternal();
     inOrder.verify(mChildConfig).setup(mChildMockspresso);
-    inOrder.verify(mGrandChildMockspresso).setParent(mChildConfig);  // set parent should handle setup
+    inOrder.verify(mGrandChildMockspressoBackingBuilder).buildInternal();
+    inOrder.verify(mGrandChildConfig).setup(mGrandChildMockspresso);
     inOrder.verify(base).evaluate();
-    inOrder.verify(mGrandChildMockspresso).setParent(null); // set parent null should handle teardown
+    inOrder.verify(mGrandChildConfig).teardown();
     inOrder.verify(mChildConfig).teardown();
     inOrder.verify(mConfig).teardown();
 
+    assertMockspressoNoLongerWorks(mockspresso);
     assertRuleNoLongerWorks();
   }
 
@@ -156,26 +155,30 @@ public class MockspressoRuleImplTest {
   // create a (spy) Statement that, when evaluated, makes some calls to mRule and verifies
   // that mChildMockspresso is called as a delegate.
   private Statement verifyChildDelegateStatement() {
+    return verifyChildDelegateStatement(mRule, mChildMockspresso);
+  }
+
+  private Statement verifyChildDelegateStatement(final Mockspresso instanceToCall, final Mockspresso delegateToVerify) {
     return spy(new Statement() {
       @Override
       public void evaluate() throws Throwable {
-        mRule.create(String.class);
-        mRule.create(TypeToken.of(Integer.class));
-        mRule.buildUpon();
+        instanceToCall.create(String.class);
+        instanceToCall.create(TypeToken.of(Integer.class));
+        instanceToCall.buildUpon();
 
-        InOrder inOrder = Mockito.inOrder(mChildMockspresso);
-        inOrder.verify(mChildMockspresso).create(String.class);
-        inOrder.verify(mChildMockspresso).create(TypeToken.of(Integer.class));
-        inOrder.verify(mChildMockspresso).buildUpon();
+        InOrder inOrder = Mockito.inOrder(delegateToVerify);
+        inOrder.verify(delegateToVerify).create(String.class);
+        inOrder.verify(delegateToVerify).create(TypeToken.of(Integer.class));
+        inOrder.verify(delegateToVerify).buildUpon();
       }
     });
   }
 
   private void assertRuleNoLongerWorks() {
-    assertMockspressNoLongerWorks(mRule);
+    assertMockspressoNoLongerWorks(mRule);
   }
 
-  private void assertMockspressNoLongerWorks(Mockspresso instance) {
+  private void assertMockspressoNoLongerWorks(Mockspresso instance) {
     try {
       instance.create(String.class);
       fail("Expected a NullPointerException");

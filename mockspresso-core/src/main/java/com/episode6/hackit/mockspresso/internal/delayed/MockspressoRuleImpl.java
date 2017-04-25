@@ -19,14 +19,13 @@ import javax.inject.Provider;
 public class MockspressoRuleImpl extends AbstractDelayedMockspresso implements Mockspresso.Rule {
 
   private final MockspressoInternal mOriginal;
-  private final Provider<DelayedMockspressoBuilder> mDelayedMockspressoBuilderProvider;
   private MethodRuleChain mRuleChain;
 
   public MockspressoRuleImpl(
       MockspressoInternal original,
-      Provider<DelayedMockspressoBuilder> delayedMockspressoBuilderProvider) {
+      Provider<MockspressoBuilderImpl> builderProvider) {
+    super(builderProvider);
     mOriginal = original;
-    mDelayedMockspressoBuilderProvider = delayedMockspressoBuilderProvider;
     mRuleChain = MethodRuleChain.outerRule(new OuterRule());
   }
 
@@ -45,11 +44,6 @@ public class MockspressoRuleImpl extends AbstractDelayedMockspresso implements M
   @Override
   public Statement apply(Statement base, FrameworkMethod method, Object target) {
     return mRuleChain.apply(base, method, target);
-  }
-
-  @Override
-  protected DelayedMockspressoBuilder newDelayedBuilder() {
-    return mDelayedMockspressoBuilderProvider.get();
   }
 
   private class OuterRule implements MethodRule {
