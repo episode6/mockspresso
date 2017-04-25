@@ -104,9 +104,11 @@ public class MockspressoRuleImplTest {
     inOrder.verify(mBuilder).fieldsFrom(mTarget);
     inOrder.verify(mBuilder).buildInternal();
     inOrder.verify(mChildConfig).setup(mChildMockspresso);
-    inOrder.verify(innerRule1.returnStatement).evaluate();
-    inOrder.verify(innerRule2.returnStatement).evaluate();
+    inOrder.verify(innerRule1.returnStatement).before();
+    inOrder.verify(innerRule2.returnStatement).before();
     inOrder.verify(base).evaluate();
+    inOrder.verify(innerRule2.returnStatement).after();
+    inOrder.verify(innerRule1.returnStatement).after();
     inOrder.verify(mChildConfig).teardown();
     inOrder.verify(mConfig).teardown();
 
@@ -146,34 +148,39 @@ public class MockspressoRuleImplTest {
     }
   }
 
-  private class TestTestRule implements TestRule {
+  private static class TestStatement extends Statement {
+    private final Statement mBaseStatement;
+    private TestStatement(Statement baseStatement) {
+      mBaseStatement = baseStatement;
+    }
 
-    Statement returnStatement;
+    public void before() {} // spy
+    public void after() {} // spy
 
     @Override
-    public Statement apply(final Statement base, Description description) {
-      returnStatement = spy(new Statement() {
-        @Override
-        public void evaluate() throws Throwable {
-          base.evaluate();
-        }
-      });
+    public void evaluate() throws Throwable {
+      before();
+      mBaseStatement.evaluate();
+      after();
+    }
+  }
+
+  private static class TestTestRule implements TestRule {
+    TestStatement returnStatement;
+
+    @Override
+    public Statement apply(Statement base, Description description) {
+      returnStatement = spy(new TestStatement(base));
       return returnStatement;
     }
   }
 
-  private class TestMethodRule implements MethodRule {
-
-    Statement returnStatement;
+  private static class TestMethodRule implements MethodRule {
+    TestStatement returnStatement;
 
     @Override
     public Statement apply(final Statement base, FrameworkMethod method, Object target) {
-      returnStatement = spy(new Statement() {
-        @Override
-        public void evaluate() throws Throwable {
-          base.evaluate();
-        }
-      });
+      returnStatement = spy(new TestStatement(base));
       return returnStatement;
     }
   }
