@@ -28,7 +28,6 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   private @Nullable InjectionConfig mInjectionConfig = null;
 
   public void setParent(MockspressoConfigContainer parentConfig) {
-    mInitializers.addAll(0, parentConfig.getInitializers());
     mDependencyMap.setParentMap(parentConfig.getDependencyMap());
     mSpecialObjectMakers.setParentMaker(parentConfig.getSpecialObjectMaker());
     mRealObjectMapping.setParentMap(parentConfig.getRealObjectMapping());
@@ -132,7 +131,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   @Override
   public Mockspresso build() {
     MockspressoInternal instance = buildInternal();
-    instance.getConfig().executeAndClearInitializers(instance);
+    instance.getConfig().init(instance);
     return instance;
   }
 

@@ -57,23 +57,8 @@ public class MockspressoConfigContainer {
     return mRealObjectMapping;
   }
 
-  public List<MockspressoInitializer> getInitializers() {
-    List<MockspressoInitializer> initializers = new LinkedList<>();
-    synchronized (mInitializers) {
-      initializers.addAll(mInitializers);
-    }
-    return initializers;
-  }
-
-  public void executeAndClearInitializers(Mockspresso instance) {
-    // we must clear our initializer list before executing them
-    // to ensure they are able to build upon this mockspresso instance
-    List<MockspressoInitializer> initializers = new LinkedList<>();
-    synchronized (mInitializers) {
-      initializers.addAll(mInitializers);
-      mInitializers.clear();
-    }
-    for (MockspressoInitializer initializer : initializers) {
+  public void init(Mockspresso instance) {
+    for (MockspressoInitializer initializer : mInitializers) {
       initializer.setup(instance);
     }
   }

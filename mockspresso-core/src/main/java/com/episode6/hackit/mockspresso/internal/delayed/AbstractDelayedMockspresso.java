@@ -25,7 +25,7 @@ public abstract class AbstractDelayedMockspresso implements Mockspresso, Mockspr
     // exec and clear initializers before passing this config onto
     // out delayed builders
     if (parentConfig != null) {
-      parentConfig.executeAndClearInitializers(delegate);
+      parentConfig.init(delegate);
     }
     mDelegate = delegate;
     for (DelayedMockspressoBuilder delayedBuilder : mDelayedBuilders) {

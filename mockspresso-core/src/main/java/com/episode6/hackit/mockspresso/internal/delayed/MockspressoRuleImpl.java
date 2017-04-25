@@ -2,6 +2,7 @@ package com.episode6.hackit.mockspresso.internal.delayed;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl;
+import com.episode6.hackit.mockspresso.internal.MockspressoConfigContainer;
 import com.episode6.hackit.mockspresso.internal.MockspressoInternal;
 import com.episode6.hackit.mockspresso.junit.MethodRuleChain;
 import org.junit.rules.MethodRule;
@@ -48,7 +49,9 @@ public class MockspressoRuleImpl extends AbstractDelayedMockspresso implements M
         public void evaluate() throws Throwable {
           // Create a builder for the actual mockspresso instance to be used using
           // mOriginal as the parent and adding fields from the Statement's target (the test)
-          MockspressoBuilderImpl builder = mOriginal.getConfig().newBuilder();
+          MockspressoConfigContainer config = mOriginal.getConfig();
+          config.init(mOriginal);
+          MockspressoBuilderImpl builder = config.newBuilder();
           builder.fieldsFrom(target);
 
           // build the delegate instance and set it, then evaluate the Statement,
