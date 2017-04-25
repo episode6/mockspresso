@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * Logic to initialize the last mile of a mockspresso config.
- * Includes field scanning & initializer calls
+ * Includes field scanning and initializer calls
  */
 public class ConfigInitializer {
   private final MockerConfig mMockerConfig;
