@@ -69,31 +69,12 @@ public interface Mockspresso {
     Builder plugin(MockspressoPlugin plugin);
 
     /**
-     * Scans the included objectWithFields for fields annotated with @Mock and @RealObject, then prepares them
+     * Scans the included objectWithResources for fields annotated with @Mock and @RealObject, then prepares them
      * and adds them to our dependency map.
-     * @param objectWithFields The object to scan and set fields on (usually a Test class)
+     * @param objectWithResources The object to scan and set fields on (usually a Test class)
      * @return this
      */
-    Builder fieldsFrom(Object objectWithFields);
-
-    /**
-     * Add an initializer to this mockspresso instance. The initializer will be called just as
-     * the instance is completely built, if building a Mockspresso.Rule, then it will execute as
-     * part of the rule's statement. Initializers will be executed in order, after all field
-     * injection as completed.
-     * @param initializer The initializer to add to this mockspresso instance.
-     * @return this
-     */
-    Builder initializer(MockspressoInitializer initializer);
-
-    /**
-     * Add an initializer that also has fields for field injection.
-     * @see #initializer(MockspressoInitializer) and
-     * @see #fieldsFrom(Object) for more info
-     * @param initializerWithFields The initializer with fields to add
-     * @return this
-     */
-    Builder initializerWithFields(MockspressoInitializer initializerWithFields);
+    Builder testResources(Object objectWithResources);
 
     /**
      * Apply a {@link MockerConfig} to this builder, which tells mockspresso how to create a mock

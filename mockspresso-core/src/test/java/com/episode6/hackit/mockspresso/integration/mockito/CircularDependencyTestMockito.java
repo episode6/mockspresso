@@ -24,7 +24,7 @@ public class CircularDependencyTestMockito {
   public void checkForCircularDependencyErrorFields() {
     TestObject testObject = new TestObject();
     mockspresso.buildUpon()
-        .fieldsFrom(testObject)
+        .testResources(testObject)
         .build();
   }
 
@@ -41,7 +41,7 @@ public class CircularDependencyTestMockito {
   public void checkForCircularDependencyErrorFieldsProvider() {
     TestObjectProviders testObject = new TestObjectProviders();
     mockspresso.buildUpon()
-        .fieldsFrom(testObject)
+        .testResources(testObject)
         .build();
     testObject.mA.mB.get().mC.get().mA.get();
   }

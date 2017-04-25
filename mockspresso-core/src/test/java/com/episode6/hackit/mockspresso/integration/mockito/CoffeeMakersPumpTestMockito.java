@@ -29,7 +29,7 @@ public class CoffeeMakersPumpTestMockito {
   private final PumpTestResources t = new PumpTestResources();
   @Rule public final Mockspresso.Rule mockspresso = Mockspresso.Builders.javaxInjection()
       .plugin(MockitoPlugin.getInstance())
-      .initializerWithFields(t)
+      .testResources(t)
       .buildRule();
 
   @Test

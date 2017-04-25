@@ -2,12 +2,12 @@ package com.episode6.hackit.mockspresso.integration.mockito;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.api.MockspressoInitializer;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.Coffee;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.CoffeeMakers;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.Pump;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.Water;
 import com.episode6.hackit.mockspresso.plugin.simple.SimpleInjectMockspressoPlugin;
+import org.junit.Before;
 import org.mockito.Mock;
 
 import static com.episode6.hackit.mockspresso.Conditions.mockitoMock;
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 /**
  * Separate resources class that could be shared by multiple tests
  */
-public class PumpTestResources implements MockspressoInitializer {
+public class PumpTestResources {
 
   @Mock Pump mPump;
   @Mock Water mWater;
@@ -31,7 +31,7 @@ public class PumpTestResources implements MockspressoInitializer {
   @RealObject CoffeeMakers.MixedInjectionCoffeeMaker mMixedInjectionCoffeeMaker;
   /* RealObject */ CoffeeMakers.SimpleCoffeeMaker mSimpleCoffeeMaker; // we construct this from a sub-instance of mockspresso
 
-  @Override
+  @Before
   public void setup(Mockspresso mockspresso) {
     when(mPump.pump()).thenReturn(mWater);
 

@@ -2,16 +2,15 @@ package com.episode6.hackit.mockspresso.integration.mockito;
 
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.Mockspresso;
-import com.episode6.hackit.mockspresso.api.MockspressoInitializer;
 import com.episode6.hackit.mockspresso.mockito.MockitoPlugin;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 
 /**
@@ -24,7 +23,7 @@ public class InvalidRuleTest {
 
   public final Mockspresso.Rule invalidMockspresso = Mockspresso.Builders.simple()
       .plugin(MockitoPlugin.getInstance())
-      .initializerWithFields(mInitializerWithFields)
+      .testResources(mInitializerWithFields)
       .buildRule();
 
   @Test(expected = NullPointerException.class)
@@ -57,10 +56,10 @@ public class InvalidRuleTest {
     assertThat(mInitializerWithFields.mRunnable).isNull();
   }
 
-  public static class TestClass implements MockspressoInitializer {
+  public static class TestClass {
     @Mock Runnable mRunnable;
 
-    @Override
+    @Before
     public void setup(Mockspresso mockspresso) {
 
     }

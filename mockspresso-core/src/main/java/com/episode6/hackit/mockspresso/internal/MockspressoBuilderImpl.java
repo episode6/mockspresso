@@ -23,8 +23,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     }
   };
 
-  private final List<Object> mObjectsWithFields = new LinkedList<>();
-  private final List<MockspressoInitializer> mInitializers = new LinkedList<>();
+  private final List<Object> mObjectsWithResources = new LinkedList<>();
   private final DependencyMap mDependencyMap = new DependencyMap();
   private final SpecialObjectMakerContainer mSpecialObjectMakers = new SpecialObjectMakerContainer();
   private final RealObjectMapping mRealObjectMapping = new RealObjectMapping();
@@ -51,21 +50,8 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     return plugin.apply(this);
   }
 
-  public Mockspresso.Builder fieldsFrom(Object objectWithFields) {
-    mObjectsWithFields.add(objectWithFields);
-    return this;
-  }
-
-  @Override
-  public Mockspresso.Builder initializer(MockspressoInitializer initializer) {
-    mInitializers.add(initializer);
-    return this;
-  }
-
-  @Override
-  public Mockspresso.Builder initializerWithFields(MockspressoInitializer initializerWithFields) {
-    initializer(initializerWithFields);
-    fieldsFrom(initializerWithFields);
+  public Mockspresso.Builder testResources(Object objectWithResources) {
+    mObjectsWithResources.add(objectWithResources);
     return this;
   }
 
@@ -175,8 +161,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
     ConfigLifecycle configLifecycle = new ConfigLifecycle(
         dependencyProviderFactory,
-        mObjectsWithFields,
-        mInitializers);
+        mObjectsWithResources);
 
     MockspressoConfigContainer configContainer = new MockspressoConfigContainer(
         mMockerConfig,

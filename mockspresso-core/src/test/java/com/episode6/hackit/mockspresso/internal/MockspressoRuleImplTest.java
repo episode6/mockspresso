@@ -2,10 +2,6 @@ package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.Mockspresso;
-import com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl;
-import com.episode6.hackit.mockspresso.internal.MockspressoConfigContainer;
-import com.episode6.hackit.mockspresso.internal.MockspressoInternal;
-import com.episode6.hackit.mockspresso.internal.MockspressoRuleImpl;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Before;
 import org.junit.Test;
@@ -74,7 +70,7 @@ public class MockspressoRuleImplTest {
     inOrder.verify(mConfig).setup(mOriginal);
     inOrder.verify(mBuilderProvider).get();
     inOrder.verify(mBuilder).setParent(mConfig);
-    inOrder.verify(mBuilder).fieldsFrom(mTarget);
+    inOrder.verify(mBuilder).testResources(mTarget);
     inOrder.verify(mBuilder).buildInternal();
     inOrder.verify(mChildConfig).setup(mChildMockspresso);
     inOrder.verify(base).evaluate();
@@ -102,7 +98,7 @@ public class MockspressoRuleImplTest {
     inOrder.verify(mBuilderProvider).get();
     inOrder.verify(mConfig).setup(mOriginal);
     inOrder.verify(mBuilderProvider).get();
-    inOrder.verify(mBuilder).fieldsFrom(mTarget);
+    inOrder.verify(mBuilder).testResources(mTarget);
     inOrder.verify(mBuilder).buildInternal();
     inOrder.verify(mChildConfig).setup(mChildMockspresso);
     inOrder.verify(mGrandChildMockspressoBackingBuilder).buildInternal();
@@ -146,7 +142,7 @@ public class MockspressoRuleImplTest {
     // eval happens in correct order, first mockspresso, then innerRule1, then innerRule2, then base
     inOrder.verify(mConfig).setup(mOriginal);
     inOrder.verify(mBuilderProvider).get();
-    inOrder.verify(mBuilder).fieldsFrom(mTarget);
+    inOrder.verify(mBuilder).testResources(mTarget);
     inOrder.verify(mBuilder).buildInternal();
     inOrder.verify(mChildConfig).setup(mChildMockspresso);
     inOrder.verify(innerRule1.returnStatement).before();
@@ -201,7 +197,7 @@ public class MockspressoRuleImplTest {
     // eval happens in correct order, first mockspresso, then innerRule1, then innerRule2, then base
     inOrder.verify(mConfig).setup(mOriginal);
     inOrder.verify(mBuilderProvider).get();
-    inOrder.verify(mBuilder).fieldsFrom(mTarget);
+    inOrder.verify(mBuilder).testResources(mTarget);
     inOrder.verify(mBuilder).buildInternal();
     inOrder.verify(mChildConfig).setup(mChildMockspresso);
     inOrder.verify(mGrandChildMockspressoBackingBuilder).buildInternal();

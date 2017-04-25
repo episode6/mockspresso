@@ -2,24 +2,22 @@ package com.episode6.hackit.mockspresso.integration.easymock;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.api.MockspressoInitializer;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.Coffee;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.CoffeeMakers;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.Pump;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.Water;
 import com.episode6.hackit.mockspresso.plugin.simple.SimpleInjectMockspressoPlugin;
 import org.easymock.Mock;
+import org.junit.Before;
 
 import static com.episode6.hackit.mockspresso.Conditions.easyMockMock;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.verify;
+import static org.easymock.EasyMock.*;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 /**
  * Separate resources class that could be shared by multiple tests
  */
-public class PumpTestResources implements MockspressoInitializer {
+public class PumpTestResources {
   @Mock Pump mPump;
   @Mock Water mWater;
 
@@ -32,7 +30,7 @@ public class PumpTestResources implements MockspressoInitializer {
 
   /* RealObject */ CoffeeMakers.SimpleCoffeeMaker mSimpleCoffeeMaker; // we construct this from a sub-instance of mockspresso
 
-  @Override
+  @Before
   public void setup(Mockspresso mockspresso) {
     expect(mPump.pump()).andReturn(mWater);
     replay(mPump);

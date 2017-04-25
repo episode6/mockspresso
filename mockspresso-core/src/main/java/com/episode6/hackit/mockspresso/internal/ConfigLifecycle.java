@@ -3,7 +3,6 @@ package com.episode6.hackit.mockspresso.internal;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.api.MockerConfig;
-import com.episode6.hackit.mockspresso.api.MockspressoInitializer;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 
 import java.lang.annotation.Annotation;
@@ -16,16 +15,13 @@ import java.util.List;
  */
 class ConfigLifecycle {
   private final DependencyProviderFactory mDependencyProviderFactory;
-  private final List<Object> mObjectsWithFields;
-  private final List<MockspressoInitializer> mInitializers;
+  private final List<Object> mObjectsWithResources;
 
   ConfigLifecycle(
       DependencyProviderFactory dependencyProviderFactory,
-      List<Object> objectsWithFields,
-      List<MockspressoInitializer> initializers) {
+      List<Object> objectsWithResources) {
     mDependencyProviderFactory = dependencyProviderFactory;
-    mObjectsWithFields = new LinkedList<>(objectsWithFields);
-    mInitializers = new LinkedList<>(initializers);
+    mObjectsWithResources = new LinkedList<>(objectsWithResources);
   }
 
   void setup(MockspressoInternal mockspresso) {
@@ -45,13 +41,13 @@ class ConfigLifecycle {
       MockerConfig mockerConfig,
       DependencyMap dependencyMap,
       RealObjectMapping realObjectMapping) {
-    // prepare mObjectsWithFields
+    // prepare mObjectsWithResources
     RealObjectFieldTracker realObjectFieldTracker = new RealObjectFieldTracker(
         realObjectMapping);
     DependencyMapImporter mDependencyMapImporter = new DependencyMapImporter(dependencyMap);
     MockerConfig.FieldPreparer mockFieldPreparer = mockerConfig.provideFieldPreparer();
     List<Class<? extends Annotation>> mockAnnotations = mockerConfig.provideMockAnnotations();
-    for (Object o : mObjectsWithFields) {
+    for (Object o : mObjectsWithResources) {
       // prepare mock fields
       mockFieldPreparer.prepareFields(o);
 
@@ -75,8 +71,6 @@ class ConfigLifecycle {
   }
 
   private void callInitializers(Mockspresso instance) {
-    for (MockspressoInitializer initializer : mInitializers) {
-      initializer.setup(instance);
-    }
+
   }
 }

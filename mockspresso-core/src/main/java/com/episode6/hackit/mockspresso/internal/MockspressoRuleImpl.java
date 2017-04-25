@@ -57,7 +57,7 @@ class MockspressoRuleImpl extends AbstractDelayedMockspresso implements Mockspre
 
             MockspressoBuilderImpl builder = newBuilder();
             builder.setParent(config);
-            builder.fieldsFrom(target);
+            builder.testResources(target);
 
             // build the delegate instance and set it, then evaluate the Statement
             setDelegate(builder.buildInternal());
