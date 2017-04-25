@@ -157,9 +157,6 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
         realObjectMaker);
 
     ConfigInitializer configInitializer = new ConfigInitializer(
-        mMockerConfig,
-        mDependencyMap,
-        mRealObjectMapping,
         dependencyProviderFactory,
         mObjectsWithFields,
         mInitializers);

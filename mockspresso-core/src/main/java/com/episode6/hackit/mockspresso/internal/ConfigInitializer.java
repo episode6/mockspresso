@@ -15,40 +15,38 @@ import java.util.List;
  * Includes field scanning and initializer calls
  */
 public class ConfigInitializer {
-  private final MockerConfig mMockerConfig;
-  private final DependencyMap mDependencyMap;
-  private final RealObjectMapping mRealObjectMapping;
   private final DependencyProviderFactory mDependencyProviderFactory;
   private final List<Object> mObjectsWithFields;
   private final List<MockspressoInitializer> mInitializers;
 
   public ConfigInitializer(
-      MockerConfig mockerConfig,
-      DependencyMap dependencyMap,
-      RealObjectMapping realObjectMapping,
       DependencyProviderFactory dependencyProviderFactory,
       List<Object> objectsWithFields,
       List<MockspressoInitializer> initializers) {
-    mMockerConfig = mockerConfig;
-    mDependencyMap = dependencyMap;
-    mRealObjectMapping = realObjectMapping;
     mDependencyProviderFactory = dependencyProviderFactory;
     mObjectsWithFields = new LinkedList<>(objectsWithFields);
     mInitializers = new LinkedList<>(initializers);
   }
 
-  public void init(Mockspresso mockspresso) {
-    performFieldScanningAndInjection();
+  public void init(MockspressoInternal mockspresso) {
+    MockspressoConfigContainer config = mockspresso.getConfig();
+    performFieldScanningAndInjection(
+        config.getMockerConfig(),
+        config.getDependencyMap(),
+        config.getRealObjectMapping());
     callInitializers(mockspresso);
   }
 
-  private void performFieldScanningAndInjection() {
+  private void performFieldScanningAndInjection(
+      MockerConfig mockerConfig,
+      DependencyMap dependencyMap,
+      RealObjectMapping realObjectMapping) {
     // prepare mObjectsWithFields
     RealObjectFieldTracker realObjectFieldTracker = new RealObjectFieldTracker(
-        mRealObjectMapping);
-    DependencyMapImporter mDependencyMapImporter = new DependencyMapImporter(mDependencyMap);
-    MockerConfig.FieldPreparer mockFieldPreparer = mMockerConfig.provideFieldPreparer();
-    List<Class<? extends Annotation>> mockAnnotations = mMockerConfig.provideMockAnnotations();
+        realObjectMapping);
+    DependencyMapImporter mDependencyMapImporter = new DependencyMapImporter(dependencyMap);
+    MockerConfig.FieldPreparer mockFieldPreparer = mockerConfig.provideFieldPreparer();
+    List<Class<? extends Annotation>> mockAnnotations = mockerConfig.provideMockAnnotations();
     for (Object o : mObjectsWithFields) {
       // prepare mock fields
       mockFieldPreparer.prepareFields(o);
@@ -63,7 +61,7 @@ public class ConfigInitializer {
 
     // since we haven't built any real objects yet, assert that we haven't
     // accidentally mapped a mock or other dependency to any of our RealObject keys
-    mDependencyMap.assertDoesNotContainAny(realObjectFieldTracker.keySet());
+    dependencyMap.assertDoesNotContainAny(realObjectFieldTracker.keySet());
 
     // fetch real object values from the dependencyProvider (now that they've been mapped)
     // and apply them to the fields found in realObjectFieldTracker
