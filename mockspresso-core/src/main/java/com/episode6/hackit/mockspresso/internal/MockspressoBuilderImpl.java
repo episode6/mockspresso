@@ -9,7 +9,6 @@ import com.episode6.hackit.mockspresso.util.Preconditions;
 import javax.annotation.Nullable;
 import javax.inject.Provider;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -167,7 +166,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
         realObjectMapping,
         realObjectMaker);
 
-    ConfigLifecycle configLifecycle = new ConfigLifecycle(
+    ResourcesLifecycleManager resourcesLifecycleManager = new ResourcesLifecycleManager(
         dependencyProviderFactory,
         mTestResources);
 
@@ -177,7 +176,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
         dependencyMap,
         mSpecialObjectMakers,
         realObjectMapping,
-        configLifecycle);
+        resourcesLifecycleManager);
 
     return new MockspressoImpl(
         configContainer,

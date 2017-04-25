@@ -1,15 +1,11 @@
 package com.episode6.hackit.mockspresso.internal;
 
-import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.api.MockerConfig;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
-import com.episode6.hackit.mockspresso.reflect.ReflectUtil;
-import org.junit.Before;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,15 +14,17 @@ import java.util.Set;
  * Logic to initialize and tear-down the last mile of a mockspresso config.
  * Includes field scanning and initializer calls
  */
-class ConfigLifecycle {
+class ResourcesLifecycleManager {
   private final DependencyProviderFactory mDependencyProviderFactory;
   private final Set<TestResource> mTestResources;
+  private final ResourcesLifecycleMethodManager mResourcesLifecycleMethodManager;
 
-  ConfigLifecycle(
+  ResourcesLifecycleManager(
       DependencyProviderFactory dependencyProviderFactory,
       Set<TestResource> testResources) {
     mDependencyProviderFactory = dependencyProviderFactory;
     mTestResources = new LinkedHashSet<>(testResources);
+    mResourcesLifecycleMethodManager = ResourcesLifecycleMethodManager.newInstance(mTestResources);
   }
 
   void setup(MockspressoInternal mockspresso) {
@@ -36,14 +34,18 @@ class ConfigLifecycle {
         config.getDependencyMap(),
         config.getRealObjectMapping());
     try {
-      callInitializers(mockspresso);
+      mResourcesLifecycleMethodManager.callBeforeMethods(mockspresso);
     } catch (InvocationTargetException | IllegalAccessException e) {
       throw new RuntimeException(e);
     }
   }
 
   void teardown() {
-
+    try {
+      mResourcesLifecycleMethodManager.callAfterMethods();
+    } catch (InvocationTargetException | IllegalAccessException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   private void performFieldScanningAndInjection(
@@ -78,29 +80,6 @@ class ConfigLifecycle {
     // and apply them to the fields found in realObjectFieldTracker
     for (DependencyKey key : realObjectFieldTracker.keySet()) {
       realObjectFieldTracker.applyValueToFields(key, mDependencyProviderFactory.getBlankDependencyProvider().get(key));
-    }
-  }
-
-  private void callInitializers(Mockspresso instance) throws InvocationTargetException, IllegalAccessException {
-    for (TestResource resource : mTestResources) {
-      if (!resource.isLifecycle()) {
-        continue;
-      }
-
-      Object obj = resource.getObjectWithResources();
-      List<Method> allMethods = ReflectUtil.getAllDeclaredMethods(obj.getClass());
-      for (Method method : allMethods) {
-        if (!method.isAnnotationPresent(Before.class)) {
-          continue;
-        }
-
-        int paramCount = method.getParameterCount();
-        if (paramCount == 0) {
-          method.invoke(obj);
-        } else if (paramCount == 1 && method.getParameterTypes()[0] == Mockspresso.class) {
-          method.invoke(obj, instance);
-        }
-      }
     }
   }
 }
