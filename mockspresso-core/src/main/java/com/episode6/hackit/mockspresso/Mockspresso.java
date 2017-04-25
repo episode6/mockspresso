@@ -221,7 +221,7 @@ public interface Mockspresso {
      * @return an empty {@link Mockspresso.Builder} with no configuration applied.
      */
     public static Builder empty() {
-      return new com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl();
+      return com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl.PROVIDER.get();
     }
 
     /**

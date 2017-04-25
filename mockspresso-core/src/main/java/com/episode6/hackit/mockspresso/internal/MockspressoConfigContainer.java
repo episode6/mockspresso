@@ -53,7 +53,7 @@ public class MockspressoConfigContainer {
   }
 
   public MockspressoBuilderImpl newBuilder() {
-    MockspressoBuilderImpl builder = new MockspressoBuilderImpl();
+    MockspressoBuilderImpl builder = MockspressoBuilderImpl.PROVIDER.get();
     builder.setParent(this);
     return builder;
   }

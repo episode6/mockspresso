@@ -33,6 +33,8 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   private @Nullable MockerConfig mMockerConfig = null;
   private @Nullable InjectionConfig mInjectionConfig = null;
 
+  private MockspressoBuilderImpl() {}
+
   public void setParent(MockspressoConfigContainer parentConfig) {
     mDependencyMap.setParentMap(parentConfig.getDependencyMap());
     mSpecialObjectMakers.setParentMaker(parentConfig.getSpecialObjectMaker());
