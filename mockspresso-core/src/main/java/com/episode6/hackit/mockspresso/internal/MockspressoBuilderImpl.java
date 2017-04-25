@@ -2,10 +2,7 @@ package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.api.InjectionConfig;
-import com.episode6.hackit.mockspresso.api.MockerConfig;
-import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
-import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
+import com.episode6.hackit.mockspresso.api.*;
 import com.episode6.hackit.mockspresso.internal.delayed.MockspressoRuleImpl;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
@@ -22,6 +19,7 @@ import java.util.List;
 public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   private final List<Object> mObjectsWithFields = new LinkedList<>();
+  private final List<MockspressoInitializer> mInitializers = new LinkedList<>();
   private final DependencyMap mDependencyMap = new DependencyMap();
   private final SpecialObjectMakerContainer mSpecialObjectMakers = new SpecialObjectMakerContainer();
   private final RealObjectMapping mRealObjectMapping = new RealObjectMapping();
@@ -30,6 +28,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   private @Nullable InjectionConfig mInjectionConfig = null;
 
   public void setParent(MockspressoConfigContainer parentConfig) {
+    mInitializers.addAll(0, parentConfig.getInitializers());
     mDependencyMap.setParentMap(parentConfig.getDependencyMap());
     mSpecialObjectMakers.setParentMaker(parentConfig.getSpecialObjectMaker());
     mRealObjectMapping.setParentMap(parentConfig.getRealObjectMapping());
@@ -48,6 +47,19 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   public Mockspresso.Builder fieldsFrom(Object objectWithFields) {
     mObjectsWithFields.add(objectWithFields);
+    return this;
+  }
+
+  @Override
+  public Mockspresso.Builder initializer(MockspressoInitializer initializer) {
+    mInitializers.add(initializer);
+    return this;
+  }
+
+  @Override
+  public Mockspresso.Builder initializerWithFields(MockspressoInitializer initializerWithFields) {
+    initializer(initializerWithFields);
+    fieldsFrom(initializerWithFields);
     return this;
   }
 
@@ -119,7 +131,9 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   @Override
   public Mockspresso build() {
-    return buildInternal();
+    MockspressoInternal instance = buildInternal();
+    instance.getConfig().executeAndClearInitializers(instance);
+    return instance;
   }
 
   @Override
@@ -177,7 +191,8 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
         mInjectionConfig,
         mDependencyMap,
         mSpecialObjectMakers,
-        mRealObjectMapping);
+        mRealObjectMapping,
+        mInitializers);
     return new MockspressoImpl(configContainer, dependencyProviderFactory, realObjectMaker);
   }
 }

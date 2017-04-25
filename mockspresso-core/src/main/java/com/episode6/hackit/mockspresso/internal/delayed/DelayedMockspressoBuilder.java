@@ -1,10 +1,7 @@
 package com.episode6.hackit.mockspresso.internal.delayed;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
-import com.episode6.hackit.mockspresso.api.InjectionConfig;
-import com.episode6.hackit.mockspresso.api.MockerConfig;
-import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
-import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
+import com.episode6.hackit.mockspresso.api.*;
 import com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl;
 import com.episode6.hackit.mockspresso.internal.MockspressoConfigContainer;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
@@ -44,6 +41,18 @@ public class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implem
   @Override
   public Builder fieldsFrom(Object objectWithFields) {
     mBuilder.fieldsFrom(objectWithFields);
+    return this;
+  }
+
+  @Override
+  public Builder initializer(MockspressoInitializer initializer) {
+    mBuilder.initializer(initializer);
+    return this;
+  }
+
+  @Override
+  public Builder initializerWithFields(MockspressoInitializer initializerWithFields) {
+    mBuilder.initializerWithFields(initializerWithFields);
     return this;
   }
 

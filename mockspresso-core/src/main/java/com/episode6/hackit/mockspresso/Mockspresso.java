@@ -1,9 +1,6 @@
 package com.episode6.hackit.mockspresso;
 
-import com.episode6.hackit.mockspresso.api.InjectionConfig;
-import com.episode6.hackit.mockspresso.api.MockerConfig;
-import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
-import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
+import com.episode6.hackit.mockspresso.api.*;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.rules.MethodRule;
@@ -78,6 +75,25 @@ public interface Mockspresso {
      * @return this
      */
     Builder fieldsFrom(Object objectWithFields);
+
+    /**
+     * Add an initializer to this mockspresso instance. The initializer will be called just as
+     * the instance is completely built, if building a Mockspresso.Rule, then it will execute as
+     * part of the rule's statement. Initializers will be executed in order, after all field
+     * injection as completed.
+     * @param initializer The initializer to add to this mockspresso instance.
+     * @return this
+     */
+    Builder initializer(MockspressoInitializer initializer);
+
+    /**
+     * Add an initializer that also has fields for field injection.
+     * @see #initializer(MockspressoInitializer) and
+     * @see #fieldsFrom(Object) for more info
+     * @param initializerWithFields The initializer with fields to add
+     * @return this
+     */
+    Builder initializerWithFields(MockspressoInitializer initializerWithFields);
 
     /**
      * Apply a {@link MockerConfig} to this builder, which tells mockspresso how to create a mock
