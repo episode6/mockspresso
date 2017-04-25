@@ -78,4 +78,8 @@ public abstract class AbstractDelayedMockspresso implements Mockspresso, Mockspr
   public MockspressoConfigContainer getConfig() {
     return getDelegate().getConfig();
   }
+
+  protected MockspressoBuilderImpl newBuilder() {
+    return mBuilderProvider.get();
+  }
 }

@@ -20,7 +20,6 @@ import org.mockito.stubbing.Answer;
 
 import javax.inject.Provider;
 
-import static org.fest.assertions.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 
@@ -30,6 +29,8 @@ import static org.mockito.Mockito.*;
 @RunWith(DefaultTestRunner.class)
 public class MockspressoRuleImplTest {
 
+  @Mock Provider<MockspressoBuilderImpl> mBuilderProvider;
+
   @Mock MockspressoInternal mOriginal;
   @Mock MockspressoInternal mChildMockspresso;
   @Mock MockspressoConfigContainer mConfig;
@@ -38,7 +39,6 @@ public class MockspressoRuleImplTest {
   @Mock MockspressoBuilderImpl mGrandChildMockspressoBackingBuilder;
   @Mock MockspressoInternal mGrandChildMockspresso;
   @Mock MockspressoConfigContainer mGrandChildConfig;
-  @Mock Provider<MockspressoBuilderImpl> mGrandChildProvider;
 
   @Mock MockspressoBuilderImpl mBuilder;
 
@@ -53,14 +53,13 @@ public class MockspressoRuleImplTest {
 
     when(mOriginal.getConfig()).thenReturn(mConfig);
     when(mChildMockspresso.getConfig()).thenReturn(mChildConfig);
-    when(mConfig.newBuilder()).thenReturn(mBuilder);
     when(mBuilder.buildInternal()).thenReturn(mChildMockspresso);
 
-    when(mGrandChildProvider.get()).thenReturn(mGrandChildMockspressoBackingBuilder);
+    when(mBuilderProvider.get()).thenReturn(mBuilder);
     when(mGrandChildMockspressoBackingBuilder.buildInternal()).thenReturn(mGrandChildMockspresso);
     when(mGrandChildMockspresso.getConfig()).thenReturn(mGrandChildConfig);
 
-    mRule = new MockspressoRuleImpl(mOriginal, mGrandChildProvider);
+    mRule = new MockspressoRuleImpl(mOriginal, mBuilderProvider);
   }
 
   @Test
@@ -70,9 +69,10 @@ public class MockspressoRuleImplTest {
     Statement result = mRule.apply(base, mFrameworkMethod, mTarget);
     result.evaluate();
 
-    InOrder inOrder = Mockito.inOrder(mConfig, mBuilder, base, mConfig, mChildConfig);
+    InOrder inOrder = Mockito.inOrder(mConfig, mBuilderProvider, mBuilder, base, mConfig, mChildConfig);
     inOrder.verify(mConfig).setup(mOriginal);
-    inOrder.verify(mConfig).newBuilder();
+    inOrder.verify(mBuilderProvider).get();
+    inOrder.verify(mBuilder).setParent(mConfig);
     inOrder.verify(mBuilder).fieldsFrom(mTarget);
     inOrder.verify(mBuilder).buildInternal();
     inOrder.verify(mChildConfig).setup(mChildMockspresso);
@@ -85,6 +85,11 @@ public class MockspressoRuleImplTest {
 
   @Test
   public void testEarlyBuildUponUsage() throws Throwable {
+    // first builder backs the DelayedMockspressoBuilder that gets created statically in-line,
+    // second builder is for the rule, the order of their creation doesn't matter, rather the order
+    // of their setup and teardown methods does
+    when(mBuilderProvider.get()).thenReturn(mGrandChildMockspressoBackingBuilder).thenReturn(mBuilder);
+
     // simulate building upon a final @Rule at the class-level
     Mockspresso mockspresso = mRule.buildUpon().build();
     Statement base = verifyChildDelegateStatement(mockspresso, mGrandChildMockspresso);
@@ -92,9 +97,10 @@ public class MockspressoRuleImplTest {
     Statement result = mRule.apply(base, mFrameworkMethod, mTarget);
     result.evaluate();
 
-    InOrder inOrder = Mockito.inOrder(mConfig, mBuilder, base, mConfig, mChildConfig, mGrandChildMockspressoBackingBuilder, mGrandChildConfig);
+    InOrder inOrder = Mockito.inOrder(mConfig, mBuilderProvider, mBuilder, base, mConfig, mChildConfig, mGrandChildMockspressoBackingBuilder, mGrandChildConfig);
+    inOrder.verify(mBuilderProvider).get();
     inOrder.verify(mConfig).setup(mOriginal);
-    inOrder.verify(mConfig).newBuilder();
+    inOrder.verify(mBuilderProvider).get();
     inOrder.verify(mBuilder).fieldsFrom(mTarget);
     inOrder.verify(mBuilder).buildInternal();
     inOrder.verify(mChildConfig).setup(mChildMockspresso);
@@ -122,6 +128,7 @@ public class MockspressoRuleImplTest {
 
     InOrder inOrder = Mockito.inOrder(
         mConfig,
+        mBuilderProvider,
         mBuilder,
         base,
         mConfig,
@@ -137,7 +144,7 @@ public class MockspressoRuleImplTest {
 
     // eval happens in correct order, first mockspresso, then innerRule1, then innerRule2, then base
     inOrder.verify(mConfig).setup(mOriginal);
-    inOrder.verify(mConfig).newBuilder();
+    inOrder.verify(mBuilderProvider).get();
     inOrder.verify(mBuilder).fieldsFrom(mTarget);
     inOrder.verify(mBuilder).buildInternal();
     inOrder.verify(mChildConfig).setup(mChildMockspresso);
@@ -146,6 +153,64 @@ public class MockspressoRuleImplTest {
     inOrder.verify(base).evaluate();
     inOrder.verify(innerRule2.returnStatement).after();
     inOrder.verify(innerRule1.returnStatement).after();
+    inOrder.verify(mChildConfig).teardown();
+    inOrder.verify(mConfig).teardown();
+
+    assertRuleNoLongerWorks();
+  }
+
+  @Test
+  public void testChainUsageWithChildInstance() throws Throwable {
+    // first builder backs the DelayedMockspressoBuilder that gets created statically in-line,
+    // second builder is for the rule, the order of their creation doesn't matter, rather the order
+    // of their setup and teardown methods does
+    when(mBuilderProvider.get()).thenReturn(mGrandChildMockspressoBackingBuilder).thenReturn(mBuilder);
+
+    // simulate building upon a final @Rule at the class-level
+    Mockspresso mockspresso = mRule.buildUpon().build();
+    Statement base = verifyChildDelegateStatement(mockspresso, mGrandChildMockspresso);
+    TestTestRule innerRule1 = spy(new TestTestRule());
+    TestMethodRule innerRule2 = spy(new TestMethodRule());
+
+    mRule = mRule.chainAround(innerRule1).chainAround(innerRule2);
+    Statement result = mRule.apply(base, mFrameworkMethod, mTarget);
+    result.evaluate();
+
+    InOrder inOrder = Mockito.inOrder(
+        mConfig,
+        mBuilderProvider,
+        mBuilder,
+        base,
+        mConfig,
+        mChildConfig,
+        innerRule1,
+        innerRule1.returnStatement,
+        innerRule2,
+        innerRule2.returnStatement,
+        mGrandChildMockspressoBackingBuilder,
+        mGrandChildConfig);
+
+    // first builderProvider.get happens inline
+    inOrder.verify(mBuilderProvider).get();
+
+    // apply happens in reverse order
+    inOrder.verify(innerRule2).apply(base, mFrameworkMethod, mTarget);
+    inOrder.verify(innerRule1).apply(eq(innerRule2.returnStatement), any(Description.class));
+
+    // eval happens in correct order, first mockspresso, then innerRule1, then innerRule2, then base
+    inOrder.verify(mConfig).setup(mOriginal);
+    inOrder.verify(mBuilderProvider).get();
+    inOrder.verify(mBuilder).fieldsFrom(mTarget);
+    inOrder.verify(mBuilder).buildInternal();
+    inOrder.verify(mChildConfig).setup(mChildMockspresso);
+    inOrder.verify(mGrandChildMockspressoBackingBuilder).buildInternal();
+    inOrder.verify(mGrandChildConfig).setup(mGrandChildMockspresso);
+    inOrder.verify(innerRule1.returnStatement).before();
+    inOrder.verify(innerRule2.returnStatement).before();
+    inOrder.verify(base).evaluate();
+    inOrder.verify(innerRule2.returnStatement).after();
+    inOrder.verify(innerRule1.returnStatement).after();
+    inOrder.verify(mGrandChildConfig).teardown();
     inOrder.verify(mChildConfig).teardown();
     inOrder.verify(mConfig).teardown();
 

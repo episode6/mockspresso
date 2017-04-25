@@ -57,7 +57,9 @@ public class MockspressoRuleImpl extends AbstractDelayedMockspresso implements M
             // Init the original config then create a builder for the actual mockspresso instance to be used using
             // mOriginal as the parent and adding fields from the Statement's target (the test)
             config.setup(mOriginal);
-            MockspressoBuilderImpl builder = config.newBuilder();
+
+            MockspressoBuilderImpl builder = newBuilder();
+            builder.setParent(config);
             builder.fieldsFrom(target);
 
             // build the delegate instance and set it, then evaluate the Statement

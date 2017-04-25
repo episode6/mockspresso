@@ -190,6 +190,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     return new MockspressoImpl(
         configContainer,
         dependencyProviderFactory,
-        realObjectMaker);
+        realObjectMaker,
+        PROVIDER);
   }
 }

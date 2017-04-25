@@ -52,12 +52,6 @@ public class MockspressoConfigContainer {
     return mRealObjectMapping;
   }
 
-  public MockspressoBuilderImpl newBuilder() {
-    MockspressoBuilderImpl builder = MockspressoBuilderImpl.PROVIDER.get();
-    builder.setParent(this);
-    return builder;
-  }
-
   public void setup(MockspressoInternal instance) {
     mConfigLifecycle.setup(instance);
   }
