@@ -8,6 +8,7 @@ import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 
 import javax.annotation.Nullable;
+import javax.inject.Provider;
 import java.util.List;
 
 /**
@@ -17,7 +18,20 @@ import java.util.List;
  */
 public class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implements Mockspresso.Builder {
 
-  private final MockspressoBuilderImpl mBuilder = new MockspressoBuilderImpl();
+  public static Provider<DelayedMockspressoBuilder> PROVIDER = new Provider<DelayedMockspressoBuilder>() {
+    @Override
+    public DelayedMockspressoBuilder get() {
+      return new DelayedMockspressoBuilder(MockspressoBuilderImpl.PROVIDER);
+    }
+  };
+
+  private final Provider<MockspressoBuilderImpl> mBuilderProvider;
+  private final MockspressoBuilderImpl mBuilder;
+
+  DelayedMockspressoBuilder(Provider<MockspressoBuilderImpl> builderProvider) {
+    mBuilder = builderProvider.get();
+    mBuilderProvider = builderProvider;
+  }
 
   void setParent(@Nullable MockspressoConfigContainer parentConfig) {
     if (parentConfig == null) {
@@ -136,5 +150,10 @@ public class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implem
   @Override
   public Rule buildRule() {
     throw new VerifyError("Can't build a new mockspresso @Rule on top of an existing one.");
+  }
+
+  @Override
+  protected DelayedMockspressoBuilder newDelayedBuilder() {
+    return new DelayedMockspressoBuilder(mBuilderProvider);
   }
 }

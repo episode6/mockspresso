@@ -61,7 +61,7 @@ public abstract class AbstractDelayedMockspresso implements Mockspresso, Mockspr
       return mDelegate.buildUpon();
     }
 
-    DelayedMockspressoBuilder delayedBuilder = new DelayedMockspressoBuilder();
+    DelayedMockspressoBuilder delayedBuilder = newDelayedBuilder();
     mDelayedBuilders.add(delayedBuilder);
     return delayedBuilder;
   }
@@ -70,4 +70,6 @@ public abstract class AbstractDelayedMockspresso implements Mockspresso, Mockspr
   public MockspressoConfigContainer getConfig() {
     return getDelegate().getConfig();
   }
+
+  abstract protected DelayedMockspressoBuilder newDelayedBuilder();
 }

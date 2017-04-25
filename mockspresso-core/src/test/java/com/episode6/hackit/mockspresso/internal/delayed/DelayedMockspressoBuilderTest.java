@@ -2,16 +2,21 @@ package com.episode6.hackit.mockspresso.internal.delayed;
 
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.Mockspresso;
+import com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl;
 import com.episode6.hackit.mockspresso.internal.MockspressoConfigContainer;
-import com.episode6.hackit.mockspresso.mockito.MockitoMockerConfig;
-import com.episode6.hackit.mockspresso.plugin.simple.SimpleInjectionConfig;
+import com.episode6.hackit.mockspresso.internal.MockspressoInternal;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InOrder;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
-import static com.episode6.hackit.mockspresso.Conditions.rawClass;
+import javax.inject.Provider;
+
 import static org.fest.assertions.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Tests {@link DelayedMockspressoBuilder}
@@ -19,7 +24,25 @@ import static org.mockito.Mockito.when;
 @RunWith(DefaultTestRunner.class)
 public class DelayedMockspressoBuilderTest {
 
-  private final DelayedMockspressoBuilder mDelayedBuilder = new DelayedMockspressoBuilder();
+  @Mock MockspressoBuilderImpl mBackingBuilder;
+  @Mock Provider<MockspressoBuilderImpl> mBuilderProvider;
+
+  @Mock MockspressoConfigContainer mConfig;
+
+  @Mock MockspressoInternal mChildMockspresso;
+  @Mock MockspressoConfigContainer mChildConfig;
+
+  private DelayedMockspressoBuilder mDelayedBuilder;
+
+  @Before
+  public void setup() {
+    MockitoAnnotations.initMocks(this);
+
+    when(mBuilderProvider.get()).thenReturn(mBackingBuilder);
+    when(mBackingBuilder.buildInternal()).thenReturn(mChildMockspresso);
+    when(mChildMockspresso.getConfig()).thenReturn(mChildConfig);
+    mDelayedBuilder = new DelayedMockspressoBuilder(mBuilderProvider);
+  }
 
   @Test
   public void testCanBuildWithNothing() {
@@ -27,21 +50,35 @@ public class DelayedMockspressoBuilderTest {
 
     assertThat(mockspresso)
         .isNotNull();
+    verifyZeroInteractions(mBackingBuilder);
   }
 
   @Test
   public void testCanCreateWithParent() {
-    MockspressoConfigContainer configContainer = mock(MockspressoConfigContainer.class);
-    when(configContainer.getMockerConfig()).thenReturn(MockitoMockerConfig.getInstance());
-    when(configContainer.getInjectionConfig()).thenReturn(SimpleInjectionConfig.getInstance());
-
     Mockspresso mockspresso = mDelayedBuilder.build();
-    mDelayedBuilder.setParent(configContainer);
-    TestClass testObject = mockspresso.create(TestClass.class);
+    mDelayedBuilder.setParent(mConfig);
+    mockspresso.create(TestClass.class);
 
-    assertThat(testObject)
-        .isNotNull()
-        .is(rawClass(TestClass.class));
+    InOrder inOrder = Mockito.inOrder(mBackingBuilder, mConfig, mChildMockspresso, mChildConfig);
+    inOrder.verify(mBackingBuilder).setParent(mConfig);
+    inOrder.verify(mBackingBuilder).buildInternal();
+    inOrder.verify(mChildMockspresso).getConfig();
+    inOrder.verify(mChildConfig).setup(mChildMockspresso);
+    inOrder.verify(mChildMockspresso).create(TestClass.class);
+    verifyNoMoreInteractions(mBackingBuilder, mConfig, mChildMockspresso, mChildConfig);
+  }
+
+  @Test
+  public void testSetupAndTearDown() {
+    mDelayedBuilder.setParent(mConfig);
+    mDelayedBuilder.setParent(null);
+
+    InOrder inOrder = Mockito.inOrder(mBackingBuilder, mConfig, mChildConfig);
+    inOrder.verify(mBackingBuilder).setParent(mConfig);
+    inOrder.verify(mBackingBuilder).buildInternal();
+    inOrder.verify(mChildConfig).setup(mChildMockspresso);
+    inOrder.verify(mChildConfig).teardown();
+    verifyNoMoreInteractions(mBackingBuilder, mConfig, mChildConfig);
   }
 
   @Test(expected = NullPointerException.class)

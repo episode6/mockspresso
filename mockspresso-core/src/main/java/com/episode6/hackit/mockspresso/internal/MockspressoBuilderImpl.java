@@ -2,12 +2,14 @@ package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.api.*;
+import com.episode6.hackit.mockspresso.internal.delayed.DelayedMockspressoBuilder;
 import com.episode6.hackit.mockspresso.internal.delayed.MockspressoRuleImpl;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import com.episode6.hackit.mockspresso.util.Preconditions;
 
 import javax.annotation.Nullable;
+import javax.inject.Provider;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,6 +17,13 @@ import java.util.List;
  *
  */
 public class MockspressoBuilderImpl implements Mockspresso.Builder {
+
+  public static final Provider<MockspressoBuilderImpl> PROVIDER = new Provider<MockspressoBuilderImpl>() {
+    @Override
+    public MockspressoBuilderImpl get() {
+      return new MockspressoBuilderImpl();
+    }
+  };
 
   private final List<Object> mObjectsWithFields = new LinkedList<>();
   private final List<MockspressoInitializer> mInitializers = new LinkedList<>();
@@ -135,7 +144,9 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   @Override
   public Mockspresso.Rule buildRule() {
-    return new MockspressoRuleImpl(buildInternal());
+    return new MockspressoRuleImpl(
+        buildInternal(),
+        DelayedMockspressoBuilder.PROVIDER);
   }
 
   public MockspressoInternal buildInternal() {

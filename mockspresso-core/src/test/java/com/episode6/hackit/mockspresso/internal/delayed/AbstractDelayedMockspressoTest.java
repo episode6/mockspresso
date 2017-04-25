@@ -28,7 +28,12 @@ public class AbstractDelayedMockspressoTest {
   @Mock MockspressoConfigContainer mMockspressoConfigContainer;
   @Mock Mockspresso.Builder mMockBuilder;
 
-  private final AbstractDelayedMockspresso mMockspresso = new AbstractDelayedMockspresso() {};
+  private final AbstractDelayedMockspresso mMockspresso = new AbstractDelayedMockspresso() {
+    @Override
+    protected DelayedMockspressoBuilder newDelayedBuilder() {
+      return DelayedMockspressoBuilder.PROVIDER.get();
+    }
+  };
 
   @Before
   public void setup() {

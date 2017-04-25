@@ -2,9 +2,11 @@ package com.episode6.hackit.mockspresso.internal.delayed;
 
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.Mockspresso;
+import com.episode6.hackit.mockspresso.api.InjectionConfig;
 import com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl;
 import com.episode6.hackit.mockspresso.internal.MockspressoConfigContainer;
 import com.episode6.hackit.mockspresso.internal.MockspressoInternal;
+import com.episode6.hackit.mockspresso.plugin.simple.SimpleInjectionConfig;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,11 +16,14 @@ import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
-import org.mockito.InOrder;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
+import javax.inject.Provider;
+
+import static com.episode6.hackit.mockspresso.Conditions.mockitoMock;
+import static org.fest.assertions.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 
@@ -32,6 +37,9 @@ public class MockspressoRuleImplTest {
   @Mock MockspressoInternal mChildMockspresso;
   @Mock MockspressoConfigContainer mConfig;
   @Mock MockspressoConfigContainer mChildConfig;
+
+  /*Mock*/ DelayedMockspressoBuilder mGrandChildMockspresso;
+  @Mock Provider<DelayedMockspressoBuilder> mGrandChildProvider;
 
   @Mock MockspressoBuilderImpl mBuilder;
 
@@ -49,7 +57,10 @@ public class MockspressoRuleImplTest {
     when(mConfig.newBuilder()).thenReturn(mBuilder);
     when(mBuilder.buildInternal()).thenReturn(mChildMockspresso);
 
-    mRule = new MockspressoRuleImpl(mOriginal);
+    mGrandChildMockspresso = mock(DelayedMockspressoBuilder.class, new BuilderAnswer());
+    when(mGrandChildProvider.get()).thenReturn(mGrandChildMockspresso);
+
+    mRule = new MockspressoRuleImpl(mOriginal, mGrandChildProvider);
   }
 
   @Test
@@ -66,6 +77,33 @@ public class MockspressoRuleImplTest {
     inOrder.verify(mBuilder).buildInternal();
     inOrder.verify(mChildConfig).setup(mChildMockspresso);
     inOrder.verify(base).evaluate();
+    inOrder.verify(mChildConfig).teardown();
+    inOrder.verify(mConfig).teardown();
+
+    assertRuleNoLongerWorks();
+  }
+
+  @Test
+  public void testEarlyBuildUponUsage() throws Throwable {
+    // simulate building upon a final @Rule at the class-level
+    final Mockspresso mockspresso = mRule.buildUpon().build();
+    // ensure we wired up correct, our mockspresso is a delayed instance because
+    // we called buildUpon before applying the @Rule
+    assertThat(mockspresso).isEqualTo(mGrandChildMockspresso);
+    Statement base = mock(Statement.class);
+
+    Statement result = mRule.apply(base, mFrameworkMethod, mTarget);
+    result.evaluate();
+
+    InOrder inOrder = Mockito.inOrder(mConfig, mBuilder, base, mConfig, mChildConfig, mGrandChildMockspresso);
+    inOrder.verify(mConfig).setup(mOriginal);
+    inOrder.verify(mConfig).newBuilder();
+    inOrder.verify(mBuilder).fieldsFrom(mTarget);
+    inOrder.verify(mBuilder).buildInternal();
+    inOrder.verify(mChildConfig).setup(mChildMockspresso);
+    inOrder.verify(mGrandChildMockspresso).setParent(mChildConfig);  // set parent should handle setup
+    inOrder.verify(base).evaluate();
+    inOrder.verify(mGrandChildMockspresso).setParent(null); // set parent null should handle teardown
     inOrder.verify(mChildConfig).teardown();
     inOrder.verify(mConfig).teardown();
 
@@ -134,19 +172,25 @@ public class MockspressoRuleImplTest {
   }
 
   private void assertRuleNoLongerWorks() {
+    assertMockspressNoLongerWorks(mRule);
+  }
+
+  private void assertMockspressNoLongerWorks(Mockspresso instance) {
     try {
-      mRule.create(String.class);
+      instance.create(String.class);
       fail("Expected a NullPointerException");
     } catch (NullPointerException e) {
       // pass
     }
     try {
-      mRule.create(TypeToken.of(Integer.class));
+      instance.create(TypeToken.of(Integer.class));
       fail("Expected a NullPointerException");
     } catch (NullPointerException e) {
       // pass
     }
   }
+
+  private static class TestClass {}
 
   private static class TestStatement extends Statement {
     private final Statement mBaseStatement;
@@ -182,6 +226,19 @@ public class MockspressoRuleImplTest {
     public Statement apply(final Statement base, FrameworkMethod method, Object target) {
       returnStatement = spy(new TestStatement(base));
       return returnStatement;
+    }
+  }
+
+  private static class BuilderAnswer implements Answer<Object> {
+
+    @Override
+    public Object answer(InvocationOnMock invocation) throws Throwable {
+      Class<?> returnType = invocation.getMethod().getReturnType();
+      if (returnType == Mockspresso.Builder.class ||
+          returnType == Mockspresso.class) {
+        return invocation.getMock();
+      }
+      return Answers.RETURNS_DEFAULTS.answer(invocation);
     }
   }
 }

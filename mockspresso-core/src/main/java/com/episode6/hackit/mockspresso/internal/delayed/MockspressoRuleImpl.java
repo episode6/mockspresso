@@ -10,6 +10,8 @@ import org.junit.rules.TestRule;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
 
+import javax.inject.Provider;
+
 /**
  * The implementation of {@link Mockspresso.Rule}. Hold an instance of the
  * {@link Mockspresso} and buildsUpon it for each test.
@@ -17,10 +19,14 @@ import org.junit.runners.model.Statement;
 public class MockspressoRuleImpl extends AbstractDelayedMockspresso implements Mockspresso.Rule {
 
   private final MockspressoInternal mOriginal;
+  private final Provider<DelayedMockspressoBuilder> mDelayedMockspressoBuilderProvider;
   private MethodRuleChain mRuleChain;
 
-  public MockspressoRuleImpl(MockspressoInternal original) {
+  public MockspressoRuleImpl(
+      MockspressoInternal original,
+      Provider<DelayedMockspressoBuilder> delayedMockspressoBuilderProvider) {
     mOriginal = original;
+    mDelayedMockspressoBuilderProvider = delayedMockspressoBuilderProvider;
     mRuleChain = MethodRuleChain.outerRule(new OuterRule());
   }
 
@@ -39,6 +45,11 @@ public class MockspressoRuleImpl extends AbstractDelayedMockspresso implements M
   @Override
   public Statement apply(Statement base, FrameworkMethod method, Object target) {
     return mRuleChain.apply(base, method, target);
+  }
+
+  @Override
+  protected DelayedMockspressoBuilder newDelayedBuilder() {
+    return mDelayedMockspressoBuilderProvider.get();
   }
 
   private class OuterRule implements MethodRule {
