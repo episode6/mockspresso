@@ -52,6 +52,12 @@ class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implements Mo
   }
 
   @Override
+  public Builder testResourcesWithoutLifecycle(Object objectWithResources) {
+    mBuilder.testResourcesWithoutLifecycle(objectWithResources);
+    return this;
+  }
+
+  @Override
   public Builder mockerConfig(MockerConfig mockerConfig) {
     mBuilder.mockerConfig(mockerConfig);
     return this;

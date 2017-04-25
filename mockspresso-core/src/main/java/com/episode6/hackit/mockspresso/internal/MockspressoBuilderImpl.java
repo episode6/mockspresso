@@ -8,8 +8,10 @@ import com.episode6.hackit.mockspresso.util.Preconditions;
 
 import javax.annotation.Nullable;
 import javax.inject.Provider;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -23,7 +25,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     }
   };
 
-  private final List<Object> mObjectsWithResources = new LinkedList<>();
+  private final Set<TestResource> mTestResources = new LinkedHashSet<>();
   private final DependencyMap mDependencyMap = new DependencyMap();
   private final SpecialObjectMakerContainer mSpecialObjectMakers = new SpecialObjectMakerContainer();
   private final RealObjectMapping mRealObjectMapping = new RealObjectMapping();
@@ -51,7 +53,13 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   }
 
   public Mockspresso.Builder testResources(Object objectWithResources) {
-    mObjectsWithResources.add(objectWithResources);
+    mTestResources.add(new TestResource(objectWithResources, true));
+    return this;
+  }
+
+  @Override
+  public Mockspresso.Builder testResourcesWithoutLifecycle(Object objectWithResources) {
+    mTestResources.add(new TestResource(objectWithResources, false));
     return this;
   }
 
@@ -161,7 +169,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
     ConfigLifecycle configLifecycle = new ConfigLifecycle(
         dependencyProviderFactory,
-        mObjectsWithResources);
+        mTestResources);
 
     MockspressoConfigContainer configContainer = new MockspressoConfigContainer(
         mMockerConfig,

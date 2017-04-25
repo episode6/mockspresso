@@ -70,7 +70,7 @@ public class MockspressoRuleImplTest {
     inOrder.verify(mConfig).setup(mOriginal);
     inOrder.verify(mBuilderProvider).get();
     inOrder.verify(mBuilder).setParent(mConfig);
-    inOrder.verify(mBuilder).testResources(mTarget);
+    inOrder.verify(mBuilder).testResourcesWithoutLifecycle(mTarget);
     inOrder.verify(mBuilder).buildInternal();
     inOrder.verify(mChildConfig).setup(mChildMockspresso);
     inOrder.verify(base).evaluate();
@@ -98,7 +98,7 @@ public class MockspressoRuleImplTest {
     inOrder.verify(mBuilderProvider).get();
     inOrder.verify(mConfig).setup(mOriginal);
     inOrder.verify(mBuilderProvider).get();
-    inOrder.verify(mBuilder).testResources(mTarget);
+    inOrder.verify(mBuilder).testResourcesWithoutLifecycle(mTarget);
     inOrder.verify(mBuilder).buildInternal();
     inOrder.verify(mChildConfig).setup(mChildMockspresso);
     inOrder.verify(mGrandChildMockspressoBackingBuilder).buildInternal();
@@ -142,7 +142,7 @@ public class MockspressoRuleImplTest {
     // eval happens in correct order, first mockspresso, then innerRule1, then innerRule2, then base
     inOrder.verify(mConfig).setup(mOriginal);
     inOrder.verify(mBuilderProvider).get();
-    inOrder.verify(mBuilder).testResources(mTarget);
+    inOrder.verify(mBuilder).testResourcesWithoutLifecycle(mTarget);
     inOrder.verify(mBuilder).buildInternal();
     inOrder.verify(mChildConfig).setup(mChildMockspresso);
     inOrder.verify(innerRule1.returnStatement).before();
@@ -197,7 +197,7 @@ public class MockspressoRuleImplTest {
     // eval happens in correct order, first mockspresso, then innerRule1, then innerRule2, then base
     inOrder.verify(mConfig).setup(mOriginal);
     inOrder.verify(mBuilderProvider).get();
-    inOrder.verify(mBuilder).testResources(mTarget);
+    inOrder.verify(mBuilder).testResourcesWithoutLifecycle(mTarget);
     inOrder.verify(mBuilder).buildInternal();
     inOrder.verify(mChildConfig).setup(mChildMockspresso);
     inOrder.verify(mGrandChildMockspressoBackingBuilder).buildInternal();

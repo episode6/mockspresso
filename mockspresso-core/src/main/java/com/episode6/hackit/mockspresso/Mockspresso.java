@@ -70,11 +70,24 @@ public interface Mockspresso {
 
     /**
      * Scans the included objectWithResources for fields annotated with @Mock and @RealObject, then prepares them
-     * and adds them to our dependency map.
-     * @param objectWithResources The object to scan and set fields on (usually a Test class)
+     * and adds them to our dependency map. Will also call any methods annotated with {@link org.junit.Before} during
+     * the initialization process, and any methods annotated with {@link org.junit.After} during the teardown process.
+     *
+     * Don't pass the actual test class to this method, as it will result in multiple calls to your
+     * @Before and @After methods. Instead use {@link #testResourcesWithoutLifecycle(Object)}
+     *
+     * @param objectWithResources The object to scan, set fields on and initialize
      * @return this
      */
     Builder testResources(Object objectWithResources);
+
+    /**
+     * Scans the included objectWithResources for fields annotated with @Mock and @RealObject, then prepares them
+     * and adds them to our dependency map. Mockspresso will not call any methods on objects added via this method.
+     * @param objectWithResources The object to scan and set fields on
+     * @return this
+     */
+    Builder testResourcesWithoutLifecycle(Object objectWithResources);
 
     /**
      * Apply a {@link MockerConfig} to this builder, which tells mockspresso how to create a mock

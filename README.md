@@ -75,7 +75,7 @@ private Mockspresso mockspresso;
 public void setup() {
   mockspresso = Mockspresso.Builders.simple()
       .plugin(MockitoPlugin.getInstance()) // or EasyMockPlugin.getInstance()
-      .testResources(this) // scan 'this' for @Mocks and @RealObjects
+      .testResourcesWithoutLifecycle(this) // scan 'this' for @Mocks and @RealObjects, but don't execute any of its lifecycle methods
       .build(); // use build() instead of buildRule() for a raw instance of Mockspresso
 }
 ```

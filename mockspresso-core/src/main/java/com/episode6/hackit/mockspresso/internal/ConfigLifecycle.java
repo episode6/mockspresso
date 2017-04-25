@@ -4,10 +4,15 @@ import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.api.MockerConfig;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
+import com.episode6.hackit.mockspresso.reflect.ReflectUtil;
+import org.junit.Before;
 
 import java.lang.annotation.Annotation;
-import java.util.LinkedList;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Logic to initialize and tear-down the last mile of a mockspresso config.
@@ -15,13 +20,13 @@ import java.util.List;
  */
 class ConfigLifecycle {
   private final DependencyProviderFactory mDependencyProviderFactory;
-  private final List<Object> mObjectsWithResources;
+  private final Set<TestResource> mTestResources;
 
   ConfigLifecycle(
       DependencyProviderFactory dependencyProviderFactory,
-      List<Object> objectsWithResources) {
+      Set<TestResource> testResources) {
     mDependencyProviderFactory = dependencyProviderFactory;
-    mObjectsWithResources = new LinkedList<>(objectsWithResources);
+    mTestResources = new LinkedHashSet<>(testResources);
   }
 
   void setup(MockspressoInternal mockspresso) {
@@ -30,7 +35,11 @@ class ConfigLifecycle {
         config.getMockerConfig(),
         config.getDependencyMap(),
         config.getRealObjectMapping());
-    callInitializers(mockspresso);
+    try {
+      callInitializers(mockspresso);
+    } catch (InvocationTargetException | IllegalAccessException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   void teardown() {
@@ -41,13 +50,15 @@ class ConfigLifecycle {
       MockerConfig mockerConfig,
       DependencyMap dependencyMap,
       RealObjectMapping realObjectMapping) {
-    // prepare mObjectsWithResources
+    // prepare mTestResources
     RealObjectFieldTracker realObjectFieldTracker = new RealObjectFieldTracker(
         realObjectMapping);
     DependencyMapImporter mDependencyMapImporter = new DependencyMapImporter(dependencyMap);
     MockerConfig.FieldPreparer mockFieldPreparer = mockerConfig.provideFieldPreparer();
     List<Class<? extends Annotation>> mockAnnotations = mockerConfig.provideMockAnnotations();
-    for (Object o : mObjectsWithResources) {
+    for (TestResource resource : mTestResources) {
+      Object o = resource.getObjectWithResources();
+
       // prepare mock fields
       mockFieldPreparer.prepareFields(o);
 
@@ -70,7 +81,26 @@ class ConfigLifecycle {
     }
   }
 
-  private void callInitializers(Mockspresso instance) {
+  private void callInitializers(Mockspresso instance) throws InvocationTargetException, IllegalAccessException {
+    for (TestResource resource : mTestResources) {
+      if (!resource.isLifecycle()) {
+        continue;
+      }
 
+      Object obj = resource.getObjectWithResources();
+      List<Method> allMethods = ReflectUtil.getAllDeclaredMethods(obj.getClass());
+      for (Method method : allMethods) {
+        if (!method.isAnnotationPresent(Before.class)) {
+          continue;
+        }
+
+        int paramCount = method.getParameterCount();
+        if (paramCount == 0) {
+          method.invoke(obj);
+        } else if (paramCount == 1 && method.getParameterTypes()[0] == Mockspresso.class) {
+          method.invoke(obj, instance);
+        }
+      }
+    }
   }
 }
