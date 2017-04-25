@@ -10,7 +10,7 @@ import javax.inject.Provider;
 /**
  * future implementation of mockspresso functionality
  */
-public class MockspressoImpl implements Mockspresso, MockspressoInternal {
+class MockspressoImpl implements Mockspresso, MockspressoInternal {
 
   private final MockspressoConfigContainer mMockspressoConfigContainer;
   private final DependencyProviderFactory mDependencyProviderFactory;

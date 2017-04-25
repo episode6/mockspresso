@@ -15,12 +15,12 @@ import java.util.List;
 /**
  * Does the job of actually creating real objects
  */
-public class RealObjectMaker  {
+class RealObjectMaker  {
   private final InjectionConfig.ConstructorSelector mConstructorSelector;
   private final List<Class<? extends Annotation>> mInjectFieldAnnotations;
   private final List<Class<? extends Annotation>> mInjectMethodAnnotations;
 
-  public RealObjectMaker(
+  RealObjectMaker(
       InjectionConfig.ConstructorSelector constructorSelector,
       List<Class<? extends Annotation>> injectFieldAnnotations,
       List<Class<? extends Annotation>> injectMethodAnnotations) {
@@ -29,7 +29,7 @@ public class RealObjectMaker  {
     mInjectMethodAnnotations = injectMethodAnnotations;
   }
 
-  public <T> T createObject(DependencyProvider dependencyProvider, TypeToken<T> typeToken) {
+  <T> T createObject(DependencyProvider dependencyProvider, TypeToken<T> typeToken) {
     try {
       return createObjectInternal(dependencyProvider, typeToken);
     } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {

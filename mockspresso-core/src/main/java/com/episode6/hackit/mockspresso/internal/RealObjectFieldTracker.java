@@ -23,17 +23,17 @@ import java.util.Set;
  * Then you loop through {@link #keySet()}, create the objects and call
  * {@link #applyValueToFields(DependencyKey, Object)} to update the values of the fields
  */
-public class RealObjectFieldTracker {
+class RealObjectFieldTracker {
 
   private final HashMap<DependencyKey, Entry> mNullRealObjectFields = new HashMap<>();
 
   private final RealObjectMapping mRealObjectMapping;
 
-  public RealObjectFieldTracker(RealObjectMapping realObjectMapping) {
+  RealObjectFieldTracker(RealObjectMapping realObjectMapping) {
     mRealObjectMapping = realObjectMapping;
   }
 
-  public void scanNullRealObjectFields(Object object) {
+  void scanNullRealObjectFields(Object object) {
     for (Field field : ReflectUtil.getAllDeclaredFields(object.getClass())) {
       if (!field.isAnnotationPresent(RealObject.class)) {
         continue;
@@ -47,11 +47,11 @@ public class RealObjectFieldTracker {
     }
   }
 
-  public Set<DependencyKey> keySet() {
+  Set<DependencyKey> keySet() {
     return mNullRealObjectFields.keySet();
   }
 
-  public void applyValueToFields(DependencyKey key, Object value) {
+  void applyValueToFields(DependencyKey key, Object value) {
     if (!mNullRealObjectFields.containsKey(key)) {
       throw new RuntimeException(String.format("Could not find Key (%s) in tracked fields", key));
     }

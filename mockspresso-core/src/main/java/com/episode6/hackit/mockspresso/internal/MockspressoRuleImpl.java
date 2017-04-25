@@ -1,9 +1,6 @@
-package com.episode6.hackit.mockspresso.internal.delayed;
+package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
-import com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl;
-import com.episode6.hackit.mockspresso.internal.MockspressoConfigContainer;
-import com.episode6.hackit.mockspresso.internal.MockspressoInternal;
 import com.episode6.hackit.mockspresso.junit.MethodRuleChain;
 import org.junit.rules.MethodRule;
 import org.junit.rules.TestRule;
@@ -16,7 +13,7 @@ import javax.inject.Provider;
  * The implementation of {@link Mockspresso.Rule}. Hold an instance of the
  * {@link Mockspresso} and buildsUpon it for each test.
  **/
-public class MockspressoRuleImpl extends AbstractDelayedMockspresso implements Mockspresso.Rule {
+class MockspressoRuleImpl extends AbstractDelayedMockspresso implements Mockspresso.Rule {
 
   private final MockspressoInternal mOriginal;
   private MethodRuleChain mRuleChain;

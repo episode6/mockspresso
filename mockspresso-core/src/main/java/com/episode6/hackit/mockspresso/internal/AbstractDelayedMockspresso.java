@@ -1,9 +1,6 @@
-package com.episode6.hackit.mockspresso.internal.delayed;
+package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
-import com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl;
-import com.episode6.hackit.mockspresso.internal.MockspressoConfigContainer;
-import com.episode6.hackit.mockspresso.internal.MockspressoInternal;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import com.episode6.hackit.mockspresso.util.Preconditions;
 
@@ -16,7 +13,7 @@ import java.util.Set;
  * An abstract class to handle the logic of a "delayed" mockspresso instance (usually
  * when using a @Rule).
  */
-public abstract class AbstractDelayedMockspresso implements Mockspresso, MockspressoInternal {
+abstract class AbstractDelayedMockspresso implements Mockspresso, MockspressoInternal {
 
   private static final String ERROR_MESSAGE = "Called Mockspresso.create() before delegate was created.";
   private @Nullable MockspressoInternal mDelegate = null;

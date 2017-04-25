@@ -11,9 +11,9 @@ import java.util.Set;
  * DependencyValidator is essentially a doubly-linked graph of dependency keys used to
  * represent and validate the dependency graph.
  */
-public class DependencyValidator {
+class DependencyValidator {
 
-  public static DependencyValidator childOrNew(@Nullable DependencyValidator parentValidator, DependencyKey childKey) {
+  static DependencyValidator childOrNew(@Nullable DependencyValidator parentValidator, DependencyKey childKey) {
     if (parentValidator == null) {
       return new DependencyValidator(childKey);
     }
@@ -24,13 +24,13 @@ public class DependencyValidator {
   private final Set<DependencyValidator> mChildren;
   private final DependencyKey mKey;
 
-  public DependencyValidator(DependencyKey key) {
+  DependencyValidator(DependencyKey key) {
     mKey = key;
     mParents = new HashSet<>();
     mChildren = new HashSet<>();
   }
 
-  public DependencyValidator child(DependencyKey key) {
+  DependencyValidator child(DependencyKey key) {
     validatePotentialChild(key);
     DependencyValidator newChild = new DependencyValidator(key);
 
@@ -40,7 +40,7 @@ public class DependencyValidator {
     return newChild;
   }
 
-  public void append(@Nullable DependencyValidator childDependencyValidator) {
+  void append(@Nullable DependencyValidator childDependencyValidator) {
     if (childDependencyValidator == null) {
       return;
     }

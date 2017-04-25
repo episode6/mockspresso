@@ -14,12 +14,12 @@ import java.util.List;
  * Logic to initialize and tear-down the last mile of a mockspresso config.
  * Includes field scanning and initializer calls
  */
-public class ConfigLifecycle {
+class ConfigLifecycle {
   private final DependencyProviderFactory mDependencyProviderFactory;
   private final List<Object> mObjectsWithFields;
   private final List<MockspressoInitializer> mInitializers;
 
-  public ConfigLifecycle(
+  ConfigLifecycle(
       DependencyProviderFactory dependencyProviderFactory,
       List<Object> objectsWithFields,
       List<MockspressoInitializer> initializers) {
@@ -28,7 +28,7 @@ public class ConfigLifecycle {
     mInitializers = new LinkedList<>(initializers);
   }
 
-  public void setup(MockspressoInternal mockspresso) {
+  void setup(MockspressoInternal mockspresso) {
     MockspressoConfigContainer config = mockspresso.getConfig();
     performFieldScanningAndInjection(
         config.getMockerConfig(),
@@ -37,7 +37,7 @@ public class ConfigLifecycle {
     callInitializers(mockspresso);
   }
 
-  public void teardown() {
+  void teardown() {
 
   }
 

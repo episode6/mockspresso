@@ -2,7 +2,6 @@ package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.api.*;
-import com.episode6.hackit.mockspresso.internal.delayed.MockspressoRuleImpl;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import com.episode6.hackit.mockspresso.util.Preconditions;

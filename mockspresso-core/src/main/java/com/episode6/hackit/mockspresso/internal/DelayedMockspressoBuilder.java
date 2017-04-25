@@ -1,9 +1,7 @@
-package com.episode6.hackit.mockspresso.internal.delayed;
+package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.api.*;
-import com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl;
-import com.episode6.hackit.mockspresso.internal.MockspressoConfigContainer;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 
@@ -16,7 +14,7 @@ import java.util.List;
  * This allows us to buildUpon an "incomplete" @Rule, and as long as none of the 'create' methods are
  * called before the rule has a statement applied to it, everything should still work.
  */
-public class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implements Mockspresso.Builder {
+class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implements Mockspresso.Builder {
 
   private final MockspressoBuilderImpl mBuilder;
 

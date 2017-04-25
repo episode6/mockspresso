@@ -5,6 +5,6 @@ import com.episode6.hackit.mockspresso.Mockspresso;
 /**
  *
  */
-public interface MockspressoInternal extends Mockspresso {
+interface MockspressoInternal extends Mockspresso {
   MockspressoConfigContainer getConfig();
 }

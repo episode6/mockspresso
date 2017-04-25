@@ -10,9 +10,11 @@ import java.util.HashMap;
 /**
  * Simple class to store mapped dependencies and type-check their fetch and retrieval.
  */
-public class DependencyMap {
+class DependencyMap {
   private @Nullable DependencyMap mParentMap = null;
   private final HashMap<DependencyKey, InstanceContainer> mDependencies = new HashMap<>();
+
+  DependencyMap() {}
 
   public void setParentMap(DependencyMap parentMap) {
     mParentMap = parentMap;

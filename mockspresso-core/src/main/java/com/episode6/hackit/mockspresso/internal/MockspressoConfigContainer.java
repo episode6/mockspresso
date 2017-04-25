@@ -8,7 +8,7 @@ import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
  * Class that holds the internal configuration of a mockspresso instance so that
  * we may build upon each one individually.
  */
-public class MockspressoConfigContainer {
+class MockspressoConfigContainer {
 
   private final MockerConfig mMockerConfig;
   private final InjectionConfig mInjectionConfig;
@@ -32,31 +32,31 @@ public class MockspressoConfigContainer {
     mConfigLifecycle = configLifecycle;
   }
 
-  public MockerConfig getMockerConfig() {
+  MockerConfig getMockerConfig() {
     return mMockerConfig;
   }
 
-  public InjectionConfig getInjectionConfig() {
+  InjectionConfig getInjectionConfig() {
     return mInjectionConfig;
   }
 
-  public DependencyMap getDependencyMap() {
+  DependencyMap getDependencyMap() {
     return mDependencyMap;
   }
 
-  public SpecialObjectMaker getSpecialObjectMaker() {
+  SpecialObjectMaker getSpecialObjectMaker() {
     return mSpecialObjectMaker;
   }
 
-  public RealObjectMapping getRealObjectMapping() {
+  RealObjectMapping getRealObjectMapping() {
     return mRealObjectMapping;
   }
 
-  public void setup(MockspressoInternal instance) {
+  void setup(MockspressoInternal instance) {
     mConfigLifecycle.setup(instance);
   }
 
-  public void teardown() {
+  void teardown() {
     mConfigLifecycle.teardown();
   }
 }
