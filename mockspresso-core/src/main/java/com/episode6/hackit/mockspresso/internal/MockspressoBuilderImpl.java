@@ -8,12 +8,12 @@ import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
+import com.episode6.hackit.mockspresso.util.CollectionUtil;
 import com.episode6.hackit.mockspresso.util.Preconditions;
 
 import javax.annotation.Nullable;
 import javax.inject.Provider;
 import java.lang.annotation.Annotation;
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -172,10 +172,8 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
         realObjectMapping,
         realObjectMaker);
 
-    List<Class<? extends Annotation>> importAnnotations = new LinkedList<>(mMockerConfig.provideMockAnnotations());
-    importAnnotations.add(RealObject.class);
     FieldImporter fieldImporter = new FieldImporter(
-        importAnnotations,
+        CollectionUtil.concat(mMockerConfig.provideMockAnnotations(), RealObject.class),
         dependencyMap);
 
     RealObjectFieldTracker realObjectFieldTracker = new RealObjectFieldTracker(
