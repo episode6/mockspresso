@@ -169,15 +169,22 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
         realObjectMapping,
         realObjectMaker);
 
+    RealObjectFieldTracker realObjectFieldTracker = new RealObjectFieldTracker(
+        realObjectMapping,
+        dependencyProviderFactory.getBlankDependencyProvider());
+
     List<ResourcesLifecycleComponent> lifecycleComponents = new LinkedList<>();
+    lifecycleComponents.add(
+        new ResourcesLifecycleMockManager(
+            mTestResources,
+            mMockerConfig.provideFieldPreparer()));
     lifecycleComponents.add(
         new ResourceLifecycleFieldManager(
             mTestResources,
-            mMockerConfig,
+            mMockerConfig.provideMockAnnotations(),
             dependencyMap,
-            dependencyProviderFactory.getBlankDependencyProvider(),
             new DependencyMapImporter(dependencyMap),
-            new RealObjectFieldTracker(realObjectMapping)));
+            realObjectFieldTracker));
     lifecycleComponents.add(
         new ResourcesLifecycleMethodManager(
             mTestResources));

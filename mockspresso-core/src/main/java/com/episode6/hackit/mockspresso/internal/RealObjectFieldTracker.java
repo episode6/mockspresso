@@ -1,16 +1,14 @@
 package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.annotation.RealObject;
+import com.episode6.hackit.mockspresso.api.DependencyProvider;
 import com.episode6.hackit.mockspresso.exception.RealObjectMappingMismatchException;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.ReflectUtil;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 
 import java.lang.reflect.Field;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Set;
+import java.util.*;
 
 /**
  * An internal class used to keep track of null fields annotated with @RealObject.
@@ -20,17 +18,21 @@ import java.util.Set;
  * that must be filled in, as well as add those mappings to the {@link RealObjectMapping} that
  * is passed to the constructor.
  *
- * Then you loop through {@link #keySet()}, create the objects and call
- * {@link #applyValueToFields(DependencyKey, Object)} to update the values of the fields
+ * Then you call {@link #applyValuesToFields()} which will loop through the map and
+ * set the values on fields.
  */
 class RealObjectFieldTracker {
 
   private final HashMap<DependencyKey, Entry> mNullRealObjectFields = new HashMap<>();
 
   private final RealObjectMapping mRealObjectMapping;
+  private final DependencyProvider mDependencyProvider;
 
-  RealObjectFieldTracker(RealObjectMapping realObjectMapping) {
+  RealObjectFieldTracker(
+      RealObjectMapping realObjectMapping,
+      DependencyProvider dependencyProvider) {
     mRealObjectMapping = realObjectMapping;
+    mDependencyProvider = dependencyProvider;
   }
 
   void scanNullRealObjectFields(Object object) {
@@ -51,13 +53,11 @@ class RealObjectFieldTracker {
     return mNullRealObjectFields.keySet();
   }
 
-  void applyValueToFields(DependencyKey key, Object value) {
-    if (!mNullRealObjectFields.containsKey(key)) {
-      throw new RuntimeException(String.format("Could not find Key (%s) in tracked fields", key));
+  @SuppressWarnings("unchecked")
+  void applyValuesToFields() {
+    for (Map.Entry<DependencyKey, Entry> entry : mNullRealObjectFields.entrySet()) {
+      entry.getValue().setValue(mDependencyProvider.get(entry.getKey()));
     }
-
-    Entry entry = mNullRealObjectFields.get(key);
-    entry.setValue(value);
   }
 
   /**
