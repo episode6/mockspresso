@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
+ * Handles the field scanning and injection of a mockspresso instance
  */
 class ResourceLifecycleFieldManager implements ResourcesLifecycleComponent {
 
