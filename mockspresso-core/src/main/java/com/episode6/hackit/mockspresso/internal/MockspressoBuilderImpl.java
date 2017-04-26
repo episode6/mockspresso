@@ -1,6 +1,7 @@
 package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
+import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.api.InjectionConfig;
 import com.episode6.hackit.mockspresso.api.MockerConfig;
 import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
@@ -11,6 +12,8 @@ import com.episode6.hackit.mockspresso.util.Preconditions;
 
 import javax.annotation.Nullable;
 import javax.inject.Provider;
+import java.lang.annotation.Annotation;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -169,6 +172,12 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
         realObjectMapping,
         realObjectMaker);
 
+    List<Class<? extends Annotation>> importAnnotations = new LinkedList<>(mMockerConfig.provideMockAnnotations());
+    importAnnotations.add(RealObject.class);
+    FieldImporter fieldImporter = new FieldImporter(
+        importAnnotations,
+        dependencyMap);
+
     RealObjectFieldTracker realObjectFieldTracker = new RealObjectFieldTracker(
         realObjectMapping,
         dependencyProviderFactory.getBlankDependencyProvider());
@@ -181,9 +190,8 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     lifecycleComponents.add(
         new ResourceLifecycleFieldManager(
             mTestResources,
-            mMockerConfig.provideMockAnnotations(),
             dependencyMap,
-            new DependencyMapImporter(dependencyMap),
+            fieldImporter,
             realObjectFieldTracker));
     lifecycleComponents.add(
         new ResourcesLifecycleMethodManager(

@@ -16,15 +16,19 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import javax.inject.Named;
+import java.lang.annotation.Annotation;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 
 /**
- * Tests {@link DependencyMapImporter}
+ * Tests {@link FieldImporter}
  */
 @RunWith(DefaultTestRunner.class)
-public class DependencyMapImporterTest {
+public class FieldImporterTest {
   public static class TestQualifierAnnotationLiteral extends AnnotationLiteral<TestQualifierAnnotation> implements TestQualifierAnnotation {}
 
   DependencyKey<String> key1 = DependencyKey.of(String.class);
@@ -44,18 +48,26 @@ public class DependencyMapImporterTest {
   @Mock @Named("somename") TestObject testObj7;
 
   private DependencyMap mDependencyMap;
-  private DependencyMapImporter mImporter;
+  private FieldImporter mImporter;
 
   @Before
   public void setup() {
     MockitoAnnotations.initMocks(this);
     mDependencyMap = mock(DependencyMap.class);
-    mImporter = new DependencyMapImporter(mDependencyMap);
+  }
+
+  private void initImporter(Class<? extends Annotation> annotation) {
+    initImporter(Collections.<Class<? extends Annotation>>singletonList(annotation));
+  }
+
+  private void initImporter(List<Class<? extends Annotation>> annotations) {
+    mImporter = new FieldImporter(annotations, mDependencyMap);
   }
 
   @Test
   public void testImportingRealObjects() {
-    mImporter.importAnnotatedFields(this, RealObject.class);
+    initImporter(RealObject.class);
+    mImporter.importAnnotatedFields(this);
 
     verify(mDependencyMap).put(key1, testObj1, null);
     verify(mDependencyMap).put(key2, testObj2, null);
@@ -65,7 +77,8 @@ public class DependencyMapImporterTest {
 
   @Test
   public void testImportingMocks() {
-    mImporter.importAnnotatedFields(this, Mock.class);
+    initImporter(Mock.class);
+    mImporter.importAnnotatedFields(this);
 
     verify(mDependencyMap).put(key5, testObj5, null);
     verify(mDependencyMap).put(key6, testObj6, null);
@@ -75,7 +88,8 @@ public class DependencyMapImporterTest {
 
   @Test
   public void testImportBothMocksAndRealObjects() {
-    mImporter.importAnnotatedFields(this, Arrays.asList(Mock.class, RealObject.class));
+    initImporter(Arrays.asList(Mock.class, RealObject.class));
+    mImporter.importAnnotatedFields(this);
 
     verify(mDependencyMap).put(key1, testObj1, null);
     verify(mDependencyMap).put(key2, testObj2, null);
@@ -98,7 +112,8 @@ public class DependencyMapImporterTest {
         DependencyKey.of(SuperclassTestObject.SuperClassInnerClass.class);
 
     MockitoAnnotations.initMocks(testObject);
-    mImporter.importAnnotatedFields(testObject, Arrays.asList(RealObject.class, Mock.class));
+    initImporter(Arrays.asList(RealObject.class, Mock.class));
+    mImporter.importAnnotatedFields(testObject);
 
     verify(mDependencyMap).put(key1, "subclass", null);
     verify(mDependencyMap).put(key2, "superclass", null);

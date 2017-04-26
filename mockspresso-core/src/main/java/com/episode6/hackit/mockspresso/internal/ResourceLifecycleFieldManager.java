@@ -1,10 +1,7 @@
 package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
-import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.api.DependencyProvider;
 
-import java.lang.annotation.Annotation;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,21 +12,18 @@ import java.util.List;
 class ResourceLifecycleFieldManager implements ResourcesLifecycleComponent {
 
   private final List<TestResource> mTestResources;
-  private final List<Class<? extends Annotation>> mMockAnnotations;
   private final DependencyMap mDependencyMap;
-  private final DependencyMapImporter mDependencyMapImporter;
+  private final FieldImporter mFieldImporter;
   private final RealObjectFieldTracker mRealObjectFieldTracker;
 
-  public ResourceLifecycleFieldManager(
+  ResourceLifecycleFieldManager(
       Collection<TestResource> testResources,
-      List<Class<? extends Annotation>> mockAnnotations,
       DependencyMap dependencyMap,
-      DependencyMapImporter dependencyMapImporter,
+      FieldImporter fieldImporter,
       RealObjectFieldTracker realObjectFieldTracker) {
     mTestResources = new LinkedList<>(testResources);
-    mMockAnnotations = new LinkedList<>(mockAnnotations);
     mDependencyMap = dependencyMap;
-    mDependencyMapImporter = dependencyMapImporter;
+    mFieldImporter = fieldImporter;
     mRealObjectFieldTracker = realObjectFieldTracker;
   }
 
@@ -39,8 +33,7 @@ class ResourceLifecycleFieldManager implements ResourcesLifecycleComponent {
       Object o = resource.getObjectWithResources();
 
       // import mocks and non-null real objects into dependency map
-      mDependencyMapImporter.importAnnotatedFields(o, mMockAnnotations);
-      mDependencyMapImporter.importAnnotatedFields(o, RealObject.class);
+      mFieldImporter.importAnnotatedFields(o);
 
       // track down any @RealObjects that are null
       mRealObjectFieldTracker.scanNullRealObjectFields(o);
