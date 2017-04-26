@@ -1,7 +1,10 @@
 package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
-import com.episode6.hackit.mockspresso.api.*;
+import com.episode6.hackit.mockspresso.api.InjectionConfig;
+import com.episode6.hackit.mockspresso.api.MockerConfig;
+import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
+import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import com.episode6.hackit.mockspresso.util.Preconditions;
@@ -9,8 +12,8 @@ import com.episode6.hackit.mockspresso.util.Preconditions;
 import javax.annotation.Nullable;
 import javax.inject.Provider;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 /**
  *
@@ -24,7 +27,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     }
   };
 
-  private final Set<TestResource> mTestResources = new LinkedHashSet<>();
+  private final LinkedHashSet<TestResource> mTestResources = new LinkedHashSet<>();
   private final DependencyMap mDependencyMap = new DependencyMap();
   private final SpecialObjectMakerContainer mSpecialObjectMakers = new SpecialObjectMakerContainer();
   private final RealObjectMapping mRealObjectMapping = new RealObjectMapping();
@@ -166,13 +169,21 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
         realObjectMapping,
         realObjectMaker);
 
-    ResourcesLifecycleMethodManager resourcesLifecycleMethodManager = new ResourcesLifecycleMethodManager(
-        mTestResources);
+    List<ResourcesLifecycleComponent> lifecycleComponents = new LinkedList<>();
+    lifecycleComponents.add(
+        new ResourceLifecycleFieldManager(
+            mTestResources,
+            mMockerConfig,
+            dependencyMap,
+            dependencyProviderFactory,
+            new DependencyMapImporter(dependencyMap),
+            new RealObjectFieldTracker(realObjectMapping)));
+    lifecycleComponents.add(
+        new ResourcesLifecycleMethodManager(
+            mTestResources));
 
     ResourcesLifecycleManager resourcesLifecycleManager = new ResourcesLifecycleManager(
-        dependencyProviderFactory,
-        mTestResources,
-        resourcesLifecycleMethodManager);
+        lifecycleComponents);
 
     MockspressoConfigContainer configContainer = new MockspressoConfigContainer(
         mMockerConfig,

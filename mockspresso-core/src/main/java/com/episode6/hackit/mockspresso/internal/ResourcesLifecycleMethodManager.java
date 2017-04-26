@@ -12,7 +12,7 @@ import java.util.*;
 /**
  * Handles calling the setup and teardown methods defined in TestResource objects.
  */
-class ResourcesLifecycleMethodManager {
+class ResourcesLifecycleMethodManager implements ResourcesLifecycleComponent {
   private final List<TestResource> mTestResources;
   private final Map<TestResource, LifecycleMethods> mMethodCache;
 
@@ -34,7 +34,25 @@ class ResourcesLifecycleMethodManager {
     };
   }
 
-  void callBeforeMethods(Mockspresso mockspresso) throws InvocationTargetException, IllegalAccessException {
+  @Override
+  public void setup(Mockspresso mockspresso) {
+    try {
+      callBeforeMethods(mockspresso);
+    } catch (InvocationTargetException | IllegalAccessException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override
+  public void teardown() {
+    try {
+      callAfterMethods();
+    } catch (InvocationTargetException | IllegalAccessException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private void callBeforeMethods(Mockspresso mockspresso) throws InvocationTargetException, IllegalAccessException {
     for (TestResource resource : mTestResources) {
       Object obj = resource.getObjectWithResources();
       List<Method> beforeMethods = mMethodCache.get(resource).beforeMethods;
@@ -48,7 +66,7 @@ class ResourcesLifecycleMethodManager {
     }
   }
 
-  void callAfterMethods() throws InvocationTargetException, IllegalAccessException {
+  private void callAfterMethods() throws InvocationTargetException, IllegalAccessException {
     // reverse order test resources.
     ListIterator<TestResource> testIterator = mTestResources.listIterator(mTestResources.size());
     while (testIterator.hasPrevious()) {

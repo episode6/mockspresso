@@ -1,86 +1,39 @@
 package com.episode6.hackit.mockspresso.internal;
 
-import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.api.MockerConfig;
-import com.episode6.hackit.mockspresso.reflect.DependencyKey;
+import com.episode6.hackit.mockspresso.Mockspresso;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationTargetException;
-import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
+import java.util.ListIterator;
 
 /**
  * Logic to initialize and tear-down the last mile of a mockspresso config.
- * Includes field scanning and initializer calls
+ * A list of lifecycle methods is created by the builder including ones for
+ * field scanning/injection and for lifecycle method detection/calling.
+ *
+ * Order is not determined by this class, but this class guarantees that it will
+ * make teardown calls in the inverted order it does setup calls
  */
-class ResourcesLifecycleManager {
-  private final DependencyProviderFactory mDependencyProviderFactory;
-  private final Set<TestResource> mTestResources;
-  private final ResourcesLifecycleMethodManager mResourcesLifecycleMethodManager;
+class ResourcesLifecycleManager implements ResourcesLifecycleComponent {
+  private final List<ResourcesLifecycleComponent> mLifecycleComponents;
 
-  ResourcesLifecycleManager(
-      DependencyProviderFactory dependencyProviderFactory,
-      Set<TestResource> testResources,
-      ResourcesLifecycleMethodManager resourcesLifecycleMethodManager) {
-    mDependencyProviderFactory = dependencyProviderFactory;
-    mTestResources = new LinkedHashSet<>(testResources);
-    mResourcesLifecycleMethodManager = resourcesLifecycleMethodManager;
+  ResourcesLifecycleManager(List<ResourcesLifecycleComponent> lifecycleComponents) {
+    mLifecycleComponents = new LinkedList<>(lifecycleComponents);
   }
 
-  void setup(MockspressoInternal mockspresso) {
-    MockspressoConfigContainer config = mockspresso.getConfig();
-    performFieldScanningAndInjection(
-        config.getMockerConfig(),
-        config.getDependencyMap(),
-        config.getRealObjectMapping());
-    try {
-      mResourcesLifecycleMethodManager.callBeforeMethods(mockspresso);
-    } catch (InvocationTargetException | IllegalAccessException e) {
-      throw new RuntimeException(e);
+  @Override
+  public void setup(Mockspresso mockspresso) {
+    for (ResourcesLifecycleComponent component : mLifecycleComponents) {
+      component.setup(mockspresso);
     }
   }
 
-  void teardown() {
-    try {
-      mResourcesLifecycleMethodManager.callAfterMethods();
-    } catch (InvocationTargetException | IllegalAccessException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  private void performFieldScanningAndInjection(
-      MockerConfig mockerConfig,
-      DependencyMap dependencyMap,
-      RealObjectMapping realObjectMapping) {
-    // prepare mTestResources
-    RealObjectFieldTracker realObjectFieldTracker = new RealObjectFieldTracker(
-        realObjectMapping);
-    DependencyMapImporter mDependencyMapImporter = new DependencyMapImporter(dependencyMap);
-    MockerConfig.FieldPreparer mockFieldPreparer = mockerConfig.provideFieldPreparer();
-    List<Class<? extends Annotation>> mockAnnotations = mockerConfig.provideMockAnnotations();
-    for (TestResource resource : mTestResources) {
-      Object o = resource.getObjectWithResources();
-
-      // prepare mock fields
-      mockFieldPreparer.prepareFields(o);
-
-      // import mocks and non-null real objects into dependency map
-      mDependencyMapImporter.importAnnotatedFields(o, mockAnnotations);
-      mDependencyMapImporter.importAnnotatedFields(o, RealObject.class);
-
-      // track down any @RealObjects that are null
-      realObjectFieldTracker.scanNullRealObjectFields(o);
-    }
-
-    // since we haven't built any real objects yet, assert that we haven't
-    // accidentally mapped a mock or other dependency to any of our RealObject keys
-    dependencyMap.assertDoesNotContainAny(realObjectFieldTracker.keySet());
-
-    // fetch real object values from the dependencyProvider (now that they've been mapped)
-    // and apply them to the fields found in realObjectFieldTracker
-    for (DependencyKey key : realObjectFieldTracker.keySet()) {
-      realObjectFieldTracker.applyValueToFields(key, mDependencyProviderFactory.getBlankDependencyProvider().get(key));
+  @Override
+  public void teardown() {
+    ListIterator<ResourcesLifecycleComponent> iterator = mLifecycleComponents.listIterator(mLifecycleComponents.size());
+    while (iterator.hasPrevious()) {
+      ResourcesLifecycleComponent component = iterator.previous();
+      component.teardown();
     }
   }
 }
