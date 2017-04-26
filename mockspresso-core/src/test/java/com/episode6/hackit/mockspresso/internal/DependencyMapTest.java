@@ -47,6 +47,34 @@ public class DependencyMapTest {
   }
 
   @Test
+  public void testSimplePutAndClear() {
+    DependencyMap dependencyMap = new DependencyMap();
+    TestClass value = new TestClass();
+    DependencyKey<TestClass> key = DependencyKey.of(TestClass.class);
+
+    dependencyMap.put(key, value, mPutValidator);
+    dependencyMap.clear();
+    TestClass output = dependencyMap.get(key, mGetValidator);
+
+    assertThat(output).isNull();
+  }
+
+  @Test
+  public void testParentPutAndChildClear() {
+    DependencyMap parentMap = new DependencyMap();
+    DependencyMap dependencyMap = new DependencyMap();
+    dependencyMap.setParentMap(parentMap);
+    TestClass value = new TestClass();
+    DependencyKey<TestClass> key = DependencyKey.of(TestClass.class);
+
+    parentMap.put(key, value, mPutValidator);
+    dependencyMap.clear();
+    TestClass output = dependencyMap.get(key, mGetValidator);
+
+    assertThat(value).isEqualTo(output);
+  }
+
+  @Test
   public void testPutImplGetInterface() {
     DependencyMap dependencyMap = new DependencyMap();
     TestClass value = new TestClass();
