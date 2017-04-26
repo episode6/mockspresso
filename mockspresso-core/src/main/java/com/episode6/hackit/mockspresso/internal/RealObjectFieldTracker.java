@@ -60,6 +60,17 @@ class RealObjectFieldTracker {
     entry.setValue(value);
   }
 
+  /**
+   * Nulls values for fields that were set & clears the backing RealObjectMapping
+   */
+  void clear() {
+    for (Entry entry : mNullRealObjectFields.values()) {
+      entry.setValue(null);
+    }
+    mNullRealObjectFields.clear();
+    mRealObjectMapping.clear();
+  }
+
   private void trackFieldIfNull(Field field, Object object) {
     try {
       if (field.get(object) != null) {

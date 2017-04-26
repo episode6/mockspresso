@@ -48,6 +48,13 @@ class RealObjectMapping {
     return mParentMap != null && mParentMap.shouldMapDependency(key);
   }
 
+  /**
+   * Only clears this RealObjectMapping, parents remain untouched
+   */
+  void clear() {
+    mMap.clear();
+  }
+
   private static class Implementation {
     private final TypeToken<?> mImplementationToken;
     private final boolean mShouldMapDependency;

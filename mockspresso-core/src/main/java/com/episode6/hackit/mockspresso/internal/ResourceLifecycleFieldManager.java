@@ -69,6 +69,7 @@ class ResourceLifecycleFieldManager implements ResourcesLifecycleComponent {
 
   @Override
   public void teardown() {
-//TODO
+    mRealObjectFieldTracker.clear();
+    mDependencyMap.clear();
   }
 }
