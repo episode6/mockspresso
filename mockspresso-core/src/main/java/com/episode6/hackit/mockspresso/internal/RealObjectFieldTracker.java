@@ -1,16 +1,14 @@
 package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.annotation.RealObject;
+import com.episode6.hackit.mockspresso.api.DependencyProvider;
 import com.episode6.hackit.mockspresso.exception.RealObjectMappingMismatchException;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.ReflectUtil;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 
 import java.lang.reflect.Field;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Set;
+import java.util.*;
 
 /**
  * An internal class used to keep track of null fields annotated with @RealObject.
@@ -20,20 +18,24 @@ import java.util.Set;
  * that must be filled in, as well as add those mappings to the {@link RealObjectMapping} that
  * is passed to the constructor.
  *
- * Then you loop through {@link #keySet()}, create the objects and call
- * {@link #applyValueToFields(DependencyKey, Object)} to update the values of the fields
+ * Then you call {@link #applyValuesToFields()} which will loop through the map and
+ * set the values on fields.
  */
-public class RealObjectFieldTracker {
+class RealObjectFieldTracker {
 
   private final HashMap<DependencyKey, Entry> mNullRealObjectFields = new HashMap<>();
 
   private final RealObjectMapping mRealObjectMapping;
+  private final DependencyProvider mDependencyProvider;
 
-  public RealObjectFieldTracker(RealObjectMapping realObjectMapping) {
+  RealObjectFieldTracker(
+      RealObjectMapping realObjectMapping,
+      DependencyProvider dependencyProvider) {
     mRealObjectMapping = realObjectMapping;
+    mDependencyProvider = dependencyProvider;
   }
 
-  public void scanNullRealObjectFields(Object object) {
+  void scanNullRealObjectFields(Object object) {
     for (Field field : ReflectUtil.getAllDeclaredFields(object.getClass())) {
       if (!field.isAnnotationPresent(RealObject.class)) {
         continue;
@@ -47,17 +49,26 @@ public class RealObjectFieldTracker {
     }
   }
 
-  public Set<DependencyKey> keySet() {
+  Set<DependencyKey> keySet() {
     return mNullRealObjectFields.keySet();
   }
 
-  public void applyValueToFields(DependencyKey key, Object value) {
-    if (!mNullRealObjectFields.containsKey(key)) {
-      throw new RuntimeException(String.format("Could not find Key (%s) in tracked fields", key));
+  @SuppressWarnings("unchecked")
+  void applyValuesToFields() {
+    for (Map.Entry<DependencyKey, Entry> entry : mNullRealObjectFields.entrySet()) {
+      entry.getValue().setValue(mDependencyProvider.get(entry.getKey()));
     }
+  }
 
-    Entry entry = mNullRealObjectFields.get(key);
-    entry.setValue(value);
+  /**
+   * Nulls values for fields that were set & clears the backing RealObjectMapping
+   */
+  void clear() {
+    for (Entry entry : mNullRealObjectFields.values()) {
+      entry.setValue(null);
+    }
+    mNullRealObjectFields.clear();
+    mRealObjectMapping.clear();
   }
 
   private void trackFieldIfNull(Field field, Object object) {

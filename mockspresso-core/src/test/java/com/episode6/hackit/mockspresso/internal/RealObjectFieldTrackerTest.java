@@ -3,6 +3,7 @@ package com.episode6.hackit.mockspresso.internal;
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.annotation.TestQualifierAnnotation;
+import com.episode6.hackit.mockspresso.api.DependencyProvider;
 import com.episode6.hackit.mockspresso.exception.RealObjectMappingMismatchException;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import org.junit.Before;
@@ -12,8 +13,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.*;
 
 /**
  * Tests {@link RealObjectFieldTracker}
@@ -24,6 +24,7 @@ public class RealObjectFieldTrackerTest {
   private static final DependencyKey<Runnable> runnableKey = DependencyKey.of(Runnable.class);
 
   @Mock RealObjectMapping mRealObjectMapping;
+  @Mock DependencyProvider mDependencyProvider;
 
   private RealObjectFieldTracker mRealObjectFieldTracker;
 
@@ -31,7 +32,7 @@ public class RealObjectFieldTrackerTest {
   public void setup() {
     MockitoAnnotations.initMocks(this);
 
-    mRealObjectFieldTracker = new RealObjectFieldTracker(mRealObjectMapping);
+    mRealObjectFieldTracker = new RealObjectFieldTracker(mRealObjectMapping, mDependencyProvider);
   }
 
   @Test
@@ -52,10 +53,11 @@ public class RealObjectFieldTrackerTest {
     TestClass1 testObject = new TestClass1();
     TestRunnable valueForRunnableKey = new TestRunnable();
     TestRunnable valueForTestRunnableKey = new TestRunnable();
+    when(mDependencyProvider.get(runnableKey)).thenReturn(valueForRunnableKey);
+    when(mDependencyProvider.get(testRunnableKey)).thenReturn(valueForTestRunnableKey);
 
     mRealObjectFieldTracker.scanNullRealObjectFields(testObject);
-    mRealObjectFieldTracker.applyValueToFields(runnableKey, valueForRunnableKey);
-    mRealObjectFieldTracker.applyValueToFields(testRunnableKey, valueForTestRunnableKey);
+    mRealObjectFieldTracker.applyValuesToFields();
 
     assertThat(testObject.mRealRunnableWithImpl)
         .isNotNull()
@@ -70,10 +72,11 @@ public class RealObjectFieldTrackerTest {
     TestClass1 testObject1 = new TestClass1();
     TestClass2 testObject2 = new TestClass2();
     TestRunnable valueForRunnableKey = new TestRunnable();
+    when(mDependencyProvider.get(runnableKey)).thenReturn(valueForRunnableKey);
 
     mRealObjectFieldTracker.scanNullRealObjectFields(testObject1);
     mRealObjectFieldTracker.scanNullRealObjectFields(testObject2);
-    mRealObjectFieldTracker.applyValueToFields(runnableKey, valueForRunnableKey);
+    mRealObjectFieldTracker.applyValuesToFields();
 
     assertThat(testObject1.mRealRunnableWithImpl)
         .isNotNull()
@@ -88,6 +91,32 @@ public class RealObjectFieldTrackerTest {
 
     mRealObjectFieldTracker.scanNullRealObjectFields(testObject1);
     mRealObjectFieldTracker.scanNullRealObjectFields(testObject2);
+  }
+
+  @Test
+  public void testClear() {
+    TestClass1 testObject = new TestClass1();
+    TestRunnable valueForRunnableKey = new TestRunnable();
+    TestRunnable valueForTestRunnableKey = new TestRunnable();
+    when(mDependencyProvider.get(runnableKey)).thenReturn(valueForRunnableKey);
+    when(mDependencyProvider.get(testRunnableKey)).thenReturn(valueForTestRunnableKey);
+
+    mRealObjectFieldTracker.scanNullRealObjectFields(testObject);
+    mRealObjectFieldTracker.applyValuesToFields();
+
+    assertThat(testObject.mRealRunnableWithImpl)
+        .isNotNull()
+        .isEqualTo(valueForRunnableKey);
+    assertThat(testObject.mRealTestRunnable)
+        .isNotNull()
+        .isEqualTo(valueForTestRunnableKey);
+
+    mRealObjectFieldTracker.clear();
+
+    verify(mRealObjectMapping).clear();
+    assertThat(mRealObjectFieldTracker.keySet()).isEmpty();
+    assertThat(testObject.mRealRunnableWithImpl).isNull();
+    assertThat(testObject.mRealTestRunnable).isNull();
   }
 
   public static class TestClass1 {

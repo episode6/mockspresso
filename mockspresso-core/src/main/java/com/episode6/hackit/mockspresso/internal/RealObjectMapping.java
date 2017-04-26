@@ -13,7 +13,7 @@ import java.util.Map;
  * classes and whether they should be mapped into the dependencyMap (so they are not created
  * multiple times per test)
  */
-public class RealObjectMapping {
+class RealObjectMapping {
 
   private @Nullable RealObjectMapping mParentMap = null;
   private final Map<DependencyKey, Implementation> mMap = new HashMap<>();
@@ -22,30 +22,37 @@ public class RealObjectMapping {
     mParentMap = parentMap;
   }
 
-  public <T> void put(DependencyKey<T> key, TypeToken<? extends T> implementationToken, boolean shouldMapDependency) {
+  <T> void put(DependencyKey<T> key, TypeToken<? extends T> implementationToken, boolean shouldMapDependency) {
     if (mMap.containsKey(key)) {
       throw new RepeatedDependencyDefinedException(key);
     }
     mMap.put(key, new Implementation(implementationToken, shouldMapDependency));
   }
 
-  public boolean containsKey(DependencyKey key) {
+  boolean containsKey(DependencyKey key) {
     return mMap.containsKey(key) || (mParentMap != null && mParentMap.containsKey(key));
   }
 
   @SuppressWarnings("unchecked")
-  public <T, V extends T> TypeToken<V> getImplementation(DependencyKey<T> key) {
+  <T, V extends T> TypeToken<V> getImplementation(DependencyKey<T> key) {
     if (mMap.containsKey(key)) {
       return (TypeToken<V>) mMap.get(key).mImplementationToken;
     }
     return mParentMap == null ? null : (TypeToken<V>) mParentMap.getImplementation(key);
   }
 
-  public boolean shouldMapDependency(DependencyKey key) {
+  boolean shouldMapDependency(DependencyKey key) {
     if (mMap.containsKey(key)) {
       return mMap.get(key).mShouldMapDependency;
     }
     return mParentMap != null && mParentMap.shouldMapDependency(key);
+  }
+
+  /**
+   * Only clears this RealObjectMapping, parents remain untouched
+   */
+  void clear() {
+    mMap.clear();
   }
 
   private static class Implementation {

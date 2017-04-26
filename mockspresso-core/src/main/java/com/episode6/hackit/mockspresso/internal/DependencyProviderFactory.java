@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
  * 3) SpecialObjectMaker
  * 4) MockMaker
  */
-public class DependencyProviderFactory {
+class DependencyProviderFactory {
 
   private final MockerConfig.MockMaker mMockMaker;
   private final DependencyMap mDependencyMap;
@@ -29,7 +29,7 @@ public class DependencyProviderFactory {
   private final RealObjectMapping mRealObjectMapping;
   private final RealObjectMaker mRealObjectMaker;
 
-  public DependencyProviderFactory(
+  DependencyProviderFactory(
       MockerConfig.MockMaker mockMaker,
       DependencyMap dependencyMap,
       SpecialObjectMaker specialObjectMaker,
@@ -42,11 +42,11 @@ public class DependencyProviderFactory {
     mRealObjectMaker = realObjectMaker;
   }
 
-  public DependencyProvider getDependencyProviderFor(DependencyKey topLevelKey) {
+  DependencyProvider getDependencyProviderFor(DependencyKey topLevelKey) {
     return new DependencyProviderImpl(new DependencyValidator(topLevelKey));
   }
 
-  public DependencyProvider getBlankDependencyProvider() {
+  DependencyProvider getBlankDependencyProvider() {
     return new DependencyProviderImpl(null);
   }
 

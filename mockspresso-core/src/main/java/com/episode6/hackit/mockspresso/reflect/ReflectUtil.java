@@ -64,7 +64,7 @@ public class ReflectUtil {
     return found;
   }
 
-  public static boolean isAnyAnnotationPresent(Field field, List<Class<? extends Annotation>> annotations) {
+  public static boolean isAnyAnnotationPresent(Field field, Collection<Class<? extends Annotation>> annotations) {
     for (Class<? extends Annotation> annotation : annotations) {
       if (field.isAnnotationPresent(annotation)) {
         return true;
@@ -73,7 +73,7 @@ public class ReflectUtil {
     return false;
   }
 
-  public static boolean isAnyAnnotationPresent(Method method, List<Class<? extends Annotation>> annotations) {
+  public static boolean isAnyAnnotationPresent(Method method, Collection<Class<? extends Annotation>> annotations) {
     for (Class<? extends Annotation> annotation : annotations) {
       if (method.isAnnotationPresent(annotation)) {
         return true;

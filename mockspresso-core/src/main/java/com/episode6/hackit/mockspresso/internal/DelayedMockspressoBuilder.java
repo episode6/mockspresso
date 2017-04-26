@@ -1,16 +1,15 @@
-package com.episode6.hackit.mockspresso.internal.delayed;
+package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.api.InjectionConfig;
 import com.episode6.hackit.mockspresso.api.MockerConfig;
 import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
-import com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl;
-import com.episode6.hackit.mockspresso.internal.MockspressoConfigContainer;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 
 import javax.annotation.Nullable;
+import javax.inject.Provider;
 import java.util.List;
 
 /**
@@ -18,9 +17,14 @@ import java.util.List;
  * This allows us to buildUpon an "incomplete" @Rule, and as long as none of the 'create' methods are
  * called before the rule has a statement applied to it, everything should still work.
  */
-public class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implements Mockspresso.Builder {
+class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implements Mockspresso.Builder {
 
-  private final MockspressoBuilderImpl mBuilder = new MockspressoBuilderImpl();
+  private final MockspressoBuilderImpl mBuilder;
+
+  DelayedMockspressoBuilder(Provider<MockspressoBuilderImpl> builderProvider) {
+    super(builderProvider);
+    mBuilder = builderProvider.get();
+  }
 
   void setParent(@Nullable MockspressoConfigContainer parentConfig) {
     if (parentConfig == null) {
@@ -42,8 +46,14 @@ public class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implem
   }
 
   @Override
-  public Builder fieldsFrom(Object objectWithFields) {
-    mBuilder.fieldsFrom(objectWithFields);
+  public Builder testResources(Object objectWithResources) {
+    mBuilder.testResources(objectWithResources);
+    return this;
+  }
+
+  @Override
+  public Builder testResourcesWithoutLifecycle(Object objectWithResources) {
+    mBuilder.testResourcesWithoutLifecycle(objectWithResources);
     return this;
   }
 

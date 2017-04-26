@@ -1,20 +1,22 @@
-package com.episode6.hackit.mockspresso.internal.delayed;
+package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.Mockspresso;
+import com.episode6.hackit.mockspresso.internal.AbstractDelayedMockspresso;
+import com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl;
 import com.episode6.hackit.mockspresso.internal.MockspressoConfigContainer;
 import com.episode6.hackit.mockspresso.internal.MockspressoInternal;
-import com.episode6.hackit.mockspresso.mockito.MockitoMockerConfig;
-import com.episode6.hackit.mockspresso.plugin.simple.SimpleInjectionConfig;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InOrder;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import static com.episode6.hackit.mockspresso.Conditions.mockitoMock;
-import static com.episode6.hackit.mockspresso.Conditions.rawClass;
+import javax.inject.Provider;
+
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -25,14 +27,28 @@ import static org.mockito.Mockito.*;
 public class AbstractDelayedMockspressoTest {
 
   @Mock MockspressoInternal mMockspressoInternal;
-  @Mock MockspressoConfigContainer mMockspressoConfigContainer;
-  @Mock Mockspresso.Builder mMockBuilder;
+  @Mock MockspressoConfigContainer mConfig;
+  @Mock Mockspresso.Builder mPublicBuilder;
 
-  private final AbstractDelayedMockspresso mMockspresso = new AbstractDelayedMockspresso() {};
+  @Mock MockspressoBuilderImpl mChildBuilder;
+  @Mock Provider<MockspressoBuilderImpl> mBuilderProvider;
+
+  @Mock MockspressoInternal mChildMockspresso;
+  @Mock MockspressoConfigContainer mChildConfig;
+
+  private AbstractDelayedMockspresso mMockspresso;
 
   @Before
   public void setup() {
     MockitoAnnotations.initMocks(this);
+
+    when(mMockspressoInternal.getConfig()).thenReturn(mConfig);
+    when(mBuilderProvider.get()).thenReturn(mChildBuilder);
+    when(mChildBuilder.buildInternal()).thenReturn(mChildMockspresso);
+    when(mChildMockspresso.getConfig()).thenReturn(mChildConfig);
+    when(mMockspressoInternal.buildUpon()).thenReturn(mPublicBuilder);
+
+    mMockspresso = new AbstractDelayedMockspresso(mBuilderProvider) {};
   }
 
   @Test(expected = NullPointerException.class)
@@ -51,21 +67,38 @@ public class AbstractDelayedMockspressoTest {
   }
 
   @Test
-  public void testEarlyBuildUponWorksWithAfterTheFactDelegate() {
-    when(mMockspressoConfigContainer.getInjectionConfig()).thenReturn(SimpleInjectionConfig.getInstance());
-    when(mMockspressoConfigContainer.getMockerConfig()).thenReturn(MockitoMockerConfig.getInstance());
-    when(mMockspressoInternal.getConfig()).thenReturn(mMockspressoConfigContainer);
-
-    Mockspresso childMockspresso = mMockspresso.buildUpon().build();
+  public void testSimpleSetupAndTearDown() {
     mMockspresso.setDelegate(mMockspressoInternal);
-    // once we call setDelegate, a real mockspresso instance is created
-    TestClass returnedObject = childMockspresso.create(TestClass.class);
+    mMockspresso.create(String.class);
+    mMockspresso.setDelegate(null);
 
-    verify(mMockspressoInternal).getConfig();
-    assertThat(returnedObject)
-        .isNotNull()
-        .isNot(mockitoMock())
-        .is(rawClass(TestClass.class));
+    InOrder inOrder = Mockito.inOrder(mConfig, mMockspressoInternal);
+    inOrder.verify(mConfig).setup(mMockspressoInternal);
+    inOrder.verify(mMockspressoInternal).create(String.class);
+    inOrder.verify(mConfig).teardown();
+    inOrder.verifyNoMoreInteractions();
+  }
+
+  @Test
+  public void testChildSetupAndTeardown() {
+    Mockspresso childMockspresso = mMockspresso.buildUpon().build();
+
+    // set delegate before calling create, but after building the new instance
+    mMockspresso.setDelegate(mMockspressoInternal);
+    childMockspresso.create(TestClass.class);
+    mMockspresso.setDelegate(null);
+
+
+    InOrder inOrder = Mockito.inOrder(mBuilderProvider, mConfig, mChildBuilder, mChildConfig, mChildMockspresso);
+    inOrder.verify(mBuilderProvider).get();
+    inOrder.verify(mConfig).setup(mMockspressoInternal);
+    inOrder.verify(mChildBuilder).setParent(mConfig);
+    inOrder.verify(mChildConfig).setup(mChildMockspresso);
+    inOrder.verify(mChildMockspresso).create(TestClass.class);
+    inOrder.verify(mChildConfig).teardown();
+    inOrder.verify(mConfig).teardown();
+    inOrder.verifyNoMoreInteractions();
+    verifyZeroInteractions(mPublicBuilder);
   }
 
   @Test(expected = NullPointerException.class)
@@ -76,57 +109,42 @@ public class AbstractDelayedMockspressoTest {
 
   @Test
   public void testDelegateCreateClass() {
-    TestClass expectedObj = new TestClass();
-    when(mMockspressoInternal.create(TestClass.class)).thenReturn(expectedObj);
-
     mMockspresso.setDelegate(mMockspressoInternal);
-    TestClass returnedObj = mMockspresso.create(TestClass.class);
+    mMockspresso.create(TestClass.class);
 
     verify(mMockspressoInternal).create(TestClass.class);
-    assertThat(returnedObj)
-        .isNotNull()
-        .isEqualTo(expectedObj);
   }
 
   @Test
   public void testDelegateCreateTypeToke() {
-    TestClass expectedObj = new TestClass();
     TypeToken<TestClass> typeToken = TypeToken.of(TestClass.class);
-    when(mMockspressoInternal.create(typeToken)).thenReturn(expectedObj);
 
     mMockspresso.setDelegate(mMockspressoInternal);
-    TestClass returnedObj = mMockspresso.create(typeToken);
+    mMockspresso.create(typeToken);
 
     verify(mMockspressoInternal).create(typeToken);
-    assertThat(returnedObj)
-        .isNotNull()
-        .isEqualTo(expectedObj);
   }
 
   @Test
   public void testDelegateGetConfig() {
-    when(mMockspressoInternal.getConfig()).thenReturn(mMockspressoConfigContainer);
-
     mMockspresso.setDelegate(mMockspressoInternal);
     MockspressoConfigContainer returnedConfig = mMockspresso.getConfig();
 
     verify(mMockspressoInternal, times(2)).getConfig();
     assertThat(returnedConfig)
         .isNotNull()
-        .isEqualTo(mMockspressoConfigContainer);
+        .isEqualTo(mConfig);
   }
 
   @Test
   public void testBuildUponDelegateConfig() {
-    when(mMockspressoInternal.buildUpon()).thenReturn(mMockBuilder);
-
     mMockspresso.setDelegate(mMockspressoInternal);
     Mockspresso.Builder returnedBuilder = mMockspresso.buildUpon();
 
     verify(mMockspressoInternal).buildUpon();
     assertThat(returnedBuilder)
         .isNotNull()
-        .isEqualTo(mMockBuilder);
+        .isEqualTo(mPublicBuilder);
   }
 
   private static class TestClass {}

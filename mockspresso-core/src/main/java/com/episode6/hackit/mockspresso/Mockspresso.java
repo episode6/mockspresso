@@ -1,9 +1,6 @@
 package com.episode6.hackit.mockspresso;
 
-import com.episode6.hackit.mockspresso.api.InjectionConfig;
-import com.episode6.hackit.mockspresso.api.MockerConfig;
-import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
-import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
+import com.episode6.hackit.mockspresso.api.*;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.rules.MethodRule;
@@ -72,12 +69,25 @@ public interface Mockspresso {
     Builder plugin(MockspressoPlugin plugin);
 
     /**
-     * Scans the included objectWithFields for fields annotated with @Mock and @RealObject, then prepares them
-     * and adds them to our dependency map.
-     * @param objectWithFields The object to scan and set fields on (usually a Test class)
+     * Scans the included objectWithResources for fields annotated with @Mock and @RealObject, then prepares them
+     * and adds them to our dependency map. Will also call any methods annotated with {@link org.junit.Before} during
+     * the initialization process, and any methods annotated with {@link org.junit.After} during the teardown process.
+     *
+     * Don't pass the actual test class to this method, as it will result in multiple calls to your @Before
+     * and @After methods. Instead use {@link #testResourcesWithoutLifecycle(Object)}
+     *
+     * @param objectWithResources The object to scan, set fields on and initialize
      * @return this
      */
-    Builder fieldsFrom(Object objectWithFields);
+    Builder testResources(Object objectWithResources);
+
+    /**
+     * Scans the included objectWithResources for fields annotated with @Mock and @RealObject, then prepares them
+     * and adds them to our dependency map. Mockspresso will not call any methods on objects added via this method.
+     * @param objectWithResources The object to scan and set fields on
+     * @return this
+     */
+    Builder testResourcesWithoutLifecycle(Object objectWithResources);
 
     /**
      * Apply a {@link MockerConfig} to this builder, which tells mockspresso how to create a mock
@@ -205,7 +215,7 @@ public interface Mockspresso {
      * @return an empty {@link Mockspresso.Builder} with no configuration applied.
      */
     public static Builder empty() {
-      return new com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl();
+      return com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl.PROVIDER.get();
     }
 
     /**

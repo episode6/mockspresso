@@ -6,13 +6,15 @@ import com.episode6.hackit.mockspresso.api.InjectionConfig;
 import com.episode6.hackit.mockspresso.api.MockerConfig;
 import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
-import com.episode6.hackit.mockspresso.internal.delayed.MockspressoRuleImpl;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
+import com.episode6.hackit.mockspresso.util.CollectionUtil;
 import com.episode6.hackit.mockspresso.util.Preconditions;
 
 import javax.annotation.Nullable;
+import javax.inject.Provider;
 import java.lang.annotation.Annotation;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,13 +23,22 @@ import java.util.List;
  */
 public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
-  private final List<Object> mObjectsWithFields = new LinkedList<>();
+  public static final Provider<MockspressoBuilderImpl> PROVIDER = new Provider<MockspressoBuilderImpl>() {
+    @Override
+    public MockspressoBuilderImpl get() {
+      return new MockspressoBuilderImpl();
+    }
+  };
+
+  private final LinkedHashSet<TestResource> mTestResources = new LinkedHashSet<>();
   private final DependencyMap mDependencyMap = new DependencyMap();
   private final SpecialObjectMakerContainer mSpecialObjectMakers = new SpecialObjectMakerContainer();
   private final RealObjectMapping mRealObjectMapping = new RealObjectMapping();
 
   private @Nullable MockerConfig mMockerConfig = null;
   private @Nullable InjectionConfig mInjectionConfig = null;
+
+  private MockspressoBuilderImpl() {}
 
   public void setParent(MockspressoConfigContainer parentConfig) {
     mDependencyMap.setParentMap(parentConfig.getDependencyMap());
@@ -46,8 +57,14 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     return plugin.apply(this);
   }
 
-  public Mockspresso.Builder fieldsFrom(Object objectWithFields) {
-    mObjectsWithFields.add(objectWithFields);
+  public Mockspresso.Builder testResources(Object objectWithResources) {
+    mTestResources.add(new TestResource(objectWithResources, true));
+    return this;
+  }
+
+  @Override
+  public Mockspresso.Builder testResourcesWithoutLifecycle(Object objectWithResources) {
+    mTestResources.add(new TestResource(objectWithResources, false));
     return this;
   }
 
@@ -119,12 +136,16 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   @Override
   public Mockspresso build() {
-    return buildInternal();
+    MockspressoInternal instance = buildInternal();
+    instance.getConfig().setup(instance);
+    return instance;
   }
 
   @Override
   public Mockspresso.Rule buildRule() {
-    return new MockspressoRuleImpl(buildInternal());
+    return new MockspressoRuleImpl(
+        buildInternal(),
+        PROVIDER);
   }
 
   public MockspressoInternal buildInternal() {
@@ -132,52 +153,63 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     Preconditions.assertNotNull(mMockerConfig, "MockerConfig missing from mockspresso builder");
     Preconditions.assertNotNull(mInjectionConfig, "InjectionConfig missing from mockspresso builder");
 
+    DependencyMap dependencyMap = new DependencyMap();
+    dependencyMap.setParentMap(mDependencyMap);
+
+    RealObjectMapping realObjectMapping = new RealObjectMapping();
+    realObjectMapping.setParentMap(mRealObjectMapping);
+
     // create the objects we use to create objects
     RealObjectMaker realObjectMaker = new RealObjectMaker(
         mInjectionConfig.provideConstructorSelector(),
         mInjectionConfig.provideInjectableFieldAnnotations(),
         mInjectionConfig.provideInjectableMethodAnnotations());
+
     DependencyProviderFactory dependencyProviderFactory = new DependencyProviderFactory(
         mMockerConfig.provideMockMaker(),
-        mDependencyMap,
+        dependencyMap,
         mSpecialObjectMakers,
-        mRealObjectMapping,
+        realObjectMapping,
         realObjectMaker);
 
-    // prepare mObjectsWithFields
+    FieldImporter fieldImporter = new FieldImporter(
+        CollectionUtil.concat(mMockerConfig.provideMockAnnotations(), RealObject.class),
+        dependencyMap);
+
     RealObjectFieldTracker realObjectFieldTracker = new RealObjectFieldTracker(
-        mRealObjectMapping);
-    DependencyMapImporter mDependencyMapImporter = new DependencyMapImporter(mDependencyMap);
-    MockerConfig.FieldPreparer mockFieldPreparer = mMockerConfig.provideFieldPreparer();
-    List<Class<? extends Annotation>> mockAnnotations = mMockerConfig.provideMockAnnotations();
-    for (Object o : mObjectsWithFields) {
-      // prepare mock fields
-      mockFieldPreparer.prepareFields(o);
+        realObjectMapping,
+        dependencyProviderFactory.getBlankDependencyProvider());
 
-      // import mocks and non-null real objects into dependency map
-      mDependencyMapImporter.importAnnotatedFields(o, mockAnnotations);
-      mDependencyMapImporter.importAnnotatedFields(o, RealObject.class);
+    List<ResourcesLifecycleComponent> lifecycleComponents = new LinkedList<>();
+    lifecycleComponents.add(
+        new ResourcesLifecycleMockManager(
+            mTestResources,
+            mMockerConfig.provideFieldPreparer()));
+    lifecycleComponents.add(
+        new ResourceLifecycleFieldManager(
+            mTestResources,
+            dependencyMap,
+            fieldImporter,
+            realObjectFieldTracker));
+    lifecycleComponents.add(
+        new ResourcesLifecycleMethodManager(
+            mTestResources));
 
-      // track down any @RealObjects that are null
-      realObjectFieldTracker.scanNullRealObjectFields(o);
-    }
-
-    // since we haven't built any real objects yet, assert that we haven't
-    // accidentally mapped a mock or other dependency to any of our RealObject keys
-    mDependencyMap.assertDoesNotContainAny(realObjectFieldTracker.keySet());
-
-    // fetch real object values from the dependencyProvider (now that they've been mapped)
-    // and apply them to the fields found in realObjectFieldTracker
-    for (DependencyKey key : realObjectFieldTracker.keySet()) {
-      realObjectFieldTracker.applyValueToFields(key, dependencyProviderFactory.getBlankDependencyProvider().get(key));
-    }
+    ResourcesLifecycleManager resourcesLifecycleManager = new ResourcesLifecycleManager(
+        lifecycleComponents);
 
     MockspressoConfigContainer configContainer = new MockspressoConfigContainer(
         mMockerConfig,
         mInjectionConfig,
-        mDependencyMap,
+        dependencyMap,
         mSpecialObjectMakers,
-        mRealObjectMapping);
-    return new MockspressoImpl(configContainer, dependencyProviderFactory, realObjectMaker);
+        realObjectMapping,
+        resourcesLifecycleManager);
+
+    return new MockspressoImpl(
+        configContainer,
+        dependencyProviderFactory,
+        realObjectMaker,
+        PROVIDER);
   }
 }

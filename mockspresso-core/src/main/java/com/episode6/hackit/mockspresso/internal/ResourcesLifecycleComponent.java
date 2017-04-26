@@ -5,6 +5,7 @@ import com.episode6.hackit.mockspresso.Mockspresso;
 /**
  *
  */
-interface MockspressoInternal extends Mockspresso {
-  MockspressoConfigContainer getConfig();
+interface ResourcesLifecycleComponent {
+  void setup(Mockspresso mockspresso);
+  void teardown();
 }

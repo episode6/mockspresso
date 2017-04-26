@@ -10,16 +10,18 @@ import java.util.HashMap;
 /**
  * Simple class to store mapped dependencies and type-check their fetch and retrieval.
  */
-public class DependencyMap {
+class DependencyMap {
   private @Nullable DependencyMap mParentMap = null;
   private final HashMap<DependencyKey, InstanceContainer> mDependencies = new HashMap<>();
 
-  public void setParentMap(DependencyMap parentMap) {
+  DependencyMap() {}
+
+  void setParentMap(DependencyMap parentMap) {
     mParentMap = parentMap;
   }
 
   @SuppressWarnings("unchecked")
-  public <T, V extends T> void put(
+  <T, V extends T> void put(
       DependencyKey<T> key,
       V value,
       @Nullable DependencyValidator dependencyValidator) {
@@ -30,7 +32,7 @@ public class DependencyMap {
   }
 
   @SuppressWarnings("unchecked")
-  public @Nullable <T> T get(DependencyKey<T> key, DependencyValidator dependencyValidator) {
+  @Nullable <T> T get(DependencyKey<T> key, DependencyValidator dependencyValidator) {
     if (mDependencies.containsKey(key)) {
       InstanceContainer container = mDependencies.get(key);
       dependencyValidator.append(container.dependencyValidator);
@@ -39,16 +41,23 @@ public class DependencyMap {
     return mParentMap == null ? null : mParentMap.get(key, dependencyValidator);
   }
 
-  public boolean containsKey(DependencyKey key) {
+  boolean containsKey(DependencyKey key) {
     return mDependencies.containsKey(key) || (mParentMap != null && mParentMap.containsKey(key));
   }
 
-  public void assertDoesNotContainAny(Collection<DependencyKey> newKeys) {
+  void assertDoesNotContainAny(Collection<DependencyKey> newKeys) {
     for (DependencyKey key : newKeys) {
       if (containsKey(key)) {
         throw new RepeatedDependencyDefinedException(key);
       }
     }
+  }
+
+  /**
+   * Only clears this dependency map, parents remain untouched
+   */
+  void clear() {
+    mDependencies.clear();
   }
 
   private static class InstanceContainer {
