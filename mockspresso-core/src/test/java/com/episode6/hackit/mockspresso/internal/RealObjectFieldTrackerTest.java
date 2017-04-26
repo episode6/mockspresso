@@ -93,6 +93,32 @@ public class RealObjectFieldTrackerTest {
     mRealObjectFieldTracker.scanNullRealObjectFields(testObject2);
   }
 
+  @Test
+  public void testClear() {
+    TestClass1 testObject = new TestClass1();
+    TestRunnable valueForRunnableKey = new TestRunnable();
+    TestRunnable valueForTestRunnableKey = new TestRunnable();
+    when(mDependencyProvider.get(runnableKey)).thenReturn(valueForRunnableKey);
+    when(mDependencyProvider.get(testRunnableKey)).thenReturn(valueForTestRunnableKey);
+
+    mRealObjectFieldTracker.scanNullRealObjectFields(testObject);
+    mRealObjectFieldTracker.applyValuesToFields();
+
+    assertThat(testObject.mRealRunnableWithImpl)
+        .isNotNull()
+        .isEqualTo(valueForRunnableKey);
+    assertThat(testObject.mRealTestRunnable)
+        .isNotNull()
+        .isEqualTo(valueForTestRunnableKey);
+
+    mRealObjectFieldTracker.clear();
+
+    verify(mRealObjectMapping).clear();
+    assertThat(mRealObjectFieldTracker.keySet()).isEmpty();
+    assertThat(testObject.mRealRunnableWithImpl).isNull();
+    assertThat(testObject.mRealTestRunnable).isNull();
+  }
+
   public static class TestClass1 {
     @RealObject String mPresetString = "teststring"; // ignored because it's non-null
     @RealObject(implementation = TestRunnable.class) Runnable mRealRunnableWithImpl;
