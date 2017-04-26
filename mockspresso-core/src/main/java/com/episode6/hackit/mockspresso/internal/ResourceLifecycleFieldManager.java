@@ -2,6 +2,7 @@ package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
+import com.episode6.hackit.mockspresso.api.DependencyProvider;
 import com.episode6.hackit.mockspresso.api.MockerConfig;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 
@@ -18,7 +19,7 @@ class ResourceLifecycleFieldManager implements ResourcesLifecycleComponent {
   private final List<TestResource> mTestResources;
   private final MockerConfig mMockerConfig;
   private final DependencyMap mDependencyMap;
-  private final DependencyProviderFactory mDependencyProviderFactory;
+  private final DependencyProvider mDependencyProvider;
   private final DependencyMapImporter mDependencyMapImporter;
   private final RealObjectFieldTracker mRealObjectFieldTracker;
 
@@ -26,13 +27,13 @@ class ResourceLifecycleFieldManager implements ResourcesLifecycleComponent {
       Collection<TestResource> testResources,
       MockerConfig mockerConfig,
       DependencyMap dependencyMap,
-      DependencyProviderFactory dependencyProviderFactory,
+      DependencyProvider dependencyProvider,
       DependencyMapImporter dependencyMapImporter,
       RealObjectFieldTracker realObjectFieldTracker) {
     mTestResources = new LinkedList<>(testResources);
     mMockerConfig = mockerConfig;
     mDependencyMap = dependencyMap;
-    mDependencyProviderFactory = dependencyProviderFactory;
+    mDependencyProvider = dependencyProvider;
     mDependencyMapImporter = dependencyMapImporter;
     mRealObjectFieldTracker = realObjectFieldTracker;
   }
@@ -62,7 +63,7 @@ class ResourceLifecycleFieldManager implements ResourcesLifecycleComponent {
     // fetch real object values from the dependencyProvider (now that they've been mapped)
     // and apply them to the fields found in realObjectFieldTracker
     for (DependencyKey key : mRealObjectFieldTracker.keySet()) {
-      mRealObjectFieldTracker.applyValueToFields(key, mDependencyProviderFactory.getBlankDependencyProvider().get(key));
+      mRealObjectFieldTracker.applyValueToFields(key, mDependencyProvider.get(key));
     }
   }
 

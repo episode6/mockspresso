@@ -175,7 +175,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
             mTestResources,
             mMockerConfig,
             dependencyMap,
-            dependencyProviderFactory,
+            dependencyProviderFactory.getBlankDependencyProvider(),
             new DependencyMapImporter(dependencyMap),
             new RealObjectFieldTracker(realObjectMapping)));
     lifecycleComponents.add(
