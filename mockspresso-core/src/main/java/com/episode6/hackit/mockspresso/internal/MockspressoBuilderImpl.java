@@ -166,9 +166,13 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
         realObjectMapping,
         realObjectMaker);
 
+    ResourcesLifecycleMethodManager resourcesLifecycleMethodManager = new ResourcesLifecycleMethodManager(
+        mTestResources);
+
     ResourcesLifecycleManager resourcesLifecycleManager = new ResourcesLifecycleManager(
         dependencyProviderFactory,
-        mTestResources);
+        mTestResources,
+        resourcesLifecycleMethodManager);
 
     MockspressoConfigContainer configContainer = new MockspressoConfigContainer(
         mMockerConfig,

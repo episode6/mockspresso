@@ -21,10 +21,11 @@ class ResourcesLifecycleManager {
 
   ResourcesLifecycleManager(
       DependencyProviderFactory dependencyProviderFactory,
-      Set<TestResource> testResources) {
+      Set<TestResource> testResources,
+      ResourcesLifecycleMethodManager resourcesLifecycleMethodManager) {
     mDependencyProviderFactory = dependencyProviderFactory;
     mTestResources = new LinkedHashSet<>(testResources);
-    mResourcesLifecycleMethodManager = ResourcesLifecycleMethodManager.newInstance(mTestResources);
+    mResourcesLifecycleMethodManager = resourcesLifecycleMethodManager;
   }
 
   void setup(MockspressoInternal mockspresso) {

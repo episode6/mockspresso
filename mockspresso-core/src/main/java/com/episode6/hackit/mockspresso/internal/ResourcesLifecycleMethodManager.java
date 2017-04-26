@@ -13,64 +13,51 @@ import java.util.*;
  * Handles calling the setup and teardown methods defined in TestResource objects.
  */
 class ResourcesLifecycleMethodManager {
-
-  static ResourcesLifecycleMethodManager newInstance(Set<TestResource> testResources) {
-    LinkedHashMap<TestResource, List<Method>> beforeMethodMap = new LinkedHashMap<>();
-    LinkedHashMap<TestResource, List<Method>> afterMethodMap = new LinkedHashMap<>();
-
-    for (TestResource resource : testResources) {
-      if (!resource.isLifecycle()) {
-        continue;
-      }
-
-      Object obj = resource.getObjectWithResources();
-      List<Method> allMethods = ReflectUtil.getAllDeclaredMethods(obj.getClass());
-      List<Method> beforeMethods = new LinkedList<>();
-      List<Method> afterMethods = new LinkedList<>();
-
-      for (Method method : allMethods) {
-        if (isValidBeforeMethod(method)) {
-          beforeMethods.add(method);
-        } else if (isValidAfterMethod(method)) {
-          afterMethods.add(0, method);
-        }
-      }
-
-      beforeMethodMap.put(resource, beforeMethods);
-      afterMethodMap.put(resource, afterMethods);
-    }
-    return new ResourcesLifecycleMethodManager(beforeMethodMap, afterMethodMap);
-  }
-
-  private final Map<TestResource, List<Method>> mBeforeMethods;
-  private final Map<TestResource, List<Method>> mAfterMethods;
+  private final List<TestResource> mTestResources;
+  private final Map<TestResource, LifecycleMethods> mMethodCache;
 
   ResourcesLifecycleMethodManager(
-      Map<TestResource, List<Method>> beforeMethods,
-      Map<TestResource, List<Method>> afterMethods) {
-    mBeforeMethods = beforeMethods;
-    mAfterMethods = afterMethods;
+      Collection<TestResource> testResources) {
+    mTestResources = new LinkedList<>(testResources);
+    mMethodCache = new HashMap<TestResource, LifecycleMethods>() {
+      @Override
+      public LifecycleMethods get(Object key) {
+        if (containsKey(key)) {
+          return super.get(key);
+        }
+
+        TestResource realKey = (TestResource) key;
+        LifecycleMethods methods = LifecycleMethods.getFor(realKey);
+        put(realKey, methods);
+        return methods;
+      }
+    };
   }
 
   void callBeforeMethods(Mockspresso mockspresso) throws InvocationTargetException, IllegalAccessException {
-    for (Map.Entry<TestResource, List<Method>> entry : mBeforeMethods.entrySet()) {
-      for (Method method : entry.getValue()) {
+    for (TestResource resource : mTestResources) {
+      Object obj = resource.getObjectWithResources();
+      List<Method> beforeMethods = mMethodCache.get(resource).beforeMethods;
+      for (Method method : beforeMethods) {
         if (method.getParameterCount() == 0) {
-          method.invoke(entry.getKey().getObjectWithResources());
+          method.invoke(obj);
         } else {
-          method.invoke(entry.getKey().getObjectWithResources(), mockspresso);
+          method.invoke(obj, mockspresso);
         }
       }
     }
   }
 
   void callAfterMethods() throws InvocationTargetException, IllegalAccessException {
-    ListIterator<Map.Entry<TestResource, List<Method>>> reverseResources =
-        new LinkedList<>(mAfterMethods.entrySet()).listIterator(mAfterMethods.size());
-    while(reverseResources.hasPrevious()) {
-      Map.Entry<TestResource, List<Method>> entry = reverseResources.previous();
-      for (Method method : entry.getValue()) {
-        method.invoke(entry.getKey().getObjectWithResources());
+    // reverse order test resources.
+    ListIterator<TestResource> testIterator = mTestResources.listIterator(mTestResources.size());
+    while (testIterator.hasPrevious()) {
+      TestResource resource = testIterator.previous();
+      Object obj = resource.getObjectWithResources();
+      List<Method> afterMethods = mMethodCache.get(resource).afterMethods;
+      // after methods are already in reverse order (subclasses first)
+      for (Method method : afterMethods) {
+        method.invoke(obj);
       }
     }
   }
@@ -86,5 +73,37 @@ class ResourcesLifecycleMethodManager {
 
   private static boolean isValidAfterMethod(Method method) {
     return method.isAnnotationPresent(After.class) && method.getParameterCount() == 0;
+  }
+
+  private static class LifecycleMethods {
+
+    private static LifecycleMethods getFor(TestResource testResource) {
+      List<Method> beforeMethods = new LinkedList<>();
+      List<Method> afterMethods = new LinkedList<>();
+
+      if (!testResource.isLifecycle()) {
+        return new LifecycleMethods(beforeMethods, afterMethods);
+      }
+
+      List<Method> allMethods = ReflectUtil.getAllDeclaredMethods(testResource.getObjectWithResources().getClass());
+      for (Method method : allMethods) {
+        if (isValidBeforeMethod(method)) {
+          beforeMethods.add(method);
+        } else if (isValidAfterMethod(method)) {
+          // invert order of after methods so that subclass methods come first
+          afterMethods.add(0, method);
+        }
+      }
+
+      return new LifecycleMethods(beforeMethods, afterMethods);
+    }
+
+    final List<Method> beforeMethods;
+    final List<Method> afterMethods;
+
+    private LifecycleMethods(List<Method> beforeMethods, List<Method> afterMethods) {
+      this.beforeMethods = beforeMethods;
+      this.afterMethods = afterMethods;
+    }
   }
 }
