@@ -18,6 +18,13 @@ class RealObjectMapping {
   private @Nullable RealObjectMapping mParentMap = null;
   private final Map<DependencyKey, Implementation> mMap = new HashMap<>();
 
+  RealObjectMapping deepCopy() {
+    RealObjectMapping newMapping = new RealObjectMapping();
+    newMapping.setParentMap(mParentMap);
+    newMapping.mMap.putAll(mMap);
+    return newMapping;
+  }
+
   void setParentMap(RealObjectMapping parentMap) {
     mParentMap = parentMap;
   }
