@@ -16,6 +16,13 @@ class DependencyMap {
 
   DependencyMap() {}
 
+  DependencyMap deepCopy() {
+    DependencyMap newMap = new DependencyMap();
+    newMap.setParentMap(mParentMap);
+    newMap.mDependencies.putAll(mDependencies);
+    return newMap;
+  }
+
   void setParentMap(DependencyMap parentMap) {
     mParentMap = parentMap;
   }

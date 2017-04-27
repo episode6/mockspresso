@@ -18,6 +18,13 @@ class SpecialObjectMakerContainer implements SpecialObjectMaker {
   private @Nullable SpecialObjectMaker mParentMaker = null;
   private final List<SpecialObjectMaker> mSpecialObjectMakers = new LinkedList<>();
 
+  SpecialObjectMakerContainer deepCopy() {
+    SpecialObjectMakerContainer newContainer = new SpecialObjectMakerContainer();
+    newContainer.setParentMaker(mParentMaker);
+    newContainer.mSpecialObjectMakers.addAll(mSpecialObjectMakers);
+    return newContainer;
+  }
+
   void setParentMaker(SpecialObjectMaker parentMaker) {
     mParentMaker = parentMaker;
   }
@@ -49,6 +56,4 @@ class SpecialObjectMakerContainer implements SpecialObjectMaker {
     }
     return mParentMaker == null ? null : mParentMaker.makeObject(dependencyProvider, key);
   }
-
-
 }

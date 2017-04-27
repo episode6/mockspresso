@@ -30,26 +30,54 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     }
   };
 
-  private final LinkedHashSet<TestResource> mTestResources = new LinkedHashSet<>();
-  private final DependencyMap mDependencyMap = new DependencyMap();
-  private final SpecialObjectMakerContainer mSpecialObjectMakers = new SpecialObjectMakerContainer();
-  private final RealObjectMapping mRealObjectMapping = new RealObjectMapping();
+  private final LinkedHashSet<TestResource> mTestResources;
+  private final DependencyMap mDependencyMap;
+  private final SpecialObjectMakerContainer mSpecialObjectMakers;
+  private final RealObjectMapping mRealObjectMapping;
 
-  private @Nullable MockerConfig mMockerConfig = null;
-  private @Nullable InjectionConfig mInjectionConfig = null;
+  private @Nullable MockerConfig mMockerConfig;
+  private @Nullable InjectionConfig mInjectionConfig;
+  private @Nullable TestResource mTestClass;
 
-  private MockspressoBuilderImpl() {}
+  private MockspressoBuilderImpl() {
+    mTestResources = new LinkedHashSet<>();
+    mDependencyMap = new DependencyMap();
+    mSpecialObjectMakers = new SpecialObjectMakerContainer();
+    mRealObjectMapping = new RealObjectMapping();
+
+    mMockerConfig = null;
+    mInjectionConfig = null;
+    mTestClass = null;
+  }
+
+  // make a "deep" copy of a MockspressoBuilderImpl
+  private MockspressoBuilderImpl(MockspressoBuilderImpl copyFrom) {
+    mTestResources = new LinkedHashSet<>(copyFrom.mTestResources);
+    mDependencyMap = copyFrom.mDependencyMap.deepCopy();
+    mSpecialObjectMakers = copyFrom.mSpecialObjectMakers.deepCopy();
+    mRealObjectMapping = copyFrom.mRealObjectMapping.deepCopy();
+
+    mMockerConfig = copyFrom.mMockerConfig;
+    mInjectionConfig = copyFrom.mInjectionConfig;
+    mTestClass = copyFrom.mTestClass;
+  }
 
   void setParent(MockspressoConfigContainer parentConfig) {
     mDependencyMap.setParentMap(parentConfig.getDependencyMap());
     mSpecialObjectMakers.setParentMaker(parentConfig.getSpecialObjectMaker());
     mRealObjectMapping.setParentMap(parentConfig.getRealObjectMapping());
+
     if (mMockerConfig == null) {
       mMockerConfig = parentConfig.getMockerConfig();
     }
     if (mInjectionConfig == null) {
       mInjectionConfig = parentConfig.getInjectionConfig();
     }
+  }
+
+  // internal method used by MockspressoRuleImpl
+  void setTestClass(@Nullable Object testClass) {
+    mTestClass = testClass == null ? null : new TestResource(testClass, false);
   }
 
   @Override
@@ -144,7 +172,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   @Override
   public Mockspresso.Rule buildRule() {
     return new MockspressoRuleImpl(
-        buildInternal(),
+        new MockspressoBuilderImpl(this),
         PROVIDER);
   }
 
@@ -154,7 +182,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     final InjectionConfig injectionConfig =
         Preconditions.assertNotNull(mInjectionConfig, "InjectionConfig missing from mockspresso builder");
     final SpecialObjectMakerContainer specialObjectMakers = mSpecialObjectMakers;
-    final Set<TestResource> testResources = mTestResources;
+    final List<TestResource> testResources = CollectionUtil.concat(mTestResources, mTestClass);
 
     // DependencyMap and RealObjectMapping will be added to (and potentially cleared)
     // during the mockspresso lifecycle, so we separate any explicitly defined dependencies
