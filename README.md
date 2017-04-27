@@ -127,7 +127,9 @@ public class MyTest {
         .plugin(/* mocker plugin of preference*/)
         .buildRule();
 
+    // this dependency will automatically be fetched by Provider<MyDependency>
     @Mock MyDependency mDependency;
+
     @RealObject ObjectUnderTest mObjectUnderTest
 
     @Test
