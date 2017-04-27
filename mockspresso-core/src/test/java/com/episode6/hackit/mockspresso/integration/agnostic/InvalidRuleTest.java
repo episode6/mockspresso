@@ -1,4 +1,4 @@
-package com.episode6.hackit.mockspresso.integration.mockito;
+package com.episode6.hackit.mockspresso.integration.agnostic;
 
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.Mockspresso;
@@ -14,7 +14,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verifyZeroInteractions;
 
 /**
- *
+ * Tests how a mockspresso rule acts when not properly annotated (i.e. never applied)
  */
 @RunWith(DefaultTestRunner.class)
 public class InvalidRuleTest {
