@@ -38,4 +38,16 @@ public class CollectionUtilTest {
     assertThat(result)
         .containsExactly("hi", "sup", "nice", "dog");
   }
+
+  @Test
+  public void concatWithNewItemsAndNulls() {
+    ArrayList<String> originalList = new ArrayList<>();
+    originalList.add("hi");
+    originalList.add("sup");
+
+    List<String> result = CollectionUtil.concat(originalList, "nice", null, "dog", null);
+
+    assertThat(result)
+        .containsExactly("hi", "sup", "nice", "dog");
+  }
 }

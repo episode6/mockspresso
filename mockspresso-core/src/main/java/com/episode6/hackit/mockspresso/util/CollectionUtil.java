@@ -10,7 +10,8 @@ import java.util.List;
 public class CollectionUtil {
 
   /**
-   * Create a new list, add the collection, then add the newItems. The original collection is not modified
+   * Create a new list, add the collection, then add the newItems. The original collection is not modified.
+   * Only non-null newItems are added.
    * @param collection The collection to build from
    * @param newItems The new items to add
    * @param <T> the type of collection
@@ -19,7 +20,9 @@ public class CollectionUtil {
   public static <T> List<T> concat(Collection<T> collection, T... newItems) {
     LinkedList<T> newList = new LinkedList<>(collection);
     for (int i = 0; i<newItems.length; i++) {
-      newList.add(newItems[i]);
+      if (newItems[i] != null) {
+        newList.add(newItems[i]);
+      }
     }
     return newList;
   }
