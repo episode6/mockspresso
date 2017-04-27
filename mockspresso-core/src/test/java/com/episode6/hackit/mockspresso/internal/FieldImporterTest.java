@@ -3,6 +3,7 @@ package com.episode6.hackit.mockspresso.internal;
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.annotation.TestQualifierAnnotation;
+import com.episode6.hackit.mockspresso.annotation.Unmapped;
 import com.episode6.hackit.mockspresso.reflect.AnnotationLiteral;
 import com.episode6.hackit.mockspresso.reflect.AnnotationLiteralTest;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
@@ -46,6 +47,8 @@ public class FieldImporterTest {
   @Mock TestObject testObj5;
   @Mock @TestQualifierAnnotation TestObject testObj6;
   @Mock @Named("somename") TestObject testObj7;
+
+  @Unmapped @Mock @Named("dontimportme") TestObject testObj8;
 
   private DependencyMap mDependencyMap;
   private FieldImporter mImporter;

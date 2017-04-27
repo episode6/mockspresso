@@ -1,5 +1,6 @@
 package com.episode6.hackit.mockspresso.internal;
 
+import com.episode6.hackit.mockspresso.annotation.Unmapped;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.ReflectUtil;
 
@@ -28,7 +29,8 @@ class FieldImporter {
   void importAnnotatedFields(Object importFrom) {
     try {
       for (Field field : ReflectUtil.getAllDeclaredFields(importFrom.getClass())) {
-        if (!ReflectUtil.isAnyAnnotationPresent(field, mImportAnnotations)) {
+        if (field.isAnnotationPresent(Unmapped.class) ||
+            !ReflectUtil.isAnyAnnotationPresent(field, mImportAnnotations)) {
           continue;
         }
 
