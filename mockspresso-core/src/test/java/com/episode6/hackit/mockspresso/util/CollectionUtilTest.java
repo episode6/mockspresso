@@ -21,7 +21,7 @@ public class CollectionUtilTest {
     originalList.add("hi");
     originalList.add("sup");
 
-    List<String> result = CollectionUtil.concat(originalList);
+    List<String> result = CollectionUtil.concatList(originalList);
 
     assertThat(result)
         .containsExactly("hi", "sup");
@@ -33,7 +33,7 @@ public class CollectionUtilTest {
     originalList.add("hi");
     originalList.add("sup");
 
-    List<String> result = CollectionUtil.concat(originalList, "nice", "dog");
+    List<String> result = CollectionUtil.concatList(originalList, "nice", "dog");
 
     assertThat(result)
         .containsExactly("hi", "sup", "nice", "dog");
@@ -45,9 +45,17 @@ public class CollectionUtilTest {
     originalList.add("hi");
     originalList.add("sup");
 
-    List<String> result = CollectionUtil.concat(originalList, "nice", null, "dog", null);
+    List<String> result = CollectionUtil.concatList(originalList, "nice", null, "dog", null);
 
     assertThat(result)
         .containsExactly("hi", "sup", "nice", "dog");
+  }
+
+  @Test
+  public void concatWithNullBase() {
+    List<String> result = CollectionUtil.concatList( "nice", null, "dog", null);
+
+    assertThat(result)
+        .containsExactly("nice", "dog");
   }
 }

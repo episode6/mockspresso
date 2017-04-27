@@ -16,7 +16,6 @@ import javax.inject.Provider;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Implementation of {@link Mockspresso.Builder}
@@ -182,7 +181,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     final InjectionConfig injectionConfig =
         Preconditions.assertNotNull(mInjectionConfig, "InjectionConfig missing from mockspresso builder");
     final SpecialObjectMakerContainer specialObjectMakers = mSpecialObjectMakers;
-    final List<TestResource> testResources = CollectionUtil.concat(mTestResources, mTestClass);
+    final List<TestResource> testResources = CollectionUtil.concatList(mTestResources, mTestClass);
 
     // DependencyMap and RealObjectMapping will be added to (and potentially cleared)
     // during the mockspresso lifecycle, so we separate any explicitly defined dependencies
@@ -206,7 +205,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
         realObjectMaker);
 
     FieldImporter fieldImporter = new FieldImporter(
-        CollectionUtil.concat(mockerConfig.provideMockAnnotations(), RealObject.class),
+        CollectionUtil.concatList(mockerConfig.provideMockAnnotations(), RealObject.class),
         dependencyMap);
 
     RealObjectFieldTracker realObjectFieldTracker = new RealObjectFieldTracker(
