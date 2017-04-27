@@ -26,32 +26,30 @@ dependencies {
 }
 ```
 
-Define your `Mockspresso` instance using a @Rule
-```java
-@Rule public final Mockspresso.Rule mockspresso = Mockspress.Builders.simple()
-    .plugin(MockitoPlugin.getInstance()) // or EasyMockPlugin.getInstance()
-    .buildRule();
-```
-
-Declare the mocks you care about, and the real objects mockspresso should create
-```java
-// mockspresso will take care of initializing your mocks
-@Mock Heater heater;
-
-// the @RealObject annotation instructs mockspresso to create this object
-// and provide all required dependencies to it.
-@RealObject CoffeeMaker coffeeMakerUnderTest;
-```
-
 Write your test
 ```java
-@Test
-public void testCoffeeMaker() {
-    // CoffeeMaker's dependencies are guaranteed to be non-null
-    Coffee coffee = coffeeMakerUnderTest.brew();
+public class CoffeeMakerTest {
 
-    // verify that heater (a dependency of CoffeeMaker) was called (mockito example)
-    verify(heater).heat(any(Water.class));
+    // Define your `Mockspresso` instance using a @Rule
+    @Rule public final Mockspresso.Rule mockspresso = Mockspress.Builders.simple()
+        .plugin(MockitoPlugin.getInstance()) // or EasyMockPlugin.getInstance()
+        .buildRule();
+
+    // Declare only the mocks you care about testing with
+    @Mock Heater heater;
+
+    // Declare an @RealObject, and mockspresso will create it for you
+    @RealObject CoffeeMaker coffeeMakerUnderTest;
+
+    @Test
+    public void testCoffeeMaker() {
+        // CoffeeMaker's dependencies are guaranteed to be non-null, even
+        // if they aren't declared above.
+        Coffee coffee = coffeeMakerUnderTest.brew();
+
+        // verify that heater (a dependency of CoffeeMaker) was called (mockito example)
+        verify(heater).heat(any(Water.class));
+    }
 }
 ```
 
@@ -109,7 +107,37 @@ public void testWithRealHeater() {
 ### Special Object Handling
 A key feature of mockspresso's dependency mapping is its concept of "special objects." A special object is simply defined as an object type that should not be mocked by default. One can add `SpecialObjectMaker`s via the `Mockspresso.Builder.specialObjectMaker()` method (or via a plugin).
 
-For example, the built in `JavaxInjectMockspressoPlugin` includes a SpecialObjectMaker called `ProviderMaker` which handles the creation of `javax.inject.Provider<>`s. With this plugin, every-time mockspresso encounters a dependency for a Provider, it will return a real Provider, that in turn fetches its true dependency when `get()` is called. Basically it means, if your real object depends on `Provider<Foo>`, you only need to `@Mock Foo mFoo`, and the mapping will be handled for you.
+Example: The built-in `JavaxInjectMockspressoPlugin` includes a SpecialObjectMaker for `javax.inject.Provider<>` that automatically fetches the underlying dependency when get() is called, allowing you to ignore Providers in your test entirely...
+```java
+// Given a class with a dependency on a Provider<>...
+public class ObjectUnderTest {
+    private final javax.inject.Provider<MyDependency> mDependencyProvider;
+
+    // constructor, etc...
+
+    public void touchDependency() {
+        mDependencyProvider.get().touchMe();
+    }
+}
+
+// You can write a test that simply pretends the Provider<> doesn't exist
+public class MyTest {
+
+    @Rule public final Mockspresso.Rule mockspresso = Mockspresso.Builders.javaxInjection()
+        .plugin(/* mocker plugin of preference*/)
+        .buildRule();
+
+    @Mock MyDependency mDependency;
+    @RealObject ObjectUnderTest mObjectUnderTest
+
+    @Test
+    public void testTouch() {
+        mObjectUnderTest.touchDependency();
+
+        verify(mDependency).touchMe();
+    }
+}
+```
 
 
 ### Plugins
