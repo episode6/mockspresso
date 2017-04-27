@@ -31,6 +31,8 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   };
 
   private final LinkedHashSet<TestResource> mTestResources = new LinkedHashSet<>();
+  private @Nullable TestResource mTestClass = null;
+
   private final DependencyMap mDependencyMap = new DependencyMap();
   private final SpecialObjectMakerContainer mSpecialObjectMakers = new SpecialObjectMakerContainer();
   private final RealObjectMapping mRealObjectMapping = new RealObjectMapping();
@@ -50,6 +52,11 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     if (mInjectionConfig == null) {
       mInjectionConfig = parentConfig.getInjectionConfig();
     }
+  }
+
+  // internal method used by MockspressoRuleImpl
+  void setTestClass(@Nullable Object testClass) {
+    mTestClass = testClass == null ? null : new TestResource(testClass, false);
   }
 
   @Override
@@ -144,7 +151,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   @Override
   public Mockspresso.Rule buildRule() {
     return new MockspressoRuleImpl(
-        buildInternal(),
+        this,
         PROVIDER);
   }
 
@@ -154,7 +161,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     final InjectionConfig injectionConfig =
         Preconditions.assertNotNull(mInjectionConfig, "InjectionConfig missing from mockspresso builder");
     final SpecialObjectMakerContainer specialObjectMakers = mSpecialObjectMakers;
-    final Set<TestResource> testResources = mTestResources;
+    final List<TestResource> testResources = CollectionUtil.concat(mTestResources, mTestClass);
 
     // DependencyMap and RealObjectMapping will be added to (and potentially cleared)
     // during the mockspresso lifecycle, so we separate any explicitly defined dependencies

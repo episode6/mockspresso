@@ -15,14 +15,14 @@ import javax.inject.Provider;
  **/
 class MockspressoRuleImpl extends AbstractDelayedMockspresso implements Mockspresso.Rule {
 
-  private final MockspressoInternal mOriginal;
+  private final MockspressoBuilderImpl mOriginalBuilder;
   private MethodRuleChain mRuleChain;
 
   public MockspressoRuleImpl(
-      MockspressoInternal original,
+      MockspressoBuilderImpl originalBuilder,
       Provider<MockspressoBuilderImpl> builderProvider) {
     super(builderProvider);
-    mOriginal = original;
+    mOriginalBuilder = originalBuilder;
     mRuleChain = MethodRuleChain.outerRule(new OuterRule());
   }
 
@@ -49,23 +49,13 @@ class MockspressoRuleImpl extends AbstractDelayedMockspresso implements Mockspre
       return new Statement() {
         @Override
         public void evaluate() throws Throwable {
-          MockspressoConfigContainer config = mOriginal.getConfig();
           try {
-            // Init the original config then create a builder for the actual mockspresso instance to be used using
-            // mOriginal as the parent and adding fields from the Statement's target (the test)
-            config.setup(mOriginal);
-
-            MockspressoBuilderImpl builder = newBuilder();
-            builder.setParent(config);
-            builder.testResourcesWithoutLifecycle(target);
-
-            // build the delegate instance and set it, then evaluate the Statement
-            setDelegate(builder.buildInternal());
+            mOriginalBuilder.setTestClass(target);
+            setDelegate(mOriginalBuilder.buildInternal());
             base.evaluate();
           } finally {
-            // Always clean up the delegate and teardown the original config.
             setDelegate(null);
-            config.teardown();
+            mOriginalBuilder.setTestClass(null);
           }
         }
       };
