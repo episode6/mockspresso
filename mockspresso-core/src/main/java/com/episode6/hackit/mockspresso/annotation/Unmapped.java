@@ -3,7 +3,7 @@ package com.episode6.hackit.mockspresso.annotation;
 import java.lang.annotation.*;
 
 /**
- * Field annotation for mocks that tells mockspresso NOT to map the value contained therein.
+ * Field annotation for mocks and @RealObjects that tells mockspresso NOT to map the value contained therein.
  */
 @Documented
 @Target({ElementType.FIELD})

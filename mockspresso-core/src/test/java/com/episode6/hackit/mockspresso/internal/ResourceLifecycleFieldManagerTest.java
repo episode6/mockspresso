@@ -43,7 +43,7 @@ public class ResourceLifecycleFieldManagerTest {
     mTestResources.add(new TestResource(new Object(), true));
     mTestResources.add(new TestResource(new Object(), false));
 
-    when(mRealObjectFieldTracker.keySet()).thenReturn(emptyKeySet);
+    when(mRealObjectFieldTracker.mappedKeys()).thenReturn(emptyKeySet);
 
     mResourceLifecycleFieldManager = new ResourceLifecycleFieldManager(
         mTestResources,
@@ -61,7 +61,7 @@ public class ResourceLifecycleFieldManagerTest {
       inOrder.verify(mFieldImporter).importAnnotatedFields(resource.getObjectWithResources());
       inOrder.verify(mRealObjectFieldTracker).scanNullRealObjectFields(resource.getObjectWithResources());
     }
-    inOrder.verify(mRealObjectFieldTracker).keySet();
+    inOrder.verify(mRealObjectFieldTracker).mappedKeys();
     inOrder.verify(mDependencyMap).assertDoesNotContainAny(emptyKeySet);
     inOrder.verify(mRealObjectFieldTracker).applyValuesToFields();
     verifyNoMoreInteractions(mDependencyMap, mFieldImporter, mRealObjectFieldTracker);

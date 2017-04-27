@@ -41,7 +41,7 @@ class ResourceLifecycleFieldManager implements ResourcesLifecycleComponent {
 
     // since we haven't built any real objects yet, assert that we haven't
     // accidentally mapped a mock or other dependency to any of our RealObject keys
-    mDependencyMap.assertDoesNotContainAny(mRealObjectFieldTracker.keySet());
+    mDependencyMap.assertDoesNotContainAny(mRealObjectFieldTracker.mappedKeys());
 
     // fetch real object values from the dependencyProvider (now that they've been mapped)
     // and apply them to the fields found in realObjectFieldTracker

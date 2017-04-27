@@ -210,7 +210,8 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
     RealObjectFieldTracker realObjectFieldTracker = new RealObjectFieldTracker(
         realObjectMapping,
-        dependencyProviderFactory.getBlankDependencyProvider());
+        realObjectMaker,
+        dependencyProviderFactory);
 
     List<ResourcesLifecycleComponent> lifecycleComponents = new LinkedList<>();
     lifecycleComponents.add(
