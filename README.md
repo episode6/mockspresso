@@ -95,15 +95,44 @@ public void testWithRealHeater() {
 }
 ```
 
-### @RealObject annotation
+### The Dependency Map
+Mockspresso tries to adhere to principles set fourth by the javax.inject package and compatible DI frameworks. As such, each dependency in our map is keyed to the `Type` of the dependency and an optional qualifier `Annotation` (any annotation that itself is annotated with `javax.inject.Qualifier`). When mockspresso scans your test or testResource for fields annotated with @Mock or @RealObject, it also respects the Qualifier annotations on these fields. While you can override anything in the dependency map by using `Mockspresso.buildUpon()` to create a new mockspresso instance, defining multiple objects/mocks with the same dependency key in the same mockspresso instance will result in a `RepeatedDependencyDefinedException`. For example...
+```java
+// These represent three distinct dependency keys. heater2 and heater3 will only be supplied to real objects
+// if those objects specify '@Named Heater' and '@Named("somename") Heater' (respectively) as constructor
+// parameters (or field params if field injection is enabled). Similarly, heater1 will only be supplied to
+// a real object if that object does not specify a qualifier annotation on its Heater dependency.
+@Mock Heater heater1;
+@Mock @Named Heater heater2; // @Named is a qualifier annotation provided by javax.inject
+@Mock @Named("somename") Heater heater2;
+
+// Uncommenting the line below would trigger a RepeatedDependencyDefinedException because
+// we've already mapped Heater's dependency key to a mock above.
+// @RealObject Heater realHeater;
+```
+To allow for multiple mocks / objects of the same type to be created in the same mockspresso instance, see [The @Unmapped Annotation](#unmapped-annotation), and skip the dependency map entirely.
+
+### @RealObject Annotation
 You can think of the `@RealObject` annotation kind of like [Mockito's @InjectMocks](https://static.javadoc.io/org.mockito/mockito-core/2.7.19/org/mockito/InjectMocks.html) or [EasyMock's @TestSubject](http://easymock.org/api/org/easymock/TestSubject.html) annotations, but with super-powers.
-- Declare a null/empty @RealObject field, and Mockspresso will create the object for you. The object will be 'injected' with the other @Mocks and @RealObjects defined in your test class.
-  - example: `@RealObject CoffeeMaker coffeeMakerUnderTest;`
-- Declare multiple null/empty @RealObject fields to create an integration test with multiple real components working together.
-- Declare the `implementation` property of @RealObject to specify a specific implementation be used to create the object.
-  - example: define: `@RealObject(implementation = ElectricHeater.class) Heater mHeater;` and an `ElectricHeater` will be created and set in that field, but in mockspresso's DependencyMap, it will be mapped to the key for `Heater`, and provided as a dependency for any object that requires a generic Heater.
-- Declare a non-null (usually final) @RealObject field, and Mockspresso will add the value to its internal DependencyMap, and provide it as a dependency to other @RealObjects. This can be useful to inject dependencies that can't be mocked.
-  - example: `final @RealObject @Named("maker_name") String coffeeMakerName = "testCoffeeMaker";`
+```java
+// Declare a null @RealObject and mockspresso will construct it for you.
+// The object will be 'injected' with other @Mocks and @RealObjects defined
+// in you test class and shared resources.
+@RealObject CoffeeMaker coffeeMakerUnderTest;
+
+// Specify the implementation field to inform mockspresso which implementation
+// to create of a given class/interface. In this example an ElectricHeater will be
+// created, but it will be bound to the dependency key for Heater, and supplied to
+// the CoffeeMaker above (assuming it requires Heater as a dependency).
+@RealObject(implementation = ElectricHeater.class) Heater mHeater;
+
+// Declare a non-null @RealObject, and mockspresso will simply add it to it's dependency map without
+// modifying it. This can be useful for unmockable dependencies like primitives and Strings.
+final @RealObject @Named("coffee_maker_name") String mCoffeeMakerName = "Test Coffee Maker";
+
+// Combine multiple @RealObjects in one test (as we have above) to create an integration test without
+// ever touching a constructor.
+```
 
 ### Special Object Handling
 A key feature of mockspresso's dependency mapping is its concept of "special objects." A special object is simply defined as an object type that should not be mocked by default. One can add `SpecialObjectMaker`s via the `Mockspresso.Builder.specialObjectMaker()` method (or via a plugin).
@@ -183,6 +212,29 @@ public class CoffeeMakerTest {
 }
 ```
 
+
+### @Unmapped Annotation
+Sometimes you may need to mock multiple instances of the same class or create multiple instances of a real object. Using qualifier annotations for these instances only makes sense if your code uses them as well, so we've included the `@Unmapped` annotation to indicate that a @Mock or @RealObject shouldn't be included in the dependency map, and will be handled manually in the test. For example...
+
+ ```java
+ // Without @Unmapped, this would throw a RepeatedDependencyDefinedException
+ @Unmapped @Mock CoffeeGrounds coffeeGrounds1
+ @Unmapped @Mock CoffeeGrounds coffeeGrounds2
+
+ // This provider will be bound to the dependency mape
+ @Mock Provider<CoffeeGrounds> coffeeGroundsProvider;
+
+ @RealObject CoffeeMaker coffeeMaker;
+
+ @Before
+ public void setup() {
+     when(coffeeGroundsProvider.get())
+        .thenReturn(coffeeGrounds1)
+        .thenReturn(coffeeGrounds2);
+ }
+ ```
+
+
 ### Plugins
 In mockspresso, a `Plugin` is a simple class to package up multiple calls to a Mockspresso.Builder for related functionality. Mockspresso ships with a few plugins to get started.
 - mockspresso-core
@@ -192,9 +244,6 @@ In mockspresso, a `Plugin` is a simple class to package up multiple calls to a M
   - `MockitoPlugin`: Applies the `MockitoMockerConfig` to provide compatibility with mockito.
 - mockspresso-easymock
   - `EasyMockPlugin`: Applies the `EasyMockMockerConfig` to provide compatibility with easymock.
-
-### The Dependency Map
-Mockspresso tries to adhere to principles set fourth by the javax.inject package and compatible DI frameworks. As such, each dependency in our map is keyed to the `Type` of the dependency and an optional qualifier `Annotation` (any annotation that itself is annotated with `javax.inject.Qualifier`). When mockspresso scans your test or testResource for fields annotated with @Mock or @RealObject, it also respects the Qualifier annotations on these fields.
 
 ## License
 MIT: https://github.com/episode6/mockspresso/blob/master/LICENSE
