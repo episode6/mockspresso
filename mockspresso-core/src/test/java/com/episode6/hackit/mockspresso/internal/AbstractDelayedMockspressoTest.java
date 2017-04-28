@@ -44,6 +44,7 @@ public class AbstractDelayedMockspressoTest {
 
     when(mMockspressoInternal.getConfig()).thenReturn(mConfig);
     when(mBuilderProvider.get()).thenReturn(mChildBuilder);
+    when(mChildBuilder.deepCopy()).thenReturn(mChildBuilder);
     when(mChildBuilder.buildInternal()).thenReturn(mChildMockspresso);
     when(mChildMockspresso.getConfig()).thenReturn(mChildConfig);
     when(mMockspressoInternal.buildUpon()).thenReturn(mPublicBuilder);
@@ -92,6 +93,7 @@ public class AbstractDelayedMockspressoTest {
     InOrder inOrder = Mockito.inOrder(mBuilderProvider, mConfig, mChildBuilder, mChildConfig, mChildMockspresso);
     inOrder.verify(mBuilderProvider).get();
     inOrder.verify(mConfig).setup(mMockspressoInternal);
+    inOrder.verify(mChildBuilder).deepCopy();
     inOrder.verify(mChildBuilder).setParent(mConfig);
     inOrder.verify(mChildConfig).setup(mChildMockspresso);
     inOrder.verify(mChildMockspresso).create(TestClass.class);

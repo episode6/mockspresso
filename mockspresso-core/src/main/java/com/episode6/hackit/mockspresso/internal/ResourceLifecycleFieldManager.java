@@ -1,10 +1,10 @@
 package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
+import com.episode6.hackit.mockspresso.exception.RepeatedDependencyDefinedException;
+import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Handles the field scanning and injection of a mockspresso instance
@@ -13,16 +13,18 @@ class ResourceLifecycleFieldManager implements ResourcesLifecycleComponent {
 
   private final List<TestResource> mTestResources;
   private final DependencyMap mDependencyMap;
+  private final RealObjectMapping mRealObjectMapping;
   private final FieldImporter mFieldImporter;
   private final RealObjectFieldTracker mRealObjectFieldTracker;
 
   ResourceLifecycleFieldManager(
       Collection<TestResource> testResources,
       DependencyMap dependencyMap,
-      FieldImporter fieldImporter,
+      RealObjectMapping realObjectMapping, FieldImporter fieldImporter,
       RealObjectFieldTracker realObjectFieldTracker) {
     mTestResources = new LinkedList<>(testResources);
     mDependencyMap = dependencyMap;
+    mRealObjectMapping = realObjectMapping;
     mFieldImporter = fieldImporter;
     mRealObjectFieldTracker = realObjectFieldTracker;
   }
@@ -39,9 +41,12 @@ class ResourceLifecycleFieldManager implements ResourcesLifecycleComponent {
       mRealObjectFieldTracker.scanNullRealObjectFields(o);
     }
 
-    // since we haven't built any real objects yet, assert that we haven't
-    // accidentally mapped a mock or other dependency to any of our RealObject keys
-    mDependencyMap.assertDoesNotContainAny(mRealObjectFieldTracker.mappedKeys());
+    // ensure that our dependency map and real objects dont intersect
+    Set<DependencyKey> intersectionSet = new HashSet<>(mDependencyMap.keySet());
+    intersectionSet.retainAll(mRealObjectMapping.keySet());
+    if (!intersectionSet.isEmpty()) {
+      throw new RepeatedDependencyDefinedException(intersectionSet.iterator().next());
+    }
 
     // fetch real object values from the dependencyProvider (now that they've been mapped)
     // and apply them to the fields found in realObjectFieldTracker
@@ -52,5 +57,6 @@ class ResourceLifecycleFieldManager implements ResourcesLifecycleComponent {
   public void teardown() {
     mRealObjectFieldTracker.clear();
     mDependencyMap.clear();
+    mRealObjectMapping.clear();
   }
 }

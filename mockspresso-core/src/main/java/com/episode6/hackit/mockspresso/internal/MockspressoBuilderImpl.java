@@ -16,6 +16,7 @@ import javax.inject.Provider;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Implementation of {@link Mockspresso.Builder}
@@ -36,7 +37,6 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   private @Nullable MockerConfig mMockerConfig;
   private @Nullable InjectionConfig mInjectionConfig;
-  private @Nullable TestResource mTestClass;
 
   private MockspressoBuilderImpl() {
     mTestResources = new LinkedHashSet<>();
@@ -46,7 +46,6 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
     mMockerConfig = null;
     mInjectionConfig = null;
-    mTestClass = null;
   }
 
   // make a "deep" copy of a MockspressoBuilderImpl
@@ -58,7 +57,10 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
     mMockerConfig = copyFrom.mMockerConfig;
     mInjectionConfig = copyFrom.mInjectionConfig;
-    mTestClass = copyFrom.mTestClass;
+  }
+
+  MockspressoBuilderImpl deepCopy() {
+    return new MockspressoBuilderImpl(this);
   }
 
   void setParent(MockspressoConfigContainer parentConfig) {
@@ -72,11 +74,6 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     if (mInjectionConfig == null) {
       mInjectionConfig = parentConfig.getInjectionConfig();
     }
-  }
-
-  // internal method used by MockspressoRuleImpl
-  void setTestClass(@Nullable Object testClass) {
-    mTestClass = testClass == null ? null : new TestResource(testClass, false);
   }
 
   @Override
@@ -163,7 +160,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   @Override
   public Mockspresso build() {
-    MockspressoInternal instance = buildInternal();
+    MockspressoInternal instance = deepCopy().buildInternal();
     instance.getConfig().setup(instance);
     return instance;
   }
@@ -171,7 +168,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   @Override
   public Mockspresso.Rule buildRule() {
     return new MockspressoRuleImpl(
-        new MockspressoBuilderImpl(this),
+        deepCopy(),
         PROVIDER);
   }
 
@@ -181,16 +178,9 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     final InjectionConfig injectionConfig =
         Preconditions.assertNotNull(mInjectionConfig, "InjectionConfig missing from mockspresso builder");
     final SpecialObjectMakerContainer specialObjectMakers = mSpecialObjectMakers;
-    final List<TestResource> testResources = CollectionUtil.concatList(mTestResources, mTestClass);
-
-    // DependencyMap and RealObjectMapping will be added to (and potentially cleared)
-    // during the mockspresso lifecycle, so we separate any explicitly defined dependencies
-    // and real object mappings from those added by test resources during the last-mile setup
-    // process.
-    final DependencyMap dependencyMap = new DependencyMap();
-    dependencyMap.setParentMap(mDependencyMap);
-    final RealObjectMapping realObjectMapping = new RealObjectMapping();
-    realObjectMapping.setParentMap(mRealObjectMapping);
+    final Set<TestResource> testResources = mTestResources;
+    final DependencyMap dependencyMap = mDependencyMap;
+    final RealObjectMapping realObjectMapping = mRealObjectMapping;
 
     RealObjectMaker realObjectMaker = new RealObjectMaker(
         injectionConfig.provideConstructorSelector(),
@@ -222,7 +212,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
         new ResourceLifecycleFieldManager(
             testResources,
             dependencyMap,
-            fieldImporter,
+            realObjectMapping, fieldImporter,
             realObjectFieldTracker));
     lifecycleComponents.add(
         new ResourcesLifecycleMethodManager(

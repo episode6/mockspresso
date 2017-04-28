@@ -7,6 +7,7 @@ import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Contains a set of DependencyKeys to treat as real objects, mapped to their implementation
@@ -53,6 +54,10 @@ class RealObjectMapping {
       return mMap.get(key).mShouldMapDependency;
     }
     return mParentMap != null && mParentMap.shouldMapDependency(key);
+  }
+
+  Set<DependencyKey> keySet() {
+    return mMap.keySet();
   }
 
   /**

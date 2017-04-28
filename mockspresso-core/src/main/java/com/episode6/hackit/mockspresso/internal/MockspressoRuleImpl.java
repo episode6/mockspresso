@@ -50,12 +50,12 @@ class MockspressoRuleImpl extends AbstractDelayedMockspresso implements Mockspre
         @Override
         public void evaluate() throws Throwable {
           try {
-            mOriginalBuilder.setTestClass(target);
-            setDelegate(mOriginalBuilder.buildInternal());
+            MockspressoBuilderImpl builder = mOriginalBuilder.deepCopy();
+            builder.testResourcesWithoutLifecycle(target);
+            setDelegate(builder.buildInternal());
             base.evaluate();
           } finally {
             setDelegate(null);
-            mOriginalBuilder.setTestClass(null);
           }
         }
       };

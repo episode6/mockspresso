@@ -52,6 +52,9 @@ public class MockspressoRuleImplTest {
     when(mBuilderProvider.get()).thenReturn(mChildBuilder);
     when(mChildBuilder.buildInternal()).thenReturn(mChildMockspresso);
 
+    when(mBuilder.deepCopy()).thenReturn(mBuilder);
+    when(mChildBuilder.deepCopy()).thenReturn(mChildBuilder);
+
     mRule = new MockspressoRuleImpl(mBuilder, mBuilderProvider);
   }
 
@@ -63,7 +66,8 @@ public class MockspressoRuleImplTest {
     result.evaluate();
 
     InOrder inOrder = Mockito.inOrder(mConfig, mBuilderProvider, mBuilder, base, mConfig, mChildConfig);
-    inOrder.verify(mBuilder).setTestClass(mTarget);
+    inOrder.verify(mBuilder).deepCopy();
+    inOrder.verify(mBuilder).testResourcesWithoutLifecycle(mTarget);
     inOrder.verify(mBuilder).buildInternal();
     inOrder.verify(mConfig).setup(mOriginal);
     inOrder.verify(base).evaluate();
@@ -83,9 +87,11 @@ public class MockspressoRuleImplTest {
 
     InOrder inOrder = Mockito.inOrder(mConfig, mBuilderProvider, mBuilder, base, mConfig, mChildConfig, mChildBuilder, mChildMockspresso);
     inOrder.verify(mBuilderProvider).get();
-    inOrder.verify(mBuilder).setTestClass(mTarget);
+    inOrder.verify(mBuilder).deepCopy();
+    inOrder.verify(mBuilder).testResourcesWithoutLifecycle(mTarget);
     inOrder.verify(mBuilder).buildInternal();
     inOrder.verify(mConfig).setup(mOriginal);
+    inOrder.verify(mChildBuilder).deepCopy();
     inOrder.verify(mChildBuilder).buildInternal();
     inOrder.verify(mChildConfig).setup(mChildMockspresso);
     inOrder.verify(base).evaluate();
@@ -123,7 +129,8 @@ public class MockspressoRuleImplTest {
     inOrder.verify(innerRule1).apply(eq(innerRule2.returnStatement), any(Description.class));
 
     // eval happens in correct order, first mockspresso, then innerRule1, then innerRule2, then base
-    inOrder.verify(mBuilder).setTestClass(mTarget);
+    inOrder.verify(mBuilder).deepCopy();
+    inOrder.verify(mBuilder).testResourcesWithoutLifecycle(mTarget);
     inOrder.verify(mBuilder).buildInternal();
     inOrder.verify(mConfig).setup(mOriginal);
     inOrder.verify(innerRule1.returnStatement).before();
@@ -169,9 +176,11 @@ public class MockspressoRuleImplTest {
     inOrder.verify(innerRule1).apply(eq(innerRule2.returnStatement), any(Description.class));
 
     // eval happens in correct order, first mockspresso, then innerRule1, then innerRule2, then base
-    inOrder.verify(mBuilder).setTestClass(mTarget);
+    inOrder.verify(mBuilder).deepCopy();
+    inOrder.verify(mBuilder).testResourcesWithoutLifecycle(mTarget);
     inOrder.verify(mBuilder).buildInternal();
     inOrder.verify(mConfig).setup(mOriginal);
+    inOrder.verify(mChildBuilder).deepCopy();
     inOrder.verify(mChildBuilder).buildInternal();
     inOrder.verify(mChildConfig).setup(mChildMockspresso);
     inOrder.verify(innerRule1.returnStatement).before();

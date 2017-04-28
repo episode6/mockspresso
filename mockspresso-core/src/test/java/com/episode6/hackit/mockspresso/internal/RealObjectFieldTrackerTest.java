@@ -5,7 +5,6 @@ import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.annotation.TestQualifierAnnotation;
 import com.episode6.hackit.mockspresso.annotation.Unmapped;
 import com.episode6.hackit.mockspresso.api.DependencyProvider;
-import com.episode6.hackit.mockspresso.exception.RepeatedDependencyDefinedException;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,8 +48,6 @@ public class RealObjectFieldTrackerTest {
     verify(mRealObjectMapping).put(runnableKey, testRunnableKey.typeToken, true);
     verify(mRealObjectMapping).put(testRunnableKey, testRunnableKey.typeToken, true);
     verifyNoMoreInteractions(mRealObjectMapping);
-
-    assertThat(mRealObjectFieldTracker.mappedKeys()).containsOnly(runnableKey, testRunnableKey);
   }
 
   @Test
@@ -68,8 +65,6 @@ public class RealObjectFieldTrackerTest {
     verify(mRealObjectMaker, times(3)).createObject(null, testRunnableKey.typeToken);
 
     verifyNoMoreInteractions(mRealObjectMapping, mDependencyProviderFactory, mRealObjectMaker, mBlankDependencyProvider);
-
-    assertThat(mRealObjectFieldTracker.mappedKeys()).containsOnly(runnableKey);
   }
 
   @Test
@@ -89,26 +84,6 @@ public class RealObjectFieldTrackerTest {
     assertThat(testObject.mRealTestRunnable)
         .isNotNull()
         .isEqualTo(valueForTestRunnableKey);
-  }
-
-  @Test(expected = RepeatedDependencyDefinedException.class)
-  public void testSameObjectMappedTwice() {
-    TestClass1 testObject1 = new TestClass1();
-    TestClass2 testObject2 = new TestClass2();
-    TestRunnable valueForRunnableKey = new TestRunnable();
-    when(mBlankDependencyProvider.get(runnableKey)).thenReturn(valueForRunnableKey);
-
-    mRealObjectFieldTracker.scanNullRealObjectFields(testObject1);
-    mRealObjectFieldTracker.scanNullRealObjectFields(testObject2);
-  }
-
-  @Test(expected = RepeatedDependencyDefinedException.class)
-  public void testMisMatch() {
-    TestClass1 testObject1 = new TestClass1();
-    TestClassMisMatch testObject2 = new TestClassMisMatch();
-
-    mRealObjectFieldTracker.scanNullRealObjectFields(testObject1);
-    mRealObjectFieldTracker.scanNullRealObjectFields(testObject2);
   }
 
   @Test
@@ -138,8 +113,6 @@ public class RealObjectFieldTrackerTest {
 
     mRealObjectFieldTracker.clear();
 
-    verify(mRealObjectMapping).clear();
-    assertThat(mRealObjectFieldTracker.mappedKeys()).isEmpty();
     assertThat(testObject.mRealRunnableWithImpl).isNull();
     assertThat(testObject.mRealTestRunnable).isNull();
     assertThat(testObject.mRealRunnableWithImpl2).isNull();

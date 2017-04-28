@@ -4,11 +4,11 @@ import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.annotation.Unmapped;
+import com.episode6.hackit.mockspresso.exception.RepeatedDependencyDefinedException;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.Coffee;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.CoffeeGrounds;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.CoffeeMakers;
 import com.episode6.hackit.mockspresso.mockito.MockitoPlugin;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
 @RunWith(DefaultTestRunner.class)
 public class UnmappedTest {
 
-  @Rule public final Mockspresso.Rule invalidMockspresso = Mockspresso.Builders.javaxInjection()
+  @Rule public final Mockspresso.Rule mockspresso = Mockspresso.Builders.javaxInjection()
       .plugin(MockitoPlugin.getInstance())
       .buildRule();
 
@@ -65,4 +65,66 @@ public class UnmappedTest {
         .isNot(mockitoMock())
         .isNotEqualTo(mCoffeeMaker);
   }
+
+  @Test(expected = RepeatedDependencyDefinedException.class)
+  public void testNotUnmappedFailureMocksOnly() {
+    mockspresso.buildUpon()
+        .testResources(new MultipleMocksClass())
+        .build();
+  }
+
+  @Test(expected = RepeatedDependencyDefinedException.class)
+  public void testNotUnmappedFailureRealObjectsOnly() {
+    mockspresso.buildUpon()
+        .testResources(new MultipleRealObjectsClass())
+        .build();
+  }
+
+  @Test(expected = RepeatedDependencyDefinedException.class)
+  public void testNotUnmappedFailureMixed() {
+    mockspresso.buildUpon()
+        .testResources(new MultipleMixedClass())
+        .build();
+  }
+
+  @Test(expected = RepeatedDependencyDefinedException.class)
+  public void testNotUnmappedFailureMixedDefineMethod1() {
+    mockspresso.buildUpon()
+        .testResources(new OneMockClass())
+        .realObject(TestClass.class)
+        .build();
+  }
+
+  @Test(expected = RepeatedDependencyDefinedException.class)
+  public void testNotUnmappedFailureMixedDefineMethod2() {
+    mockspresso.buildUpon()
+        .testResources(new OneRealClass())
+        .dependency(TestClass.class, new TestClass())
+        .build();
+  }
+
+  private static class MultipleMocksClass {
+    @Mock TestClass mTestClass1;
+    @Mock TestClass mTestClass2;
+  }
+
+  private static class MultipleRealObjectsClass {
+    @RealObject TestClass mTestClass1;
+    @RealObject TestClass mTestClass2;
+  }
+
+  private static class MultipleMixedClass {
+    @RealObject TestClass mTestClass1;
+    @Mock TestClass mTestClass2;
+  }
+
+  private static class OneMockClass {
+    @Mock TestClass mTestClass1;
+  }
+
+  private static class OneRealClass {
+    @RealObject TestClass mTestClass1;
+  }
+
+  private static class TestClass {}
 }

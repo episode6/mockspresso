@@ -34,8 +34,9 @@ class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implements Mo
       // we never apply two completely different parents to this builder.
       // With our current usage patterns, it shouldn't be possible, since the only
       // place we call this is from our @Rule.
-      mBuilder.setParent(parentConfig);
-      setDelegate(mBuilder.buildInternal());
+      MockspressoBuilderImpl builder = mBuilder.deepCopy();
+      builder.setParent(parentConfig);
+      setDelegate(builder.buildInternal());
     }
   }
 

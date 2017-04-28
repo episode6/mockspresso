@@ -4,8 +4,8 @@ import com.episode6.hackit.mockspresso.exception.RepeatedDependencyDefinedExcept
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 
 import javax.annotation.Nullable;
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Simple class to store mapped dependencies and type-check their fetch and retrieval.
@@ -52,12 +52,8 @@ class DependencyMap {
     return mDependencies.containsKey(key) || (mParentMap != null && mParentMap.containsKey(key));
   }
 
-  void assertDoesNotContainAny(Collection<DependencyKey> newKeys) {
-    for (DependencyKey key : newKeys) {
-      if (containsKey(key)) {
-        throw new RepeatedDependencyDefinedException(key);
-      }
-    }
+  Set<DependencyKey> keySet() {
+    return mDependencies.keySet();
   }
 
   /**

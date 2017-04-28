@@ -3,16 +3,14 @@ package com.episode6.hackit.mockspresso.internal;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.annotation.Unmapped;
 import com.episode6.hackit.mockspresso.api.DependencyProvider;
-import com.episode6.hackit.mockspresso.exception.RepeatedDependencyDefinedException;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.ReflectUtil;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -28,7 +26,7 @@ import java.util.Set;
  */
 class RealObjectFieldTracker {
 
-  private final Map<DependencyKey, FieldInfo> mMappedFields = new HashMap<>();
+  private final Set<FieldInfo> mMappedFields = new HashSet<>();
   private final List<FieldInfo> mUnmappedFields = new LinkedList<>();
 
   private final RealObjectMapping mRealObjectMapping;
@@ -66,15 +64,11 @@ class RealObjectFieldTracker {
     }
   }
 
-  Set<DependencyKey> mappedKeys() {
-    return mMappedFields.keySet();
-  }
-
   @SuppressWarnings("unchecked")
   void applyValuesToFields() {
     // apply values to mapped fields
     DependencyProvider blankDependencyProvider = mDependencyProviderFactory.getBlankDependencyProvider();
-    for (FieldInfo info : mMappedFields.values()) {
+    for (FieldInfo info : mMappedFields) {
       info.setValue(blankDependencyProvider.get(info.dependencyKey));
     }
 
@@ -93,7 +87,7 @@ class RealObjectFieldTracker {
    * Nulls values for fields that were set & clears the backing RealObjectMapping
    */
   void clear() {
-    for (FieldInfo info : mMappedFields.values()) {
+    for (FieldInfo info : mMappedFields) {
       info.setValue(null);
     }
     for (FieldInfo info : mUnmappedFields) {
@@ -101,7 +95,6 @@ class RealObjectFieldTracker {
     }
     mMappedFields.clear();
     mUnmappedFields.clear();
-    mRealObjectMapping.clear();
   }
 
   private void trackField(Field field, Object object) {
@@ -111,10 +104,8 @@ class RealObjectFieldTracker {
       return;
     }
 
-    if (mMappedFields.put(info.dependencyKey, info) != null) {
-      throw new RepeatedDependencyDefinedException(info.dependencyKey);
-    }
     mRealObjectMapping.put(info.dependencyKey, info.getImplementationToken(), true);
+    mMappedFields.add(info);
   }
 
   private static class FieldInfo {

@@ -2,10 +2,6 @@ package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.Mockspresso;
-import com.episode6.hackit.mockspresso.internal.DelayedMockspressoBuilder;
-import com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl;
-import com.episode6.hackit.mockspresso.internal.MockspressoConfigContainer;
-import com.episode6.hackit.mockspresso.internal.MockspressoInternal;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,6 +36,7 @@ public class DelayedMockspressoBuilderTest {
     MockitoAnnotations.initMocks(this);
 
     when(mBuilderProvider.get()).thenReturn(mBackingBuilder);
+    when(mBackingBuilder.deepCopy()).thenReturn(mBackingBuilder);
     when(mBackingBuilder.buildInternal()).thenReturn(mChildMockspresso);
     when(mChildMockspresso.getConfig()).thenReturn(mChildConfig);
     mDelayedBuilder = new DelayedMockspressoBuilder(mBuilderProvider);
@@ -61,6 +58,7 @@ public class DelayedMockspressoBuilderTest {
     mockspresso.create(TestClass.class);
 
     InOrder inOrder = Mockito.inOrder(mBackingBuilder, mConfig, mChildMockspresso, mChildConfig);
+    inOrder.verify(mBackingBuilder).deepCopy();
     inOrder.verify(mBackingBuilder).setParent(mConfig);
     inOrder.verify(mBackingBuilder).buildInternal();
     inOrder.verify(mChildMockspresso).getConfig();
@@ -75,6 +73,7 @@ public class DelayedMockspressoBuilderTest {
     mDelayedBuilder.setParent(null);
 
     InOrder inOrder = Mockito.inOrder(mBackingBuilder, mConfig, mChildConfig);
+    inOrder.verify(mBackingBuilder).deepCopy();
     inOrder.verify(mBackingBuilder).setParent(mConfig);
     inOrder.verify(mBackingBuilder).buildInternal();
     inOrder.verify(mChildConfig).setup(mChildMockspresso);

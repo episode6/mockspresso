@@ -2,6 +2,7 @@ package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.Mockspresso;
+import com.episode6.hackit.mockspresso.exception.RepeatedDependencyDefinedException;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,6 +27,7 @@ public class ResourceLifecycleFieldManagerTest {
   @Mock Mockspresso mMockspresso;
 
   @Mock DependencyMap mDependencyMap;
+  @Mock RealObjectMapping mRealObjectMapping;
   @Mock FieldImporter mFieldImporter;
   @Mock RealObjectFieldTracker mRealObjectFieldTracker;
 
@@ -43,11 +45,14 @@ public class ResourceLifecycleFieldManagerTest {
     mTestResources.add(new TestResource(new Object(), true));
     mTestResources.add(new TestResource(new Object(), false));
 
-    when(mRealObjectFieldTracker.mappedKeys()).thenReturn(emptyKeySet);
+    when(mDependencyMap.keySet()).thenReturn(emptyKeySet);
+    when(mRealObjectMapping.keySet()).thenReturn(emptyKeySet);
+
 
     mResourceLifecycleFieldManager = new ResourceLifecycleFieldManager(
         mTestResources,
         mDependencyMap,
+        mRealObjectMapping,
         mFieldImporter,
         mRealObjectFieldTracker);
   }
@@ -56,15 +61,27 @@ public class ResourceLifecycleFieldManagerTest {
   public void testSetup() {
     mResourceLifecycleFieldManager.setup(mMockspresso);
 
-    InOrder inOrder = Mockito.inOrder(mDependencyMap, mFieldImporter, mRealObjectFieldTracker);
+    InOrder inOrder = Mockito.inOrder(mDependencyMap, mRealObjectMapping, mFieldImporter, mRealObjectFieldTracker);
     for (TestResource resource : mTestResources) {
       inOrder.verify(mFieldImporter).importAnnotatedFields(resource.getObjectWithResources());
       inOrder.verify(mRealObjectFieldTracker).scanNullRealObjectFields(resource.getObjectWithResources());
     }
-    inOrder.verify(mRealObjectFieldTracker).mappedKeys();
-    inOrder.verify(mDependencyMap).assertDoesNotContainAny(emptyKeySet);
+    inOrder.verify(mDependencyMap).keySet();
+    inOrder.verify(mRealObjectMapping).keySet();
     inOrder.verify(mRealObjectFieldTracker).applyValuesToFields();
-    verifyNoMoreInteractions(mDependencyMap, mFieldImporter, mRealObjectFieldTracker);
+    verifyNoMoreInteractions(mDependencyMap, mRealObjectMapping, mFieldImporter, mRealObjectFieldTracker);
+  }
+
+  @Test(expected = RepeatedDependencyDefinedException.class)
+  public void testRepeatedDependencyBetweenDepAndRealObjMapping() {
+    Set<DependencyKey> dependencyMapKeys = new HashSet<>();
+    dependencyMapKeys.add(DependencyKey.of(String.class));
+    Set<DependencyKey> realObjectMapKeys = new HashSet<>();
+    realObjectMapKeys.add(DependencyKey.of(String.class));
+    when(mDependencyMap.keySet()).thenReturn(dependencyMapKeys);
+    when(mRealObjectMapping.keySet()).thenReturn(realObjectMapKeys);
+
+    mResourceLifecycleFieldManager.setup(mMockspresso);
   }
 
   @Test
@@ -73,5 +90,6 @@ public class ResourceLifecycleFieldManagerTest {
 
     verify(mDependencyMap).clear();
     verify(mRealObjectFieldTracker).clear();
+    verify(mRealObjectMapping).clear();
   }
 }
