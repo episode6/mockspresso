@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verifyZeroInteractions;
 
@@ -19,12 +20,19 @@ import static org.mockito.Mockito.verifyZeroInteractions;
 @RunWith(DefaultTestRunner.class)
 public class InvalidRuleTest {
 
-  private final TestClass mInitializerWithFields = spy(new TestClass());
+  private final TestClass mInitializerWithFields = new TestClass();
 
   public final Mockspresso.Rule invalidMockspresso = Mockspresso.Builders.simple()
       .plugin(MockitoPlugin.getInstance())
       .testResources(mInitializerWithFields)
       .buildRule();
+
+  Notifier notifier;
+
+  @Before
+  public void setup() {
+    notifier = mock(Notifier.class);
+  }
 
   @Test(expected = NullPointerException.class)
   public void testCantCreateClass() {
@@ -48,7 +56,7 @@ public class InvalidRuleTest {
 
   @Test
   public void testInitializerNotRun() {
-    verifyZeroInteractions(mInitializerWithFields);
+    verifyZeroInteractions(notifier);
   }
 
   @Test
@@ -56,12 +64,16 @@ public class InvalidRuleTest {
     assertThat(mInitializerWithFields.mRunnable).isNull();
   }
 
-  public static class TestClass {
+  interface Notifier {
+    void setup(Mockspresso mockspresso);
+  }
+
+  public class TestClass {
     @Mock Runnable mRunnable;
 
     @Before
     public void setup(Mockspresso mockspresso) {
-
+      notifier.setup(mockspresso);
     }
   }
 }
