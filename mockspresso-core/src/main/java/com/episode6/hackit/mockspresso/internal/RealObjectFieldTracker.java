@@ -3,14 +3,17 @@ package com.episode6.hackit.mockspresso.internal;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.annotation.Unmapped;
 import com.episode6.hackit.mockspresso.api.DependencyProvider;
-import com.episode6.hackit.mockspresso.exception.RealObjectMappingMismatchException;
+import com.episode6.hackit.mockspresso.exception.RepeatedDependencyDefinedException;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.ReflectUtil;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
-import com.episode6.hackit.mockspresso.util.CollectionUtil;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * An internal class used to keep track of null fields annotated with @RealObject.
@@ -25,8 +28,8 @@ import java.util.*;
  */
 class RealObjectFieldTracker {
 
-  private final HashMap<DependencyKey, MappedFieldInfo> mMappedFields = new HashMap<>();
-  private final List<UnmappedFieldInfo> mUnmappedFields = new LinkedList<>();
+  private final Map<DependencyKey, FieldInfo> mMappedFields = new HashMap<>();
+  private final List<FieldInfo> mUnmappedFields = new LinkedList<>();
 
   private final RealObjectMapping mRealObjectMapping;
   private final RealObjectMaker mRealObjectMaker;
@@ -71,12 +74,12 @@ class RealObjectFieldTracker {
   void applyValuesToFields() {
     // apply values to mapped fields
     DependencyProvider blankDependencyProvider = mDependencyProviderFactory.getBlankDependencyProvider();
-    for (Map.Entry<DependencyKey, MappedFieldInfo> entry : mMappedFields.entrySet()) {
-      entry.getValue().setValue(blankDependencyProvider.get(entry.getKey()));
+    for (FieldInfo info : mMappedFields.values()) {
+      info.setValue(blankDependencyProvider.get(info.dependencyKey));
     }
 
     // apply values to unmapped fields
-    for (UnmappedFieldInfo unmappedFieldInfo : mUnmappedFields) {
+    for (FieldInfo unmappedFieldInfo : mUnmappedFields) {
       DependencyProvider dependencyProvider =
           mDependencyProviderFactory.getDependencyProviderFor(unmappedFieldInfo.dependencyKey);
       Object value = mRealObjectMaker.createObject(
@@ -90,10 +93,10 @@ class RealObjectFieldTracker {
    * Nulls values for fields that were set & clears the backing RealObjectMapping
    */
   void clear() {
-    for (MappedFieldInfo info : mMappedFields.values()) {
+    for (FieldInfo info : mMappedFields.values()) {
       info.setValue(null);
     }
-    for (UnmappedFieldInfo info : mUnmappedFields) {
+    for (FieldInfo info : mUnmappedFields) {
       info.setValue(null);
     }
     mMappedFields.clear();
@@ -102,30 +105,29 @@ class RealObjectFieldTracker {
   }
 
   private void trackField(Field field, Object object) {
+    FieldInfo info = new FieldInfo(field, object);
     if (field.isAnnotationPresent(Unmapped.class)) {
-      mUnmappedFields.add(new UnmappedFieldInfo(field, object));
+      mUnmappedFields.add(info);
       return;
     }
 
-    DependencyKey key = DependencyKey.fromField(field);
-    MappedFieldInfo info = mMappedFields.get(key);
-    if (info == null) {
-      info = new MappedFieldInfo(field, object);
-      mMappedFields.put(key, info);
-    } else {
-      info.add(field, object);
+    if (mMappedFields.put(info.dependencyKey, info) != null) {
+      throw new RepeatedDependencyDefinedException(info.dependencyKey);
     }
-
-    mRealObjectMapping.put(key, info.getImplementationToken(), true);
+    mRealObjectMapping.put(info.dependencyKey, info.getImplementationToken(), true);
   }
 
-  private abstract static class FieldInfo {
-    final DependencyKey<?> dependencyKey;
+  private static class FieldInfo {
+    final DependencyKey dependencyKey;
     final Class<?> implementationClass;
+    final Field field;
+    final Object object;
 
-    protected FieldInfo(Field field, Object object) {
+    FieldInfo(Field field, Object object) {
       this.dependencyKey = DependencyKey.fromField(field);
       this.implementationClass = field.getAnnotation(RealObject.class).implementation();
+      this.field = field;
+      this.object = object;
     }
 
     boolean hasCustomImplementation() {
@@ -138,64 +140,6 @@ class RealObjectFieldTracker {
           dependencyKey.typeToken;
     }
 
-    abstract void setValue(Object value);
-  }
-
-  private static class UnmappedFieldInfo extends FieldInfo {
-    final FieldInstance field;
-
-    protected UnmappedFieldInfo(Field field, Object object) {
-      super(field, object);
-      this.field = new FieldInstance(field, object);
-    }
-
-    @Override
-    void setValue(Object value) {
-      field.setValue(value);
-    }
-  }
-
-  /**
-   * An entry in our mMappedFields hashmap. Holds a collection of
-   * Field/Object pairs and holds a ref to the implementation class to be used.
-   * When adding new field/object pairs, the implementation class is always checked
-   * and an exception thrown if there is a mis-match.
-   */
-  private static class MappedFieldInfo extends FieldInfo {
-    final List<FieldInstance> fields;
-
-    MappedFieldInfo(Field firstField, Object firstObject) {
-      super(firstField, firstObject);
-      this.fields = CollectionUtil.concatList(new FieldInstance(firstField, firstObject));
-    }
-
-    void add(Field field, Object object) {
-      Class<?> fieldImplementationClass = field.getAnnotation(RealObject.class).implementation();
-      if (fieldImplementationClass != implementationClass) {
-        throw new RealObjectMappingMismatchException(DependencyKey.fromField(field));
-      }
-      fields.add(new FieldInstance(field, object));
-    }
-
-    void setValue(Object value) {
-      for (FieldInstance fieldInstance : fields) {
-        fieldInstance.setValue(value);
-      }
-    }
-  }
-
-  /**
-   * An instance of a field and the object it belongs to.
-   */
-  private static class FieldInstance {
-    final Field field;
-    final Object object;
-
-    FieldInstance(Field field, Object object) {
-      this.field = field;
-      this.object = object;
-    }
-
     void setValue(Object value) {
       try {
         field.set(object, value);
@@ -203,6 +147,24 @@ class RealObjectFieldTracker {
         throw new RuntimeException(e);
       }
     }
-  }
 
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
+
+      FieldInfo fieldInfo = (FieldInfo) o;
+
+      return dependencyKey.equals(fieldInfo.dependencyKey);
+    }
+
+    @Override
+    public int hashCode() {
+      return dependencyKey.hashCode();
+    }
+  }
 }

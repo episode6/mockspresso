@@ -5,7 +5,7 @@ import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.annotation.TestQualifierAnnotation;
 import com.episode6.hackit.mockspresso.annotation.Unmapped;
 import com.episode6.hackit.mockspresso.api.DependencyProvider;
-import com.episode6.hackit.mockspresso.exception.RealObjectMappingMismatchException;
+import com.episode6.hackit.mockspresso.exception.RepeatedDependencyDefinedException;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import org.junit.Before;
 import org.junit.Test;
@@ -91,7 +91,7 @@ public class RealObjectFieldTrackerTest {
         .isEqualTo(valueForTestRunnableKey);
   }
 
-  @Test
+  @Test(expected = RepeatedDependencyDefinedException.class)
   public void testSameObjectMappedTwice() {
     TestClass1 testObject1 = new TestClass1();
     TestClass2 testObject2 = new TestClass2();
@@ -100,15 +100,9 @@ public class RealObjectFieldTrackerTest {
 
     mRealObjectFieldTracker.scanNullRealObjectFields(testObject1);
     mRealObjectFieldTracker.scanNullRealObjectFields(testObject2);
-    mRealObjectFieldTracker.applyValuesToFields();
-
-    assertThat(testObject1.mRealRunnableWithImpl)
-        .isNotNull()
-        .isEqualTo(testObject2.mRealRunnableWithImpl)
-        .isEqualTo(valueForRunnableKey);
   }
 
-  @Test(expected = RealObjectMappingMismatchException.class)
+  @Test(expected = RepeatedDependencyDefinedException.class)
   public void testMisMatch() {
     TestClass1 testObject1 = new TestClass1();
     TestClassMisMatch testObject2 = new TestClassMisMatch();
