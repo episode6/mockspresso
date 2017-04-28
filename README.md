@@ -141,6 +141,46 @@ public class MyTest {
 }
 ```
 
+### Shared Test Resources
+Mockspresso makes it easy to share resources across multiple tests. A shared test resource is any class with annotated @Mock or @RealObject fields, and/or annotated @Before and @After methods for setup and teardown. The fields will be scanned and mixed into mockspresso's dependency map (along with the fields on your test).
+```java
+// Example Shared Resource
+public class SharedCoffeeMakerTestResource {
+
+    @Mock Pump mPump;
+    @Mock Water mWater;
+
+    // Usually you'd define real objects on the test itself,
+    // but they can be shared as well
+    @RealObject CoffeeMaker mCofferMaker;
+
+    @Before
+    public void setup(Mockspresso mockspresso) { // Mockspresso param is optional
+      when(mPump.pump()).thenReturn(mWater);
+    }
+}
+
+// Test using shared resources
+public class CoffeeMakerTest {
+
+    final SharedCoffeeMakerTestResource t = new SharedCoffeeMakerTestResource();
+
+    @Rule public final Mockspresso.Rule mockspresso = Mockspress.Builders.simple()
+        .plugin(MockitoPlugin.getInstance())
+        .testResources(t) // resources from t will be mixed in with resources from this test
+        .buildRule();
+
+    @Mock Heater mHeater;
+
+    @Test
+    public void testSomething() {
+        Coffee coffee = t.mCoffeeMaker.brew();
+
+        verify(t.mPump).pump();
+        verify(mHeater).heat(t.mWater);
+    }
+}
+```
 
 ### Plugins
 In mockspresso, a `Plugin` is a simple class to package up multiple calls to a Mockspresso.Builder for related functionality. Mockspresso ships with a few plugins to get started.
