@@ -64,7 +64,8 @@ private Mockspresso mockspresso;
 public void setup() {
   mockspresso = Mockspresso.Builders.simple()
       .plugin(MockitoPlugin.getInstance()) // or EasyMockPlugin.getInstance()
-      .testResourcesWithoutLifecycle(this) // scan 'this' for @Mocks and @RealObjects, but don't execute any of its lifecycle methods
+      .testResourcesWithoutLifecycle(this) // scan 'this' for @Mocks and @RealObjects, but
+                                           // don't execute any of its lifecycle methods
       .build(); // use build() instead of buildRule() for a raw instance of Mockspresso
 }
 ```
@@ -98,10 +99,11 @@ public void testWithRealHeater() {
 ### The Dependency Map
 Mockspresso tries to adhere to principles set fourth by the javax.inject package and compatible DI frameworks. As such, each dependency in our map is keyed to the `Type` of the dependency and an optional qualifier `Annotation` (any annotation that itself is annotated with `javax.inject.Qualifier`). When mockspresso scans your test or testResource for fields annotated with @Mock or @RealObject, it also respects the Qualifier annotations on these fields. While you can override anything in the dependency map by using `Mockspresso.buildUpon()` to create a new mockspresso instance, defining multiple objects/mocks with the same dependency key in the same mockspresso instance will result in a `RepeatedDependencyDefinedException`. For example...
 ```java
-// These represent three distinct dependency keys. heater2 and heater3 will only be supplied to real objects
-// if those objects specify '@Named Heater' and '@Named("somename") Heater' (respectively) as constructor
-// parameters (or field params if field injection is enabled). Similarly, heater1 will only be supplied to
-// a real object if that object does not specify a qualifier annotation on its Heater dependency.
+// These represent three distinct dependency keys. heater2 and heater3 will only be supplied to
+// real objects if those objects specify '@Named Heater' and '@Named("somename") Heater'
+// (respectively) as constructor parameters (or field params if field injection is enabled).
+// Similarly, heater1 will only be supplied to a real object if that object does not specify a
+// qualifier annotation on its Heater dependency.
 @Mock Heater heater1;
 @Mock @Named Heater heater2; // @Named is a qualifier annotation provided by javax.inject
 @Mock @Named("somename") Heater heater2;
@@ -206,6 +208,7 @@ public class CoffeeMakerTest {
     public void testSomething() {
         Coffee coffee = t.mCoffeeMaker.brew();
 
+        // verify both the shared mock and our own mock were called.
         verify(t.mPump).pump();
         verify(mHeater).heat(t.mWater);
     }
@@ -214,14 +217,15 @@ public class CoffeeMakerTest {
 
 
 ### @Unmapped Annotation
-Sometimes you may need to mock multiple instances of the same class or create multiple instances of a real object. Using qualifier annotations for these instances only makes sense if your code uses them as well, so we've included the `@Unmapped` annotation to indicate that a @Mock or @RealObject shouldn't be included in the dependency map, and will be handled manually in the test. For example...
+Sometimes you may need to mock multiple instances of the same class or create multiple instances of a real object. Using qualifier annotations for these instances only makes sense if your code uses them as well, so we've included the `@Unmapped` annotation to indicate that a @Mock or @RealObject should be excluded from the dependency map, and will be handled manually in the test. For example...
 
  ```java
  // Without @Unmapped, this would throw a RepeatedDependencyDefinedException
  @Unmapped @Mock CoffeeGrounds coffeeGrounds1
  @Unmapped @Mock CoffeeGrounds coffeeGrounds2
 
- // This provider will be bound to the dependency mape
+ // This provider will be bound to the dependency map and passed
+ // into the coffeeMaker below.
  @Mock Provider<CoffeeGrounds> coffeeGroundsProvider;
 
  @RealObject CoffeeMaker coffeeMaker;
