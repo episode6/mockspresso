@@ -9,6 +9,7 @@ import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 public class RepeatedDependencyDefinedException extends VerifyError {
 
   public RepeatedDependencyDefinedException(DependencyKey key) {
-    super("Dependency defined multiple times in same Mockspresso instance: " + key.toString());
+    super("Dependency defined multiple times in same Mockspresso instance, consider annotating with @Unmapped. " +
+        "DependencyKey: " + key.toString());
   }
 }

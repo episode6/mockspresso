@@ -1,33 +1,36 @@
 package com.episode6.hackit.mockspresso.internal;
 
+import com.episode6.hackit.mockspresso.annotation.Unmapped;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.ReflectUtil;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.Collections;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Class to handle importing dependencies into a dependency map
  */
-public class DependencyMapImporter {
+class FieldImporter {
 
+  private final Set<Class<? extends Annotation>> mImportAnnotations;
   private final DependencyMap mDependencyMap;
 
-  public DependencyMapImporter(DependencyMap dependencyMap) {
+  FieldImporter(
+      Collection<Class<? extends Annotation>> importAnnotations,
+      DependencyMap dependencyMap) {
+    mImportAnnotations = new HashSet<>(importAnnotations);
     mDependencyMap = dependencyMap;
   }
 
-  public void importAnnotatedFields(Object importFrom, Class<? extends Annotation> annotation) {
-    importAnnotatedFields(importFrom, Collections.<Class<? extends Annotation>>singletonList(annotation));
-  }
-
   @SuppressWarnings("unchecked")
-  public void importAnnotatedFields(Object importFrom, List<Class<? extends Annotation>> annotations) {
+  void importAnnotatedFields(Object importFrom) {
     try {
       for (Field field : ReflectUtil.getAllDeclaredFields(importFrom.getClass())) {
-        if (!ReflectUtil.isAnyAnnotationPresent(field, annotations)) {
+        if (field.isAnnotationPresent(Unmapped.class) ||
+            !ReflectUtil.isAnyAnnotationPresent(field, mImportAnnotations)) {
           continue;
         }
 

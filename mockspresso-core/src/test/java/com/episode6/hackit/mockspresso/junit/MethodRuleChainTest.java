@@ -44,8 +44,8 @@ public class MethodRuleChainTest {
     MethodRuleInfo innerRule = new MethodRuleInfo();
 
     MethodRuleChain chain = MethodRuleChain.outerRule(outerRule.methodRule)
-        .around(middleRule.methodRule)
-        .around(innerRule.methodRule);
+        .chainAround(middleRule.methodRule)
+        .chainAround(innerRule.methodRule);
 
     Statement resultStatement = chain.apply(baseStatement, mockFrameworkMethod, mockTestObject);
     resultStatement.evaluate();
@@ -73,8 +73,8 @@ public class MethodRuleChainTest {
     TestRuleInfo innerRule = new TestRuleInfo();
 
     MethodRuleChain chain = MethodRuleChain.outerRule(outerRule.testRule)
-        .around(middleRule.testRule)
-        .around(innerRule.testRule);
+        .chainAround(middleRule.testRule)
+        .chainAround(innerRule.testRule);
 
     Statement resultStatement = chain.apply(baseStatement, mockFrameworkMethod, mockTestObject);
     resultStatement.evaluate();

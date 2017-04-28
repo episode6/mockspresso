@@ -8,43 +8,55 @@ import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
  * Class that holds the internal configuration of a mockspresso instance so that
  * we may build upon each one individually.
  */
-public class MockspressoConfigContainer {
+class MockspressoConfigContainer {
 
   private final MockerConfig mMockerConfig;
   private final InjectionConfig mInjectionConfig;
   private final DependencyMap mDependencyMap;
   private final SpecialObjectMaker mSpecialObjectMaker;
   private final RealObjectMapping mRealObjectMapping;
+  private final ResourcesLifecycleManager mResourcesLifecycleManager;
 
   public MockspressoConfigContainer(
       MockerConfig mockerConfig,
       InjectionConfig injectionConfig,
       DependencyMap dependencyMap,
-      SpecialObjectMaker specialObjectMaker, RealObjectMapping realObjectMapping) {
+      SpecialObjectMaker specialObjectMaker,
+      RealObjectMapping realObjectMapping,
+      ResourcesLifecycleManager resourcesLifecycleManager) {
     mMockerConfig = mockerConfig;
     mInjectionConfig = injectionConfig;
     mDependencyMap = dependencyMap;
     mSpecialObjectMaker = specialObjectMaker;
     mRealObjectMapping = realObjectMapping;
+    mResourcesLifecycleManager = resourcesLifecycleManager;
   }
 
-  public MockerConfig getMockerConfig() {
+  MockerConfig getMockerConfig() {
     return mMockerConfig;
   }
 
-  public InjectionConfig getInjectionConfig() {
+  InjectionConfig getInjectionConfig() {
     return mInjectionConfig;
   }
 
-  public DependencyMap getDependencyMap() {
+  DependencyMap getDependencyMap() {
     return mDependencyMap;
   }
 
-  public SpecialObjectMaker getSpecialObjectMaker() {
+  SpecialObjectMaker getSpecialObjectMaker() {
     return mSpecialObjectMaker;
   }
 
-  public RealObjectMapping getRealObjectMapping() {
+  RealObjectMapping getRealObjectMapping() {
     return mRealObjectMapping;
+  }
+
+  void setup(MockspressoInternal instance) {
+    mResourcesLifecycleManager.setup(instance);
+  }
+
+  void teardown() {
+    mResourcesLifecycleManager.teardown();
   }
 }

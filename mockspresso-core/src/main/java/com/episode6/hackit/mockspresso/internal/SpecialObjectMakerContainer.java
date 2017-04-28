@@ -13,20 +13,27 @@ import java.util.List;
  * A container for special object makers. Includes a parent maker (usually
  * another instance of SpecialObjectMakerContainer) that is checked last.
  */
-public class SpecialObjectMakerContainer implements SpecialObjectMaker {
+class SpecialObjectMakerContainer implements SpecialObjectMaker {
 
   private @Nullable SpecialObjectMaker mParentMaker = null;
   private final List<SpecialObjectMaker> mSpecialObjectMakers = new LinkedList<>();
 
-  public void setParentMaker(SpecialObjectMaker parentMaker) {
+  SpecialObjectMakerContainer deepCopy() {
+    SpecialObjectMakerContainer newContainer = new SpecialObjectMakerContainer();
+    newContainer.setParentMaker(mParentMaker);
+    newContainer.mSpecialObjectMakers.addAll(mSpecialObjectMakers);
+    return newContainer;
+  }
+
+  void setParentMaker(SpecialObjectMaker parentMaker) {
     mParentMaker = parentMaker;
   }
 
-  public void add(SpecialObjectMaker specialObjectMaker) {
+  void add(SpecialObjectMaker specialObjectMaker) {
     mSpecialObjectMakers.add(specialObjectMaker);
   }
 
-  public void addAll(Collection<? extends SpecialObjectMaker> specialObjectMakers) {
+  void addAll(Collection<? extends SpecialObjectMaker> specialObjectMakers) {
     mSpecialObjectMakers.addAll(specialObjectMakers);
   }
 
@@ -49,6 +56,4 @@ public class SpecialObjectMakerContainer implements SpecialObjectMaker {
     }
     return mParentMaker == null ? null : mParentMaker.makeObject(dependencyProvider, key);
   }
-
-
 }

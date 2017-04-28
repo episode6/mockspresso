@@ -5,22 +5,27 @@ import com.episode6.hackit.mockspresso.api.DependencyProvider;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 
+import javax.inject.Provider;
+
 /**
  * future implementation of mockspresso functionality
  */
-public class MockspressoImpl implements Mockspresso, MockspressoInternal {
+class MockspressoImpl implements Mockspresso, MockspressoInternal {
 
   private final MockspressoConfigContainer mMockspressoConfigContainer;
   private final DependencyProviderFactory mDependencyProviderFactory;
   private final RealObjectMaker mRealObjectMaker;
+  private final Provider<MockspressoBuilderImpl> mBuilderProvider;
 
   MockspressoImpl(
       MockspressoConfigContainer mockspressoConfigContainer,
       DependencyProviderFactory dependencyProviderFactory,
-      RealObjectMaker realObjectMaker) {
+      RealObjectMaker realObjectMaker,
+      Provider<MockspressoBuilderImpl> builderProvider) {
     mMockspressoConfigContainer = mockspressoConfigContainer;
     mDependencyProviderFactory = dependencyProviderFactory;
     mRealObjectMaker = realObjectMaker;
+    mBuilderProvider = builderProvider;
   }
 
   @Override
@@ -39,8 +44,8 @@ public class MockspressoImpl implements Mockspresso, MockspressoInternal {
 
   @Override
   public Builder buildUpon() {
-    MockspressoBuilderImpl builder = new MockspressoBuilderImpl();
-    builder.setParent(getConfig());
+    MockspressoBuilderImpl builder = mBuilderProvider.get();
+    builder.setParent(mMockspressoConfigContainer);
     return builder;
   }
 

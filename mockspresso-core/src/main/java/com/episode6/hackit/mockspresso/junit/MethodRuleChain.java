@@ -26,7 +26,7 @@ public class MethodRuleChain implements MethodRule {
   }
 
   public static MethodRuleChain outerRule(MethodRule outerRule) {
-    return emptyRuleChain().around(outerRule);
+    return emptyRuleChain().chainAround(outerRule);
   }
 
   public static MethodRuleChain outerRule(TestRule outerRule) {
@@ -37,15 +37,15 @@ public class MethodRuleChain implements MethodRule {
     this.rulesStartingWithInnerMost = rules;
   }
 
-  public MethodRuleChain around(MethodRule enclosedRule) {
+  public MethodRuleChain chainAround(MethodRule enclosedRule) {
     List<MethodRule> rulesOfNewChain = new LinkedList<>();
     rulesOfNewChain.add(enclosedRule);
     rulesOfNewChain.addAll(rulesStartingWithInnerMost);
     return new MethodRuleChain(rulesOfNewChain);
   }
 
-  public MethodRuleChain around(TestRule enclosedRule) {
-    return around(MethodRules.wrapTestRule(enclosedRule));
+  public MethodRuleChain chainAround(TestRule enclosedRule) {
+    return chainAround(MethodRules.wrapTestRule(enclosedRule));
   }
 
   @Override
