@@ -2,9 +2,9 @@
 An extensible auto-mocker for java, designed to simplify your unit tests.
 
 ## What & Why?
-Testing code is a PITA. Writing code that does something is more engaging, more satisfying and more profitable than writing unit tests. But, as any seasoned engineer will confirm, testing is really really ridiculously important. Whether you're at a scale of 1 or 1,000, writing good unit tests leads to better code and fewer bugs, and test-driven-development can compound that even further.
+Testing code is a pain in the ass. Mockspresso was created with the simple idea that if tests are easier to write and break less often, developers will hate them less, and write more of them.
 
-Mockspresso aims to simplify this incredibly annoying, yet completely vital practice of writing unit tests (and integration tests) in java by handling the creation of real objects, and mapping the correct dependencies therein.
+Mockspresso creates your objects for you, letting you drop the constructors from your tests, while still giving you complete control over how your objects are created and what dependencies are provided/injected. Using the mocks declared in your test, mockspresso builds a map of dependencies with which to inject your real objects. Mockspresso will auto-mock any dependencies that are undefined and can also intelligently map simple `Provider<>` / `Supplier<>` style interfaces to their actual dependencies (via [Special Object Handling](#special-object-handling)). The real objects that mockspresso creates are then also added to the dependency map, enabling complex integration tests as well as simple unit tests. The best part is, your tests wont break (by-default) just because a dependency is added to the class under test. After all, why should adding new functionality to a class, break the tests on its existing functionality?
 
 
 ## How?
