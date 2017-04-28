@@ -153,7 +153,7 @@ In mockspresso, a `Plugin` is a simple class to package up multiple calls to a M
 
 
 ### Mockspresso on-the-fly
-Mockspresso's functionality isn't limited to @Rules, instances of Mockspresso can be created or built-upon on the fly at runtime as well. For example, to build a functional equivalent of the above Mockspresso.Rule, you could implement the following setup method to your test
+Mockspresso's functionality isn't limited to @Rules, instances of Mockspresso can be created or built-upon on the fly at runtime as well. For example, to build a functional equivalent of our first Mockspresso.Rule, you could implement the following setup method to your test
 ```java
 private Mockspresso mockspresso;
 
