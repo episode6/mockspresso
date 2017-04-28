@@ -63,47 +63,6 @@ You can think of the `@RealObject` annotation kind of like [Mockito's @InjectMoc
 - Declare the `implementation` property of @RealObject to specify a specific implementation be used to create the object.
   - example: define: `@RealObject(implementation = ElectricHeater.class) Heater mHeater;` and an `ElectricHeater` will be created and set in that field, but in mockspresso's DependencyMap, it will be mapped to the key for `Heater`, and provided as a dependency for any object that requires a generic Heater.
 
-
-### Mockspresso on-the-fly
-Mockspresso's functionality isn't limited to @Rules, instances of Mockspresso can be created or built-upon on the fly at runtime as well. For example, to build a functional equivalent of the above Mockspresso.Rule, you could implement the following setup method to your test
-```java
-private Mockspresso mockspresso;
-
-@Before
-public void setup() {
-  mockspresso = Mockspresso.Builders.simple()
-      .plugin(MockitoPlugin.getInstance()) // or EasyMockPlugin.getInstance()
-      .testResourcesWithoutLifecycle(this) // scan 'this' for @Mocks and @RealObjects, but don't execute any of its lifecycle methods
-      .build(); // use build() instead of buildRule() for a raw instance of Mockspresso
-}
-```
-
-You can also create real objects at runtime, using `Mockspresso.create()`
-```java
-@Test
-public void testCoffeeMaker() {
-    CoffeeMaker realCoffeeMaker = mockspresso.create(CoffeeMaker.class);
-
-    // test realCoffeeMaker...
-}
-```
-
-You can buildUpon existing mockspresso instances (if some tests require different properties/dependencies).
-```java
-@Test
-public void testWithRealHeater() {
-    RealHeater realHeater = new RealHeater();
-
-    CoffeeMaker coffeeMakerWithRealHeaterAndPump = mockspresso.buildUpon()
-        .dependency(Heater.class, realHeater) // apply a specific instance of a Heater dependency.
-        .realObject(Pump.class) // tell mockspresso to create a real Pump instead of mocking it.
-        .build() // builds the new mockspresso instance
-        .create(CoffeeMaker.class);
-
-    // test coffeeMakerWithRealHeaterAndPump...
-}
-```
-
 ### Special Object Handling
 A key feature of mockspresso's dependency mapping is its concept of "special objects." A special object is simply defined as an object type that should not be mocked by default. One can add `SpecialObjectMaker`s via the `Mockspresso.Builder.specialObjectMaker()` method (or via a plugin).
 
@@ -191,6 +150,47 @@ In mockspresso, a `Plugin` is a simple class to package up multiple calls to a M
   - `MockitoPlugin`: Applies the `MockitoMockerConfig` to provide compatibility with mockito.
 - mockspresso-easymock
   - `EasyMockPlugin`: Applies the `EasyMockMockerConfig` to provide compatibility with easymock.
+
+
+### Mockspresso on-the-fly
+Mockspresso's functionality isn't limited to @Rules, instances of Mockspresso can be created or built-upon on the fly at runtime as well. For example, to build a functional equivalent of the above Mockspresso.Rule, you could implement the following setup method to your test
+```java
+private Mockspresso mockspresso;
+
+@Before
+public void setup() {
+  mockspresso = Mockspresso.Builders.simple()
+      .plugin(MockitoPlugin.getInstance()) // or EasyMockPlugin.getInstance()
+      .testResourcesWithoutLifecycle(this) // scan 'this' for @Mocks and @RealObjects, but don't execute any of its lifecycle methods
+      .build(); // use build() instead of buildRule() for a raw instance of Mockspresso
+}
+```
+
+You can also create real objects at runtime, using `Mockspresso.create()`
+```java
+@Test
+public void testCoffeeMaker() {
+    CoffeeMaker realCoffeeMaker = mockspresso.create(CoffeeMaker.class);
+
+    // test realCoffeeMaker...
+}
+```
+
+You can buildUpon existing mockspresso instances (if some tests require different properties/dependencies).
+```java
+@Test
+public void testWithRealHeater() {
+    RealHeater realHeater = new RealHeater();
+
+    CoffeeMaker coffeeMakerWithRealHeaterAndPump = mockspresso.buildUpon()
+        .dependency(Heater.class, realHeater) // apply a specific instance of a Heater dependency.
+        .realObject(Pump.class) // tell mockspresso to create a real Pump instead of mocking it.
+        .build() // builds the new mockspresso instance
+        .create(CoffeeMaker.class);
+
+    // test coffeeMakerWithRealHeaterAndPump...
+}
+```
 
 ## License
 MIT: https://github.com/episode6/mockspresso/blob/master/LICENSE
