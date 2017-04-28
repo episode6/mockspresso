@@ -4,7 +4,7 @@ An extensible auto-mocker for java, designed to simplify your unit tests.
 ## What & Why?
 Testing code is a pain in the ass. Mockspresso was created with the simple idea that if tests are easier to write and break less often, developers will hate them less, and write more of them.
 
-Mockspresso creates your objects for you, letting you drop the constructors from your tests, while still giving you complete control over how your objects are created and what dependencies are provided/injected. Using the mocks declared in your test, mockspresso builds a map of dependencies with which to inject your real objects. Mockspresso will auto-mock any dependencies that are undefined and can also intelligently map simple `Provider<>` / `Supplier<>` style interfaces to their actual dependencies (via [Special Object Handling](#special-object-handling)). The real objects that mockspresso creates are then also added to the dependency map, enabling complex integration tests as well as simple unit tests. The best part is, your tests wont break (by-default) just because a dependency is added to the class under test. After all, why should adding new functionality to a class, break the tests on its existing functionality?
+Mockspresso creates your objects for you, letting you drop the constructors from your tests, while still giving you complete control over how your objects are created and what dependencies are provided/injected. Using the mocks declared in your test, mockspresso builds a [map of dependencies](#the-dependency-map) with which to inject your real objects. Mockspresso will auto-mock any dependencies that are undefined and can also intelligently map simple `Provider<>` / `Supplier<>` style interfaces to their actual dependencies (via [Special Object Handling](#special-object-handling)). The real objects that mockspresso creates are then also added to the dependency map, enabling complex integration tests as well as simple unit tests. The best part is, your tests wont break (by-default) just because a dependency is added to the class under test. After all, why should adding new functionality to a class, break the tests on its existing functionality?
 
 
 ## How?
@@ -26,7 +26,7 @@ dependencies {
 }
 ```
 
-Write your test
+Write your unit test
 ```java
 public class CoffeeMakerTest {
 
@@ -55,15 +55,55 @@ public class CoffeeMakerTest {
 }
 ```
 
+### Mockspresso on-the-fly
+Mockspresso's functionality isn't limited to @Rules, instances of Mockspresso can be created or built-upon on the fly at runtime as well. For example, to build a functional equivalent of our first Mockspresso.Rule, you could implement the following setup method to your test
+```java
+private Mockspresso mockspresso;
+
+@Before
+public void setup() {
+  mockspresso = Mockspresso.Builders.simple()
+      .plugin(MockitoPlugin.getInstance()) // or EasyMockPlugin.getInstance()
+      .testResourcesWithoutLifecycle(this) // scan 'this' for @Mocks and @RealObjects, but don't execute any of its lifecycle methods
+      .build(); // use build() instead of buildRule() for a raw instance of Mockspresso
+}
+```
+
+You can also create real objects at runtime, using `Mockspresso.create()`
+```java
+@Test
+public void testCoffeeMaker() {
+    CoffeeMaker realCoffeeMaker = mockspresso.create(CoffeeMaker.class);
+
+    // test realCoffeeMaker...
+}
+```
+
+You can buildUpon existing mockspresso instances (if some tests require different properties/dependencies).
+```java
+@Test
+public void testWithRealHeater() {
+    RealHeater realHeater = new RealHeater();
+
+    CoffeeMaker coffeeMakerWithRealHeaterAndPump = mockspresso.buildUpon()
+        .dependency(Heater.class, realHeater) // apply a specific instance of a Heater dependency.
+        .realObject(Pump.class) // tell mockspresso to create a real Pump instead of mocking it.
+        .build() // builds the new mockspresso instance
+        .create(CoffeeMaker.class);
+
+    // test coffeeMakerWithRealHeaterAndPump...
+}
+```
+
 ### @RealObject annotation
 You can think of the `@RealObject` annotation kind of like [Mockito's @InjectMocks](https://static.javadoc.io/org.mockito/mockito-core/2.7.19/org/mockito/InjectMocks.html) or [EasyMock's @TestSubject](http://easymock.org/api/org/easymock/TestSubject.html) annotations, but with super-powers.
-- Declare a non-null (usually final) @RealObject field, and Mockspresso will add the value to its internal DependencyMap, and provide it as a dependency to other @RealObjects. This can be useful to inject dependencies that can't be mocked.
-  - example: `final @RealObject @Named("maker_name") String coffeeMakerName = "testCoffeeMaker";`
 - Declare a null/empty @RealObject field, and Mockspresso will create the object for you. The object will be 'injected' with the other @Mocks and @RealObjects defined in your test class.
   - example: `@RealObject CoffeeMaker coffeeMakerUnderTest;`
 - Declare multiple null/empty @RealObject fields to create an integration test with multiple real components working together.
 - Declare the `implementation` property of @RealObject to specify a specific implementation be used to create the object.
   - example: define: `@RealObject(implementation = ElectricHeater.class) Heater mHeater;` and an `ElectricHeater` will be created and set in that field, but in mockspresso's DependencyMap, it will be mapped to the key for `Heater`, and provided as a dependency for any object that requires a generic Heater.
+- Declare a non-null (usually final) @RealObject field, and Mockspresso will add the value to its internal DependencyMap, and provide it as a dependency to other @RealObjects. This can be useful to inject dependencies that can't be mocked.
+  - example: `final @RealObject @Named("maker_name") String coffeeMakerName = "testCoffeeMaker";`
 
 ### Special Object Handling
 A key feature of mockspresso's dependency mapping is its concept of "special objects." A special object is simply defined as an object type that should not be mocked by default. One can add `SpecialObjectMaker`s via the `Mockspresso.Builder.specialObjectMaker()` method (or via a plugin).
@@ -153,46 +193,8 @@ In mockspresso, a `Plugin` is a simple class to package up multiple calls to a M
 - mockspresso-easymock
   - `EasyMockPlugin`: Applies the `EasyMockMockerConfig` to provide compatibility with easymock.
 
-
-### Mockspresso on-the-fly
-Mockspresso's functionality isn't limited to @Rules, instances of Mockspresso can be created or built-upon on the fly at runtime as well. For example, to build a functional equivalent of our first Mockspresso.Rule, you could implement the following setup method to your test
-```java
-private Mockspresso mockspresso;
-
-@Before
-public void setup() {
-  mockspresso = Mockspresso.Builders.simple()
-      .plugin(MockitoPlugin.getInstance()) // or EasyMockPlugin.getInstance()
-      .testResourcesWithoutLifecycle(this) // scan 'this' for @Mocks and @RealObjects, but don't execute any of its lifecycle methods
-      .build(); // use build() instead of buildRule() for a raw instance of Mockspresso
-}
-```
-
-You can also create real objects at runtime, using `Mockspresso.create()`
-```java
-@Test
-public void testCoffeeMaker() {
-    CoffeeMaker realCoffeeMaker = mockspresso.create(CoffeeMaker.class);
-
-    // test realCoffeeMaker...
-}
-```
-
-You can buildUpon existing mockspresso instances (if some tests require different properties/dependencies).
-```java
-@Test
-public void testWithRealHeater() {
-    RealHeater realHeater = new RealHeater();
-
-    CoffeeMaker coffeeMakerWithRealHeaterAndPump = mockspresso.buildUpon()
-        .dependency(Heater.class, realHeater) // apply a specific instance of a Heater dependency.
-        .realObject(Pump.class) // tell mockspresso to create a real Pump instead of mocking it.
-        .build() // builds the new mockspresso instance
-        .create(CoffeeMaker.class);
-
-    // test coffeeMakerWithRealHeaterAndPump...
-}
-```
+### The Dependency Map
+Mockspresso tries to adhere to principles set fourth by the javax.inject package and compatible DI frameworks. As such, each dependency in our map is keyed to the `Type` of the dependency and an optional qualifier `Annotation` (any annotation that itself is annotated with `javax.inject.Qualifier`). When mockspresso scans your test or testResource for fields annotated with @Mock or @RealObject, it also respects the Qualifier annotations on these fields.
 
 ## License
 MIT: https://github.com/episode6/mockspresso/blob/master/LICENSE
