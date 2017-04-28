@@ -35,16 +35,18 @@ public class CoffeeMakerTest {
         .plugin(MockitoPlugin.getInstance()) // or EasyMockPlugin.getInstance()
         .buildRule();
 
-    // Declare only the mocks you care about testing with
+    // Declare only the mocks you care about
     @Mock Heater heater;
 
-    // Declare an @RealObject, and mockspresso will create it for you
+    // Declare a @RealObject and mockspresso will create it for you.
+    // The CoffeeMaker will be injected with the Heater declared above,
+    // and any other dependencies will be automatically mocked.
     @RealObject CoffeeMaker coffeeMakerUnderTest;
 
     @Test
     public void testCoffeeMaker() {
         // CoffeeMaker's dependencies are guaranteed to be non-null, even
-        // if they aren't declared above.
+        // if they aren't declared on this test.
         Coffee coffee = coffeeMakerUnderTest.brew();
 
         // verify that heater (a dependency of CoffeeMaker) was called (mockito example)
@@ -56,7 +58,7 @@ public class CoffeeMakerTest {
 ### @RealObject annotation
 You can think of the `@RealObject` annotation kind of like [Mockito's @InjectMocks](https://static.javadoc.io/org.mockito/mockito-core/2.7.19/org/mockito/InjectMocks.html) or [EasyMock's @TestSubject](http://easymock.org/api/org/easymock/TestSubject.html) annotations, but with super-powers.
 - Declare a non-null (usually final) @RealObject field, and Mockspresso will add the value to its internal DependencyMap, and provide it as a dependency to other @RealObjects. This can be useful to inject dependencies that can't be mocked.
-  - example: `final @RealObject String coffeeMakerName = "testCoffeeMaker";`
+  - example: `final @RealObject @Named("maker_name") String coffeeMakerName = "testCoffeeMaker";`
 - Declare a null/empty @RealObject field, and Mockspresso will create the object for you. The object will be 'injected' with the other @Mocks and @RealObjects defined in your test class.
   - example: `@RealObject CoffeeMaker coffeeMakerUnderTest;`
 - Declare multiple null/empty @RealObject fields to create an integration test with multiple real components working together.
