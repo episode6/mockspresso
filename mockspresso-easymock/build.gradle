@@ -7,15 +7,15 @@ targetCompatibility = 1.7
 
 configurations {
   // add provided deps to testCompile
-  testCompile.extendsFrom compileOnly
+  testCompile.extendsFrom provided
 }
 
 dependencies {
   compile('net.sourceforge.findbugs:jsr305')
 
   // provided deps
-  compileOnly project(':mockspresso-core')
-  compileOnly('org.easymock:easymock')
+  provided project(':mockspresso-core')
+  provided('org.easymock:easymock')
 
   testCompile('junit:junit')
   testCompile('org.easytesting:fest-assert-core')
