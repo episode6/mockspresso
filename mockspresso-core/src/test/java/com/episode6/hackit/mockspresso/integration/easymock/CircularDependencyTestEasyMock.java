@@ -1,5 +1,6 @@
 package com.episode6.hackit.mockspresso.integration.easymock;
 
+import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.easymock.EasyMockPlugin;
@@ -16,7 +17,7 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public class CircularDependencyTestEasyMock {
 
-  @Rule public final Mockspresso.Rule mockspresso = Mockspresso.Builders.javaxInjection()
+  @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.javaxInjection()
       .plugin(EasyMockPlugin.getInstance())
       .buildRule();
 

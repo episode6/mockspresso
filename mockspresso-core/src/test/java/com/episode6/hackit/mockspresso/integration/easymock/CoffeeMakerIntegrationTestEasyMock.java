@@ -1,5 +1,6 @@
 package com.episode6.hackit.mockspresso.integration.easymock;
 
+import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.easymock.EasyMockPlugin;
@@ -26,7 +27,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(JUnit4.class)
 public class CoffeeMakerIntegrationTestEasyMock {
 
-  @Rule public final Mockspresso.Rule simpleMockspresso = Mockspresso.Builders.simple()
+  @Rule public final Mockspresso.Rule simpleMockspresso = BuildMockspresso.simple()
       .plugin(EasyMockPlugin.getInstance())
       .realObject(DependencyKey.of(Heater.class), CoffeeMakerComponents.RealHeater.class)
       .realObject(DependencyKey.of(Pump.class), CoffeeMakerComponents.RealWaterPump.class)

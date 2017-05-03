@@ -1,5 +1,6 @@
 package com.episode6.hackit.mockspresso.integration.agnostic;
 
+import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.mockito.MockitoPlugin;
@@ -22,7 +23,7 @@ public class InvalidRuleTest {
 
   private final TestClass mInitializerWithFields = new TestClass();
 
-  public final Mockspresso.Rule invalidMockspresso = Mockspresso.Builders.simple()
+  public final Mockspresso.Rule invalidMockspresso = BuildMockspresso.simple()
       .plugin(MockitoPlugin.getInstance())
       .testResources(mInitializerWithFields)
       .buildRule();

@@ -11,6 +11,8 @@ configurations {
 }
 
 dependencies {
+  compile project(':mockspresso-api')
+  compile project(':mockspresso-reflect')
   compile('net.sourceforge.findbugs:jsr305')
   compile('javax.inject:javax.inject')
   compile('com.episode6.hackit.chop:chop-core')

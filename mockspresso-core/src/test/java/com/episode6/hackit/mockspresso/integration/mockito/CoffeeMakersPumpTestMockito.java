@@ -1,5 +1,6 @@
 package com.episode6.hackit.mockspresso.integration.mockito;
 
+import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.Coffee;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.CoffeeMakers;
@@ -27,7 +28,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 public class CoffeeMakersPumpTestMockito {
 
   private final PumpTestResources t = new PumpTestResources();
-  @Rule public final Mockspresso.Rule mockspresso = Mockspresso.Builders.javaxInjection()
+  @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.javaxInjection()
       .plugin(MockitoPlugin.getInstance())
       .testResources(t)
       .buildRule();

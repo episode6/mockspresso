@@ -1,5 +1,6 @@
 package com.episode6.hackit.mockspresso.integration.mockito;
 
+import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.CoffeeMakers;
@@ -23,7 +24,7 @@ import static org.mockito.Mockito.when;
 public class PartialSharedResorcesTest {
 
   private final PartialSharedResources t = new PartialSharedResources();
-  @Rule public final Mockspresso.Rule mockspresso = Mockspresso.Builders.javaxInjection()
+  @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.javaxInjection()
       .plugin(MockitoPlugin.getInstance())
       .testResources(t)
       .buildRule();

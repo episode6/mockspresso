@@ -5,7 +5,6 @@ import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.annotation.TestQualifierAnnotation;
 import com.episode6.hackit.mockspresso.annotation.Unmapped;
 import com.episode6.hackit.mockspresso.reflect.AnnotationLiteral;
-import com.episode6.hackit.mockspresso.reflect.AnnotationLiteralTest;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.NamedAnnotationLiteral;
 import com.episode6.hackit.mockspresso.testobject.SubclassTestObject;
@@ -20,7 +19,6 @@ import javax.inject.Named;
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -37,7 +35,7 @@ public class FieldImporterTest {
   DependencyKey<String> key3 = DependencyKey.of(String.class, new NamedAnnotationLiteral("somename"));
   DependencyKey<String> key4 = DependencyKey.of(String.class, new NamedAnnotationLiteral("diffname"));
   DependencyKey<TestObject> key5 = DependencyKey.of(TestObject.class, null);
-  DependencyKey<TestObject> key6 = DependencyKey.of(TestObject.class, new AnnotationLiteralTest.TestQualifierAnnotationLiteral());
+  DependencyKey<TestObject> key6 = DependencyKey.of(TestObject.class, new TestQualifierAnnotationLiteral());
   DependencyKey<TestObject> key7 = DependencyKey.of(TestObject.class, new NamedAnnotationLiteral("somename"));
 
   @RealObject String testObj1 = "sup fool";

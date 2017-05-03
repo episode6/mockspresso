@@ -1,12 +1,14 @@
 package com.episode6.hackit.mockspresso;
 
-import com.episode6.hackit.mockspresso.api.*;
+import com.episode6.hackit.mockspresso.api.InjectionConfig;
+import com.episode6.hackit.mockspresso.api.MockerConfig;
+import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
+import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.rules.MethodRule;
 import org.junit.rules.TestRule;
 
-import java.lang.annotation.Annotation;
 import java.util.List;
 
 /**
@@ -206,36 +208,4 @@ public interface Mockspresso {
     Rule buildRule();
   }
 
-  /**
-   * Contains static methods to create new {@link Mockspresso.Builder}s
-   */
-  class Builders {
-
-    /**
-     * @return an empty {@link Mockspresso.Builder} with no configuration applied.
-     */
-    public static Builder empty() {
-      return com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl.PROVIDER.get();
-    }
-
-    /**
-     * Start building an instance of Mockspresso designed to create POJOs with no DI.
-     * @return a basic instance of {@link Mockspresso.Builder} with the
-     * {@link com.episode6.hackit.mockspresso.plugin.simple.SimpleInjectMockspressoPlugin} applied
-     */
-    public static Builder simple() {
-      return empty()
-          .plugin(com.episode6.hackit.mockspresso.plugin.simple.SimpleInjectMockspressoPlugin.getInstance());
-    }
-
-    /**
-     * Start building an instance of Mockspresso designed to create javax.inject compatible DI objects.
-     * @return an instance of {@link Mockspresso.Builder} with the
-     * {@link com.episode6.hackit.mockspresso.plugin.javax.JavaxInjectMockspressoPlugin} applied.
-     */
-    public static Builder javaxInjection() {
-      return empty()
-          .plugin(com.episode6.hackit.mockspresso.plugin.javax.JavaxInjectMockspressoPlugin.getInstance());
-    }
-  }
 }
