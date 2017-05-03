@@ -27,14 +27,14 @@ public class MockitoPluginTest {
   @Before
   public void setup() {
     MockitoAnnotations.initMocks(this);
-    when(mBuilder.mockerConfig(any(MockerConfig.class))).thenReturn(mBuilder);
+    when(mBuilder.mocker(any(MockerConfig.class))).thenReturn(mBuilder);
   }
 
   @Test
   public void testConfigInstalled() {
     Mockspresso.Builder returnedBuilder = mPlugin.apply(mBuilder);
 
-    verify(mBuilder).mockerConfig(MockitoMockerConfig.getInstance());
+    verify(mBuilder).mocker(MockitoMockerConfig.getInstance());
     assertThat(returnedBuilder)
         .isNotNull()
         .isEqualTo(mBuilder);

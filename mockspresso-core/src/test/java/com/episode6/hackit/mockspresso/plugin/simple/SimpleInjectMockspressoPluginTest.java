@@ -27,14 +27,14 @@ public class SimpleInjectMockspressoPluginTest {
   @Before
   public void setup() {
     MockitoAnnotations.initMocks(this);
-    when(mBuilder.injectionConfig(any(InjectionConfig.class))).thenReturn(mBuilder);
+    when(mBuilder.injector(any(InjectionConfig.class))).thenReturn(mBuilder);
   }
 
   @Test
   public void testInjectionConfigSet() {
     Mockspresso.Builder returnedBuilder = mPlugin.apply(mBuilder);
 
-    verify(mBuilder).injectionConfig(SimpleInjectionConfig.getInstance());
+    verify(mBuilder).injector(SimpleInjectionConfig.getInstance());
     assertThat(returnedBuilder)
         .isNotNull()
         .isEqualTo(mBuilder);

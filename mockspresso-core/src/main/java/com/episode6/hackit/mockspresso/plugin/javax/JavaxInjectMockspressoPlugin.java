@@ -19,7 +19,7 @@ public class JavaxInjectMockspressoPlugin implements MockspressoPlugin {
 
   @Override
   public Mockspresso.Builder apply(Mockspresso.Builder builder) {
-    return builder.injectionConfig(JavaxInjectionConfig.getInstance())
+    return builder.injector(JavaxInjectionConfig.getInstance())
         .specialObjectMaker(ProviderMaker.getInstance());
   }
 }

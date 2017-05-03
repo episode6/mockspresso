@@ -93,13 +93,13 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   }
 
   @Override
-  public Mockspresso.Builder mockerConfig(MockerConfig mockerConfig) {
+  public Mockspresso.Builder mocker(MockerConfig mockerConfig) {
     mMockerConfig = mockerConfig;
     return this;
   }
 
   @Override
-  public Mockspresso.Builder injectionConfig(InjectionConfig injectionConfig) {
+  public Mockspresso.Builder injector(InjectionConfig injectionConfig) {
     mInjectionConfig = injectionConfig;
     return this;
   }

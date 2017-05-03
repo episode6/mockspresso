@@ -19,6 +19,6 @@ public class EasyMockPlugin implements MockspressoPlugin {
 
   @Override
   public Mockspresso.Builder apply(Mockspresso.Builder builder) {
-    return builder.mockerConfig(EasyMockMockerConfig.getInstance());
+    return builder.mocker(EasyMockMockerConfig.getInstance());
   }
 }

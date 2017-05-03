@@ -19,6 +19,6 @@ public class MockitoPlugin implements MockspressoPlugin {
 
   @Override
   public Mockspresso.Builder apply(Mockspresso.Builder builder) {
-    return builder.mockerConfig(MockitoMockerConfig.getInstance());
+    return builder.mocker(MockitoMockerConfig.getInstance());
   }
 }

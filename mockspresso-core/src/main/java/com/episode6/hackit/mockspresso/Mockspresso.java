@@ -95,14 +95,14 @@ public interface Mockspresso {
      * @param mockerConfig The MockerConfig to apply
      * @return this
      */
-    Builder mockerConfig(MockerConfig mockerConfig);
+    Builder mocker(MockerConfig mockerConfig);
 
     /**
      * Apply a {@link InjectionConfig} to this builder, which tells mockspresso how to create real objects.
      * @param injectionConfig The InjectionConfig to apply
      * @return this
      */
-    Builder injectionConfig(InjectionConfig injectionConfig);
+    Builder injector(InjectionConfig injectionConfig);
 
     /**
      * Apply a {@link SpecialObjectMaker} to this builder, which tells mockspresso how it should create
