@@ -15,8 +15,7 @@ dependencies {
   compile('net.sourceforge.findbugs:jsr305')
 
   // provided deps
-  provided project(':mockspresso-core')
-  provided('org.mockito:mockito-core')
+  compile 'org.mockito:mockito-core', optional
 
   testCompile('junit:junit')
   testCompile('org.easytesting:fest-assert-core')

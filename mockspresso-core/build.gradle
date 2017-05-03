@@ -11,20 +11,20 @@ configurations {
 }
 
 dependencies {
+  provided('junit:junit')
+
   compile project(':mockspresso-api')
   compile project(':mockspresso-reflect')
+
+  compile project(':mockspresso-mockito')
+  compile project(':mockspresso-easymock')
+
   compile('net.sourceforge.findbugs:jsr305')
   compile('javax.inject:javax.inject')
   compile('com.episode6.hackit.chop:chop-core')
 
-  // provided deps
-  provided('junit:junit')
-
   testCompile('org.mockito:mockito-core')
-  testCompile project(':mockspresso-mockito')
-
   testCompile('org.easymock:easymock')
-  testCompile project(':mockspresso-easymock')
 
   testCompile('org.easytesting:fest-assert-core')
 }
