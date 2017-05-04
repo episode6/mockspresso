@@ -6,7 +6,6 @@ import com.episode6.hackit.mockspresso.integration.testobjects.coffee.Coffee;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.CoffeeMakers;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.Pump;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.Water;
-import com.episode6.hackit.mockspresso.mockito.MockitoPlugin;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,8 +27,9 @@ import static org.fest.assertions.api.Assertions.assertThat;
 public class CoffeeMakersPumpTestMockito {
 
   private final PumpTestResources t = new PumpTestResources();
-  @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.javaxInjection()
-      .plugin(MockitoPlugin.getInstance())
+  @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
+      .injector().javax()
+      .mocker().mockito()
       .testResources(t)
       .buildRule();
 

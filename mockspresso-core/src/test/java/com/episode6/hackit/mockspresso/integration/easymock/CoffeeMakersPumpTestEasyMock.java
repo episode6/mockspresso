@@ -2,7 +2,6 @@ package com.episode6.hackit.mockspresso.integration.easymock;
 
 import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
-import com.episode6.hackit.mockspresso.easymock.EasyMockPlugin;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.Coffee;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.CoffeeMakers;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.Pump;
@@ -28,8 +27,9 @@ import static org.fest.assertions.api.Assertions.assertThat;
 public class CoffeeMakersPumpTestEasyMock {
 
   private final PumpTestResources t = new PumpTestResources();
-  @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.javaxInjection()
-      .plugin(EasyMockPlugin.getInstance())
+  @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
+      .injector().javax()
+      .mocker().easyMock()
       .testResources(t)
       .buildRule();
 

@@ -3,7 +3,6 @@ package com.episode6.hackit.mockspresso.integration.agnostic;
 import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.Mockspresso;
-import com.episode6.hackit.mockspresso.mockito.MockitoPlugin;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +11,6 @@ import org.mockito.Mock;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verifyZeroInteractions;
 
 /**
@@ -23,8 +21,9 @@ public class InvalidRuleTest {
 
   private final TestClass mInitializerWithFields = new TestClass();
 
-  public final Mockspresso.Rule invalidMockspresso = BuildMockspresso.simple()
-      .plugin(MockitoPlugin.getInstance())
+  public final Mockspresso.Rule invalidMockspresso = BuildMockspresso.with()
+      .injector().simple()
+      .mocker().mockito()
       .testResources(mInitializerWithFields)
       .buildRule();
 

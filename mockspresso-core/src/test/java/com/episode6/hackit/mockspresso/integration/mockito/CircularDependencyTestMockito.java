@@ -5,7 +5,6 @@ import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.exception.CircularDependencyError;
 import com.episode6.hackit.mockspresso.integration.testobjects.CircularDependencies;
-import com.episode6.hackit.mockspresso.mockito.MockitoPlugin;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,8 +16,9 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public class CircularDependencyTestMockito {
 
-  @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.javaxInjection()
-      .plugin(MockitoPlugin.getInstance())
+  @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
+      .injector().javax()
+      .mocker().mockito()
       .buildRule();
 
   @Test(expected = CircularDependencyError.class)
