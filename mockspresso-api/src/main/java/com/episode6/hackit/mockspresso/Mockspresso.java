@@ -100,11 +100,23 @@ public interface Mockspresso {
     Builder mocker(MockerConfig mockerConfig);
 
     /**
+     * Apply one of the built-in {@link MockerConfig}s to this builder.
+     * @return A {@link MockerPicker} that will apply a mockerConfig to this builder.
+     */
+    MockerPicker mocker();
+
+    /**
      * Apply a {@link InjectionConfig} to this builder, which tells mockspresso how to create real objects.
      * @param injectionConfig The InjectionConfig to apply
      * @return this
      */
     Builder injector(InjectionConfig injectionConfig);
+
+    /**
+     * Apply one of the built-in {@link InjectionConfig}s to this builder.
+     * @return A {@link InjectorPicker} that will apply an injectionConfig to this builder.
+     */
+    InjectorPicker injector();
 
     /**
      * Apply a {@link SpecialObjectMaker} to this builder, which tells mockspresso how it should create
@@ -206,6 +218,22 @@ public interface Mockspresso {
      * @return an instance of {@link Mockspresso.Rule} that is both an instance of {@link Mockspresso} and a {@link org.junit.Rule}
      */
     Rule buildRule();
+  }
+
+  /**
+   * A selector for one of the built-in mocker configs
+   */
+  interface MockerPicker {
+    Builder mockito();
+    Builder easyMock();
+  }
+
+  /**
+   * A selector for one of the built in injection configs
+   */
+  interface InjectorPicker {
+    Builder simple();
+    Builder javax();
   }
 
 }
