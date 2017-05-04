@@ -224,7 +224,19 @@ public interface Mockspresso {
    * A selector for one of the built-in mocker configs
    */
   interface MockerPicker {
+
+    /**
+     * Applies the {@link MockerConfig} for Mockito.
+     * Requires your project have a dependency on 'org.mockito:mockito-core' v2.x
+     * @return The {@link Builder} for your mockspresso instance
+     */
     Builder mockito();
+
+    /**
+     * Applies the {@link MockerConfig} for EasyMock.
+     * Requires your project have a dependency on 'org.easymock:easymock' v3.4
+     * @return The {@link Builder} for your mockspresso instance
+     */
     Builder easyMock();
   }
 
@@ -232,7 +244,19 @@ public interface Mockspresso {
    * A selector for one of the built in injection configs
    */
   interface InjectorPicker {
+
+    /**
+     * Applies the {@link InjectionConfig} for simple creation of objects via
+     * their shortest constructor.
+     * @return The {@link Builder} for your mockspresso instance
+     */
     Builder simple();
+
+    /**
+     * Applies the {@link InjectionConfig} for javax.inject based object creation
+     * (looks for constructors, fields and methods annotated with @Inject).
+     * @return The {@link Builder} for your mockspresso instance
+     */
     Builder javax();
   }
 
