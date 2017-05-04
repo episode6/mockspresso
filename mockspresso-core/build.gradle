@@ -21,7 +21,6 @@ dependencies {
 
   compile('net.sourceforge.findbugs:jsr305')
   compile('javax.inject:javax.inject')
-  compile('com.episode6.hackit.chop:chop-core')
 
   testCompile('org.mockito:mockito-core')
   testCompile('org.easymock:easymock')
