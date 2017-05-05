@@ -1,4 +1,4 @@
-package com.episode6.hackit.mockspresso.exception;
+package com.episode6.hackit.mockspresso.reflect.exception;
 
 /**
  * Exception thrown when looking for a Qualifier annotation on a field or parameter

@@ -1,6 +1,6 @@
 package com.episode6.hackit.mockspresso.easymock;
 
-import com.episode6.hackit.mockspresso.api.AbstractMockerConfig;
+import com.episode6.hackit.mockspresso.api.MockerConfig;
 import org.easymock.Mock;
 
 import java.lang.annotation.Annotation;
@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * A MockerConfig for EasyMock
  */
-public class EasyMockMockerConfig extends AbstractMockerConfig {
+public class EasyMockMockerConfig implements MockerConfig {
 
   // This object has no state, so we maintain a static instance of it
   // instead of creating multiple instances on the fly
@@ -19,10 +19,17 @@ public class EasyMockMockerConfig extends AbstractMockerConfig {
     return INSTANCE;
   }
 
-  private EasyMockMockerConfig() {
-    super(
-        new EasyMockMockMaker(),
-        new EasyMockFieldPreparer());
+  private final EasyMockMockMaker mMockMaker = new EasyMockMockMaker();
+  private final EasyMockFieldPreparer mFieldPreparer = new EasyMockFieldPreparer();
+
+  @Override
+  public MockMaker provideMockMaker() {
+    return mMockMaker;
+  }
+
+  @Override
+  public FieldPreparer provideFieldPreparer() {
+    return mFieldPreparer;
   }
 
   @Override

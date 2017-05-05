@@ -1,9 +1,7 @@
 package com.episode6.hackit.mockspresso.reflect;
 
-import com.episode6.hackit.mockspresso.DefaultTestRunner;
-import com.episode6.hackit.mockspresso.annotation.TestQualifierAnnotation;
+import com.episode6.hackit.mockspresso.reflect.annotation.TestQualifierAnnotation;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import javax.inject.Named;
 import java.lang.annotation.Annotation;
@@ -16,7 +14,6 @@ import static org.fest.assertions.api.Assertions.assertThat;
  * I'm not too worried about testing that code since we didn't write it, but
  * felt that some basic sanity checking was appropriate.
  */
-@RunWith(DefaultTestRunner.class)
 public class AnnotationLiteralTest {
 
   public static abstract class TestNamedAnnotationLiteral extends AnnotationLiteral<Named> implements Named {}

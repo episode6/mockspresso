@@ -1,12 +1,14 @@
 package com.episode6.hackit.mockspresso;
 
-import com.episode6.hackit.mockspresso.api.*;
+import com.episode6.hackit.mockspresso.api.InjectionConfig;
+import com.episode6.hackit.mockspresso.api.MockerConfig;
+import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
+import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.rules.MethodRule;
 import org.junit.rules.TestRule;
 
-import java.lang.annotation.Annotation;
 import java.util.List;
 
 /**
@@ -98,11 +100,23 @@ public interface Mockspresso {
     Builder mocker(MockerConfig mockerConfig);
 
     /**
+     * Apply one of the built-in {@link MockerConfig}s to this builder.
+     * @return A {@link MockerPicker} that will apply a mockerConfig to this builder.
+     */
+    MockerPicker mocker();
+
+    /**
      * Apply a {@link InjectionConfig} to this builder, which tells mockspresso how to create real objects.
      * @param injectionConfig The InjectionConfig to apply
      * @return this
      */
     Builder injector(InjectionConfig injectionConfig);
+
+    /**
+     * Apply one of the built-in {@link InjectionConfig}s to this builder.
+     * @return A {@link InjectorPicker} that will apply an injectionConfig to this builder.
+     */
+    InjectorPicker injector();
 
     /**
      * Apply a {@link SpecialObjectMaker} to this builder, which tells mockspresso how it should create
@@ -207,35 +221,43 @@ public interface Mockspresso {
   }
 
   /**
-   * Contains static methods to create new {@link Mockspresso.Builder}s
+   * A selector for one of the built-in mocker configs
    */
-  class Builders {
+  interface MockerPicker {
 
     /**
-     * @return an empty {@link Mockspresso.Builder} with no configuration applied.
+     * Applies the {@link MockerConfig} for Mockito.
+     * Requires your project have a dependency on 'org.mockito:mockito-core' v2.x
+     * @return The {@link Builder} for your mockspresso instance
      */
-    public static Builder empty() {
-      return com.episode6.hackit.mockspresso.internal.MockspressoBuilderImpl.PROVIDER.get();
-    }
+    Builder mockito();
 
     /**
-     * Start building an instance of Mockspresso designed to create POJOs with no DI.
-     * @return a basic instance of {@link Mockspresso.Builder} with the
-     * {@link com.episode6.hackit.mockspresso.plugin.simple.SimpleInjectMockspressoPlugin} applied
+     * Applies the {@link MockerConfig} for EasyMock.
+     * Requires your project have a dependency on 'org.easymock:easymock' v3.4
+     * @return The {@link Builder} for your mockspresso instance
      */
-    public static Builder simple() {
-      return empty()
-          .plugin(com.episode6.hackit.mockspresso.plugin.simple.SimpleInjectMockspressoPlugin.getInstance());
-    }
-
-    /**
-     * Start building an instance of Mockspresso designed to create javax.inject compatible DI objects.
-     * @return an instance of {@link Mockspresso.Builder} with the
-     * {@link com.episode6.hackit.mockspresso.plugin.javax.JavaxInjectMockspressoPlugin} applied.
-     */
-    public static Builder javaxInjection() {
-      return empty()
-          .plugin(com.episode6.hackit.mockspresso.plugin.javax.JavaxInjectMockspressoPlugin.getInstance());
-    }
+    Builder easyMock();
   }
+
+  /**
+   * A selector for one of the built in injection configs
+   */
+  interface InjectorPicker {
+
+    /**
+     * Applies the {@link InjectionConfig} for simple creation of objects via
+     * their shortest constructor.
+     * @return The {@link Builder} for your mockspresso instance
+     */
+    Builder simple();
+
+    /**
+     * Applies the {@link InjectionConfig} for javax.inject based object creation
+     * (looks for constructors, fields and methods annotated with @Inject).
+     * @return The {@link Builder} for your mockspresso instance
+     */
+    Builder javax();
+  }
+
 }

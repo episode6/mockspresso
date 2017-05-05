@@ -1,3 +1,5 @@
-include ':mockspresso-core',
+include ':mockspresso-api',
+    ':mockspresso-reflect',
+    ':mockspresso-core',
     ':mockspresso-easymock',
     ':mockspresso-mockito'

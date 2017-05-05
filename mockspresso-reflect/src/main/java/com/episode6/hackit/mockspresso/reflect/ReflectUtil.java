@@ -1,6 +1,6 @@
 package com.episode6.hackit.mockspresso.reflect;
 
-import com.episode6.hackit.mockspresso.exception.MultipleQualifierAnnotationException;
+import com.episode6.hackit.mockspresso.reflect.exception.MultipleQualifierAnnotationException;
 
 import javax.annotation.Nullable;
 import javax.inject.Qualifier;
