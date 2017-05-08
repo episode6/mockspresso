@@ -7,5 +7,5 @@ targetCompatibility = 1.7
 
 dependencies {
   compile project(":mockspresso-reflect")
-  provided('junit:junit')
+  provided 'junit:junit'
 }

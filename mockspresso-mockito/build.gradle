@@ -5,20 +5,14 @@ apply plugin: 'com.episode6.hackit.gdmc'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
-configurations {
-  // add provided deps to testCompile
-  testCompile.extendsFrom provided
-}
-
 dependencies {
   compile project(':mockspresso-api')
-  compile('net.sourceforge.findbugs:jsr305')
+  compile 'net.sourceforge.findbugs:jsr305'
 
-  // provided deps
   compile 'org.mockito:mockito-core', optional
 
-  testCompile('junit:junit')
-  testCompile('org.easytesting:fest-assert-core')
+  testCompile 'junit:junit'
+  testCompile 'org.easytesting:fest-assert-core'
 }
 
 test {
