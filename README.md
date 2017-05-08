@@ -13,7 +13,7 @@ Add the dependency on `mockspresso-core` as well as the depencies for your favor
 repositories { jcenter() } // or mavenCentral()
 dependencies {
     // mockspresso-core dependency
-    testCompile 'com.episode6.hackit.mockspresso:mockspresso-core:0.0.4-SNAPSHOT'
+    testCompile 'com.episode6.hackit.mockspresso:mockspresso-core:0.0.4'
 
     /* You'll also need the dependencies for your mocking framework of choice */
     // for mockito
