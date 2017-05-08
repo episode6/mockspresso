@@ -2,6 +2,7 @@ package com.episode6.hackit.mockspresso.easymock;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
+import org.easymock.Mock;
 
 /**
  * An implementation of MockspressoPlugin that applies the Easy mock mocker config
@@ -12,6 +13,7 @@ public class EasyMockPlugin implements MockspressoPlugin {
   // instead of creating multiple instances on the fly
   private static final EasyMockPlugin INSTANCE = new EasyMockPlugin();
   public static EasyMockPlugin getInstance() {
+    assert Mock.class != null;
     return INSTANCE;
   }
 
