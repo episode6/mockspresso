@@ -97,6 +97,7 @@ class RealObjectFieldTracker {
     mUnmappedFields.clear();
   }
 
+  @SuppressWarnings("unchecked")
   private void trackField(Field field, Object object) {
     FieldInfo info = new FieldInfo(field, object);
     if (field.isAnnotationPresent(Unmapped.class)) {
