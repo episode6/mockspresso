@@ -59,15 +59,25 @@ class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implements Mo
   }
 
   @Override
-  public Builder mockerConfig(MockerConfig mockerConfig) {
-    mBuilder.mockerConfig(mockerConfig);
+  public Builder mocker(MockerConfig mockerConfig) {
+    mBuilder.mocker(mockerConfig);
     return this;
   }
 
   @Override
-  public Builder injectionConfig(InjectionConfig injectionConfig) {
-    mBuilder.injectionConfig(injectionConfig);
+  public MockerPicker mocker() {
+    return new BuiltInPluginPicker(this);
+  }
+
+  @Override
+  public Builder injector(InjectionConfig injectionConfig) {
+    mBuilder.injector(injectionConfig);
     return this;
+  }
+
+  @Override
+  public InjectorPicker injector() {
+    return new BuiltInPluginPicker(this);
   }
 
   @Override

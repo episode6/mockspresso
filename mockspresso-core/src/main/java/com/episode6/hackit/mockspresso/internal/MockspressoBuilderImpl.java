@@ -93,15 +93,25 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   }
 
   @Override
-  public Mockspresso.Builder mockerConfig(MockerConfig mockerConfig) {
+  public Mockspresso.Builder mocker(MockerConfig mockerConfig) {
     mMockerConfig = mockerConfig;
     return this;
   }
 
   @Override
-  public Mockspresso.Builder injectionConfig(InjectionConfig injectionConfig) {
+  public Mockspresso.MockerPicker mocker() {
+    return new BuiltInPluginPicker(this);
+  }
+
+  @Override
+  public Mockspresso.Builder injector(InjectionConfig injectionConfig) {
     mInjectionConfig = injectionConfig;
     return this;
+  }
+
+  @Override
+  public Mockspresso.InjectorPicker injector() {
+    return new BuiltInPluginPicker(this);
   }
 
   @Override

@@ -28,7 +28,7 @@ public class JavaxInjectMockspressoPluginTest {
   @Before
   public void setup() {
     MockitoAnnotations.initMocks(this);
-    when(mBuilder.injectionConfig(any(InjectionConfig.class))).thenReturn(mBuilder);
+    when(mBuilder.injector(any(InjectionConfig.class))).thenReturn(mBuilder);
     when(mBuilder.specialObjectMaker(any(SpecialObjectMaker.class))).thenReturn(mBuilder);
   }
 
@@ -36,7 +36,7 @@ public class JavaxInjectMockspressoPluginTest {
   public void testInjectionConfigSet() {
     Mockspresso.Builder returnedBuilder = mPlugin.apply(mBuilder);
 
-    verify(mBuilder).injectionConfig(JavaxInjectionConfig.getInstance());
+    verify(mBuilder).injector(JavaxInjectionConfig.getInstance());
     verify(mBuilder).specialObjectMaker(ProviderMaker.getInstance());
     assertThat(returnedBuilder)
         .isNotNull()

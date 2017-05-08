@@ -1,8 +1,8 @@
 package com.episode6.hackit.mockspresso.integration.easymock;
 
+import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.easymock.EasyMockPlugin;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.CoffeeMakers;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.Pump;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.Water;
@@ -23,8 +23,9 @@ import static org.easymock.EasyMock.*;
 public class PartialSharedResorcesTest {
 
   private final PartialSharedResources t = new PartialSharedResources();
-  @Rule public final Mockspresso.Rule mockspresso = Mockspresso.Builders.javaxInjection()
-      .plugin(EasyMockPlugin.getInstance())
+  @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
+      .injector().javax()
+      .mocker().easyMock()
       .testResources(t)
       .buildRule();
 

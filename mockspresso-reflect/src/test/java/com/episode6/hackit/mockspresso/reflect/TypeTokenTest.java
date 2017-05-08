@@ -1,8 +1,6 @@
 package com.episode6.hackit.mockspresso.reflect;
 
-import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -14,7 +12,6 @@ import static org.fest.assertions.api.Assertions.assertThat;
 /**
  * Tests the TypeToken class
  */
-@RunWith(DefaultTestRunner.class)
 public class TypeTokenTest {
 
   public static class TestClass {

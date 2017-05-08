@@ -25,7 +25,7 @@ public class EasyMockPluginTest {
   @Before
   public void setup() {
     EasyMockSupport.injectMocks(this);
-    expect(mBuilder.mockerConfig(anyObject(MockerConfig.class))).andReturn(mBuilder);
+    expect(mBuilder.mocker(anyObject(MockerConfig.class))).andReturn(mBuilder);
   }
 
   @Test

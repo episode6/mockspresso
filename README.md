@@ -13,16 +13,14 @@ Add the dependency on `mockspresso-core` as well as the depencies for your favor
 repositories { jcenter() } // or mavenCentral()
 dependencies {
     // mockspresso-core dependency
-    testCompile 'com.episode6.hackit.mockspresso:mockspresso-core:0.0.2'
+    testCompile 'com.episode6.hackit.mockspresso:mockspresso-core:0.0.4'
 
-    /* You'll also need specific dependencies for your mocking framework of choice */
+    /* You'll also need the dependencies for your mocking framework of choice */
     // for mockito
     testCompile 'org.mockito:mockito-core:2.+'
-    testCompile 'com.episode6.hackit.mockspresso:mockspresso-mockito:0.0.2'
 
     // for easymock
     testCompile 'org.easymock:easymock:3.4'
-    testCompile 'com.episode6.hackit.mockspresso:mockspresso-easymock:0.0.2'
 }
 ```
 
@@ -31,8 +29,9 @@ Write your unit test
 public class CoffeeMakerTest {
 
     // Define your `Mockspresso` instance using a @Rule
-    @Rule public final Mockspresso.Rule mockspresso = Mockspress.Builders.simple()
-        .plugin(MockitoPlugin.getInstance()) // or EasyMockPlugin.getInstance()
+    @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
+        .injector().simple() // use constructor-based injection for real objects
+        .mocker().mockito() // or mocker().easyMock()
         .buildRule();
 
     // Declare only the mocks you care about
@@ -62,8 +61,9 @@ private Mockspresso mockspresso;
 
 @Before
 public void setup() {
-  mockspresso = Mockspresso.Builders.simple()
-      .plugin(MockitoPlugin.getInstance()) // or EasyMockPlugin.getInstance()
+  mockspresso = BuildMockspresso.with()
+      .injector().simple()
+      .mocker().mockito()
       .testResourcesWithoutLifecycle(this) // scan 'this' for @Mocks and @RealObjects, but
                                            // don't execute any of its lifecycle methods
       .build(); // use build() instead of buildRule() for a raw instance of Mockspresso
@@ -155,8 +155,9 @@ public class ObjectUnderTest {
 // You can write a test that simply pretends the Provider<> doesn't exist
 public class MyTest {
 
-    @Rule public final Mockspresso.Rule mockspresso = Mockspresso.Builders.javaxInjection()
-        .plugin(/* mocker plugin of preference*/)
+    @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
+        .injector().javax() // use the built-in JavaxInjectMockspressoPlugin
+        .mocker().mockito()
         .buildRule();
 
     // this dependency will automatically be fetched by Provider<MyDependency>
@@ -197,8 +198,9 @@ public class CoffeeMakerTest {
 
     final SharedCoffeeMakerTestResource t = new SharedCoffeeMakerTestResource();
 
-    @Rule public final Mockspresso.Rule mockspresso = Mockspress.Builders.simple()
-        .plugin(MockitoPlugin.getInstance())
+    @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
+        .injector().simple()
+        .mocker().mockito()
         .testResources(t) // resources from t will be mixed in with resources from this test
         .buildRule();
 
@@ -242,12 +244,12 @@ Sometimes you may need to mock multiple instances of the same class or create mu
 ### Plugins
 In mockspresso, a `Plugin` is a simple class to package up multiple calls to a Mockspresso.Builder for related functionality. Mockspresso ships with a few plugins to get started.
 - mockspresso-core
-  - `SimpleInjectMockspressoPlugin` (usually accessed via `Mockspresso.Builders.simple()`): the most basic plugin we have. Applies the `SimpleInjectionConfig` so that mockspresso can create normal (non-DI) POJOs via their constructor. When creating real objects, the constructor with the fewest arguments will be chosen, and no post-processing will be applied.
-  - `JavaxInjectMockspressoPlugin` (usually accessed via `Mockspresso.Builders.javaxInjection()`): create objects that are compatible with `javax.inject` dependency injection frameworks. When creating objects, mockspresso will only select a constructor annotated with @Inject OR (if none is found) a completely empty constructor. After the object is constructed, field/member injection is performed, followed by method injection. This plugin also applies the above-mentioned `ProviderMaker` for special handling of `javax.inject.Provider<>`
+  - `SimpleInjectMockspressoPlugin` (usually accessed via `Mockspresso.Builder.injector().simple()`): the most basic plugin we have. Applies the `SimpleInjectionConfig` so that mockspresso can create normal (non-DI) POJOs via their constructor. When creating real objects, the constructor with the fewest arguments will be chosen, and no post-processing will be applied.
+  - `JavaxInjectMockspressoPlugin` (usually accessed via `Mockspresso.Builder.injector().javax()`): create objects that are compatible with `javax.inject` dependency injection frameworks. When creating objects, mockspresso will only select a constructor annotated with @Inject OR (if none is found) a completely empty constructor. After the object is constructed, field/member injection is performed, followed by method injection. This plugin also applies the above-mentioned `ProviderMaker` for special handling of `javax.inject.Provider<>`
 - mockspresso-mockito
-  - `MockitoPlugin`: Applies the `MockitoMockerConfig` to provide compatibility with mockito.
+  - `MockitoPlugin` (usually accessed via `Mockspresso.Builder.mocker().mockito()`): Applies the `MockitoMockerConfig` to provide compatibility with mockito.
 - mockspresso-easymock
-  - `EasyMockPlugin`: Applies the `EasyMockMockerConfig` to provide compatibility with easymock.
+  - `EasyMockPlugin` (usually accessed via `Mockspresso.Builder.mocker().easyMock()`): Applies the `EasyMockMockerConfig` to provide compatibility with easymock.
 
 ## License
 MIT: https://github.com/episode6/mockspresso/blob/master/LICENSE

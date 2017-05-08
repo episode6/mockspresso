@@ -1,11 +1,9 @@
 package com.episode6.hackit.mockspresso.reflect;
 
-import com.episode6.hackit.mockspresso.DefaultTestRunner;
-import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.annotation.TestQualifierAnnotation;
-import com.episode6.hackit.mockspresso.exception.MultipleQualifierAnnotationException;
+import com.episode6.hackit.mockspresso.reflect.annotation.TestQualifierAnnotation;
+import com.episode6.hackit.mockspresso.reflect.annotation.TestSimpleAnnotation;
+import com.episode6.hackit.mockspresso.reflect.exception.MultipleQualifierAnnotationException;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import javax.inject.Named;
 import javax.inject.Provider;
@@ -17,16 +15,15 @@ import static org.fest.assertions.api.Assertions.assertThat;
 /**
  * Tests {@link DependencyKey}
  */
-@RunWith(DefaultTestRunner.class)
 public class DependencyKeyTest {
 
   @Named("test1") Integer testProp1;
   @Named HashMap<String, Provider<Integer>> testProp2;
-  @Named @RealObject HashMap<String, Provider<Integer>> testProp3;
-  @RealObject @Named HashMap<String, Provider<String>> testProp4;
-  @RealObject @Named("test1") Integer testProp5;
+  @Named @TestSimpleAnnotation HashMap<String, Provider<Integer>> testProp3;
+  @TestSimpleAnnotation @Named HashMap<String, Provider<String>> testProp4;
+  @TestSimpleAnnotation @Named("test1") Integer testProp5;
 
-  @Named @RealObject @TestQualifierAnnotation String badTestProp;
+  @Named @TestSimpleAnnotation @TestQualifierAnnotation String badTestProp;
 
 
   @Test

@@ -1,13 +1,11 @@
 package com.episode6.hackit.mockspresso.reflect;
 
-import com.episode6.hackit.mockspresso.DefaultTestRunner;
-import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.annotation.TestQualifierAnnotation;
-import com.episode6.hackit.mockspresso.exception.MultipleQualifierAnnotationException;
-import com.episode6.hackit.mockspresso.testobject.SubclassTestObject;
-import com.episode6.hackit.mockspresso.testobject.SuperclassTestObject;
+import com.episode6.hackit.mockspresso.reflect.annotation.TestQualifierAnnotation;
+import com.episode6.hackit.mockspresso.reflect.annotation.TestSimpleAnnotation;
+import com.episode6.hackit.mockspresso.reflect.exception.MultipleQualifierAnnotationException;
+import com.episode6.hackit.mockspresso.reflect.testobject.SubclassTestObject;
+import com.episode6.hackit.mockspresso.reflect.testobject.SuperclassTestObject;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Spy;
 
@@ -25,16 +23,15 @@ import static org.junit.Assert.assertTrue;
 /**
  * Tests {@link ReflectUtil}
  */
-@RunWith(DefaultTestRunner.class)
 public class ReflectUtilTest {
 
   @Named("test1") String testProp1;
   @Named String testProp2;
-  @Named @RealObject String testProp3;
-  @RealObject @TestQualifierAnnotation Integer testProp4;
-  @RealObject @Named("test1") Integer testProp5;
+  @Named @TestSimpleAnnotation String testProp3;
+  @TestSimpleAnnotation @TestQualifierAnnotation Integer testProp4;
+  @TestSimpleAnnotation @Named("test1") Integer testProp5;
 
-  @Named @RealObject @TestQualifierAnnotation String badTestProp;
+  @Named @TestSimpleAnnotation @TestQualifierAnnotation String badTestProp;
 
   @Test
   public void testFindQualifierAnnotation() throws IllegalAccessException, InstantiationException {
@@ -81,7 +78,7 @@ public class ReflectUtilTest {
 
     boolean result1 = ReflectUtil.isAnyAnnotationPresent(field, Arrays.asList(Spy.class, TestQualifierAnnotation.class, Mock.class));
     boolean result2 = ReflectUtil.isAnyAnnotationPresent(field, Arrays.asList(Spy.class, Mock.class));
-    boolean result3 = ReflectUtil.isAnyAnnotationPresent(field, Arrays.asList(Mock.class, RealObject.class));
+    boolean result3 = ReflectUtil.isAnyAnnotationPresent(field, Arrays.asList(Mock.class, TestSimpleAnnotation.class));
 
     assertThat(result1).isTrue();
     assertThat(result2).isFalse();

@@ -5,26 +5,23 @@ apply plugin: 'com.episode6.hackit.gdmc'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
-configurations {
-  // add provided deps to testCompile
-  testCompile.extendsFrom compileOnly
-}
-
 dependencies {
-  compile('net.sourceforge.findbugs:jsr305')
-  compile('javax.inject:javax.inject')
-  compile('com.episode6.hackit.chop:chop-core')
+  provided 'junit:junit'
+  compile 'net.sourceforge.findbugs:jsr305'
+  compile 'javax.inject:javax.inject'
 
-  // provided deps
-  compileOnly('junit:junit')
+  // base deps
+  compile project(':mockspresso-api')
+  compile project(':mockspresso-reflect')
 
-  testCompile('org.mockito:mockito-core')
-  testCompile project(':mockspresso-mockito')
+  // built-in plugin deps
+  compile project(':mockspresso-mockito')
+  compile project(':mockspresso-easymock')
 
-  testCompile('org.easymock:easymock')
-  testCompile project(':mockspresso-easymock')
-
-  testCompile('org.easytesting:fest-assert-core')
+  testCompile 'junit:junit'
+  testCompile 'org.mockito:mockito-core'
+  testCompile 'org.easymock:easymock'
+  testCompile 'org.easytesting:fest-assert-core'
 }
 
 test {

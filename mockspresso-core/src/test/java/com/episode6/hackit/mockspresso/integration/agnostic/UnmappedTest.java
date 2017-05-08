@@ -1,5 +1,6 @@
 package com.episode6.hackit.mockspresso.integration.agnostic;
 
+import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
@@ -8,7 +9,6 @@ import com.episode6.hackit.mockspresso.exception.RepeatedDependencyDefinedExcept
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.Coffee;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.CoffeeGrounds;
 import com.episode6.hackit.mockspresso.integration.testobjects.coffee.CoffeeMakers;
-import com.episode6.hackit.mockspresso.mockito.MockitoPlugin;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,8 +27,9 @@ import static org.mockito.Mockito.when;
 @RunWith(DefaultTestRunner.class)
 public class UnmappedTest {
 
-  @Rule public final Mockspresso.Rule mockspresso = Mockspresso.Builders.javaxInjection()
-      .plugin(MockitoPlugin.getInstance())
+  @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
+      .injector().javax()
+      .mocker().mockito()
       .buildRule();
 
   @Mock Provider<CoffeeGrounds> mGroundsProvider;

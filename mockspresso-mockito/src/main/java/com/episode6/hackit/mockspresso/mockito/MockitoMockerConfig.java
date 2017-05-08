@@ -1,6 +1,6 @@
 package com.episode6.hackit.mockspresso.mockito;
 
-import com.episode6.hackit.mockspresso.api.AbstractMockerConfig;
+import com.episode6.hackit.mockspresso.api.MockerConfig;
 import org.mockito.Mock;
 import org.mockito.Spy;
 
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * A MockerConfig for Mockito.
  */
-public class MockitoMockerConfig extends AbstractMockerConfig {
+public class MockitoMockerConfig implements MockerConfig {
 
   // This object has no state, so we maintain a static instance of it
   // instead of creating multiple instances on the fly
@@ -20,10 +20,17 @@ public class MockitoMockerConfig extends AbstractMockerConfig {
     return INSTANCE;
   }
 
-  private MockitoMockerConfig() {
-    super(
-        new MockitoMockMaker(),
-        new MockitoFieldPreparer());
+  private final MockitoMockMaker mMockMaker = new MockitoMockMaker();
+  private final MockitoFieldPreparer mFieldPreparer = new MockitoFieldPreparer();
+
+  @Override
+  public MockMaker provideMockMaker() {
+    return mMockMaker;
+  }
+
+  @Override
+  public FieldPreparer provideFieldPreparer() {
+    return mFieldPreparer;
   }
 
   @Override
