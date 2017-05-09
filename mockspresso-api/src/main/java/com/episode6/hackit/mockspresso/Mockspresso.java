@@ -41,22 +41,7 @@ public interface Mockspresso {
   /**
    * An implementation of Mockspresso that also implements JUnit's {@link MethodRule}.
    */
-  interface Rule extends Mockspresso, MethodRule {
-
-    /**
-     * Chain a {@link TestRule} inside this Mockspresso.Rule
-     * @param testRule The inner test rule to chain
-     * @return this Rule with the new RuleChain applied
-     */
-    Rule chainAround(TestRule testRule);
-
-    /**
-     * Chain a {@link MethodRule} inside this Mockspresso.Rule
-     * @param methodRule The inner test rule to chain
-     * @return this Rule with the new RuleChain applied
-     */
-    Rule chainAround(MethodRule methodRule);
-  }
+  interface Rule extends Mockspresso, MethodRule {}
 
   /**
    * Class used to build Mockspresso and Mockspresso.Rule instances.
@@ -69,6 +54,54 @@ public interface Mockspresso {
      * @return this
      */
     Builder plugin(MockspressoPlugin plugin);
+
+    /**
+     * Treat the resulting {@link Mockspresso.Rule} as a RuleChain, and wrap it using the
+     * supplied testRule as an outerRule.
+     *
+     * Rules are processed in the order they are added to the builder. So the first outerRule
+     * added will be the outermost-rule.
+     *
+     * @param testRule The testRule that should be chained outside the {@link Mockspresso.Rule}
+     * @return this
+     */
+    Builder outerRule(TestRule testRule);
+
+    /**
+     * Treat the resulting {@link Mockspresso.Rule} as a RuleChain, and wrap it using the
+     * supplied testRule as an outerRule.
+     *
+     * Rules are processed in the order they are added to the builder. So the first outerRule
+     * added will be the outermost-rule.
+     *
+     * @param methodRule The methodRule that should be chained outside the {@link Mockspresso.Rule}
+     * @return this
+     */
+    Builder outerRule(MethodRule methodRule);
+
+    /**
+     * Treat the resulting {@link Mockspresso.Rule} as a RuleChain, and wrap the supplied testRule
+     * as an innerRule to mockspresso.
+     *
+     * Rules are processed in the order they are added to the builder. So the first innerRule added
+     * will be the outer-most innerRule.
+     *
+     * @param testRule The testRule that should be chained inside the {@link Mockspresso.Rule}
+     * @return this
+     */
+    Builder innerRule(TestRule testRule);
+
+    /**
+     * Treat the resulting {@link Mockspresso.Rule} as a RuleChain, and wrap the supplied testRule
+     * as an innerRule to mockspresso.
+     *
+     * Rules are processed in the order they are added to the builder. So the first innerRule added
+     * will be the outer-most innerRule.
+     *
+     * @param methodRule The methodRule that should be chained inside the {@link Mockspresso.Rule}
+     * @return this
+     */
+    Builder innerRule(MethodRule methodRule);
 
     /**
      * Scans the included objectWithResources for fields annotated with @Mock and @RealObject, then prepares them
