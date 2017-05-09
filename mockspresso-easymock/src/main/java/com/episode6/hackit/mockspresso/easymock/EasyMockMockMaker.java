@@ -13,6 +13,11 @@ public class EasyMockMockMaker implements MockerConfig.MockMaker {
   @Override
   public <T> T makeMock(TypeToken<T> typeToken) {
     // Using a strict mock by default here doesn't make sense for an auto-mocker
-    return EasyMock.<T>niceMock((Class<T>)typeToken.getRawType());
+    T obj = EasyMock.<T>niceMock((Class<T>)typeToken.getRawType());
+
+    // Since no one holds a reference to these mocks (besides the real object being
+    // injected), they should be returned already in replay mode.
+    EasyMock.replay(obj);
+    return obj;
   }
 }

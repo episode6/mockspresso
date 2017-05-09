@@ -9,7 +9,6 @@ import org.junit.runners.JUnit4;
 import java.util.HashMap;
 
 import static com.episode6.hackit.mockspresso.easymock.Conditions.mockCondition;
-import static org.easymock.EasyMock.*;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 /**
@@ -33,10 +32,8 @@ public class EasyMockMockMakerTest {
         .isNotNull()
         .is(mockCondition());
 
+    // verify runnable can be run without a replay
     runnable.run();
-    replay(runnable);
-    runnable.run();
-    verify(runnable);
   }
 
   @Test
@@ -49,10 +46,8 @@ public class EasyMockMockMakerTest {
         .isNotNull()
         .is(mockCondition());
 
-    expect(hashMap.get("sup")).andReturn(12);
-    replay(hashMap);
+    // verify runnable can be run without a replay and returns a sane default
     Integer retVal = hashMap.get("sup");
-    verify(hashMap);
-    assertThat(retVal).isEqualTo(12);
+    assertThat(retVal).isNull();
   }
 }
