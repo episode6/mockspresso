@@ -1,7 +1,7 @@
 package com.episode6.hackit.mockspresso.testobject;
 
 import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.annotation.TestQualifierAnnotation;
+import com.episode6.hackit.mockspresso.testing.testobjects.TestQualifierAnnotation;
 import org.mockito.Mock;
 
 /**

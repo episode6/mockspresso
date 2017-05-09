@@ -2,7 +2,7 @@ package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.annotation.TestQualifierAnnotation;
+import com.episode6.hackit.mockspresso.testing.testobjects.TestQualifierAnnotation;
 import com.episode6.hackit.mockspresso.annotation.Unmapped;
 import com.episode6.hackit.mockspresso.reflect.AnnotationLiteral;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;

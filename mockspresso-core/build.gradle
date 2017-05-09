@@ -18,9 +18,9 @@ dependencies {
   compile project(':mockspresso-mockito')
   compile project(':mockspresso-easymock')
 
+  testCompile project(':mockspresso-testing-shared')
   testCompile 'junit:junit'
   testCompile 'org.mockito:mockito-core'
-  testCompile 'org.easymock:easymock'
   testCompile 'org.easytesting:fest-assert-core'
 }
 
