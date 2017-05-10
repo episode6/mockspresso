@@ -7,6 +7,8 @@ import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
+import org.junit.rules.MethodRule;
+import org.junit.rules.TestRule;
 
 import javax.annotation.Nullable;
 import javax.inject.Provider;
@@ -44,6 +46,26 @@ class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implements Mo
   public Builder plugin(MockspressoPlugin plugin) {
     mBuilder.plugin(plugin);
     return this;
+  }
+
+  @Override
+  public Builder outerRule(TestRule testRule) {
+    throw new VerifyError("Can't build a new mockspresso @Rule on top of an existing one.");
+  }
+
+  @Override
+  public Builder outerRule(MethodRule methodRule) {
+    throw new VerifyError("Can't build a new mockspresso @Rule on top of an existing one.");
+  }
+
+  @Override
+  public Builder innerRule(TestRule testRule) {
+    throw new VerifyError("Can't build a new mockspresso @Rule on top of an existing one.");
+  }
+
+  @Override
+  public Builder innerRule(MethodRule methodRule) {
+    throw new VerifyError("Can't build a new mockspresso @Rule on top of an existing one.");
   }
 
   @Override

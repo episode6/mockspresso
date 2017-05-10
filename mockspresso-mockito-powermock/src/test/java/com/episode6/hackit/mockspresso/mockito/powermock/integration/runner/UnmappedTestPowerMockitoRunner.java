@@ -1,4 +1,4 @@
-package com.episode6.hackit.mockspresso.mockito.integration;
+package com.episode6.hackit.mockspresso.mockito.powermock.integration.runner;
 
 import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
@@ -10,11 +10,14 @@ import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeGrounds;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeMakers;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import javax.inject.Provider;
 
-import static com.episode6.hackit.mockspresso.mockito.Conditions.mockCondition;
+import static com.episode6.hackit.mockspresso.mockito.powermock.Conditions.mockCondition;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -22,11 +25,13 @@ import static org.mockito.Mockito.when;
  * Ensures that we can mock multiple mocks of the same type / key if we
  * use the @Unmapped annotation.
  */
-public class UnmappedTest {
+@PrepareForTest(UnmappedTestPowerMockitoRunner.TestClass.class)
+@RunWith(PowerMockRunner.class)
+public class UnmappedTestPowerMockitoRunner {
 
   @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
       .injector().javax()
-      .mocker().mockito()
+      .mocker().mockitoWithPowerMock()
       .buildRule();
 
   @Mock Provider<CoffeeGrounds> mGroundsProvider;
@@ -124,5 +129,5 @@ public class UnmappedTest {
     @RealObject TestClass mTestClass1;
   }
 
-  private static class TestClass {}
+  static final class TestClass {}
 }

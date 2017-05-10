@@ -27,7 +27,7 @@ public class ProviderMakerTest {
 
   @Mock DependencyProvider mDependencyProvider;
 
-  private final ProviderMaker mProviderMaker = ProviderMaker.getInstance();
+  private final ProviderMaker mProviderMaker = new ProviderMaker();
 
   @Before
   public void setup() {

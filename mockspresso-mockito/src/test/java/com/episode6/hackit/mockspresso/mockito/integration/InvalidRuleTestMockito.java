@@ -14,7 +14,7 @@ import static org.mockito.Mockito.verifyZeroInteractions;
 /**
  * Tests how a mockspresso rule acts when not properly annotated (i.e. never applied)
  */
-public class InvalidRuleTest {
+public class InvalidRuleTestMockito {
 
   private final TestClass mInitializerWithFields = new TestClass();
 

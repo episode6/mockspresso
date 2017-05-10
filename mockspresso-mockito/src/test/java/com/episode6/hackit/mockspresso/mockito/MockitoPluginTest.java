@@ -22,7 +22,7 @@ public class MockitoPluginTest {
 
   @Mock Mockspresso.Builder mBuilder;
 
-  private final MockitoPlugin mPlugin = MockitoPlugin.getInstance();
+  private final MockitoPlugin mPlugin = new MockitoPlugin();
 
   @Before
   public void setup() {
@@ -34,7 +34,7 @@ public class MockitoPluginTest {
   public void testConfigInstalled() {
     Mockspresso.Builder returnedBuilder = mPlugin.apply(mBuilder);
 
-    verify(mBuilder).mocker(MockitoMockerConfig.getInstance());
+    verify(mBuilder).mocker(any(MockitoMockerConfig.class));
     assertThat(returnedBuilder)
         .isNotNull()
         .isEqualTo(mBuilder);

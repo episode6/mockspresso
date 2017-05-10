@@ -10,6 +10,8 @@ import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import com.episode6.hackit.mockspresso.util.CollectionUtil;
 import com.episode6.hackit.mockspresso.util.Preconditions;
+import org.junit.rules.MethodRule;
+import org.junit.rules.TestRule;
 
 import javax.annotation.Nullable;
 import javax.inject.Provider;
@@ -38,6 +40,8 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   private @Nullable MockerConfig mMockerConfig;
   private @Nullable InjectionConfig mInjectionConfig;
 
+  private final RuleConfig mRuleConfig;
+
   private MockspressoBuilderImpl() {
     mTestResources = new LinkedHashSet<>();
     mDependencyMap = new DependencyMap();
@@ -46,6 +50,8 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
     mMockerConfig = null;
     mInjectionConfig = null;
+
+    mRuleConfig = new RuleConfig();
   }
 
   // make a "deep" copy of a MockspressoBuilderImpl
@@ -57,6 +63,8 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
     mMockerConfig = copyFrom.mMockerConfig;
     mInjectionConfig = copyFrom.mInjectionConfig;
+
+    mRuleConfig = copyFrom.mRuleConfig.deepCopy();
   }
 
   MockspressoBuilderImpl deepCopy() {
@@ -79,6 +87,30 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   @Override
   public Mockspresso.Builder plugin(MockspressoPlugin plugin) {
     return plugin.apply(this);
+  }
+
+  @Override
+  public Mockspresso.Builder outerRule(TestRule testRule) {
+    mRuleConfig.addOuterRule(testRule);
+    return this;
+  }
+
+  @Override
+  public Mockspresso.Builder outerRule(MethodRule methodRule) {
+    mRuleConfig.addOuterRule(methodRule);
+    return this;
+  }
+
+  @Override
+  public Mockspresso.Builder innerRule(TestRule testRule) {
+    mRuleConfig.addInnerRule(testRule);
+    return this;
+  }
+
+  @Override
+  public Mockspresso.Builder innerRule(MethodRule methodRule) {
+    mRuleConfig.addInnerRule(methodRule);
+    return this;
   }
 
   public Mockspresso.Builder testResources(Object objectWithResources) {
@@ -170,6 +202,9 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   @Override
   public Mockspresso build() {
+    if (!mRuleConfig.isEmpty()) {
+      throw new VerifyError("Tried to add JUnit Rules to a non-rule mockspresso instance.");
+    }
     MockspressoInternal instance = deepCopy().buildInternal();
     instance.getConfig().setup(instance);
     return instance;
@@ -179,7 +214,8 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   public Mockspresso.Rule buildRule() {
     return new MockspressoRuleImpl(
         deepCopy(),
-        PROVIDER);
+        PROVIDER,
+        mRuleConfig.deepCopy());
   }
 
   MockspressoInternal buildInternal() {

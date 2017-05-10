@@ -19,7 +19,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(DefaultTestRunner.class)
 public class JavaxInjectionConfigTest {
 
-  private final JavaxInjectionConfig mInjectionConfig = JavaxInjectionConfig.getInstance();
+  private final JavaxInjectionConfig mInjectionConfig = new JavaxInjectionConfig();
 
   @Test
   public void testHasOnlyInjectAnnotation() {

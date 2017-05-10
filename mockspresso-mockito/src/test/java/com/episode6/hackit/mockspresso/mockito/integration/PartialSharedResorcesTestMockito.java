@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
  * Tests that mockspresso shared resources are combined with resources from the test itself
  */
 @RunWith(JUnit4.class)
-public class PartialSharedResorcesTest {
+public class PartialSharedResorcesTestMockito {
 
   private final PartialSharedResources t = new PartialSharedResources();
   @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()

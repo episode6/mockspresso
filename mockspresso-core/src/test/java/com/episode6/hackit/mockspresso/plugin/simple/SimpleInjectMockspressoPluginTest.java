@@ -22,7 +22,7 @@ public class SimpleInjectMockspressoPluginTest {
 
   @Mock Mockspresso.Builder mBuilder;
 
-  private final SimpleInjectMockspressoPlugin mPlugin = SimpleInjectMockspressoPlugin.getInstance();
+  private final SimpleInjectMockspressoPlugin mPlugin = new SimpleInjectMockspressoPlugin();
 
   @Before
   public void setup() {
@@ -34,7 +34,7 @@ public class SimpleInjectMockspressoPluginTest {
   public void testInjectionConfigSet() {
     Mockspresso.Builder returnedBuilder = mPlugin.apply(mBuilder);
 
-    verify(mBuilder).injector(SimpleInjectionConfig.getInstance());
+    verify(mBuilder).injector(any(SimpleInjectionConfig.class));
     assertThat(returnedBuilder)
         .isNotNull()
         .isEqualTo(mBuilder);

@@ -1,25 +1,26 @@
-package com.episode6.hackit.mockspresso.easymock.integration;
+package com.episode6.hackit.mockspresso.mockito.powermock.integration.runner;
 
 import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
-import org.easymock.Mock;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 
-import static org.easymock.EasyMock.createMock;
 import static org.fest.assertions.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verifyZeroInteractions;
 
 /**
  * Tests how a mockspresso rule acts when not properly annotated (i.e. never applied)
  */
-public class InvalidRuleTest {
+public class InvalidRuleTestPowerMockitoRunner {
 
   private final TestClass mInitializerWithFields = new TestClass();
 
   public final Mockspresso.Rule invalidMockspresso = BuildMockspresso.with()
       .injector().simple()
-      .mocker().easyMock()
+      .mocker().mockitoWithPowerMock()
       .testResources(mInitializerWithFields)
       .buildRule();
 
@@ -27,7 +28,7 @@ public class InvalidRuleTest {
 
   @Before
   public void setup() {
-    notifier = createMock(Notifier.class);
+    notifier = mock(Notifier.class);
   }
 
   @Test(expected = NullPointerException.class)
@@ -52,7 +53,7 @@ public class InvalidRuleTest {
 
   @Test
   public void testInitializerNotRun() {
-    // empty
+    verifyZeroInteractions(notifier);
   }
 
   @Test
