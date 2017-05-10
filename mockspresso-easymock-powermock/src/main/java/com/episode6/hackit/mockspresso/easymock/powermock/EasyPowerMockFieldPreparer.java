@@ -4,6 +4,8 @@ import com.episode6.hackit.mockspresso.api.MockerConfig;
 import com.episode6.hackit.mockspresso.reflect.ReflectUtil;
 import org.easymock.Mock;
 import org.powermock.api.easymock.PowerMock;
+import org.powermock.api.easymock.annotation.MockNice;
+import org.powermock.api.easymock.annotation.MockStrict;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -33,9 +35,16 @@ public class EasyPowerMockFieldPreparer implements MockerConfig.FieldPreparer {
         field.setAccessible(true);
       }
 
-      Object value = field.get(objectWithMockFields);
-      if (value == null && field.isAnnotationPresent(Mock.class)) {
+      if (field.get(objectWithMockFields) != null) {
+        continue;
+      }
+
+      if (field.isAnnotationPresent(Mock.class) || field.isAnnotationPresent(org.powermock.api.easymock.annotation.Mock.class)) {
         field.set(objectWithMockFields, PowerMock.createMock(field.getType()));
+      } else if (field.isAnnotationPresent(MockNice.class)) {
+        field.set(objectWithMockFields, PowerMock.createNiceMock(field.getType()));
+      } else if (field.isAnnotationPresent(MockStrict.class)) {
+        field.set(objectWithMockFields, PowerMock.createStrictMock(field.getType()));
       }
     }
   }

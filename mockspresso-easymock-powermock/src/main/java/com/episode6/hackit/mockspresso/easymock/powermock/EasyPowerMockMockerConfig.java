@@ -2,9 +2,11 @@ package com.episode6.hackit.mockspresso.easymock.powermock;
 
 import com.episode6.hackit.mockspresso.api.MockerConfig;
 import org.easymock.Mock;
+import org.powermock.api.easymock.annotation.MockNice;
+import org.powermock.api.easymock.annotation.MockStrict;
 
 import java.lang.annotation.Annotation;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -27,6 +29,10 @@ public class EasyPowerMockMockerConfig implements MockerConfig {
 
   @Override
   public List<Class<? extends Annotation>> provideMockAnnotations() {
-    return Collections.<Class<? extends Annotation>>singletonList(Mock.class);
+    return Arrays.asList(
+        Mock.class,
+        org.powermock.api.easymock.annotation.Mock.class,
+        MockStrict.class,
+        MockNice.class);
   }
 }
