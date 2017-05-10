@@ -295,6 +295,11 @@ public interface Mockspresso {
      * Requires your project have a dependency on org.easymock:easymock v3.4,
      * org.powermock:powermock-api-mockito2, and org.powermock:powermock-module-junit4 v1.7.0+.
      * Also requires your test be runWith the PowerMockRunner
+     *
+     * WARNING, the @org.easymock.Mock annotation may not work correctly when using Mockspresso +
+     * easymock + PowerMockRunner, as easymock overwrites Mockspresso's annotated mocks at the last minute.
+     * To work around this problem, use powermock's @Mock, @MockNice and @MockStrict annotations instead.
+     *
      * @return The {@link Builder} for your mockspresso instance
      */
     Builder easyMockWithPowermock();
