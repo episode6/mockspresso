@@ -1,4 +1,4 @@
-package com.episode6.hackit.mockspresso.mockito.powermock.integration.runner;
+package com.episode6.hackit.mockspresso.mockito.powermock.integration.rule;
 
 import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
@@ -10,8 +10,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 import org.mockito.Mock;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -19,13 +19,13 @@ import static org.mockito.Mockito.when;
 /**
  * Tests that mockspresso shared resources are combined with resources from the test itself
  */
-@RunWith(PowerMockRunner.class)
-public class PartialSharedResorcesTest {
+@RunWith(JUnit4.class)
+public class PartialSharedResorcesTestPowerMockitoRule {
 
   private final PartialSharedResources t = new PartialSharedResources();
   @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
       .injector().javax()
-      .mocker().mockitoWithPowermock()
+      .mocker().mockitoWithPowermockRule()
       .testResources(t)
       .buildRule();
 

@@ -24,7 +24,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
  * We also demonstrate the use of resource sharing via {@link #t}
  */
 @RunWith(JUnit4.class)
-public class CoffeeMakersPumpTestMockito {
+public class CoffeeMakersPumpTestPowerMockitoRule {
 
   private final PumpTestResources t = new PumpTestResources();
   @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()

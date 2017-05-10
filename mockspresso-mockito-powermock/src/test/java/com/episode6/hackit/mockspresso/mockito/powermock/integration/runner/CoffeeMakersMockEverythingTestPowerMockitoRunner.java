@@ -31,7 +31,7 @@ import static org.mockito.Mockito.when;
  * of DI-compatible objects
  */
 @RunWith(PowerMockRunner.class)
-public class CoffeeMakersMockEverythingTestMockito {
+public class CoffeeMakersMockEverythingTestPowerMockitoRunner {
 
   @Rule public final Mockspresso.Rule simpleMockspresso = BuildMockspresso.with()
       .injector().simple()

@@ -1,4 +1,4 @@
-package com.episode6.hackit.mockspresso.mockito.powermock.integration.runner;
+package com.episode6.hackit.mockspresso.mockito.powermock.integration.rule;
 
 import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
@@ -8,17 +8,17 @@ import com.episode6.hackit.mockspresso.testing.testobjects.CircularDependencies;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.junit.runners.JUnit4;
 
 /**
  * Tests {@link CircularDependencies}
  */
-@RunWith(PowerMockRunner.class)
-public class CircularDependencyTestMockito {
+@RunWith(JUnit4.class)
+public class CircularDependencyTestPowerMockitoRule {
 
   @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
       .injector().javax()
-      .mocker().mockitoWithPowermock()
+      .mocker().mockitoWithPowermockRule()
       .buildRule();
 
   @Test(expected = CircularDependencyError.class)

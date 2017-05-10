@@ -6,7 +6,7 @@ import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Heater;
 import org.mockito.Mock;
 
 /**
- * Resources for the {@link PartialSharedResorcesTest}
+ * Resources for the {@link PartialSharedResorcesTestPowerMockitoRule}
  */
 public class PartialSharedResources {
 

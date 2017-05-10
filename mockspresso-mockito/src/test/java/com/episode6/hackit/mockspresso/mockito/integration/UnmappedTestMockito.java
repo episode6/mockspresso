@@ -1,4 +1,4 @@
-package com.episode6.hackit.mockspresso.easymock.integration;
+package com.episode6.hackit.mockspresso.mockito.integration;
 
 import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
@@ -8,26 +8,25 @@ import com.episode6.hackit.mockspresso.exception.RepeatedDependencyDefinedExcept
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Coffee;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeGrounds;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeMakers;
-import org.easymock.Mock;
 import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.Mock;
 
 import javax.inject.Provider;
 
-import static com.episode6.hackit.mockspresso.easymock.Conditions.mockCondition;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.replay;
+import static com.episode6.hackit.mockspresso.mockito.Conditions.mockCondition;
 import static org.fest.assertions.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 /**
  * Ensures that we can mock multiple mocks of the same type / key if we
  * use the @Unmapped annotation.
  */
-public class UnmappedTest {
+public class UnmappedTestMockito {
 
   @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
       .injector().javax()
-      .mocker().easyMock()
+      .mocker().mockito()
       .buildRule();
 
   @Mock Provider<CoffeeGrounds> mGroundsProvider;
@@ -44,8 +43,7 @@ public class UnmappedTest {
 
   @Test
   public void testGroundsNotReused() {
-    expect(mGroundsProvider.get()).andReturn(mFirstGrounds).andReturn(mSecondGrounds);
-    replay(mGroundsProvider);
+    when(mGroundsProvider.get()).thenReturn(mFirstGrounds).thenReturn(mSecondGrounds);
 
     Coffee firstCup = mCoffeeMaker.brew();
     Coffee secondCup = mCoffeeMaker.brew();

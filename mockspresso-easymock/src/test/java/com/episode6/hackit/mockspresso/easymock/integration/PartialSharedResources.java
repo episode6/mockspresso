@@ -10,7 +10,7 @@ import org.junit.Before;
 import static org.easymock.EasyMock.*;
 
 /**
- * Resources for the {@link PartialSharedResorcesTest}
+ * Resources for the {@link PartialSharedResorcesTestEasyMock}
  */
 public class PartialSharedResources {
 

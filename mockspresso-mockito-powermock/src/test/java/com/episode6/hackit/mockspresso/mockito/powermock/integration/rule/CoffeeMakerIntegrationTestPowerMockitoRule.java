@@ -1,4 +1,4 @@
-package com.episode6.hackit.mockspresso.mockito.powermock.integration.runner;
+package com.episode6.hackit.mockspresso.mockito.powermock.integration.rule;
 
 import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
@@ -8,7 +8,7 @@ import com.episode6.hackit.mockspresso.testing.testobjects.coffee.*;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.junit.runners.JUnit4;
 
 import javax.inject.Named;
 
@@ -22,12 +22,12 @@ import static org.fest.assertions.api.Assertions.assertThat;
  * Technically this test doesn't even touch the MockerConfig, our two  versions are
  * just a sanity check.
  */
-@RunWith(PowerMockRunner.class)
-public class CoffeeMakerIntegrationTestMockito {
+@RunWith(JUnit4.class)
+public class CoffeeMakerIntegrationTestPowerMockitoRule {
 
   @Rule public final Mockspresso.Rule simpleMockspresso = BuildMockspresso.with()
       .injector().simple()
-      .mocker().mockitoWithPowermock()
+      .mocker().mockitoWithPowermockRule()
       .realObject(DependencyKey.of(Heater.class), CoffeeMakerComponents.RealHeater.class)
       .realObject(DependencyKey.of(Pump.class), CoffeeMakerComponents.RealWaterPump.class)
       .buildRule();
