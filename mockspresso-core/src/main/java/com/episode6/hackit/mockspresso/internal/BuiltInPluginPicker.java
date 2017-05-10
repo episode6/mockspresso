@@ -36,6 +36,28 @@ class BuiltInPluginPicker implements Mockspresso.MockerPicker, Mockspresso.Injec
   }
 
   @Override
+  public Mockspresso.Builder mockitoWithPowermock() {
+    try {
+      return mBuilder.plugin(new com.episode6.hackit.mockspresso.mockito.powermock.PowerMockitoPlugin());
+    } catch (NoClassDefFoundError e) {
+      throw new MissingDependencyError(
+          "powermock-api-mockito2 or powermock-module-junit4 v1.7.0",
+          e);
+    }
+  }
+
+  @Override
+  public Mockspresso.Builder mockitoWithPowermockRule() {
+    try {
+      return mBuilder.plugin(new com.episode6.hackit.mockspresso.mockito.powermock.PowerMockitoRulePlugin());
+    } catch (NoClassDefFoundError e) {
+      throw new MissingDependencyError(
+          "org.mockito:mockito-core v2.x, org.powermock:powermock-api-mockito2, powermock-module-junit4 or powermock-module-junit4-rule v1.7.0",
+          e);
+    }
+  }
+
+  @Override
   public Mockspresso.Builder simple() {
     return mBuilder.plugin(com.episode6.hackit.mockspresso.plugin.simple.SimpleInjectMockspressoPlugin.getInstance());
   }

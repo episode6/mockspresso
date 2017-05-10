@@ -271,6 +271,24 @@ public interface Mockspresso {
      * @return The {@link Builder} for your mockspresso instance
      */
     Builder easyMock();
+
+    /**
+     * Applies the {@link MockerConfig} for Powermock + Mockito.
+     * Requires your project have a dependency on org.mockito:mockito-core v2.x,
+     * org.powermock:powermock-api-mockito2, and org.powermock:powermock-module-junit4 v1.7.0+.
+     * Also requires your test be runWith the PowerMockRunner
+     * @return The {@link Builder} for your mockspresso instance
+     */
+    Builder mockitoWithPowermock();
+
+    /**
+     * Applies the {@link MockerConfig} for Powermock + Mockito AND applies a PowerMockRule as
+     * an outerRule to Mockspresso, so theres no need to use the PowerMockRunner
+     * Requires your project have the same dependencies as {@link #mockitoWithPowermock()}
+     * PLUS org.powermock:powermock-module-junit4-rule and org.powermock:powermock-classloading-xstream
+     * @return The {@link Builder} for your mockspresso instance
+     */
+    Builder mockitoWithPowermockRule();
   }
 
   /**

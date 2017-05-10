@@ -35,6 +35,30 @@ public class LoadPluginTest {
         });
   }
 
+  @Test
+  public void testPowerMockito() {
+    doTest(
+        "powermock-api-mockito2 or powermock-module-junit4 v1.7.0",
+        new Runnable() {
+          @Override
+          public void run() {
+            BuildMockspresso.with().mocker().mockitoWithPowermock();
+          }
+        });
+  }
+
+  @Test
+  public void testPowerMockitoRule() {
+    doTest(
+        "org.mockito:mockito-core v2.x, org.powermock:powermock-api-mockito2, powermock-module-junit4 or powermock-module-junit4-rule v1.7.0",
+        new Runnable() {
+          @Override
+          public void run() {
+            BuildMockspresso.with().mocker().mockitoWithPowermockRule();
+          }
+        });
+  }
+
   private void doTest(String expectedDependency, Runnable runnable) {
     try {
       runnable.run();

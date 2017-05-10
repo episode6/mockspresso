@@ -6,22 +6,19 @@ sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 dependencies {
-  provided 'junit:junit'
-  compile 'net.sourceforge.findbugs:jsr305'
-  compile 'javax.inject:javax.inject'
-
-  // base deps
   compile project(':mockspresso-api')
-  compile project(':mockspresso-reflect')
+  compile 'net.sourceforge.findbugs:jsr305'
 
-  // built-in plugin deps
-  compile project(':mockspresso-mockito')
-  compile project(':mockspresso-easymock')
-  compile project(':mockspresso-mockito-powermock')
+  compile 'org.mockito:mockito-core', optional
+  compile 'org.powermock:powermock-module-junit4', optional
+  compile 'org.powermock:powermock-api-mockito2', optional
+  compile 'org.powermock:powermock-module-junit4-rule', optional
+  compile 'org.powermock:powermock-classloading-xstream', optional
 
+  testCompile project(':mockspresso-core')
   testCompile project(':mockspresso-testing-shared')
+
   testCompile 'junit:junit'
-  testCompile 'org.mockito:mockito-core'
   testCompile 'org.easytesting:fest-assert-core'
 }
 
