@@ -4,6 +4,8 @@ import org.easymock.Mock;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.powermock.api.easymock.annotation.MockNice;
+import org.powermock.api.easymock.annotation.MockStrict;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -19,7 +21,11 @@ public class EasyPowerMockMockerConfigTest {
   @Test
   public void testIncludedAnnotations() {
     assertThat(mEasyMockConfig.provideMockAnnotations())
-        .contains(Mock.class);
+        .contains(
+            Mock.class,
+            org.powermock.api.easymock.annotation.Mock.class,
+            MockNice.class,
+            MockStrict.class);
   }
 
   @Test
