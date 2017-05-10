@@ -3,4 +3,7 @@ include ':mockspresso-api',
     ':mockspresso-core',
     ':mockspresso-easymock',
     ':mockspresso-mockito',
-    ':missingclass-tests'
+    ':mockspresso-mockito-powermock',
+    ':mockspresso-easymock-powermock',
+    ':missingclass-tests',
+    ':mockspresso-testing-shared'

@@ -35,6 +35,54 @@ public class LoadPluginTest {
         });
   }
 
+  @Test
+  public void testPowerMockito() {
+    doTest(
+        "org.mockito:mockito-core v2.x, org.powermock:powermock-api-mockito2 or powermock-module-junit4 v1.7.0",
+        new Runnable() {
+          @Override
+          public void run() {
+            BuildMockspresso.with().mocker().mockitoWithPowerMock();
+          }
+        });
+  }
+
+  @Test
+  public void testPowerMockitoRule() {
+    doTest(
+        "org.mockito:mockito-core v2.x, org.powermock:powermock-api-mockito2, powermock-module-junit4 or powermock-module-junit4-rule v1.7.0",
+        new Runnable() {
+          @Override
+          public void run() {
+            BuildMockspresso.with().mocker().mockitoWithPowerMockRule();
+          }
+        });
+  }
+
+  @Test
+  public void testEasyPowerMock() {
+    doTest(
+        "org.easymock:easymock v3.4, org.powermock:powermock-api-easymock or powermock-module-junit4 v1.7.0",
+        new Runnable() {
+          @Override
+          public void run() {
+            BuildMockspresso.with().mocker().easyMockWithPowerMock();
+          }
+        });
+  }
+
+  @Test
+  public void testEasyPowerMockRule() {
+    doTest(
+        "org.easymock:easymock v3.4, org.powermock:powermock-api-easymock, powermock-module-junit4 or powermock-module-junit4-rule v1.7.0",
+        new Runnable() {
+          @Override
+          public void run() {
+            BuildMockspresso.with().mocker().easyMockWithPowerMockRule();
+          }
+        });
+  }
+
   private void doTest(String expectedDependency, Runnable runnable) {
     try {
       runnable.run();

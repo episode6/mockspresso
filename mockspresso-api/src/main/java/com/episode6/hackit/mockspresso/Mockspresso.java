@@ -41,22 +41,7 @@ public interface Mockspresso {
   /**
    * An implementation of Mockspresso that also implements JUnit's {@link MethodRule}.
    */
-  interface Rule extends Mockspresso, MethodRule {
-
-    /**
-     * Chain a {@link TestRule} inside this Mockspresso.Rule
-     * @param testRule The inner test rule to chain
-     * @return this Rule with the new RuleChain applied
-     */
-    Rule chainAround(TestRule testRule);
-
-    /**
-     * Chain a {@link MethodRule} inside this Mockspresso.Rule
-     * @param methodRule The inner test rule to chain
-     * @return this Rule with the new RuleChain applied
-     */
-    Rule chainAround(MethodRule methodRule);
-  }
+  interface Rule extends Mockspresso, MethodRule {}
 
   /**
    * Class used to build Mockspresso and Mockspresso.Rule instances.
@@ -69,6 +54,54 @@ public interface Mockspresso {
      * @return this
      */
     Builder plugin(MockspressoPlugin plugin);
+
+    /**
+     * Treat the resulting {@link Mockspresso.Rule} as a RuleChain, and wrap it using the
+     * supplied testRule as an outerRule.
+     *
+     * Rules are processed in the order they are added to the builder. So the first outerRule
+     * added will be the outermost-rule.
+     *
+     * @param testRule The testRule that should be chained outside the {@link Mockspresso.Rule}
+     * @return this
+     */
+    Builder outerRule(TestRule testRule);
+
+    /**
+     * Treat the resulting {@link Mockspresso.Rule} as a RuleChain, and wrap it using the
+     * supplied testRule as an outerRule.
+     *
+     * Rules are processed in the order they are added to the builder. So the first outerRule
+     * added will be the outermost-rule.
+     *
+     * @param methodRule The methodRule that should be chained outside the {@link Mockspresso.Rule}
+     * @return this
+     */
+    Builder outerRule(MethodRule methodRule);
+
+    /**
+     * Treat the resulting {@link Mockspresso.Rule} as a RuleChain, and wrap the supplied testRule
+     * as an innerRule to mockspresso.
+     *
+     * Rules are processed in the order they are added to the builder. So the first innerRule added
+     * will be the outer-most innerRule.
+     *
+     * @param testRule The testRule that should be chained inside the {@link Mockspresso.Rule}
+     * @return this
+     */
+    Builder innerRule(TestRule testRule);
+
+    /**
+     * Treat the resulting {@link Mockspresso.Rule} as a RuleChain, and wrap the supplied testRule
+     * as an innerRule to mockspresso.
+     *
+     * Rules are processed in the order they are added to the builder. So the first innerRule added
+     * will be the outer-most innerRule.
+     *
+     * @param methodRule The methodRule that should be chained inside the {@link Mockspresso.Rule}
+     * @return this
+     */
+    Builder innerRule(MethodRule methodRule);
 
     /**
      * Scans the included objectWithResources for fields annotated with @Mock and @RealObject, then prepares them
@@ -238,6 +271,47 @@ public interface Mockspresso {
      * @return The {@link Builder} for your mockspresso instance
      */
     Builder easyMock();
+
+    /**
+     * Applies the {@link MockerConfig} for Powermock + Mockito.
+     * Requires your project have a dependency on org.mockito:mockito-core v2.x,
+     * org.powermock:powermock-api-mockito2, and org.powermock:powermock-module-junit4 v1.7.0+.
+     * Also requires your test be runWith the PowerMockRunner
+     * @return The {@link Builder} for your mockspresso instance
+     */
+    Builder mockitoWithPowerMock();
+
+    /**
+     * Applies the {@link MockerConfig} for Powermock + Mockito AND applies a PowerMockRule as
+     * an outerRule to Mockspresso, so theres no need to use the PowerMockRunner
+     * Requires your project have the same dependencies as {@link #mockitoWithPowerMock()}
+     * PLUS org.powermock:powermock-module-junit4-rule and org.powermock:powermock-classloading-xstream
+     * @return The {@link Builder} for your mockspresso instance
+     */
+    Builder mockitoWithPowerMockRule();
+
+    /**
+     * Applies the {@link MockerConfig} for Powermock + EasyMock.
+     * Requires your project have a dependency on org.easymock:easymock v3.4,
+     * org.powermock:powermock-api-mockito2, and org.powermock:powermock-module-junit4 v1.7.0+.
+     * Also requires your test be runWith the PowerMockRunner
+     *
+     * WARNING, the @org.easymock.Mock annotation may not work correctly when using Mockspresso +
+     * easymock + PowerMockRunner, as easymock overwrites Mockspresso's annotated mocks at the last minute.
+     * To work around this problem, use powermock's @Mock, @MockNice and @MockStrict annotations instead.
+     *
+     * @return The {@link Builder} for your mockspresso instance
+     */
+    Builder easyMockWithPowerMock();
+
+    /**
+     * Applies the {@link MockerConfig} for Powermock + EasyMock AND applies a PowerMockRule as
+     * an outerRule to Mockspresso, so theres no need to use the PowerMockRunner
+     * Requires your project have the same dependencies as {@link #easyMockWithPowerMock()}
+     * PLUS org.powermock:powermock-module-junit4-rule and org.powermock:powermock-classloading-xstream
+     * @return The {@link Builder} for your mockspresso instance
+     */
+    Builder easyMockWithPowerMockRule();
   }
 
   /**

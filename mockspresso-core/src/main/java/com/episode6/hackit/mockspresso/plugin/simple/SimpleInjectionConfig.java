@@ -15,16 +15,7 @@ import java.util.List;
  */
 public class SimpleInjectionConfig implements InjectionConfig {
 
-  // This object has no state, so we maintain a static instance of it
-  // instead of creating multiple instances on the fly
-  private static final SimpleInjectionConfig INSTANCE = new SimpleInjectionConfig();
-  public static SimpleInjectionConfig getInstance() {
-    return INSTANCE;
-  }
-
   private final ConstructorSelector mConstructorSelector = new SimpleConstructorSelector();
-
-  private SimpleInjectionConfig() {}
 
   @Override
   public ConstructorSelector provideConstructorSelector() {

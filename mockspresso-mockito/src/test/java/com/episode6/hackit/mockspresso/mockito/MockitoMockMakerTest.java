@@ -11,7 +11,6 @@ import java.util.HashMap;
 import static com.episode6.hackit.mockspresso.mockito.Conditions.mockCondition;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * Tests {@link MockitoMockMaker}
@@ -48,9 +47,8 @@ public class MockitoMockMakerTest {
         .isNotNull()
         .is(mockCondition());
 
-    when(hashMap.get("sup")).thenReturn(12);
     Integer retVal = hashMap.get("sup");
     verify(hashMap).get("sup");
-    assertThat(retVal).isEqualTo(12);
+    assertThat(retVal).isNull();
   }
 }

@@ -14,7 +14,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(JUnit4.class)
 public class MockitoMockerConfigTest {
 
-  private final MockitoMockerConfig mMockitoConfig = MockitoMockerConfig.getInstance();
+  private final MockitoMockerConfig mMockitoConfig = new MockitoMockerConfig();
 
   @SuppressWarnings("unchecked")
   @Test

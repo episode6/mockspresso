@@ -17,7 +17,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(DefaultTestRunner.class)
 public class SimpleInjectionConfigTest {
 
-  private SimpleInjectionConfig mSimpleInjectionConfig = SimpleInjectionConfig.getInstance();
+  private SimpleInjectionConfig mSimpleInjectionConfig = new SimpleInjectionConfig();
 
   @Test
   public void testFindSmalledConstructor() {

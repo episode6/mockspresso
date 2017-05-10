@@ -26,6 +26,7 @@ public class MockitoFieldPreparerTest {
 
     }
   };
+  @Spy Runnable mSpyRunnable2;
 
   @Before
   public void setup() {
@@ -40,6 +41,9 @@ public class MockitoFieldPreparerTest {
         .isNotNull()
         .is(mockCondition());
     assertThat(mSpyRunnable)
+        .isNotNull()
+        .is(spyCondition());
+    assertThat(mSpyRunnable2)
         .isNotNull()
         .is(spyCondition());
   }

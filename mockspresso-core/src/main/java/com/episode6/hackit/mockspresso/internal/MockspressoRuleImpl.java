@@ -1,9 +1,7 @@
 package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
-import com.episode6.hackit.mockspresso.junit.MethodRuleChain;
 import org.junit.rules.MethodRule;
-import org.junit.rules.TestRule;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
 
@@ -16,34 +14,23 @@ import javax.inject.Provider;
 class MockspressoRuleImpl extends AbstractDelayedMockspresso implements Mockspresso.Rule {
 
   private final MockspressoBuilderImpl mOriginalBuilder;
-  private MethodRuleChain mRuleChain;
+  private final RuleConfig mRuleConfig;
 
-  public MockspressoRuleImpl(
+  MockspressoRuleImpl(
       MockspressoBuilderImpl originalBuilder,
-      Provider<MockspressoBuilderImpl> builderProvider) {
+      Provider<MockspressoBuilderImpl> builderProvider,
+      RuleConfig ruleConfig) {
     super(builderProvider);
     mOriginalBuilder = originalBuilder;
-    mRuleChain = MethodRuleChain.outerRule(new OuterRule());
-  }
-
-  @Override
-  public Rule chainAround(TestRule testRule) {
-    mRuleChain = mRuleChain.chainAround(testRule);
-    return this;
-  }
-
-  @Override
-  public Rule chainAround(MethodRule methodRule) {
-    mRuleChain = mRuleChain.chainAround(methodRule);
-    return this;
+    mRuleConfig = ruleConfig;
   }
 
   @Override
   public Statement apply(Statement base, FrameworkMethod method, Object target) {
-    return mRuleChain.apply(base, method, target);
+    return mRuleConfig.buildRuleChain(new ImplRule()).apply(base, method, target);
   }
 
-  private class OuterRule implements MethodRule {
+  private class ImplRule implements MethodRule {
     @Override
     public Statement apply(final Statement base, FrameworkMethod method, final Object target) {
       return new Statement() {

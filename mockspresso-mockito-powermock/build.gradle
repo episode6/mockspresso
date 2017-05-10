@@ -1,0 +1,29 @@
+apply plugin: 'java'
+apply plugin: 'com.episode6.hackit.deployable.jar'
+apply plugin: 'com.episode6.hackit.gdmc'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+dependencies {
+  compile project(':mockspresso-api')
+  compile 'net.sourceforge.findbugs:jsr305'
+
+  compile 'org.mockito:mockito-core', optional
+  compile 'org.powermock:powermock-module-junit4', optional
+  compile 'org.powermock:powermock-api-mockito2', optional
+  compile 'org.powermock:powermock-module-junit4-rule', optional
+  compile 'org.powermock:powermock-classloading-xstream', optional
+
+  testCompile project(':mockspresso-core')
+  testCompile project(':mockspresso-testing-shared')
+
+  testCompile 'junit:junit'
+  testCompile 'org.easytesting:fest-assert-core'
+}
+
+test {
+  testLogging {
+    showStandardStreams = true
+  }
+}

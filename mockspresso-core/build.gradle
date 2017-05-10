@@ -17,10 +17,12 @@ dependencies {
   // built-in plugin deps
   compile project(':mockspresso-mockito')
   compile project(':mockspresso-easymock')
+  compile project(':mockspresso-mockito-powermock')
+  compile project(':mockspresso-easymock-powermock')
 
+  testCompile project(':mockspresso-testing-shared')
   testCompile 'junit:junit'
   testCompile 'org.mockito:mockito-core'
-  testCompile 'org.easymock:easymock'
   testCompile 'org.easytesting:fest-assert-core'
 }
 
