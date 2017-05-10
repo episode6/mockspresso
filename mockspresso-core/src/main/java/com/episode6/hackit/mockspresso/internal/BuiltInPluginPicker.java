@@ -41,7 +41,7 @@ class BuiltInPluginPicker implements Mockspresso.MockerPicker, Mockspresso.Injec
       return mBuilder.plugin(new com.episode6.hackit.mockspresso.mockito.powermock.PowerMockitoPlugin());
     } catch (NoClassDefFoundError e) {
       throw new MissingDependencyError(
-          "powermock-api-mockito2 or powermock-module-junit4 v1.7.0",
+          "org.mockito:mockito-core v2.x, org.powermock:powermock-api-mockito2 or powermock-module-junit4 v1.7.0",
           e);
     }
   }
@@ -53,6 +53,28 @@ class BuiltInPluginPicker implements Mockspresso.MockerPicker, Mockspresso.Injec
     } catch (NoClassDefFoundError e) {
       throw new MissingDependencyError(
           "org.mockito:mockito-core v2.x, org.powermock:powermock-api-mockito2, powermock-module-junit4 or powermock-module-junit4-rule v1.7.0",
+          e);
+    }
+  }
+
+  @Override
+  public Mockspresso.Builder easyMockWithPowermock() {
+    try {
+      return mBuilder.plugin(new com.episode6.hackit.mockspresso.easymock.powermock.EasyPowerMockPlugin());
+    } catch (NoClassDefFoundError e) {
+      throw new MissingDependencyError(
+          "org.easymock:easymock v3.4, org.powermock:powermock-api-easymock or powermock-module-junit4 v1.7.0",
+          e);
+    }
+  }
+
+  @Override
+  public Mockspresso.Builder easyMockWithPowermockRule() {
+    try {
+      return mBuilder.plugin(new com.episode6.hackit.mockspresso.easymock.powermock.EasyPowerMockRulePlugin());
+    } catch (NoClassDefFoundError e) {
+      throw new MissingDependencyError(
+          "org.easymock:easymock v3.4, org.powermock:powermock-api-easymock, powermock-module-junit4 or powermock-module-junit4-rule v1.7.0",
           e);
     }
   }
