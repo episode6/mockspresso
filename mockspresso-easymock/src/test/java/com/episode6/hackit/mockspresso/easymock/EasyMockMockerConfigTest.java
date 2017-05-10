@@ -13,7 +13,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(JUnit4.class)
 public class EasyMockMockerConfigTest {
 
-  private final EasyMockMockerConfig mEasyMockConfig = EasyMockMockerConfig.getInstance();
+  private final EasyMockMockerConfig mEasyMockConfig = new EasyMockMockerConfig();
 
   @SuppressWarnings("unchecked")
   @Test

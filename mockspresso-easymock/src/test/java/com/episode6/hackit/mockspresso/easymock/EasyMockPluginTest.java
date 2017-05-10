@@ -1,7 +1,6 @@
 package com.episode6.hackit.mockspresso.easymock;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
-import com.episode6.hackit.mockspresso.api.MockerConfig;
 import org.easymock.EasyMockSupport;
 import org.easymock.Mock;
 import org.junit.Before;
@@ -20,12 +19,12 @@ public class EasyMockPluginTest {
 
   @Mock Mockspresso.Builder mBuilder;
 
-  private final EasyMockPlugin mPlugin = EasyMockPlugin.getInstance();
+  private final EasyMockPlugin mPlugin = new EasyMockPlugin();
 
   @Before
   public void setup() {
     EasyMockSupport.injectMocks(this);
-    expect(mBuilder.mocker(anyObject(MockerConfig.class))).andReturn(mBuilder);
+    expect(mBuilder.mocker(anyObject(EasyMockMockerConfig.class))).andReturn(mBuilder);
   }
 
   @Test

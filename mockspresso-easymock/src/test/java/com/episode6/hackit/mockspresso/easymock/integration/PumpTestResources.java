@@ -36,7 +36,7 @@ public class PumpTestResources {
     replay(mPump);
 
     mSimpleCoffeeMaker = mockspresso.buildUpon()
-        .plugin(SimpleInjectMockspressoPlugin.getInstance())
+        .injector().simple()
         .build().create(CoffeeMakers.SimpleCoffeeMaker.class);
   }
 

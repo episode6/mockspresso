@@ -20,7 +20,7 @@ class BuiltInPluginPicker implements Mockspresso.MockerPicker, Mockspresso.Injec
   @Override
   public Mockspresso.Builder mockito() {
     try {
-      return mBuilder.plugin(com.episode6.hackit.mockspresso.mockito.MockitoPlugin.getInstance());
+      return mBuilder.plugin(new com.episode6.hackit.mockspresso.mockito.MockitoPlugin());
     } catch (NoClassDefFoundError e) {
       throw new MissingDependencyError("org.mockito:mockito-core v2.x", e);
     }
@@ -29,7 +29,7 @@ class BuiltInPluginPicker implements Mockspresso.MockerPicker, Mockspresso.Injec
   @Override
   public Mockspresso.Builder easyMock() {
     try {
-      return mBuilder.plugin(com.episode6.hackit.mockspresso.easymock.EasyMockPlugin.getInstance());
+      return mBuilder.plugin(new com.episode6.hackit.mockspresso.easymock.EasyMockPlugin());
     } catch (NoClassDefFoundError e) {
       throw new MissingDependencyError("org.easymock:easymock v3.4", e);
     }
@@ -59,11 +59,11 @@ class BuiltInPluginPicker implements Mockspresso.MockerPicker, Mockspresso.Injec
 
   @Override
   public Mockspresso.Builder simple() {
-    return mBuilder.plugin(com.episode6.hackit.mockspresso.plugin.simple.SimpleInjectMockspressoPlugin.getInstance());
+    return mBuilder.plugin(new com.episode6.hackit.mockspresso.plugin.simple.SimpleInjectMockspressoPlugin());
   }
 
   @Override
   public Mockspresso.Builder javax() {
-    return mBuilder.plugin(com.episode6.hackit.mockspresso.plugin.javax.JavaxInjectMockspressoPlugin.getInstance());
+    return mBuilder.plugin(new com.episode6.hackit.mockspresso.plugin.javax.JavaxInjectMockspressoPlugin());
   }
 }

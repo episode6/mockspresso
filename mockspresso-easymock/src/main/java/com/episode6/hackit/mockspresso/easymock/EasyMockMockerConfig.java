@@ -12,13 +12,6 @@ import java.util.List;
  */
 public class EasyMockMockerConfig implements MockerConfig {
 
-  // This object has no state, so we maintain a static instance of it
-  // instead of creating multiple instances on the fly
-  private static final EasyMockMockerConfig INSTANCE = new EasyMockMockerConfig();
-  public static EasyMockMockerConfig getInstance() {
-    return INSTANCE;
-  }
-
   private final EasyMockMockMaker mMockMaker = new EasyMockMockMaker();
   private final EasyMockFieldPreparer mFieldPreparer = new EasyMockFieldPreparer();
 

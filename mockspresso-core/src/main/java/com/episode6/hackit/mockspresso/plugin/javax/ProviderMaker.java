@@ -14,15 +14,6 @@ import java.lang.reflect.Type;
  */
 public class ProviderMaker implements SpecialObjectMaker {
 
-  // This object has no state, so we maintain a static instance of it
-  // instead of creating multiple instances on the fly
-  private static final ProviderMaker INSTANCE = new ProviderMaker();
-  public static ProviderMaker getInstance() {
-    return INSTANCE;
-  }
-
-  private ProviderMaker() {}
-
   @Override
   public boolean canMakeObject(DependencyKey<?> key) {
     return key.typeToken.getRawType() == Provider.class;
