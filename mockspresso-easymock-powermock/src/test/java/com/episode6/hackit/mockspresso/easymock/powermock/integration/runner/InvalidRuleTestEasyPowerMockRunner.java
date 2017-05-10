@@ -19,7 +19,7 @@ public class InvalidRuleTestEasyPowerMockRunner {
 
   public final Mockspresso.Rule invalidMockspresso = BuildMockspresso.with()
       .injector().simple()
-      .mocker().easyMockWithPowermock()
+      .mocker().easyMockWithPowerMock()
       .testResources(mInitializerWithFields)
       .buildRule();
 

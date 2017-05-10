@@ -29,7 +29,7 @@ public class CoffeeMakersPumpTestEasyPowerMockRule {
   private final PumpTestResources t = new PumpTestResources();
   @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
       .injector().javax()
-      .mocker().easyMockWithPowermockRule()
+      .mocker().easyMockWithPowerMockRule()
       .testResources(t)
       .buildRule();
 

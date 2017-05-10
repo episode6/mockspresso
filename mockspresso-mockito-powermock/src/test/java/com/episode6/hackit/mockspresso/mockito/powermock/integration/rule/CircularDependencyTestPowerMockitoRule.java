@@ -18,7 +18,7 @@ public class CircularDependencyTestPowerMockitoRule {
 
   @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
       .injector().javax()
-      .mocker().mockitoWithPowermockRule()
+      .mocker().mockitoWithPowerMockRule()
       .buildRule();
 
   @Test(expected = CircularDependencyError.class)

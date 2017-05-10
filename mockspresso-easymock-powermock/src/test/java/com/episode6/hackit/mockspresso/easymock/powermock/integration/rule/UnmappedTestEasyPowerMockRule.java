@@ -29,7 +29,7 @@ public class UnmappedTestEasyPowerMockRule {
 
   @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
       .injector().javax()
-      .mocker().easyMockWithPowermockRule()
+      .mocker().easyMockWithPowerMockRule()
       .buildRule();
 
   @Mock Provider<CoffeeGrounds> mGroundsProvider;

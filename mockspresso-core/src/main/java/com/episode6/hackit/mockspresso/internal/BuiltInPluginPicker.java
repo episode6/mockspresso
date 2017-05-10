@@ -36,7 +36,7 @@ class BuiltInPluginPicker implements Mockspresso.MockerPicker, Mockspresso.Injec
   }
 
   @Override
-  public Mockspresso.Builder mockitoWithPowermock() {
+  public Mockspresso.Builder mockitoWithPowerMock() {
     try {
       return mBuilder.plugin(new com.episode6.hackit.mockspresso.mockito.powermock.PowerMockitoPlugin());
     } catch (NoClassDefFoundError e) {
@@ -47,7 +47,7 @@ class BuiltInPluginPicker implements Mockspresso.MockerPicker, Mockspresso.Injec
   }
 
   @Override
-  public Mockspresso.Builder mockitoWithPowermockRule() {
+  public Mockspresso.Builder mockitoWithPowerMockRule() {
     try {
       return mBuilder.plugin(new com.episode6.hackit.mockspresso.mockito.powermock.PowerMockitoRulePlugin());
     } catch (NoClassDefFoundError e) {
@@ -58,7 +58,7 @@ class BuiltInPluginPicker implements Mockspresso.MockerPicker, Mockspresso.Injec
   }
 
   @Override
-  public Mockspresso.Builder easyMockWithPowermock() {
+  public Mockspresso.Builder easyMockWithPowerMock() {
     try {
       return mBuilder.plugin(new com.episode6.hackit.mockspresso.easymock.powermock.EasyPowerMockPlugin());
     } catch (NoClassDefFoundError e) {
@@ -69,7 +69,7 @@ class BuiltInPluginPicker implements Mockspresso.MockerPicker, Mockspresso.Injec
   }
 
   @Override
-  public Mockspresso.Builder easyMockWithPowermockRule() {
+  public Mockspresso.Builder easyMockWithPowerMockRule() {
     try {
       return mBuilder.plugin(new com.episode6.hackit.mockspresso.easymock.powermock.EasyPowerMockRulePlugin());
     } catch (NoClassDefFoundError e) {

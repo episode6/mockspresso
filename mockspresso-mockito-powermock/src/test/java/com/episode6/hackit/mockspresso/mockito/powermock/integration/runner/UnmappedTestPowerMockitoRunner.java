@@ -31,7 +31,7 @@ public class UnmappedTestPowerMockitoRunner {
 
   @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
       .injector().javax()
-      .mocker().mockitoWithPowermock()
+      .mocker().mockitoWithPowerMock()
       .buildRule();
 
   @Mock Provider<CoffeeGrounds> mGroundsProvider;

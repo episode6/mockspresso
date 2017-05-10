@@ -42,7 +42,7 @@ public class LoadPluginTest {
         new Runnable() {
           @Override
           public void run() {
-            BuildMockspresso.with().mocker().mockitoWithPowermock();
+            BuildMockspresso.with().mocker().mockitoWithPowerMock();
           }
         });
   }
@@ -54,7 +54,7 @@ public class LoadPluginTest {
         new Runnable() {
           @Override
           public void run() {
-            BuildMockspresso.with().mocker().mockitoWithPowermockRule();
+            BuildMockspresso.with().mocker().mockitoWithPowerMockRule();
           }
         });
   }
@@ -66,7 +66,7 @@ public class LoadPluginTest {
         new Runnable() {
           @Override
           public void run() {
-            BuildMockspresso.with().mocker().easyMockWithPowermock();
+            BuildMockspresso.with().mocker().easyMockWithPowerMock();
           }
         });
   }
@@ -78,7 +78,7 @@ public class LoadPluginTest {
         new Runnable() {
           @Override
           public void run() {
-            BuildMockspresso.with().mocker().easyMockWithPowermockRule();
+            BuildMockspresso.with().mocker().easyMockWithPowerMockRule();
           }
         });
   }

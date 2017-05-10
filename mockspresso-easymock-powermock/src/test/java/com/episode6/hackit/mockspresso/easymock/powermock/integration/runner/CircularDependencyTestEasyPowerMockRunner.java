@@ -18,7 +18,7 @@ public class CircularDependencyTestEasyPowerMockRunner {
 
   @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
       .injector().javax()
-      .mocker().easyMockWithPowermock()
+      .mocker().easyMockWithPowerMock()
       .buildRule();
 
   @Test(expected = CircularDependencyError.class)

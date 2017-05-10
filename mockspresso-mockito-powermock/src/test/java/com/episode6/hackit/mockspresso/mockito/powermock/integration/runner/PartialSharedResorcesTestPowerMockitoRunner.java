@@ -25,7 +25,7 @@ public class PartialSharedResorcesTestPowerMockitoRunner {
   private final PartialSharedResources t = new PartialSharedResources();
   @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
       .injector().javax()
-      .mocker().mockitoWithPowermock()
+      .mocker().mockitoWithPowerMock()
       .testResources(t)
       .buildRule();
 

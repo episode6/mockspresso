@@ -29,7 +29,7 @@ public class CoffeeMakersPumpTestPowerMockitoRunner {
   private final PumpTestResources t = new PumpTestResources();
   @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
       .injector().javax()
-      .mocker().mockitoWithPowermock()
+      .mocker().mockitoWithPowerMock()
       .testResources(t)
       .buildRule();
 

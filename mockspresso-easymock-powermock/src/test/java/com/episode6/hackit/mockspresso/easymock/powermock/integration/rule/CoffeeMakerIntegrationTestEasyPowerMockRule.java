@@ -27,7 +27,7 @@ public class CoffeeMakerIntegrationTestEasyPowerMockRule {
 
   @Rule public final Mockspresso.Rule simpleMockspresso = BuildMockspresso.with()
       .injector().simple()
-      .mocker().easyMockWithPowermockRule()
+      .mocker().easyMockWithPowerMockRule()
       .realObject(DependencyKey.of(Heater.class), CoffeeMakerComponents.RealHeater.class)
       .realObject(DependencyKey.of(Pump.class), CoffeeMakerComponents.RealWaterPump.class)
       .buildRule();
