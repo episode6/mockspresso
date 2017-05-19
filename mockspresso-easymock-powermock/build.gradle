@@ -7,7 +7,7 @@ targetCompatibility = 1.7
 
 dependencies {
   compile project(':mockspresso-api')
-  compile 'net.sourceforge.findbugs:jsr305'
+  compile 'com.google.code.findbugs:jsr305'
 
   compile 'org.easymock:easymock', optional
   compile 'org.powermock:powermock-module-junit4', optional
