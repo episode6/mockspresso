@@ -12,6 +12,10 @@ dependencies {
   testCompile 'org.easytesting:fest-assert-core'
 }
 
+gdmcValidateSelf {
+  required = {false}
+}
+
 test {
   testLogging {
     showStandardStreams = true
