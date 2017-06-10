@@ -8,6 +8,11 @@ buildscript {
   }
 }
 
+task wrapper(type: Wrapper) {
+  gradleVersion = "3.3"
+  distributionType = "all"
+}
+
 allprojects {
   repositories {
     jcenter()
