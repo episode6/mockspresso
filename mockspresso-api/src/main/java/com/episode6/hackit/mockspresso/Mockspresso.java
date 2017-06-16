@@ -32,6 +32,9 @@ public interface Mockspresso {
    */
   <T> T create(TypeToken<T> typeToken);
 
+
+  void inject(Object instance);
+
   /**
    * Build upon this mockspresso instance's configuration and dependencies.
    * @return a new {@link Builder} that is based upon this mockspresso instance.

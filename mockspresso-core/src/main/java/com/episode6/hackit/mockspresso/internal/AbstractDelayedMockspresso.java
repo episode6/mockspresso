@@ -61,6 +61,11 @@ abstract class AbstractDelayedMockspresso implements Mockspresso, MockspressoInt
   }
 
   @Override
+  public void inject(Object instance) {
+    getDelegate().inject(instance);
+  }
+
+  @Override
   public synchronized Builder buildUpon() {
     if (mDelegate != null) {
       return mDelegate.buildUpon();
