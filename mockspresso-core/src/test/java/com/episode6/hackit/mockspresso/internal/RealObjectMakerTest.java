@@ -309,7 +309,7 @@ public class RealObjectMakerTest {
     Provider<Runnable> mRunnableProvider;
 
     @Inject
-    public void injectMeToo(@Named("testprovider") Provider<Runnable> runnableProvider) {
+    private void injectMeToo(@Named("testprovider") Provider<Runnable> runnableProvider) {
       mRunnableProvider = runnableProvider;
     }
   }

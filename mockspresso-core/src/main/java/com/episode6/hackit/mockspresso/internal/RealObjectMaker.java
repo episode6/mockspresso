@@ -130,6 +130,10 @@ class RealObjectMaker  {
           String.format("Method (name: %s, during creation of: %s)", method, instance.getClass().getSimpleName()));
     }
 
+    if (!method.isAccessible()) {
+      method.setAccessible(true);
+    }
+
     try {
       method.invoke(instance, paramValues);
     } catch (IllegalAccessException | InvocationTargetException e) {
