@@ -83,6 +83,18 @@ public class LoadPluginTest {
         });
   }
 
+  @Test
+  public void testDagger2Load() {
+    doTest(
+        "com.google.dagger:dagger",
+        new Runnable() {
+          @Override
+          public void run() {
+            BuildMockspresso.with().injector().dagger2();
+          }
+        });
+  }
+
   private void doTest(String expectedDependency, Runnable runnable) {
     try {
       runnable.run();

@@ -19,6 +19,7 @@ dependencies {
   compile project(':mockspresso-easymock')
   compile project(':mockspresso-mockito-powermock')
   compile project(':mockspresso-easymock-powermock')
+  compile project(':mockspresso-dagger2')
 
   testCompile project(':mockspresso-testing-shared')
   testCompile 'junit:junit'

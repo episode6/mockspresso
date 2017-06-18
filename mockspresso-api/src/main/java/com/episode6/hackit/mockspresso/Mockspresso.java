@@ -340,6 +340,13 @@ public interface Mockspresso {
      * @return The {@link Builder} for your mockspresso instance
      */
     Builder javax();
-  }
 
+    /**
+     * Applies an {@link InjectionConfig} for dagger2. This is the same as the
+     * {@link #javax()} injector with additional support for dagger's Lazy interface.
+     * Requires your project have a dependency on 'com.google.dagger:dagger'
+     * @return The {@link Builder} for your mockspresso instance
+     */
+    Builder dagger2();
+  }
 }

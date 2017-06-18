@@ -88,4 +88,13 @@ class BuiltInPluginPicker implements Mockspresso.MockerPicker, Mockspresso.Injec
   public Mockspresso.Builder javax() {
     return mBuilder.plugin(new com.episode6.hackit.mockspresso.plugin.javax.JavaxInjectMockspressoPlugin());
   }
+
+  @Override
+  public Mockspresso.Builder dagger2() {
+    try {
+      return mBuilder.plugin(new com.episode6.hackit.mockspresso.dagger2.Dagger2MockspressoPlugin());
+    } catch (NoClassDefFoundError e) {
+      throw new MissingDependencyError("com.google.dagger:dagger", e);
+    }
+  }
 }

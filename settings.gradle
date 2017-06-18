@@ -6,4 +6,5 @@ include ':mockspresso-api',
     ':mockspresso-mockito-powermock',
     ':mockspresso-easymock-powermock',
     ':missingclass-tests',
-    ':mockspresso-testing-shared'
+    ':mockspresso-testing-shared',
+    ':mockspresso-dagger2'
