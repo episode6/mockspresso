@@ -90,20 +90,11 @@ class BuiltInPluginPicker implements Mockspresso.MockerPicker, Mockspresso.Injec
   }
 
   @Override
-  public Mockspresso.Builder dagger1() {
+  public Mockspresso.Builder dagger() {
     try {
-      return mBuilder.plugin(new com.episode6.hackit.mockspresso.dagger1.Dagger1MockspressoPlugin());
+      return mBuilder.plugin(new com.episode6.hackit.mockspresso.dagger.DaggerMockspressoPlugin());
     } catch (NoClassDefFoundError e) {
-      throw new MissingDependencyError("com.squareup.dagger:dagger", e);
-    }
-  }
-
-  @Override
-  public Mockspresso.Builder dagger2() {
-    try {
-      return mBuilder.plugin(new com.episode6.hackit.mockspresso.dagger2.Dagger2MockspressoPlugin());
-    } catch (NoClassDefFoundError e) {
-      throw new MissingDependencyError("com.google.dagger:dagger", e);
+      throw new MissingDependencyError("com.google.dagger:dagger or com.squareup.dagger:dagger", e);
     }
   }
 }

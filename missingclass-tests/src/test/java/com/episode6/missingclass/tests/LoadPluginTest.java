@@ -84,13 +84,13 @@ public class LoadPluginTest {
   }
 
   @Test
-  public void testDagger2Load() {
+  public void testDaggerLoad() {
     doTest(
-        "com.google.dagger:dagger",
+        "com.google.dagger:dagger or com.squareup.dagger:dagger",
         new Runnable() {
           @Override
           public void run() {
-            BuildMockspresso.with().injector().dagger2();
+            BuildMockspresso.with().injector().dagger();
           }
         });
   }

@@ -342,19 +342,12 @@ public interface Mockspresso {
     Builder javax();
 
     /**
-     * Applies an {@link InjectionConfig} for dagger1. This is the same as the
+     * Applies an {@link InjectionConfig} for dagger. This is the same as the
      * {@link #javax()} injector with additional support for dagger's Lazy interface.
-     * Requires your project have a dependency on 'com.squareup.dagger:dagger'
+     * Requires your project have a dependency on 'com.google.dagger:dagger' or
+     * 'com.squareup.dagger:dagger'
      * @return The {@link Builder} for your mockspresso instance
      */
-    Builder dagger1();
-
-    /**
-     * Applies an {@link InjectionConfig} for dagger2. This is the same as the
-     * {@link #javax()} injector with additional support for dagger's Lazy interface.
-     * Requires your project have a dependency on 'com.google.dagger:dagger'
-     * @return The {@link Builder} for your mockspresso instance
-     */
-    Builder dagger2();
+    Builder dagger();
   }
 }

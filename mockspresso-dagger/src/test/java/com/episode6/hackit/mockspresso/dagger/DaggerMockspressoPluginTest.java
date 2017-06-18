@@ -1,4 +1,4 @@
-package com.episode6.hackit.mockspresso.dagger2;
+package com.episode6.hackit.mockspresso.dagger;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
@@ -13,14 +13,14 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
- * Tests {@link Dagger2MockspressoPlugin}
+ * Tests {@link DaggerMockspressoPlugin}
  */
-public class Dagger2MockspressoPluginTest {
+public class DaggerMockspressoPluginTest {
 
   @Mock Mockspresso.Builder mBuilder;
   @Mock Mockspresso.InjectorPicker mInjectorPicker;
 
-  private final Dagger2MockspressoPlugin mPlugin = new Dagger2MockspressoPlugin();
+  private final DaggerMockspressoPlugin mPlugin = new DaggerMockspressoPlugin();
 
   @Before
   public void setup() {
@@ -36,7 +36,7 @@ public class Dagger2MockspressoPluginTest {
 
     verify(mBuilder).injector();
     verify(mInjectorPicker).javax();
-    verify(mBuilder).specialObjectMaker(any(Dagger2LazyMaker.class));
+    verify(mBuilder).specialObjectMaker(any(DaggerLazyMaker.class));
     assertThat(returnedBuilder)
         .isNotNull()
         .isEqualTo(mBuilder);

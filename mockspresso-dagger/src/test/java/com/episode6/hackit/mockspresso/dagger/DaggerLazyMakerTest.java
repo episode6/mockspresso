@@ -1,4 +1,4 @@
-package com.episode6.hackit.mockspresso.dagger2;
+package com.episode6.hackit.mockspresso.dagger;
 
 import com.episode6.hackit.mockspresso.api.DependencyProvider;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
@@ -13,16 +13,16 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 /**
- * Tests {@link Dagger2LazyMaker}
+ * Tests {@link DaggerLazyMaker}
  */
-public class Dagger2LazyMakerTest {
+public class DaggerLazyMakerTest {
   private static final DependencyKey<TestClass> testClassKey = DependencyKey.of(TestClass.class);
   private static final DependencyKey<Lazy<TestClass>> testClassProviderKey =
       DependencyKey.of(new TypeToken<Lazy<TestClass>>() {});
 
   @Mock DependencyProvider mDependencyProvider;
 
-  private final Dagger2LazyMaker mLazyMaker = new Dagger2LazyMaker();
+  private final DaggerLazyMaker mLazyMaker = new DaggerLazyMaker();
 
   @Before
   public void setup() {

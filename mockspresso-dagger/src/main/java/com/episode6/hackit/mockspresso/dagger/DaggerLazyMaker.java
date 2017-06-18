@@ -1,4 +1,4 @@
-package com.episode6.hackit.mockspresso.dagger1;
+package com.episode6.hackit.mockspresso.dagger;
 
 import com.episode6.hackit.mockspresso.api.DependencyProvider;
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
@@ -12,7 +12,7 @@ import java.lang.reflect.Type;
 /**
  * An implementation of SpecialObjectMaker for {@link dagger.Lazy}.
  */
-public class Dagger1LazyMaker implements SpecialObjectMaker {
+public class DaggerLazyMaker implements SpecialObjectMaker {
 
   @Override
   public boolean canMakeObject(DependencyKey<?> key) {
