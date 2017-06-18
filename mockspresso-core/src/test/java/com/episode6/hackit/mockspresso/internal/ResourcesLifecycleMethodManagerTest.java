@@ -95,12 +95,12 @@ public class ResourcesLifecycleMethodManagerTest {
     Notifier subclassNotifier = mock(Notifier.class);
 
     @Before
-    public void setupSubclass(Mockspresso mockspresso) {
+    private void setupSubclass(Mockspresso mockspresso) {
       subclassNotifier.setup(mockspresso);
     }
 
     @After
-    public void teardownSubclass() {
+    private void teardownSubclass() {
       subclassNotifier.teardown();
     }
   }
