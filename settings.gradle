@@ -7,4 +7,5 @@ include ':mockspresso-api',
     ':mockspresso-easymock-powermock',
     ':missingclass-tests',
     ':mockspresso-testing-shared',
+    ':mockspresso-dagger1',
     ':mockspresso-dagger2'
