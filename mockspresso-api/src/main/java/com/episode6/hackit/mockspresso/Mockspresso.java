@@ -32,7 +32,12 @@ public interface Mockspresso {
    */
   <T> T create(TypeToken<T> typeToken);
 
-
+  /**
+   * Inject an existing object with mockspresso dependencies.
+   * Field and method injection will be performed (assuming the
+   * injector of this mockspresso instance supports it)
+   * @param instance The object to be injected.
+   */
   void inject(Object instance);
 
   /**
