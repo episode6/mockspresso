@@ -10,6 +10,3 @@ dependencies {
   compile 'org.easytesting:fest-assert-core'
 }
 
-gdmcValidateSelf {
-  required = {false}
-}
