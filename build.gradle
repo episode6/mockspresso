@@ -4,8 +4,13 @@ buildscript {
   }
   dependencies {
     classpath 'com.episode6.hackit.deployable:deployable:0.1.5'
-    classpath 'com.episode6.hackit.gdmc:gdmc:0.1.4'
+    classpath 'com.episode6.hackit.gdmc:gdmc:0.1.6'
   }
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = "3.3"
+  distributionType = "all"
 }
 
 allprojects {
@@ -14,5 +19,5 @@ allprojects {
   }
 
   group = "com.episode6.hackit.mockspresso"
-  version = "0.0.6"
+  version = "0.0.7"
 }

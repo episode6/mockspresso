@@ -106,8 +106,14 @@ class ResourcesLifecycleMethodManager implements ResourcesLifecycleComponent {
       List<Method> allMethods = ReflectUtil.getAllDeclaredMethods(testResource.getObjectWithResources().getClass());
       for (Method method : allMethods) {
         if (isValidBeforeMethod(method)) {
+          if (!method.isAccessible()) {
+            method.setAccessible(true);
+          }
           beforeMethods.add(method);
         } else if (isValidAfterMethod(method)) {
+          if (!method.isAccessible()) {
+            method.setAccessible(true);
+          }
           // invert order of after methods so that subclass methods come first
           afterMethods.add(0, method);
         }

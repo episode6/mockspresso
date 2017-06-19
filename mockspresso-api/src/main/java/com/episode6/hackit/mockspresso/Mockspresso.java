@@ -33,6 +33,14 @@ public interface Mockspresso {
   <T> T create(TypeToken<T> typeToken);
 
   /**
+   * Inject an existing object with mockspresso dependencies.
+   * Field and method injection will be performed (assuming the
+   * injector of this mockspresso instance supports it)
+   * @param instance The object to be injected.
+   */
+  void inject(Object instance);
+
+  /**
    * Build upon this mockspresso instance's configuration and dependencies.
    * @return a new {@link Builder} that is based upon this mockspresso instance.
    */
@@ -332,6 +340,14 @@ public interface Mockspresso {
      * @return The {@link Builder} for your mockspresso instance
      */
     Builder javax();
-  }
 
+    /**
+     * Applies an {@link InjectionConfig} for dagger. This is the same as the
+     * {@link #javax()} injector with additional support for dagger's Lazy interface.
+     * Requires your project have a dependency on 'com.google.dagger:dagger' or
+     * 'com.squareup.dagger:dagger'
+     * @return The {@link Builder} for your mockspresso instance
+     */
+    Builder dagger();
+  }
 }

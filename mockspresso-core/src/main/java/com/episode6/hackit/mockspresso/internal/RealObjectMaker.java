@@ -37,6 +37,15 @@ class RealObjectMaker  {
     }
   }
 
+  void injectObject(DependencyProvider dependencyProvider, Object instance) {
+    try {
+      assignInjectableFields(dependencyProvider, instance);
+      callInjectableMethods(dependencyProvider, instance);
+    } catch (IllegalAccessException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
   private <T> T createObjectInternal(DependencyProvider dependencyProvider, TypeToken<T> typeToken) throws IllegalAccessException, InvocationTargetException, InstantiationException {
     Constructor<T> constructor = mConstructorSelector.chooseConstructor(typeToken);
     if (constructor == null) {
@@ -61,8 +70,7 @@ class RealObjectMaker  {
     }
 
     T instance = constructor.newInstance(paramValues);
-    assignInjectableFields(dependencyProvider, instance);
-    callInjectableMethods(dependencyProvider, instance);
+    injectObject(dependencyProvider, instance);
     return instance;
   }
 
@@ -120,6 +128,10 @@ class RealObjectMaker  {
           paramTypes[i],
           paramAnnotations[i],
           String.format("Method (name: %s, during creation of: %s)", method, instance.getClass().getSimpleName()));
+    }
+
+    if (!method.isAccessible()) {
+      method.setAccessible(true);
     }
 
     try {

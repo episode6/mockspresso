@@ -96,6 +96,21 @@ public class RealObjectMakerTest {
   }
 
   @Test
+  public void testWithInjectOnlyDirectInject() {
+    prep(Inject.class);
+
+    TestClassWithInjectParams testObject = new TestClassWithInjectParams();
+    mRealObjectMaker.injectObject(
+        mDependencyProvider,
+        testObject);
+
+    assertTestObjectNormal(testObject, TestClassWithInjectParams.class);
+    verifyDependencyProviderCalls(runnableKey, runnableProviderKey);
+    assertThat(testObject.mRunnable).isEqualTo(mRunnableMock);
+    assertThat(testObject.mRunnableProvider).isEqualTo(mRunnableProviderMock);
+  }
+
+  @Test
   public void testWithConstructorAndInjectMixed() {
     prep(Inject.class);
 
@@ -124,12 +139,42 @@ public class RealObjectMakerTest {
   }
 
   @Test
+  public void testWithWeirdInjectAnnotationsDirectInject() {
+    prep(Inject.class, Singleton.class);
+
+    TestClassWithWeirdInjectAnnotations testObject = new TestClassWithWeirdInjectAnnotations();
+    mRealObjectMaker.injectObject(
+        mDependencyProvider,
+        testObject);
+
+    assertTestObjectNormal(testObject, TestClassWithWeirdInjectAnnotations.class);
+    verifyDependencyProviderCalls(runnableKey, runnableProviderKey);
+    assertThat(testObject.mRunnable).isEqualTo(mRunnableMock);
+    assertThat(testObject.mRunnableProvider).isEqualTo(mRunnableProviderMock);
+  }
+
+  @Test
   public void testSubclassInject() {
     prep(Inject.class);
 
     TestSubclass testObject = mRealObjectMaker.createObject(
         mDependencyProvider,
         TypeToken.of(TestSubclass.class));
+
+    assertTestObjectNormal(testObject, TestSubclass.class);
+    verifyDependencyProviderCalls(runnableKey, runnableProviderKey);
+    assertThat(testObject.mRunnable).isEqualTo(mRunnableMock);
+    assertThat(testObject.mRunnableProvider).isEqualTo(mRunnableProviderMock);
+  }
+
+  @Test
+  public void testSubclassDirectInject() {
+    prep(Inject.class);
+
+    TestSubclass testObject = new TestSubclass();
+    mRealObjectMaker.injectObject(
+        mDependencyProvider,
+        testObject);
 
     assertTestObjectNormal(testObject, TestSubclass.class);
     verifyDependencyProviderCalls(runnableKey, runnableProviderKey);
@@ -151,12 +196,43 @@ public class RealObjectMakerTest {
   }
 
   @Test
+  public void testMethodDirectInjection() {
+    prep(Inject.class);
+
+    TestMethodInjection testObject = new TestMethodInjection();
+    mRealObjectMaker.injectObject(
+        mDependencyProvider,
+        testObject);
+
+    assertTestObjectNormal(testObject, TestMethodInjection.class);
+    verifyDependencyProviderCalls(runnableKey);
+    assertThat(testObject.mRunnable).isEqualTo(mRunnableMock);
+  }
+
+  @Test
   public void testSubclassMethodInject() {
     prep(Inject.class);
 
     TestMethodInjectionSubclass testObject = mRealObjectMaker.createObject(
         mDependencyProvider,
         TypeToken.of(TestMethodInjectionSubclass.class));
+
+    assertTestObjectNormal(testObject, TestMethodInjectionSubclass.class);
+    // here we want to verify that the super class's injectable method is called first
+    InOrder inOrder = inOrder(mDependencyProvider);
+    inOrder.verify(mDependencyProvider).get(runnableKey);
+    inOrder.verify(mDependencyProvider).get(runnableProviderKey);
+    inOrder.verifyNoMoreInteractions();
+    assertThat(testObject.mRunnable).isEqualTo(mRunnableMock);
+    assertThat(testObject.mRunnableProvider).isEqualTo(mRunnableProviderMock);
+  }
+
+  @Test
+  public void testSubclassMethodDirectInject() {
+    prep(Inject.class);
+
+    TestMethodInjectionSubclass testObject = new TestMethodInjectionSubclass();
+    mRealObjectMaker.injectObject(mDependencyProvider, testObject);
 
     assertTestObjectNormal(testObject, TestMethodInjectionSubclass.class);
     // here we want to verify that the super class's injectable method is called first
@@ -233,7 +309,7 @@ public class RealObjectMakerTest {
     Provider<Runnable> mRunnableProvider;
 
     @Inject
-    public void injectMeToo(@Named("testprovider") Provider<Runnable> runnableProvider) {
+    private void injectMeToo(@Named("testprovider") Provider<Runnable> runnableProvider) {
       mRunnableProvider = runnableProvider;
     }
   }

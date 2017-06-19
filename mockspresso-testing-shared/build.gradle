@@ -9,3 +9,4 @@ dependencies {
   compile 'javax.inject:javax.inject'
   compile 'org.easytesting:fest-assert-core'
 }
+
