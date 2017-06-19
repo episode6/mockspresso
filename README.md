@@ -247,6 +247,8 @@ Multiple bits of mockspresso functionality can be packaged into `MockspressoPlug
 - Injectors: An injector is a required component of Mockspresso that dictates how real objects are created.
   - `injector().simple()`: Our most basic injector plugin. Creates POJOs using their shortest constructor and does no post-processing or field injection
   - `injector().javax()`: Creates objects that are compatible with `javax.inject` dependency injection frameworks. When creating objects, mockspresso will only select a constructor annotated with @Inject OR (if none is found) a completely empty constructor. After the object is constructed, field/member injection is performed, followed by method injection. This plugin also applies the above-mentioned `ProviderMaker` for special handling of `javax.inject.Provider<>`
+  - `injector().dagger()`: Builds upon the javax injector and adds special object handling for `dagger.Lazy<>`
+    - Requires dependency on `com.google.dagger:dagger` or `com.squareup.dagger:dagger`
 - Mockers: A mocker is also a required component of mockspresso, as it dictates how generic mocks are created and which mock annotations should be processed by the dependency map.
   - `mocker().mockito()`: Use Mockito for mockspresso mocks.
     - Requires dependency: `org.mockito:mockito-core:2.+`
