@@ -13,7 +13,7 @@ Add the dependency on `mockspresso-core` as well as the depencies for your favor
 repositories { maven { url "https://oss.sonatype.org/content/repositories/snapshots/" } }
 dependencies {
     // mockspresso-core dependency
-    testCompile 'com.episode6.hackit.mockspresso:mockspresso-core:0.0.7-SNAPSHOT'
+    testCompile 'com.episode6.hackit.mockspresso:mockspresso-core:0.0.7'
 
     /* You'll also need the dependencies for your mocking framework of choice */
     // for mockito
