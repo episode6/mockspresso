@@ -64,6 +64,12 @@ public interface Mockspresso {
     Builder plugin(MockspressoPlugin plugin);
 
     /**
+     * Apply one of the built-in {@link MockspressoPlugin}s to this builder.
+     * @return A {@link PluginPicker} that will apply a plugin to this builder.
+     */
+    PluginPicker plugin();
+
+    /**
      * Treat the resulting {@link Mockspresso.Rule} as a RuleChain, and wrap it using the
      * supplied testRule as an outerRule.
      *
@@ -350,4 +356,9 @@ public interface Mockspresso {
      */
     Builder dagger();
   }
+
+  /**
+   * A selector for one of the built in plugins
+   */
+  interface PluginPicker {}
 }

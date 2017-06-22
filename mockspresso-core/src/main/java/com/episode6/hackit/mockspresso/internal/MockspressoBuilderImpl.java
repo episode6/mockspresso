@@ -93,6 +93,11 @@ class MockspressoBuilderImpl implements Mockspresso.Builder {
   }
 
   @Override
+  public Mockspresso.PluginPicker plugin() {
+    return mBuiltInPluginPicker;
+  }
+
+  @Override
   public Mockspresso.Builder outerRule(TestRule testRule) {
     mRuleConfig.addOuterRule(testRule);
     return this;

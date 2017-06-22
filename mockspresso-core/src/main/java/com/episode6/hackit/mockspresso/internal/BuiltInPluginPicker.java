@@ -9,7 +9,7 @@ import com.episode6.hackit.mockspresso.exception.MissingDependencyError;
  * the BuiltInPluginPicker will catch any NoClassDefFoundErrors and wrap them with a {@link MissingDependencyError}
  * that better explains exactly which dependencies are missing.
  */
-class BuiltInPluginPicker implements Mockspresso.MockerPicker, Mockspresso.InjectorPicker {
+class BuiltInPluginPicker implements Mockspresso.MockerPicker, Mockspresso.InjectorPicker, Mockspresso.PluginPicker {
 
   private final Mockspresso.Builder mBuilder;
 
