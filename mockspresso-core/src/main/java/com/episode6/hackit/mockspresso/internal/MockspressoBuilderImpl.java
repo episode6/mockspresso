@@ -23,9 +23,9 @@ import java.util.Set;
 /**
  * Implementation of {@link Mockspresso.Builder}
  */
-public class MockspressoBuilderImpl implements Mockspresso.Builder {
+class MockspressoBuilderImpl implements Mockspresso.Builder {
 
-  public static final Provider<MockspressoBuilderImpl> PROVIDER = new Provider<MockspressoBuilderImpl>() {
+  static final Provider<MockspressoBuilderImpl> PROVIDER = new Provider<MockspressoBuilderImpl>() {
     @Override
     public MockspressoBuilderImpl get() {
       return new MockspressoBuilderImpl();
