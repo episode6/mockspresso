@@ -97,4 +97,13 @@ class BuiltInPluginPicker implements Mockspresso.MockerPicker, Mockspresso.Injec
       throw new MissingDependencyError("com.google.dagger:dagger or com.squareup.dagger:dagger", e);
     }
   }
+
+  @Override
+  public Mockspresso.Builder guava() {
+    try {
+      return mBuilder.plugin(new com.episode6.hackit.mockspresso.guava.GuavaMockspressoPlugin());
+    } catch (NoClassDefFoundError e) {
+      throw new MissingDependencyError("com.google.guava:guava", e);
+    }
+  }
 }

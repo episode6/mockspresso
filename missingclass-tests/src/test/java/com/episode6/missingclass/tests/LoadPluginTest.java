@@ -96,6 +96,18 @@ public class LoadPluginTest {
         });
   }
 
+  @Test
+  public void testGuavaLoad() {
+    doTest(
+        "com.google.guava:guava",
+        new Runnable() {
+          @Override
+          public void run() {
+            BuildMockspresso.with().plugin().guava();
+          }
+        });
+  }
+
   private void doTest(String expectedDependency, Runnable runnable) {
     try {
       runnable.run();

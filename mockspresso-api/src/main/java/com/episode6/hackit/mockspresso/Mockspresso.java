@@ -360,5 +360,14 @@ public interface Mockspresso {
   /**
    * A selector for one of the built in plugins
    */
-  interface PluginPicker {}
+  interface PluginPicker {
+
+    /**
+     * Applies a {@link MockspressoPlugin} thats adds special object handling
+     * for some of the types provided by guava.
+     * * Requires your project have a dependency on 'com.google.guava:guava'
+     * @return The {@link Builder} for your mockspresso instance
+     */
+    Builder guava();
+  }
 }
