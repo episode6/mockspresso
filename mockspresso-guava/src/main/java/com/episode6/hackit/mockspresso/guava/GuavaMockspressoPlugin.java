@@ -13,6 +13,7 @@ public class GuavaMockspressoPlugin implements MockspressoPlugin {
   public Mockspresso.Builder apply(Mockspresso.Builder builder) {
     assert Supplier.class != null;
     assert ListenableFuture.class != null;
-    return builder;
+    return builder
+        .specialObjectMaker(new ListenableFutureMaker());
   }
 }
