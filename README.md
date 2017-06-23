@@ -262,6 +262,9 @@ Multiple bits of mockspresso functionality can be packaged into `MockspressoPlug
     - Requires dependencies from mockito(), `org.powermock:powermock-api-easymock` and `org.powermock:powermock-module-junit4`. Also requires your test be run with the `PowerMockRunner`.
   - `mocker().easyMockWithPowerMockRule()`: Similar to easyMockWithPowerMock(), but also applies a `PowerMockRule` as an outerRule to mockspresso, thereby removing the requirement to use `PowerMockRunner`.
     - Requires dependencies from easyMockWithPowerMock(), `org.powermock:powermock-module-junit4-rule` and `org.powermock:powermock-classloading-xstream`.
+- Plugins: Built-in plugins that don't fit into mocker or injector categories. Usually collections of special object makers.
+  - `guava()`: Special object handling for some of guava's interfaces (currently supports Supplier and ListenableFuture).
+    - Requires dependency on `com.google.guava:guava`
 
 
 ## License
