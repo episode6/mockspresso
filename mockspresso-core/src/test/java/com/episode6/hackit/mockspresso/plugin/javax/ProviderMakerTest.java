@@ -62,5 +62,15 @@ public class ProviderMakerTest {
     verify(mDependencyProvider).get(testClassKey);
   }
 
+  @Test
+  public void testCantCreateUnParameterizedProvider() {
+    boolean canMake = mProviderMaker.canMakeObject(DependencyKey.of(Provider.class));
+    Provider provider = mProviderMaker.makeObject(mDependencyProvider, DependencyKey.of(Provider.class));
+
+    assertThat(canMake).isFalse();
+    assertThat(provider).isNull();
+    verifyNoMoreInteractions(mDependencyProvider);
+  }
+
   public static class TestClass {}
 }

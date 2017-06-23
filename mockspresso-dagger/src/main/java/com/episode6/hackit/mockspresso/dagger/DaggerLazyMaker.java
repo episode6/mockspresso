@@ -16,7 +16,8 @@ public class DaggerLazyMaker implements SpecialObjectMaker {
 
   @Override
   public boolean canMakeObject(DependencyKey<?> key) {
-    return key.typeToken.getRawType() == Lazy.class;
+    return key.typeToken.getRawType() == Lazy.class &&
+        key.typeToken.getType() instanceof ParameterizedType;
   }
 
   @SuppressWarnings("unchecked")

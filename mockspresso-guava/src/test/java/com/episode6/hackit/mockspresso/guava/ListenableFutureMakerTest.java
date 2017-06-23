@@ -47,7 +47,7 @@ public class ListenableFutureMakerTest {
   }
 
   @Test
-  public void testCantCreateGenericFuture() {
+  public void testCantCreateUnParameterizedFuture() {
     boolean canMake = mFutureMaker.canMakeObject(DependencyKey.of(ListenableFuture.class));
     ListenableFuture future = mFutureMaker.makeObject(mDependencyProvider, DependencyKey.of(ListenableFuture.class));
 
