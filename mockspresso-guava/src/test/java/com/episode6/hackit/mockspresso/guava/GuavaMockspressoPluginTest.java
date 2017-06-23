@@ -32,6 +32,7 @@ public class GuavaMockspressoPluginTest {
     Mockspresso.Builder returnedBuilder = mPlugin.apply(mBuilder);
 
     verify(mBuilder).specialObjectMaker(any(ListenableFutureMaker.class));
+    verify(mBuilder).specialObjectMaker(any(SupplierMaker.class));
     assertThat(returnedBuilder)
         .isNotNull()
         .isEqualTo(mBuilder);

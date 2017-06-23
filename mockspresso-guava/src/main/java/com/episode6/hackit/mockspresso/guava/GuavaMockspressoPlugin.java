@@ -14,6 +14,7 @@ public class GuavaMockspressoPlugin implements MockspressoPlugin {
     assert Supplier.class != null;
     assert ListenableFuture.class != null;
     return builder
-        .specialObjectMaker(new ListenableFutureMaker());
+        .specialObjectMaker(new ListenableFutureMaker())
+        .specialObjectMaker(new SupplierMaker());
   }
 }
