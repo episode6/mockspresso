@@ -64,6 +64,12 @@ public interface Mockspresso {
     Builder plugin(MockspressoPlugin plugin);
 
     /**
+     * Apply one of the built-in {@link MockspressoPlugin}s to this builder.
+     * @return A {@link PluginPicker} that will apply a plugin to this builder.
+     */
+    PluginPicker plugin();
+
+    /**
      * Treat the resulting {@link Mockspresso.Rule} as a RuleChain, and wrap it using the
      * supplied testRule as an outerRule.
      *
@@ -349,5 +355,35 @@ public interface Mockspresso {
      * @return The {@link Builder} for your mockspresso instance
      */
     Builder dagger();
+  }
+
+  /**
+   * A selector for one of the built in plugins
+   */
+  interface PluginPicker {
+
+    /**
+     * Applies a {@link MockspressoPlugin} thats adds special object handling
+     * for some of the types provided by guava.
+     * * Requires your project have a dependency on 'com.google.guava:guava'
+     * @return The {@link Builder} for your mockspresso instance
+     */
+    Builder guava();
+
+    /**
+     * Applies special object handling for the provided factory classes. The
+     * applicable objects will be mocked by mockito, but with a default answer
+     * that returns objects from mockspresso's dependency map (similar to how
+     * the javax() injector automatically binds Providers, but applied to any
+     * factory class, including generics).
+     *
+     * Requires your project have a dependency on 'org.mockito:mockito-core' v2.x but
+     * does NOT require using mockito as your mocker.
+     *
+     * @param factoryClasses The factory classes that should be auto-mocked and bound
+     *                       if they are encountered in your test.
+     * @return The {@link Builder} for your mockspresso instance
+     */
+    Builder automaticFactories(Class<?>... factoryClasses);
   }
 }

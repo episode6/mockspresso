@@ -9,7 +9,7 @@ import com.episode6.hackit.mockspresso.exception.MissingDependencyError;
  * the BuiltInPluginPicker will catch any NoClassDefFoundErrors and wrap them with a {@link MissingDependencyError}
  * that better explains exactly which dependencies are missing.
  */
-class BuiltInPluginPicker implements Mockspresso.MockerPicker, Mockspresso.InjectorPicker {
+class BuiltInPluginPicker implements Mockspresso.MockerPicker, Mockspresso.InjectorPicker, Mockspresso.PluginPicker {
 
   private final Mockspresso.Builder mBuilder;
 
@@ -95,6 +95,24 @@ class BuiltInPluginPicker implements Mockspresso.MockerPicker, Mockspresso.Injec
       return mBuilder.plugin(new com.episode6.hackit.mockspresso.dagger.DaggerMockspressoPlugin());
     } catch (NoClassDefFoundError e) {
       throw new MissingDependencyError("com.google.dagger:dagger or com.squareup.dagger:dagger", e);
+    }
+  }
+
+  @Override
+  public Mockspresso.Builder guava() {
+    try {
+      return mBuilder.plugin(new com.episode6.hackit.mockspresso.guava.GuavaMockspressoPlugin());
+    } catch (NoClassDefFoundError e) {
+      throw new MissingDependencyError("com.google.guava:guava", e);
+    }
+  }
+
+  @Override
+  public Mockspresso.Builder automaticFactories(Class<?>... factoryClasses) {
+    try {
+      return mBuilder.specialObjectMaker(com.episode6.hackit.mockspresso.mockito.MockitoAutoFactoryMaker.create(factoryClasses));
+    } catch (NoClassDefFoundError e) {
+      throw new MissingDependencyError("org.mockito:mockito-core v2.x", e);
     }
   }
 }

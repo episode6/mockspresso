@@ -16,7 +16,8 @@ public class ProviderMaker implements SpecialObjectMaker {
 
   @Override
   public boolean canMakeObject(DependencyKey<?> key) {
-    return key.typeToken.getRawType() == Provider.class;
+    return key.typeToken.getRawType() == Provider.class &&
+        key.typeToken.getType() instanceof ParameterizedType;
   }
 
   @SuppressWarnings("unchecked")

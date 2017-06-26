@@ -57,5 +57,15 @@ public class DaggerLazyMakerTest {
     verify(mDependencyProvider).get(testClassKey);
   }
 
+  @Test
+  public void testCantCreateUnParameterizedProvider() {
+    boolean canMake = mLazyMaker.canMakeObject(DependencyKey.of(Lazy.class));
+    Lazy lazy = mLazyMaker.makeObject(mDependencyProvider, DependencyKey.of(Lazy.class));
+
+    assertThat(canMake).isFalse();
+    assertThat(lazy).isNull();
+    verifyNoMoreInteractions(mDependencyProvider);
+  }
+
   public static class TestClass {}
 }

@@ -23,9 +23,9 @@ import java.util.Set;
 /**
  * Implementation of {@link Mockspresso.Builder}
  */
-public class MockspressoBuilderImpl implements Mockspresso.Builder {
+class MockspressoBuilderImpl implements Mockspresso.Builder {
 
-  public static final Provider<MockspressoBuilderImpl> PROVIDER = new Provider<MockspressoBuilderImpl>() {
+  static final Provider<MockspressoBuilderImpl> PROVIDER = new Provider<MockspressoBuilderImpl>() {
     @Override
     public MockspressoBuilderImpl get() {
       return new MockspressoBuilderImpl();
@@ -36,6 +36,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   private final DependencyMap mDependencyMap;
   private final SpecialObjectMakerContainer mSpecialObjectMakers;
   private final RealObjectMapping mRealObjectMapping;
+  private final BuiltInPluginPicker mBuiltInPluginPicker;
 
   private @Nullable MockerConfig mMockerConfig;
   private @Nullable InjectionConfig mInjectionConfig;
@@ -47,6 +48,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     mDependencyMap = new DependencyMap();
     mSpecialObjectMakers = new SpecialObjectMakerContainer();
     mRealObjectMapping = new RealObjectMapping();
+    mBuiltInPluginPicker = new BuiltInPluginPicker(this);
 
     mMockerConfig = null;
     mInjectionConfig = null;
@@ -60,6 +62,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
     mDependencyMap = copyFrom.mDependencyMap.deepCopy();
     mSpecialObjectMakers = copyFrom.mSpecialObjectMakers.deepCopy();
     mRealObjectMapping = copyFrom.mRealObjectMapping.deepCopy();
+    mBuiltInPluginPicker = new BuiltInPluginPicker(this);
 
     mMockerConfig = copyFrom.mMockerConfig;
     mInjectionConfig = copyFrom.mInjectionConfig;
@@ -87,6 +90,11 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
   @Override
   public Mockspresso.Builder plugin(MockspressoPlugin plugin) {
     return plugin.apply(this);
+  }
+
+  @Override
+  public Mockspresso.PluginPicker plugin() {
+    return mBuiltInPluginPicker;
   }
 
   @Override
@@ -132,7 +140,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   @Override
   public Mockspresso.MockerPicker mocker() {
-    return new BuiltInPluginPicker(this);
+    return mBuiltInPluginPicker;
   }
 
   @Override
@@ -143,7 +151,7 @@ public class MockspressoBuilderImpl implements Mockspresso.Builder {
 
   @Override
   public Mockspresso.InjectorPicker injector() {
-    return new BuiltInPluginPicker(this);
+    return mBuiltInPluginPicker;
   }
 
   @Override

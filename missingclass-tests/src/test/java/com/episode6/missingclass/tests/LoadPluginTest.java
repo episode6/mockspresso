@@ -5,6 +5,7 @@ import com.episode6.hackit.mockspresso.exception.MissingDependencyError;
 import org.junit.Test;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+import static org.fest.assertions.api.Assertions.fail;
 
 /**
  * Tests loading of plugins w/o having the appropriate dependencies
@@ -95,6 +96,30 @@ public class LoadPluginTest {
         });
   }
 
+  @Test
+  public void testGuavaLoad() {
+    doTest(
+        "com.google.guava:guava",
+        new Runnable() {
+          @Override
+          public void run() {
+            BuildMockspresso.with().plugin().guava();
+          }
+        });
+  }
+
+  @Test
+  public void testAutoFactoryLoad() {
+    doTest(
+        "org.mockito:mockito-core v2.x",
+        new Runnable() {
+          @Override
+          public void run() {
+            BuildMockspresso.with().plugin().automaticFactories();
+          }
+        });
+  }
+
   private void doTest(String expectedDependency, Runnable runnable) {
     try {
       runnable.run();
@@ -102,6 +127,8 @@ public class LoadPluginTest {
       assertThat(e.getMessage())
           .startsWith("Missing Dependency: ")
           .endsWith(expectedDependency);
+      return;
     }
+    fail("Excpeted MissingDependencyException was not thrown");
   }
 }
