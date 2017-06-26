@@ -62,34 +62,6 @@ public class ReflectUtilTest {
   }
 
   @Test
-  public void testFindQualifierAnnotationMethod() throws IllegalAccessException, InstantiationException {
-    Annotation found1 = ReflectUtil.findQualifierAnnotation(qualifierMethod("testProp1"));
-    Annotation found2 = ReflectUtil.findQualifierAnnotation(qualifierMethod("testProp2"));
-    Annotation found3 = ReflectUtil.findQualifierAnnotation(qualifierMethod("testProp3"));
-    Annotation found4 = ReflectUtil.findQualifierAnnotation(qualifierMethod("testProp4"));
-    Annotation found5 = ReflectUtil.findQualifierAnnotation(qualifierMethod("testProp5"));
-
-    assertTrue(found1.annotationType() == Named.class);
-    assertTrue(found2.annotationType() == Named.class);
-    assertTrue(found3.annotationType() == Named.class);
-    assertTrue(found4.annotationType() == TestQualifierAnnotation.class);
-    assertTrue(found5.annotationType() == Named.class);
-
-    assertThat(found1)
-        .isNotEqualTo(found2)
-        .isEqualTo(found5);
-    assertThat(found2)
-        .isNotEqualTo(found1)
-        .isEqualTo(found3);
-    assertThat(((Named)found1).value()).isEqualTo("test1");
-  }
-
-  @Test(expected = MultipleQualifierAnnotationException.class)
-  public void testMultipleQualifiersMethodFailure() {
-    ReflectUtil.findQualifierAnnotation(qualifierMethod("badTestProp"));
-  }
-
-  @Test
   public void testGetAllDeclaredFields() {
     List<Field> fields = ReflectUtil.getAllDeclaredFields(SubclassTestObject.class);
 
@@ -158,14 +130,6 @@ public class ReflectUtilTest {
     }
   }
 
-  private Method method(Class<?> clazz, String name) {
-    try {
-      return clazz.getDeclaredMethod(name);
-    } catch (NoSuchMethodException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
   public static class SuperClass {
     public void doSomething() {}
     public void doSomethingElse(List<String> stringList) {}
@@ -179,19 +143,5 @@ public class ReflectUtilTest {
 
   public static class ClassWithMethodWithAnnotation {
     @Inject @TestQualifierAnnotation public void doNothing() {}
-  }
-
-  public static class ClassWithMethodQualifiers {
-    @Named("test1") String testProp1() {return null;}
-    @Named String testProp2() {return null;}
-    @Named @TestSimpleAnnotation String testProp3() {return null;}
-    @TestSimpleAnnotation @TestQualifierAnnotation Integer testProp4() {return null;}
-    @TestSimpleAnnotation @Named("test1") Integer testProp5() {return null;}
-
-    @Named @TestSimpleAnnotation @TestQualifierAnnotation String badTestProp() {return null;}
-  }
-
-  private Method qualifierMethod(String name) {
-    return method(ClassWithMethodQualifiers.class, name);
   }
 }

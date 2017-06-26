@@ -49,10 +49,6 @@ public class ReflectUtil {
     return findQualifierAnnotation(field.getDeclaredAnnotations(), "field: " + field.getName());
   }
 
-  public static @Nullable Annotation findQualifierAnnotation(Method method) {
-    return findQualifierAnnotation(method.getDeclaredAnnotations(), "method: " + method.getName());
-  }
-
   public static @Nullable Annotation findQualifierAnnotation(Annotation[] annotations, String description) {
     Annotation found = null;
     for (Annotation annotation : annotations) {
