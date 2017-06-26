@@ -10,10 +10,10 @@ Mockspresso creates your objects for you, letting you drop the constructors from
 ## How?
 Add the dependency on `mockspresso-core` as well as the depencies for your favorite mocking framework.
 ```groovy
-repositories { maven { url "https://oss.sonatype.org/content/repositories/snapshots/" } }
+repositories { jcenter() }
 dependencies {
     // mockspresso-core dependency
-    testCompile 'com.episode6.hackit.mockspresso:mockspresso-core:0.0.8-SNAPSHOT'
+    testCompile 'com.episode6.hackit.mockspresso:mockspresso-core:0.0.8'
 
     /* You'll also need the dependencies for your mocking framework of choice */
     // for mockito
