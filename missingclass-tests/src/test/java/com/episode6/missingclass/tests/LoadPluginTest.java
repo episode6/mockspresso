@@ -108,6 +108,18 @@ public class LoadPluginTest {
         });
   }
 
+  @Test
+  public void testAutoFactoryLoad() {
+    doTest(
+        "org.mockito:mockito-core v2.x",
+        new Runnable() {
+          @Override
+          public void run() {
+            BuildMockspresso.with().plugin().automaticFactories();
+          }
+        });
+  }
+
   private void doTest(String expectedDependency, Runnable runnable) {
     try {
       runnable.run();

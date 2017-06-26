@@ -106,4 +106,13 @@ class BuiltInPluginPicker implements Mockspresso.MockerPicker, Mockspresso.Injec
       throw new MissingDependencyError("com.google.guava:guava", e);
     }
   }
+
+  @Override
+  public Mockspresso.Builder automaticFactories(Class<?>... factoryClasses) {
+    try {
+      return mBuilder.specialObjectMaker(com.episode6.hackit.mockspresso.mockito.MockitoAutoFactoryMaker.create(factoryClasses));
+    } catch (NoClassDefFoundError e) {
+      throw new MissingDependencyError("org.mockito:mockito-core v2.x", e);
+    }
+  }
 }

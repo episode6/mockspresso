@@ -369,5 +369,21 @@ public interface Mockspresso {
      * @return The {@link Builder} for your mockspresso instance
      */
     Builder guava();
+
+    /**
+     * Applies special object handling for the provided factory classes. The
+     * applicable objects will be mocked by mockito, but with a default answer
+     * that returns objects from mockspresso's dependency map (similar to how
+     * the javax() injector automatically binds Providers, but applied to any
+     * factory class, including generics).
+     *
+     * Requires your project have a dependency on 'org.mockito:mockito-core' v2.x but
+     * does NOT require using mockito as your mocker.
+     *
+     * @param factoryClasses The factory classes that should be auto-mocked and bound
+     *                       if they are encountered in your test.
+     * @return The {@link Builder} for your mockspresso instance
+     */
+    Builder automaticFactories(Class<?>... factoryClasses);
   }
 }

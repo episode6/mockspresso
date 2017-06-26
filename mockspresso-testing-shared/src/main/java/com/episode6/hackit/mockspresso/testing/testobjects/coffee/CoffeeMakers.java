@@ -126,4 +126,32 @@ public class CoffeeMakers {
       return brewInternal(mPump, mHeater, mCoffeeGroundsProvider.get());
     }
   }
+
+  /**
+   * A coffee maker that uses a {@link CoffeeGroundsFactory} to supply the coffee grounds
+   */
+  public static class GroundsFactoryCoffeeMaker implements CoffeeMaker {
+    private final Pump mPump;
+    private final Heater mHeater;
+    private final CoffeeGroundsFactory mCoffeeGroundsFactory;
+
+    public GroundsFactoryCoffeeMaker(
+        Pump pump,
+        Heater heater,
+        CoffeeGroundsFactory coffeeGroundsFactory) {
+      mPump = pump;
+      mHeater = heater;
+      mCoffeeGroundsFactory = coffeeGroundsFactory;
+    }
+
+
+    @Override
+    public Coffee brew() {
+      return brewInternal(mPump, mHeater, mCoffeeGroundsFactory.createNamedCoffeeGrounds("steve"));
+    }
+
+    public Heater getHeater() {
+      return mHeater;
+    }
+  }
 }
