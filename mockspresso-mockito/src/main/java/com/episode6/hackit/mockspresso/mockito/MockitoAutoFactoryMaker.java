@@ -3,14 +3,11 @@ package com.episode6.hackit.mockspresso.mockito;
 import com.episode6.hackit.mockspresso.api.DependencyProvider;
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
-import com.episode6.hackit.mockspresso.reflect.ReflectUtil;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-import javax.annotation.Nullable;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -24,7 +21,7 @@ import java.util.List;
  *
  * Mockito is used to mock the factory classes with a default answer. Upon invocation, that
  * default answer will query the dependencyProvider for a key based on the invoked method's
- * return type (and optional qualifier annotation).
+ * return type (and the factory's optional qualifier annotation).
  *
  * This class should support most generic factory types.
  */
@@ -89,8 +86,7 @@ public class MockitoAutoFactoryMaker implements SpecialObjectMaker {
       }
 
       TypeToken<?> returnType = TypeToken.of(genericReturnType);
-      @Nullable Annotation annotation = ReflectUtil.findQualifierAnnotation(method);
-      DependencyKey<?> subKey = DependencyKey.of(returnType, annotation);
+      DependencyKey<?> subKey = DependencyKey.of(returnType, mOriginalKey.identityAnnotation);
       return mDependencyProvider.get(subKey);
     }
   }

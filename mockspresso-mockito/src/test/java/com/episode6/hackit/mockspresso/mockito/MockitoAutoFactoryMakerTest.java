@@ -9,8 +9,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import javax.inject.Named;
-
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -23,6 +21,8 @@ public class MockitoAutoFactoryMakerTest {
   static final DependencyKey<TestClassFactory> factoryKey = DependencyKey.of(TestClassFactory.class);
   static final DependencyKey<TestClass> testClassKey = DependencyKey.of(TestClass.class);
   static final NamedAnnotationLiteral qualifierAnnotation = new NamedAnnotationLiteral("some_named_annotation");
+  static final DependencyKey<TestClassFactory> annotatestFactoryKey = DependencyKey.of(TestClassFactory.class, qualifierAnnotation);
+  static final DependencyKey<TestClass> annotatestTestClassKey = DependencyKey.of(TestClass.class, qualifierAnnotation);
   static final DependencyKey<GenericFactory<TestClass>> genericFactoryKey = DependencyKey.of(new TypeToken<GenericFactory<TestClass>>() {});
   static final DependencyKey<VarChangeGenericFactory<TestClass>> varChangeGenericFactoryKey = DependencyKey.of(new TypeToken<VarChangeGenericFactory<TestClass>>() {});
   static final DependencyKey<ComplexVarChangeGeneric<String, TestClass>> complexVarChangeFactoryKey = DependencyKey.of(new TypeToken<ComplexVarChangeGeneric<String, TestClass>>() {});
@@ -33,9 +33,6 @@ public class MockitoAutoFactoryMakerTest {
     TestClass create(String name);
   }
 
-  interface AnnotatedTestClassFactory {
-    @Named("some_named_annotation") TestClass create(String name);
-  }
 
   interface GenericFactory<V> {
     V createThing(String name);
@@ -69,14 +66,14 @@ public class MockitoAutoFactoryMakerTest {
 
   @Test
   public void testAnnotatedFactoryMaker() {
-    when(mDependencyProvider.get(DependencyKey.of(TestClass.class, qualifierAnnotation))).thenReturn(mTestClass);
-    MockitoAutoFactoryMaker maker = MockitoAutoFactoryMaker.create(AnnotatedTestClassFactory.class);
+    when(mDependencyProvider.get(annotatestTestClassKey)).thenReturn(mTestClass);
+    MockitoAutoFactoryMaker maker = MockitoAutoFactoryMaker.create(TestClassFactory.class);
 
-    boolean canMake = maker.canMakeObject(DependencyKey.of(AnnotatedTestClassFactory.class));
-    AnnotatedTestClassFactory factory = maker.makeObject(mDependencyProvider, DependencyKey.of(AnnotatedTestClassFactory.class));
+    boolean canMake = maker.canMakeObject(DependencyKey.of(TestClassFactory.class));
+    TestClassFactory factory = maker.makeObject(mDependencyProvider, annotatestFactoryKey);
     TestClass testClass = factory.create("some name");
 
-    verify(mDependencyProvider).get(DependencyKey.of(TestClass.class, qualifierAnnotation));
+    verify(mDependencyProvider).get(annotatestTestClassKey);
     assertThat(canMake).isTrue();
     assertThat(testClass).isEqualTo(mTestClass);
   }
