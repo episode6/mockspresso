@@ -265,6 +265,8 @@ Multiple bits of mockspresso functionality can be packaged into `MockspressoPlug
 - Plugins: Built-in plugins that don't fit into mocker or injector categories. Usually collections of special object makers.
   - `guava()`: Special object handling for some of guava's interfaces (currently supports Supplier and ListenableFuture).
     - Requires dependency on `com.google.guava:guava`
+  - `automaticFactories(Class<?> factoryClasses)`: Special object handling for your project's factory classes. Factory classes will be automatically mocked to return the underlying mockspresso binding from their methods that return objects. This is just link the automatic handling for `Provider`s and `Lazy`s, but can be applied to any class in your project (including most generics).
+    - Requires dependency: `org.mockito:mockito-core:2.+` (or `mockito-inline` to support final factories). Does NOT require using the mockito mocker, only that mockito be available on the classpath.
 
 
 ## License
