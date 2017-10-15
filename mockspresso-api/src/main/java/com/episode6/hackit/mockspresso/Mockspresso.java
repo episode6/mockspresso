@@ -64,12 +64,6 @@ public interface Mockspresso {
     Builder plugin(MockspressoPlugin plugin);
 
     /**
-     * Apply one of the built-in {@link MockspressoPlugin}s to this builder.
-     * @return A {@link PluginPicker} that will apply a plugin to this builder.
-     */
-    PluginPicker plugin();
-
-    /**
      * Treat the resulting {@link Mockspresso.Rule} as a RuleChain, and wrap it using the
      * supplied testRule as an outerRule.
      *
@@ -145,12 +139,6 @@ public interface Mockspresso {
      * @return this
      */
     Builder mocker(MockerConfig mockerConfig);
-
-    /**
-     * Apply one of the built-in {@link MockerConfig}s to this builder.
-     * @return A {@link MockerPicker} that will apply a mockerConfig to this builder.
-     */
-    MockerPicker mocker();
 
     /**
      * Apply a {@link InjectionConfig} to this builder, which tells mockspresso how to create real objects.
@@ -268,67 +256,6 @@ public interface Mockspresso {
   }
 
   /**
-   * A selector for one of the built-in mocker configs
-   */
-  interface MockerPicker {
-
-    /**
-     * Applies the {@link MockerConfig} for Mockito.
-     * Requires your project have a dependency on 'org.mockito:mockito-core' v2.x
-     * @return The {@link Builder} for your mockspresso instance
-     */
-    Builder mockito();
-
-    /**
-     * Applies the {@link MockerConfig} for EasyMock.
-     * Requires your project have a dependency on 'org.easymock:easymock' v3.4
-     * @return The {@link Builder} for your mockspresso instance
-     */
-    Builder easyMock();
-
-    /**
-     * Applies the {@link MockerConfig} for Powermock + Mockito.
-     * Requires your project have a dependency on org.mockito:mockito-core v2.x,
-     * org.powermock:powermock-api-mockito2, and org.powermock:powermock-module-junit4 v1.7.0+.
-     * Also requires your test be runWith the PowerMockRunner
-     * @return The {@link Builder} for your mockspresso instance
-     */
-    Builder mockitoWithPowerMock();
-
-    /**
-     * Applies the {@link MockerConfig} for Powermock + Mockito AND applies a PowerMockRule as
-     * an outerRule to Mockspresso, so theres no need to use the PowerMockRunner
-     * Requires your project have the same dependencies as {@link #mockitoWithPowerMock()}
-     * PLUS org.powermock:powermock-module-junit4-rule and org.powermock:powermock-classloading-xstream
-     * @return The {@link Builder} for your mockspresso instance
-     */
-    Builder mockitoWithPowerMockRule();
-
-    /**
-     * Applies the {@link MockerConfig} for Powermock + EasyMock.
-     * Requires your project have a dependency on org.easymock:easymock v3.4,
-     * org.powermock:powermock-api-mockito2, and org.powermock:powermock-module-junit4 v1.7.0+.
-     * Also requires your test be runWith the PowerMockRunner
-     *
-     * WARNING, the @org.easymock.Mock annotation may not work correctly when using Mockspresso +
-     * easymock + PowerMockRunner, as easymock overwrites Mockspresso's annotated mocks at the last minute.
-     * To work around this problem, use powermock's @Mock, @MockNice and @MockStrict annotations instead.
-     *
-     * @return The {@link Builder} for your mockspresso instance
-     */
-    Builder easyMockWithPowerMock();
-
-    /**
-     * Applies the {@link MockerConfig} for Powermock + EasyMock AND applies a PowerMockRule as
-     * an outerRule to Mockspresso, so theres no need to use the PowerMockRunner
-     * Requires your project have the same dependencies as {@link #easyMockWithPowerMock()}
-     * PLUS org.powermock:powermock-module-junit4-rule and org.powermock:powermock-classloading-xstream
-     * @return The {@link Builder} for your mockspresso instance
-     */
-    Builder easyMockWithPowerMockRule();
-  }
-
-  /**
    * A selector for one of the built in injection configs
    */
   interface InjectorPicker {
@@ -346,44 +273,5 @@ public interface Mockspresso {
      * @return The {@link Builder} for your mockspresso instance
      */
     Builder javax();
-
-    /**
-     * Applies an {@link InjectionConfig} for dagger. This is the same as the
-     * {@link #javax()} injector with additional support for dagger's Lazy interface.
-     * Requires your project have a dependency on 'com.google.dagger:dagger' or
-     * 'com.squareup.dagger:dagger'
-     * @return The {@link Builder} for your mockspresso instance
-     */
-    Builder dagger();
-  }
-
-  /**
-   * A selector for one of the built in plugins
-   */
-  interface PluginPicker {
-
-    /**
-     * Applies a {@link MockspressoPlugin} thats adds special object handling
-     * for some of the types provided by guava.
-     * * Requires your project have a dependency on 'com.google.guava:guava'
-     * @return The {@link Builder} for your mockspresso instance
-     */
-    Builder guava();
-
-    /**
-     * Applies special object handling for the provided factory classes. The
-     * applicable objects will be mocked by mockito, but with a default answer
-     * that returns objects from mockspresso's dependency map (similar to how
-     * the javax() injector automatically binds Providers, but applied to any
-     * factory class, including generics).
-     *
-     * Requires your project have a dependency on 'org.mockito:mockito-core' v2.x but
-     * does NOT require using mockito as your mocker.
-     *
-     * @param factoryClasses The factory classes that should be auto-mocked and bound
-     *                       if they are encountered in your test.
-     * @return The {@link Builder} for your mockspresso instance
-     */
-    Builder automaticFactories(Class<?>... factoryClasses);
   }
 }

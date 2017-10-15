@@ -51,11 +51,6 @@ class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implements Mo
   }
 
   @Override
-  public PluginPicker plugin() {
-    return mBuiltInPluginPicker;
-  }
-
-  @Override
   public Builder outerRule(TestRule testRule) {
     throw new VerifyError("Can't build a new mockspresso @Rule on top of an existing one.");
   }
@@ -91,11 +86,6 @@ class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implements Mo
   public Builder mocker(MockerConfig mockerConfig) {
     mBuilder.mocker(mockerConfig);
     return this;
-  }
-
-  @Override
-  public MockerPicker mocker() {
-    return mBuiltInPluginPicker;
   }
 
   @Override

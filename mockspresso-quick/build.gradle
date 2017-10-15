@@ -1,0 +1,27 @@
+
+apply plugin: 'java'
+apply plugin: 'com.episode6.hackit.deployable.jar'
+apply plugin: 'com.episode6.hackit.gdmc'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+dependencies {
+  compile 'com.google.code.findbugs:jsr305'
+  provided 'junit:junit'
+
+  compile project(':mockspresso-api')
+  compile project(':mockspresso-core')
+
+  // built-in plugin deps
+  compile project(':mockspresso-mockito')
+  compile project(':mockspresso-easymock')
+  compile project(':mockspresso-mockito-powermock')
+  compile project(':mockspresso-easymock-powermock')
+  compile project(':mockspresso-dagger')
+  compile project(':mockspresso-guava')
+  
+  testCompile 'junit:junit'
+  testCompile 'org.easytesting:fest-assert-core'
+}
+
