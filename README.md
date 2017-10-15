@@ -41,10 +41,11 @@ For quick usage in a new project, where you don't want to worry too much about g
 ```groovy
 repositories { maven { url "https://oss.sonatype.org/content/repositories/snapshots/" } }
 dependencies {
-    // mockspresso-core dependency
+    /* mockspresso-quick dependency includes core and all plugin modules. External modules are optional */
     testCompile 'com.episode6.hackit.mockspresso:mockspresso-quick:' + mockspressoVersion
 
     /* You'll still need the external dependencies for your mocking framework of choice */
+
     // for mockito
     testCompile 'org.mockito:mockito-core:' + mockitoVersion
 
