@@ -1,10 +1,10 @@
 package com.episode6.hackit.mockspresso.easymock.powermock.integration.rule;
 
-import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.plugin.javax.JavaxInjectMockspressoPlugin;
 import com.episode6.hackit.mockspresso.plugin.simple.SimpleInjectMockspressoPlugin;
+import com.episode6.hackit.mockspresso.quick.QuickBuildMockspresso;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.*;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeMakers.*;
 import org.easymock.Mock;
@@ -32,7 +32,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(JUnit4.class)
 public class CoffeeMakersMockEverythingTestEasyPowerMockRule {
 
-  @Rule public final Mockspresso.Rule simpleMockspresso = BuildMockspresso.with()
+  @Rule public final Mockspresso.Rule simpleMockspresso = QuickBuildMockspresso.with()
       .injector().simple()
       .mocker().easyMockWithPowerMockRule()
       .buildRule();

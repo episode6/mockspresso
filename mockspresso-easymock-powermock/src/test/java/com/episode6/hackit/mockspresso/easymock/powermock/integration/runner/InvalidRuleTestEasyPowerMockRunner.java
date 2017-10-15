@@ -1,7 +1,7 @@
 package com.episode6.hackit.mockspresso.easymock.powermock.integration.runner;
 
-import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
+import com.episode6.hackit.mockspresso.quick.QuickBuildMockspresso;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.easymock.Mock;
 import org.junit.Before;
@@ -17,7 +17,7 @@ public class InvalidRuleTestEasyPowerMockRunner {
 
   private final TestClass mInitializerWithFields = new TestClass();
 
-  public final Mockspresso.Rule invalidMockspresso = BuildMockspresso.with()
+  public final Mockspresso.Rule invalidMockspresso = QuickBuildMockspresso.with()
       .injector().simple()
       .mocker().easyMockWithPowerMock()
       .testResources(mInitializerWithFields)
