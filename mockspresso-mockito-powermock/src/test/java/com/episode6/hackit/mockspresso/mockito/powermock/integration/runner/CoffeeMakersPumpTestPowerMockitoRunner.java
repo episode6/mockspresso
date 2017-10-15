@@ -1,7 +1,7 @@
 package com.episode6.hackit.mockspresso.mockito.powermock.integration.runner;
 
-import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
+import com.episode6.hackit.mockspresso.quick.QuickBuildMockspresso;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Coffee;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeMakers;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Pump;
@@ -27,7 +27,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 public class CoffeeMakersPumpTestPowerMockitoRunner {
 
   private final PumpTestResources t = new PumpTestResources();
-  @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
+  @Rule public final Mockspresso.Rule mockspresso = QuickBuildMockspresso.with()
       .injector().javax()
       .mocker().mockitoWithPowerMock()
       .testResources(t)

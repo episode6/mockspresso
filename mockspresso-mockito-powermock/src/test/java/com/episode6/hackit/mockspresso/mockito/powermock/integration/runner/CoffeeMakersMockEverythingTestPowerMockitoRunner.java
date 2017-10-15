@@ -1,10 +1,10 @@
 package com.episode6.hackit.mockspresso.mockito.powermock.integration.runner;
 
-import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.plugin.javax.JavaxInjectMockspressoPlugin;
 import com.episode6.hackit.mockspresso.plugin.simple.SimpleInjectMockspressoPlugin;
+import com.episode6.hackit.mockspresso.quick.QuickBuildMockspresso;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.*;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeMakers.*;
 import org.junit.Before;
@@ -33,7 +33,7 @@ import static org.mockito.Mockito.when;
 @RunWith(PowerMockRunner.class)
 public class CoffeeMakersMockEverythingTestPowerMockitoRunner {
 
-  @Rule public final Mockspresso.Rule simpleMockspresso = BuildMockspresso.with()
+  @Rule public final Mockspresso.Rule simpleMockspresso = QuickBuildMockspresso.with()
       .injector().simple()
       .mocker().mockitoWithPowerMock()
       .buildRule();

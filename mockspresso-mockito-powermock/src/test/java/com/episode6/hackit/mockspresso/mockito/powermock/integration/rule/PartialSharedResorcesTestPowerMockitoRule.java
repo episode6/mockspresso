@@ -1,8 +1,8 @@
 package com.episode6.hackit.mockspresso.mockito.powermock.integration.rule;
 
-import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
+import com.episode6.hackit.mockspresso.quick.QuickBuildMockspresso;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeMakers;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Pump;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Water;
@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 public class PartialSharedResorcesTestPowerMockitoRule {
 
   private final PartialSharedResources t = new PartialSharedResources();
-  @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
+  @Rule public final Mockspresso.Rule mockspresso = QuickBuildMockspresso.with()
       .injector().javax()
       .mocker().mockitoWithPowerMockRule()
       .testResources(t)
