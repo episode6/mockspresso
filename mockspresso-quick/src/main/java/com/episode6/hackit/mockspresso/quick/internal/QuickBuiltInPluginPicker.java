@@ -1,6 +1,6 @@
 package com.episode6.hackit.mockspresso.quick.internal;
 
-import com.episode6.hackit.mockspresso.exception.MissingDependencyError;
+import com.episode6.hackit.mockspresso.quick.exception.MissingDependencyError;
 import com.episode6.hackit.mockspresso.quick.QuickMockspressoBuilder;
 
 /**
