@@ -332,7 +332,7 @@ Multiple bits of mockspresso functionality can be packaged into `MockspressoPlug
 `mockspresso-quick` usage | manual usage | dependencies | description
 ------------------------- | ------------ | ------------ | -----------
 `.plugin().guava()` | `.plugin(new GuavaMockspressoPlugin())` | **`:mockspresso-guava`**, `com.google.guava:guava` | Special object handling for some of guava's interfaces (currently supports Supplier and ListenableFuture).
-`.plugin().automaticFactories( Class<?>... factoryClasses)` | `.specialObjectMaker(MockitoAutoFactoryMaker.create( Class<?>... factoryClasses))` | **`:mockspresso-mockito`**, `org.mockito:mockito-core:2.+` | Special object handling for your project's factory classes. Factory classes will be automatically mocked to return the underlying mockspresso binding from their methods that return objects. This is just link the automatic handling for `Provider`s and `Lazy`s, but can be applied to any class in your project (including most generics). Does NOT require using the mockito mocker, only that mockito be available on the classpath.
+`.plugin().automaticFactories( Class<?>... factoryClasses)` | `.specialObjectMaker(MockitoAutoFactoryMaker.create( Class<?>... factoryClasses))` | **`:mockspresso-mockito`**, `org.mockito:mockito-core:2.+` | Special object handling for your project's factory classes. Factory classes will be automatically mocked to return the underlying mockspresso binding from their methods that return objects. This is just like the automatic handling for `Provider`s and `Lazy`s, but can be applied to any class in your project (including most generics). Does NOT require using the mockito mocker, only that mockito be available on the classpath.
 
 
 ## License
