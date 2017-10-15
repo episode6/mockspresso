@@ -30,17 +30,17 @@ public class QuickMockspressoBuilderImpl implements QuickMockspressoBuilder {
 
   @Override
   public QuickMockspressoBuilder.InjectorPicker injector() {
-    return new BuiltInPluginPicker(this);
+    return new QuickBuiltInPluginPicker(this);
   }
 
   @Override
   public QuickMockspressoBuilder.PluginPicker plugin() {
-    return new BuiltInPluginPicker(this);
+    return new QuickBuiltInPluginPicker(this);
   }
 
   @Override
   public QuickMockspressoBuilder.MockerPicker mocker() {
-    return new BuiltInPluginPicker(this);
+    return new QuickBuiltInPluginPicker(this);
   }
   
   

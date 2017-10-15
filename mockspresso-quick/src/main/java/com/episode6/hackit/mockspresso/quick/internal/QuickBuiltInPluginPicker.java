@@ -6,14 +6,15 @@ import com.episode6.hackit.mockspresso.quick.QuickMockspressoBuilder;
 /**
  * Implementation of {@link QuickMockspressoBuilder.MockerPicker} and {@link QuickMockspressoBuilder.PluginPicker} which enables
  * simple activation of "built-in" mockspresso plugins. For plugins with their own "optional" dependencies,
- * the BuiltInPluginPicker will catch any NoClassDefFoundErrors and wrap them with a {@link MissingDependencyError}
+ * the QuickBuiltInPluginPicker will catch any NoClassDefFoundErrors and wrap them with a {@link MissingDependencyError}
  * that better explains exactly which dependencies are missing.
  */
-class BuiltInPluginPicker implements QuickMockspressoBuilder.MockerPicker, QuickMockspressoBuilder.InjectorPicker, QuickMockspressoBuilder.PluginPicker {
+class QuickBuiltInPluginPicker
+    implements QuickMockspressoBuilder.MockerPicker, QuickMockspressoBuilder.InjectorPicker, QuickMockspressoBuilder.PluginPicker {
 
   private final QuickMockspressoBuilderImpl mBuilder;
 
-  BuiltInPluginPicker(QuickMockspressoBuilderImpl builder) {
+  QuickBuiltInPluginPicker(QuickMockspressoBuilderImpl builder) {
     mBuilder = builder;
   }
 
