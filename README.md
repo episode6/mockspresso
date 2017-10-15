@@ -39,12 +39,12 @@ dependencies {
 For quick usage in a new project, where you don't want to worry too much about getting all the right dependencies, we offer the `mockspresso-quick` module. This module includes all of mockspresso's built-in plugins (with their external dependencies being optional), and exposes them via a single, simple api.
 
 ```groovy
-repositories { maven { url "https://oss.sonatype.org/content/repositories/snapshots/" } }
 dependencies {
-    // mockspresso-core dependency
+    /* mockspresso-quick dependency includes core and all plugin modules. External modules are optional */
     testCompile 'com.episode6.hackit.mockspresso:mockspresso-quick:' + mockspressoVersion
 
     /* You'll still need the external dependencies for your mocking framework of choice */
+
     // for mockito
     testCompile 'org.mockito:mockito-core:' + mockitoVersion
 
@@ -310,7 +310,7 @@ Multiple bits of mockspresso functionality can be packaged into `MockspressoPlug
 
 **Injectors**: An injector is a required component of Mockspresso that dictates how real objects are created.
 
-`mockspresso-quick` usage | manual usage | dependencies | description
+`mockspresso-quick` | manual usage | dependencies | description
 ------------------------- | ------------ | ------------ | -----------
 `.injector().simple()` | N/A | N/A | Our most basic injector plugin. Creates POJOs using their shortest constructor and does no post-processing or field injection.
 `.injector().javax()` | N/A | N/A | Creates objects that are compatible with `javax.inject` dependency injection frameworks. When creating objects, mockspresso will only select a constructor annotated with @Inject OR (if none is found) a completely empty constructor. After the object is constructed, field/member injection is performed, followed by method injection. This plugin also applies the above-mentioned `ProviderMaker` for special handling of `javax.inject.Provider<>`
@@ -332,7 +332,7 @@ Multiple bits of mockspresso functionality can be packaged into `MockspressoPlug
 `mockspresso-quick` usage | manual usage | dependencies | description
 ------------------------- | ------------ | ------------ | -----------
 `.plugin().guava()` | `.plugin(new GuavaMockspressoPlugin())` | **`:mockspresso-guava`**, `com.google.guava:guava` | Special object handling for some of guava's interfaces (currently supports Supplier and ListenableFuture).
-`.plugin().automaticFactories(Class<?>... factoryClasses)` | `.specialObjectMaker(MockitoAutoFactoryMaker.create(Class<?>... factoryClasses))` | **`:mockspresso-mockito`**, `` | Special object handling for your project's factory classes. Factory classes will be automatically mocked to return the underlying mockspresso binding from their methods that return objects. This is just link the automatic handling for `Provider`s and `Lazy`s, but can be applied to any class in your project (including most generics). Does NOT require using the mockito mocker, only that mockito be available on the classpath.
+`.plugin().automaticFactories( Class<?>... factoryClasses)` | `.specialObjectMaker(MockitoAutoFactoryMaker.create( Class<?>... factoryClasses))` | **`:mockspresso-mockito`**, `org.mockito:mockito-core:2.+` | Special object handling for your project's factory classes. Factory classes will be automatically mocked to return the underlying mockspresso binding from their methods that return objects. This is just like the automatic handling for `Provider`s and `Lazy`s, but can be applied to any class in your project (including most generics). Does NOT require using the mockito mocker, only that mockito be available on the classpath.
 
 
 ## License
