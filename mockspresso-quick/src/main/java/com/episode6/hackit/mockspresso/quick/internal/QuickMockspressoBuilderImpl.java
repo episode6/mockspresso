@@ -14,13 +14,13 @@ import org.junit.rules.TestRule;
 import java.util.List;
 
 /**
- * Implementation of QuickMockspressoBuilder
+ * Implementation of {@link QuickMockspressoBuilder}
  */
-public class QuickMockspressoBuilderImpl implements QuickMockspressoBuilder {
+class QuickMockspressoBuilderImpl implements QuickMockspressoBuilder {
 
   private final Mockspresso.Builder mDelegate;
 
-  public QuickMockspressoBuilderImpl(Mockspresso.Builder delegate) {
+  QuickMockspressoBuilderImpl(Mockspresso.Builder delegate) {
     mDelegate = delegate;
   }
 

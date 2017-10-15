@@ -1,8 +1,6 @@
 package com.episode6.hackit.mockspresso.quick;
 
-import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
-import com.episode6.hackit.mockspresso.quick.internal.QuickMockspressoBuilderImpl;
 
 /**
  *
@@ -10,10 +8,10 @@ import com.episode6.hackit.mockspresso.quick.internal.QuickMockspressoBuilderImp
 public class QuickBuildMockspresso {
 
   public static QuickMockspressoBuilder with() {
-    return new QuickMockspressoBuilderImpl(BuildMockspresso.with());
+    return com.episode6.hackit.mockspresso.quick.internal.QuickMockspressoBuilder.create();
   }
 
   public static QuickMockspressoBuilder buildUpon(Mockspresso mockspresso) {
-    return new QuickMockspressoBuilderImpl(mockspresso.buildUpon());
+    return com.episode6.hackit.mockspresso.quick.internal.QuickMockspressoBuilder.buildUpon(mockspresso);
   }
 }
