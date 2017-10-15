@@ -1,4 +1,4 @@
-package com.episode6.hackit.mockspresso.exception;
+package com.episode6.hackit.mockspresso.quick.exception;
 
 /**
  * Error thrown when a mockspresso plugin or feature is activated for which the project doesn't

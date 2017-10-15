@@ -1,10 +1,10 @@
 package com.episode6.hackit.mockspresso.easymock.powermock.integration.rule;
 
-import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.annotation.Unmapped;
 import com.episode6.hackit.mockspresso.exception.RepeatedDependencyDefinedException;
+import com.episode6.hackit.mockspresso.quick.QuickBuildMockspresso;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Coffee;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeGrounds;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeMakers;
@@ -27,7 +27,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @PrepareForTest(UnmappedTestEasyPowerMockRule.TestClass.class)
 public class UnmappedTestEasyPowerMockRule {
 
-  @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
+  @Rule public final Mockspresso.Rule mockspresso = QuickBuildMockspresso.with()
       .injector().javax()
       .mocker().easyMockWithPowerMockRule()
       .buildRule();

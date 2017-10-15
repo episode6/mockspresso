@@ -13,6 +13,7 @@ dependencies {
 
   testCompile project(':mockspresso-core')
   testCompile project(':mockspresso-testing-shared')
+  testCompile project(':mockspresso-quick')
   testCompile 'junit:junit'
   testCompile 'org.easytesting:fest-assert-core'
 }
