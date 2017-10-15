@@ -1,6 +1,5 @@
 package com.episode6.missingclass.tests;
 
-import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.exception.MissingDependencyError;
 import com.episode6.hackit.mockspresso.quick.QuickBuildMockspresso;
 import org.junit.Test;

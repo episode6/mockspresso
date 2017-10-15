@@ -81,12 +81,12 @@ class BuiltInPluginPicker implements QuickMockspressoBuilder.MockerPicker, Quick
 
   @Override
   public QuickMockspressoBuilder simple() {
-    return mBuilder.injector().simple();
+    return mBuilder.plugin(new com.episode6.hackit.mockspresso.plugin.simple.SimpleInjectMockspressoPlugin());
   }
 
   @Override
   public QuickMockspressoBuilder javax() {
-    return mBuilder.injector().javax();
+    return mBuilder.plugin(new com.episode6.hackit.mockspresso.plugin.javax.JavaxInjectMockspressoPlugin());
   }
 
   @Override
