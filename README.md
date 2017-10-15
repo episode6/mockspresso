@@ -309,11 +309,12 @@ Sometimes you may need to mock multiple instances of the same class or create mu
 Multiple bits of mockspresso functionality can be packaged into `MockspressoPlugin`s. Mockspresso ships with the following built-in plugins, and they are all accessible either directly or via the `mockspresso-quick` api. Plugins are split into 3 categories...
 
 **Injectors**
+
 `mockspresso-quick` usage | manual usage | description
 ------------------------- | ------------ | -----------
 `injector().simple()` | N/A (requires no extra dependencies | Our most basic injector plugin. Creates POJOs using their shortest constructor and does no post-processing or field injection.
 `injector().javax()` | N/A (requires no extra dependencies) | Creates objects that are compatible with `javax.inject` dependency injection frameworks. When creating objects, mockspresso will only select a constructor annotated with @Inject OR (if none is found) a completely empty constructor. After the object is constructed, field/member injection is performed, followed by method injection. This plugin also applies the above-mentioned `ProviderMaker` for special handling of `javax.inject.Provider<>`
-`injector().dagger()` | `plugin(new DaggerMockspressoPlugin()` | Builds upon the javax injector and adds special object handling for `dagger.Lazy<>`
+`injector().dagger()` | `plugin(new DaggerMockspressoPlugin()` | Builds upon the javax injector and adds special object handling for `dagger.Lazy<>`. Requires dependency on `com.google.dagger:dagger` or `com.squareup.dagger:dagger`
 
  accessible via methods in Mockspresso.Builder. Some of these plugins will require extra dependencies to function (mockspresso declares them as optional dependencies to simplify the end-user implementation).
 
