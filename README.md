@@ -308,49 +308,31 @@ Sometimes you may need to mock multiple instances of the same class or create mu
 ### Plugins
 Multiple bits of mockspresso functionality can be packaged into `MockspressoPlugin`s. Mockspresso ships with the following built-in plugins, and they are all accessible either directly or via the `mockspresso-quick` api. Plugins are split into 3 categories...
 
-**Injectors**
+**Injectors**: An injector is a required component of Mockspresso that dictates how real objects are created.
 
-`mockspresso-quick` usage | manual usage | description
-------------------------- | ------------ | -----------
-`injector().simple()` | N/A (requires no extra dependencies | Our most basic injector plugin. Creates POJOs using their shortest constructor and does no post-processing or field injection.
-`injector().javax()` | N/A (requires no extra dependencies) | Creates objects that are compatible with `javax.inject` dependency injection frameworks. When creating objects, mockspresso will only select a constructor annotated with @Inject OR (if none is found) a completely empty constructor. After the object is constructed, field/member injection is performed, followed by method injection. This plugin also applies the above-mentioned `ProviderMaker` for special handling of `javax.inject.Provider<>`
-`injector().dagger()` | `plugin(new DaggerMockspressoPlugin()` | Builds upon the javax injector and adds special object handling for `dagger.Lazy<>`. Requires dependency on `com.google.dagger:dagger` or `com.squareup.dagger:dagger`
+`mockspresso-quick` usage | manual usage | dependencies | description
+------------------------- | ------------ | ------------ | -----------
+`.injector().simple()` | N/A | N/A | Our most basic injector plugin. Creates POJOs using their shortest constructor and does no post-processing or field injection.
+`.injector().javax()` | N/A | N/A | Creates objects that are compatible with `javax.inject` dependency injection frameworks. When creating objects, mockspresso will only select a constructor annotated with @Inject OR (if none is found) a completely empty constructor. After the object is constructed, field/member injection is performed, followed by method injection. This plugin also applies the above-mentioned `ProviderMaker` for special handling of `javax.inject.Provider<>`
+`.injector().dagger()` | `.plugin(new DaggerMockspressoPlugin())` | **`:mockspresso-dagger`**, `com.google.dagger:dagger` | Builds upon the javax injector and adds special object handling for `dagger.Lazy<>`.
 
- accessible via methods in Mockspresso.Builder. Some of these plugins will require extra dependencies to function (mockspresso declares them as optional dependencies to simplify the end-user implementation).
+**Mockers**: A mocker is also a required component of mockspresso, as it dictates how generic mocks are created and which mock annotations should be processed by the dependency map.
 
-- **Injectors**: An injector is a required component of Mockspresso that dictates how real objects are created.
-  - **`injector().simple()`**: Our most basic injector plugin. Creates POJOs using their shortest constructor and does no post-processing or field injection
+`mockspresso-quick` usage | manual usage | dependencies | description
+------------------------- | ------------ | ------------ | -----------
+`.mocker().mockito()` | `.plugin(new MockitoPlugin())` | **`:mockspresso-mockito`**, `org.mockito:mockito-core:2.+` | Use Mockito for mockspresso mocks.
+`.mocker().mockitoWithPowerMock()` | `.plugin(new PowerMockitoPlugin())` | **`:mockspresso-mockito-powermock`**, `org.mockito:mockito-core:2.+`, `org.powermock:powermock-api-mockito2`, `org.powermock:powermock-module-junit4`  | Use Mockito with PowerMock for mockspresso mocks. Requires your test be run with the `PowerMockRunner`.
+`.mocker().mockitoWithPowerMockRule()` | `.plugin(new PowerMockitoRulePlugin())` | **`:mockspresso-mockito-powermock`**, `org.mockito:mockito-core:2.+`, `org.powermock:powermock-api-mockito2`, `org.powermock:powermock-module-junit4`, `org.powermock:powermock-module-junit4-rule`, `org.powermock:powermock-classloading-xstream` | Similar to mockitoWithPowerMock(), but also applies a `PowerMockRule` as an outerRule to mockspresso, thereby removing the requirement to use `PowerMockRunner`.
+`.mocker().easyMock()` | `.plugin(new EasyMockPlugin())` | **`:mockspresso-easymock`**, `org.easymock:easymock:3.4+` | Use EasyMock for mockspresso mocks.
+`.mocker().easyMockWithPowerMock()` | `.plugin(new EasyPowerMockPlugin())` | **`:mockspresso-easymock-powermock`**, `org.easymock:easymock:3.4+`, `org.powermock:powermock-api-easymock`, `org.powermock:powermock-module-junit4` | Use EasyMock with PowerMock for mockspresso mocks. Requires your test be run with the `PowerMockRunner`.
+`.mocker().easyMockWithPowerMockRule()` | `.plugin(new EasyPowerMockRulePlugin())` | **`:mockspresso-easymock-powermock`**, `org.easymock:easymock:3.4+`, `org.powermock:powermock-api-easymock`, `org.powermock:powermock-module-junit4`, `org.powermock:powermock-module-junit4-rule`, `org.powermock:powermock-classloading-xstream` | Similar to easyMockWithPowerMock(), but also applies a `PowerMockRule` as an outerRule to mockspresso, thereby removing the requirement to use `PowerMockRunner`.
 
-  - **`injector().javax()`**: Creates objects that are compatible with `javax.inject` dependency injection frameworks. When creating objects, mockspresso will only select a constructor annotated with @Inject OR (if none is found) a completely empty constructor. After the object is constructed, field/member injection is performed, followed by method injection. This plugin also applies the above-mentioned `ProviderMaker` for special handling of `javax.inject.Provider<>`
+**Plugins**: Built-in plugins that don't fit into mocker or injector categories. Usually collections of special object makers.
 
-  - **`injector().dagger()`**: Builds upon the javax injector and adds special object handling for `dagger.Lazy<>`
-    - Requires dependency on `com.google.dagger:dagger` or `com.squareup.dagger:dagger`
-
-- **Mockers**: A mocker is also a required component of mockspresso, as it dictates how generic mocks are created and which mock annotations should be processed by the dependency map.
-  - **`mocker().mockito()`**: Use Mockito for mockspresso mocks.
-    - Requires dependency: `org.mockito:mockito-core:2.+`
-
-  - **`mocker().mockitoWithPowerMock()`**: Use Mockito with PowerMock for mockspresso mocks.
-    - Requires dependencies from mockito(), `org.powermock:powermock-api-mockito2` and `org.powermock:powermock-module-junit4`. Also requires your test be run with the `PowerMockRunner`.
-
-  - **`mocker().mockitoWithPowerMockRule()`**: Similar to mockitoWithPowerMock(), but also applies a `PowerMockRule` as an outerRule to mockspresso, thereby removing the requirement to use `PowerMockRunner`.
-    - Requires dependencies from mockitoWithPowerMock() as well as `org.powermock:powermock-module-junit4-rule` and `org.powermock:powermock-classloading-xstream`.
-
-  - **`mocker().easyMock()`**: Uses EasyMock for mockspresso mocks.
-    - Requires dependency: `org.easymock:easymock:3.4`
-
-  - **`mocker().easyMockWithPowerMock()`**: Use EasyMock with PowerMock for mockspresso mocks.
-    - Requires dependencies from mockito(), `org.powermock:powermock-api-easymock` and `org.powermock:powermock-module-junit4`. Also requires your test be run with the `PowerMockRunner`.
-
-  - **`mocker().easyMockWithPowerMockRule()`**: Similar to easyMockWithPowerMock(), but also applies a `PowerMockRule` as an outerRule to mockspresso, thereby removing the requirement to use `PowerMockRunner`.
-    - Requires dependencies from easyMockWithPowerMock(), `org.powermock:powermock-module-junit4-rule` and `org.powermock:powermock-classloading-xstream`.
-
-- **Plugins**: Built-in plugins that don't fit into mocker or injector categories. Usually collections of special object makers.
-  - **`plugin().guava()`**: Special object handling for some of guava's interfaces (currently supports Supplier and ListenableFuture).
-    - Requires dependency on `com.google.guava:guava`
-
-  - **`plugin().automaticFactories(Class<?> factoryClasses)`**: Special object handling for your project's factory classes. Factory classes will be automatically mocked to return the underlying mockspresso binding from their methods that return objects. This is just link the automatic handling for `Provider`s and `Lazy`s, but can be applied to any class in your project (including most generics).
-    - Requires dependency: `org.mockito:mockito-core:2.+` (or `mockito-inline` to support final factories). Does NOT require using the mockito mocker, only that mockito be available on the classpath.
+`mockspresso-quick` usage | manual usage | dependencies | description
+------------------------- | ------------ | ------------ | -----------
+`.plugin().guava()` | `.plugin(new GuavaMockspressoPlugin())` | **`:mockspresso-guava`**, `com.google.guava:guava` | Special object handling for some of guava's interfaces (currently supports Supplier and ListenableFuture).
+`.plugin().automaticFactories(Class<?>... factoryClasses)` | `.specialObjectMaker(MockitoAutoFactoryMaker.create(Class<?>... factoryClasses))` | **`:mockspresso-mockito`**, `` | Special object handling for your project's factory classes. Factory classes will be automatically mocked to return the underlying mockspresso binding from their methods that return objects. This is just link the automatic handling for `Provider`s and `Lazy`s, but can be applied to any class in your project (including most generics). Does NOT require using the mockito mocker, only that mockito be available on the classpath.
 
 
 ## License
