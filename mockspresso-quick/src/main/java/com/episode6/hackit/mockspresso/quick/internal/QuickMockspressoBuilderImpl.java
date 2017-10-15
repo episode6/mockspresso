@@ -24,6 +24,10 @@ public class QuickMockspressoBuilderImpl implements QuickMockspressoBuilder {
     mDelegate = delegate;
   }
 
+  Mockspresso.Builder getDelegate() {
+    return mDelegate;
+  }
+
   @Override
   public QuickMockspressoBuilder.InjectorPicker injector() {
     return new BuiltInPluginPicker(this);

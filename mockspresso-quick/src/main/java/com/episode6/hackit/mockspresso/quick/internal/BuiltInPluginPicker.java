@@ -11,9 +11,9 @@ import com.episode6.hackit.mockspresso.quick.QuickMockspressoBuilder;
  */
 class BuiltInPluginPicker implements QuickMockspressoBuilder.MockerPicker, QuickMockspressoBuilder.InjectorPicker, QuickMockspressoBuilder.PluginPicker {
 
-  private final QuickMockspressoBuilder mBuilder;
+  private final QuickMockspressoBuilderImpl mBuilder;
 
-  BuiltInPluginPicker(QuickMockspressoBuilder builder) {
+  BuiltInPluginPicker(QuickMockspressoBuilderImpl builder) {
     mBuilder = builder;
   }
 
@@ -81,12 +81,14 @@ class BuiltInPluginPicker implements QuickMockspressoBuilder.MockerPicker, Quick
 
   @Override
   public QuickMockspressoBuilder simple() {
-    return mBuilder.plugin(new com.episode6.hackit.mockspresso.plugin.simple.SimpleInjectMockspressoPlugin());
+    mBuilder.getDelegate().injector().simple();
+    return mBuilder;
   }
 
   @Override
   public QuickMockspressoBuilder javax() {
-    return mBuilder.plugin(new com.episode6.hackit.mockspresso.plugin.javax.JavaxInjectMockspressoPlugin());
+    mBuilder.getDelegate().injector().javax();
+    return mBuilder;
   }
 
   @Override
