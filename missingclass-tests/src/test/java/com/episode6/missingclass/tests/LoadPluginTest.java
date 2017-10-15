@@ -2,6 +2,7 @@ package com.episode6.missingclass.tests;
 
 import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.exception.MissingDependencyError;
+import com.episode6.hackit.mockspresso.quick.QuickBuildMockspresso;
 import org.junit.Test;
 
 import static org.fest.assertions.api.Assertions.assertThat;
@@ -19,7 +20,7 @@ public class LoadPluginTest {
         new Runnable() {
           @Override
           public void run() {
-            BuildMockspresso.with().mocker().mockito();
+            QuickBuildMockspresso.with().mocker().mockito();
           }
         });
   }
@@ -31,7 +32,7 @@ public class LoadPluginTest {
         new Runnable() {
           @Override
           public void run() {
-            BuildMockspresso.with().mocker().easyMock();
+            QuickBuildMockspresso.with().mocker().easyMock();
           }
         });
   }
@@ -43,7 +44,7 @@ public class LoadPluginTest {
         new Runnable() {
           @Override
           public void run() {
-            BuildMockspresso.with().mocker().mockitoWithPowerMock();
+            QuickBuildMockspresso.with().mocker().mockitoWithPowerMock();
           }
         });
   }
@@ -55,7 +56,7 @@ public class LoadPluginTest {
         new Runnable() {
           @Override
           public void run() {
-            BuildMockspresso.with().mocker().mockitoWithPowerMockRule();
+            QuickBuildMockspresso.with().mocker().mockitoWithPowerMockRule();
           }
         });
   }
@@ -67,7 +68,7 @@ public class LoadPluginTest {
         new Runnable() {
           @Override
           public void run() {
-            BuildMockspresso.with().mocker().easyMockWithPowerMock();
+            QuickBuildMockspresso.with().mocker().easyMockWithPowerMock();
           }
         });
   }
@@ -79,7 +80,7 @@ public class LoadPluginTest {
         new Runnable() {
           @Override
           public void run() {
-            BuildMockspresso.with().mocker().easyMockWithPowerMockRule();
+            QuickBuildMockspresso.with().mocker().easyMockWithPowerMockRule();
           }
         });
   }
@@ -91,7 +92,7 @@ public class LoadPluginTest {
         new Runnable() {
           @Override
           public void run() {
-            BuildMockspresso.with().injector().dagger();
+            QuickBuildMockspresso.with().injector().dagger();
           }
         });
   }
@@ -103,7 +104,7 @@ public class LoadPluginTest {
         new Runnable() {
           @Override
           public void run() {
-            BuildMockspresso.with().plugin().guava();
+            QuickBuildMockspresso.with().plugin().guava();
           }
         });
   }
@@ -115,7 +116,7 @@ public class LoadPluginTest {
         new Runnable() {
           @Override
           public void run() {
-            BuildMockspresso.with().plugin().automaticFactories();
+            QuickBuildMockspresso.with().plugin().automaticFactories();
           }
         });
   }

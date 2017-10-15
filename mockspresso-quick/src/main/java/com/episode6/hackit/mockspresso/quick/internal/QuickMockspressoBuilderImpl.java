@@ -14,7 +14,7 @@ import org.junit.rules.TestRule;
 import java.util.List;
 
 /**
- *
+ * Implementation of QuickMockspressoBuilder
  */
 public class QuickMockspressoBuilderImpl implements QuickMockspressoBuilder {
 
@@ -26,126 +26,144 @@ public class QuickMockspressoBuilderImpl implements QuickMockspressoBuilder {
 
   @Override
   public QuickMockspressoBuilder.InjectorPicker injector() {
-    return null;
+    return new BuiltInPluginPicker(this);
   }
 
   @Override
   public QuickMockspressoBuilder.PluginPicker plugin() {
-    return null;
+    return new BuiltInPluginPicker(this);
   }
 
   @Override
   public QuickMockspressoBuilder.MockerPicker mocker() {
-    return null;
+    return new BuiltInPluginPicker(this);
   }
-
-
-
+  
+  
   @Override
   public QuickMockspressoBuilder plugin(MockspressoPlugin plugin) {
-    return null;
+    mDelegate.plugin(plugin);
+    return this;
   }
 
   @Override
   public QuickMockspressoBuilder outerRule(TestRule testRule) {
-    return null;
+    mDelegate.outerRule(testRule);
+    return this;
   }
 
   @Override
   public QuickMockspressoBuilder outerRule(MethodRule methodRule) {
-    return null;
+    mDelegate.outerRule(methodRule);
+    return this;
   }
 
   @Override
   public QuickMockspressoBuilder innerRule(TestRule testRule) {
-    return null;
+    mDelegate.innerRule(testRule);
+    return this;
   }
 
   @Override
   public QuickMockspressoBuilder innerRule(MethodRule methodRule) {
-    return null;
+    mDelegate.innerRule(methodRule);
+    return this;
   }
 
   @Override
   public QuickMockspressoBuilder testResources(Object objectWithResources) {
-    return null;
+    mDelegate.testResources(objectWithResources);
+    return this;
   }
 
   @Override
   public QuickMockspressoBuilder testResourcesWithoutLifecycle(Object objectWithResources) {
-    return null;
+    mDelegate.testResourcesWithoutLifecycle(objectWithResources);
+    return this;
   }
 
   @Override
   public QuickMockspressoBuilder mocker(MockerConfig mockerConfig) {
-    return null;
+    mDelegate.mocker(mockerConfig);
+    return this;
   }
 
   @Override
   public QuickMockspressoBuilder injector(InjectionConfig injectionConfig) {
-    return null;
+    mDelegate.injector(injectionConfig);
+    return this;
   }
 
   @Override
   public QuickMockspressoBuilder specialObjectMaker(SpecialObjectMaker specialObjectMaker) {
-    return null;
+    mDelegate.specialObjectMaker(specialObjectMaker);
+    return this;
   }
 
   @Override
   public QuickMockspressoBuilder specialObjectMakers(List<SpecialObjectMaker> specialObjectMakers) {
-    return null;
+    mDelegate.specialObjectMakers(specialObjectMakers);
+    return this;
   }
 
   @Override
   public <T, V extends T> QuickMockspressoBuilder dependency(Class<T> clazz, V value) {
-    return null;
+    mDelegate.dependency(clazz, value);
+    return this;
   }
 
   @Override
   public <T, V extends T> QuickMockspressoBuilder dependency(
       TypeToken<T> typeToken, V value) {
-    return null;
+    mDelegate.dependency(typeToken, value);
+    return this;
   }
 
   @Override
   public <T, V extends T> QuickMockspressoBuilder dependency(
       DependencyKey<T> key, V value) {
-    return null;
+    mDelegate.dependency(key, value);
+    return this;
   }
 
   @Override
   public <T> QuickMockspressoBuilder realObject(Class<T> objectClass) {
-    return null;
+    mDelegate.realObject(objectClass);
+    return this;
   }
 
   @Override
   public <T> QuickMockspressoBuilder realObject(TypeToken<T> objectToken) {
-    return null;
+    mDelegate.realObject(objectToken);
+    return this;
   }
 
   @Override
   public <T> QuickMockspressoBuilder realObject(DependencyKey<T> keyAndImplementation) {
-    return null;
+    mDelegate.realObject(keyAndImplementation);
+    return this;
   }
 
   @Override
   public <T> QuickMockspressoBuilder realObject(DependencyKey<T> key, Class<? extends T> implementationClass) {
-    return null;
+    mDelegate.realObject(key, implementationClass);
+    return this;
   }
 
   @Override
   public <T> QuickMockspressoBuilder realObject(
       DependencyKey<T> key, TypeToken<? extends T> implementationToken) {
-    return null;
+    mDelegate.realObject(key, implementationToken);
+    return this;
   }
 
   @Override
   public Mockspresso build() {
-    return null;
+    return mDelegate.build();
   }
 
   @Override
   public Mockspresso.Rule buildRule() {
-    return null;
+    return mDelegate.buildRule();
   }
 }
