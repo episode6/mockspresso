@@ -39,7 +39,6 @@ dependencies {
 For quick usage in a new project, where you don't want to worry too much about getting all the right dependencies, we offer the `mockspresso-quick` module. This module includes all of mockspresso's built-in plugins (with their external dependencies being optional), and exposes them via a single, simple api.
 
 ```groovy
-repositories { maven { url "https://oss.sonatype.org/content/repositories/snapshots/" } }
 dependencies {
     /* mockspresso-quick dependency includes core and all plugin modules. External modules are optional */
     testCompile 'com.episode6.hackit.mockspresso:mockspresso-quick:' + mockspressoVersion
