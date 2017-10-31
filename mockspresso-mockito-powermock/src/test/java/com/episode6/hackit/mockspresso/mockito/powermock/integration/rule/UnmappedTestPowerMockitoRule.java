@@ -3,6 +3,7 @@ package com.episode6.hackit.mockspresso.mockito.powermock.integration.rule;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.annotation.Unmapped;
+import com.episode6.hackit.mockspresso.api.ObjectProvider;
 import com.episode6.hackit.mockspresso.exception.RepeatedDependencyDefinedException;
 import com.episode6.hackit.mockspresso.quick.QuickBuildMockspresso;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Coffee;
@@ -107,7 +108,7 @@ public class UnmappedTestPowerMockitoRule {
   public void testNotUnmappedFailureMixedDefineMethod3() {
     mockspresso.buildUpon()
         .testResources(new OneRealClass())
-        .dependency(TestClass.class, new Provider<TestClass>() {
+        .dependency(TestClass.class, new ObjectProvider<TestClass>() {
           @Override
           public TestClass get() {
             return new TestClass();

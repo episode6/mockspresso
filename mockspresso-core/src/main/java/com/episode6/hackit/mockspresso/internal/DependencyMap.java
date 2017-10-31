@@ -1,10 +1,10 @@
 package com.episode6.hackit.mockspresso.internal;
 
+import com.episode6.hackit.mockspresso.api.ObjectProvider;
 import com.episode6.hackit.mockspresso.exception.RepeatedDependencyDefinedException;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 
 import javax.annotation.Nullable;
-import javax.inject.Provider;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -42,7 +42,7 @@ class DependencyMap {
   @SuppressWarnings("unchecked")
   <T, V extends T> void putProvider(
       DependencyKey<T> key,
-      Provider<V> value,
+      ObjectProvider<V> value,
       @Nullable DependencyValidator dependencyValidator) {
     if (mDependencies.containsKey(key)) {
       throw new RepeatedDependencyDefinedException(key);
@@ -101,12 +101,12 @@ class DependencyMap {
   }
 
   private static class ProviderContainer implements Container {
-    private final Provider objectProvider;
+    private final ObjectProvider objectProvider;
     private final DependencyValidator dependencyValidator;
 
     private Object object;
 
-    ProviderContainer(Provider objectProvider, DependencyValidator dependencyValidator) {
+    ProviderContainer(ObjectProvider objectProvider, DependencyValidator dependencyValidator) {
       this.objectProvider = objectProvider;
       this.dependencyValidator = dependencyValidator;
       this.object = null;
@@ -115,7 +115,11 @@ class DependencyMap {
     @Override
     public Object getObject() {
       if (object == null) {
-        object = objectProvider.get();
+        try {
+          object = objectProvider.get();
+        } catch (Throwable throwable) {
+          throw new RuntimeException(throwable);
+        }
       }
       return object;
     }

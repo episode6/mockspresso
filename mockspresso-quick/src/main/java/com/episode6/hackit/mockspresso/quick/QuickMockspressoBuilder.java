@@ -1,16 +1,12 @@
 package com.episode6.hackit.mockspresso.quick;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
-import com.episode6.hackit.mockspresso.api.InjectionConfig;
-import com.episode6.hackit.mockspresso.api.MockerConfig;
-import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
-import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
+import com.episode6.hackit.mockspresso.api.*;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.rules.MethodRule;
 import org.junit.rules.TestRule;
 
-import javax.inject.Provider;
 import java.util.List;
 
 /**
@@ -81,13 +77,13 @@ public interface QuickMockspressoBuilder extends Mockspresso.Builder {
       DependencyKey<T> key, V value);
 
   @Override
-  <T, V extends T> QuickMockspressoBuilder dependency(Class<T> clazz, Provider<V> value);
+  <T, V extends T> QuickMockspressoBuilder dependency(Class<T> clazz, ObjectProvider<V> value);
 
   @Override
-  <T, V extends T> QuickMockspressoBuilder dependency(TypeToken<T> typeToken, Provider<V> value);
+  <T, V extends T> QuickMockspressoBuilder dependency(TypeToken<T> typeToken, ObjectProvider<V> value);
 
   @Override
-  <T, V extends T> QuickMockspressoBuilder dependency(DependencyKey<T> key, Provider<V> value);
+  <T, V extends T> QuickMockspressoBuilder dependency(DependencyKey<T> key, ObjectProvider<V> value);
 
   @Override
   <T> QuickMockspressoBuilder realObject(Class<T> objectClass);

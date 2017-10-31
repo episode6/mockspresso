@@ -1,13 +1,12 @@
 package com.episode6.hackit.mockspresso.internal;
 
+import com.episode6.hackit.mockspresso.api.ObjectProvider;
 import com.episode6.hackit.mockspresso.exception.RepeatedDependencyDefinedException;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import javax.inject.Provider;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -26,7 +25,7 @@ public class DependencyMapTest {
   @Mock DependencyValidator mPutValidator;
   @Mock DependencyValidator mGetValidator;
 
-  @Mock Provider<TestClass> mTestClassProvider;
+  @Mock ObjectProvider<TestClass> mTestClassProvider;
 
   @Before
   public void setup() {
@@ -149,7 +148,7 @@ public class DependencyMapTest {
   }
 
   @Test
-  public void testProviderOnlyCalledOnce() {
+  public void testProviderOnlyCalledOnce() throws Throwable {
     DependencyMap dependencyMap = new DependencyMap();
     DependencyKey<TestClass> key = DependencyKey.of(TestClass.class);
     when(mTestClassProvider.get()).thenReturn(new TestClass());
