@@ -9,6 +9,7 @@ import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.rules.MethodRule;
 import org.junit.rules.TestRule;
 
+import javax.inject.Provider;
 import java.util.List;
 
 /**
@@ -198,6 +199,36 @@ public interface Mockspresso {
      * @return this
      */
     <T, V extends T> Builder dependency(DependencyKey<T> key, V value);
+
+    /**
+     * Apply a specific instance of an object as a mockspresso dependency.
+     * @param clazz The class of the dependency we're applying
+     * @param value A provider for an instance of the dependency we're applying
+     * @param <T> clazz type
+     * @param <V> value type
+     * @return this
+     */
+    <T, V extends T> Builder dependency(Class<T> clazz, Provider<V> value);
+
+    /**
+     * Apply a specific instance of an object as a mockspresso dependency.
+     * @param typeToken The typeToken of the dependency we're applying
+     * @param value A provider for an instance of the dependency we're applying
+     * @param <T> typeToken type
+     * @param <V> instanceType
+     * @return this
+     */
+    <T, V extends T> Builder dependency(TypeToken<T> typeToken, Provider<V> value);
+
+    /**
+     * Apply a specific instance of an object as a mockspresso dependency.
+     * @param key The DependencyKey of the dependency we're applying.
+     * @param value A provider for an instance of the dependency we're applying.
+     * @param <T> key type
+     * @param <V> instance type
+     * @return this
+     */
+    <T, V extends T> Builder dependency(DependencyKey<T> key, Provider<V> value);
 
     /**
      * Instruct mockspresso to create a real object for the provided dependency key.

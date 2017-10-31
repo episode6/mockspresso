@@ -101,6 +101,19 @@ public class UnmappedTestMockito {
         .build();
   }
 
+  @Test(expected = RepeatedDependencyDefinedException.class)
+  public void testNotUnmappedFailureMixedDefineMethod3() {
+    mockspresso.buildUpon()
+        .testResources(new OneRealClass())
+        .dependency(TestClass.class, new Provider<TestClass>() {
+          @Override
+          public TestClass get() {
+            return new TestClass();
+          }
+        })
+        .build();
+  }
+
   private static class MultipleMocksClass {
     @Mock TestClass mTestClass1;
     @Mock TestClass mTestClass2;

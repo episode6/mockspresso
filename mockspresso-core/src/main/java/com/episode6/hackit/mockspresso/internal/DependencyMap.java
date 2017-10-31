@@ -4,6 +4,7 @@ import com.episode6.hackit.mockspresso.exception.RepeatedDependencyDefinedExcept
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 
 import javax.annotation.Nullable;
+import javax.inject.Provider;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -12,7 +13,7 @@ import java.util.Set;
  */
 class DependencyMap {
   private @Nullable DependencyMap mParentMap = null;
-  private final HashMap<DependencyKey, InstanceContainer> mDependencies = new HashMap<>();
+  private final HashMap<DependencyKey, Container> mDependencies = new HashMap<>();
 
   DependencyMap() {}
 
@@ -39,11 +40,22 @@ class DependencyMap {
   }
 
   @SuppressWarnings("unchecked")
+  <T, V extends T> void putProvider(
+      DependencyKey<T> key,
+      Provider<V> value,
+      @Nullable DependencyValidator dependencyValidator) {
+    if (mDependencies.containsKey(key)) {
+      throw new RepeatedDependencyDefinedException(key);
+    }
+    mDependencies.put(key, new ProviderContainer(value, dependencyValidator));
+  }
+
+  @SuppressWarnings("unchecked")
   @Nullable <T> T get(DependencyKey<T> key, DependencyValidator dependencyValidator) {
     if (mDependencies.containsKey(key)) {
-      InstanceContainer container = mDependencies.get(key);
-      dependencyValidator.append(container.dependencyValidator);
-      return (T) container.object;
+      Container container = mDependencies.get(key);
+      dependencyValidator.append(container.getValidator());
+      return (T) container.getObject();
     }
     return mParentMap == null ? null : mParentMap.get(key, dependencyValidator);
   }
@@ -63,13 +75,54 @@ class DependencyMap {
     mDependencies.clear();
   }
 
-  private static class InstanceContainer {
+  private interface Container {
+    Object getObject();
+    DependencyValidator getValidator();
+  }
+
+  private static class InstanceContainer implements Container {
     private final Object object;
     private final DependencyValidator dependencyValidator;
 
     InstanceContainer(Object object, DependencyValidator dependencyValidator) {
       this.object = object;
       this.dependencyValidator = dependencyValidator;
+    }
+
+    @Override
+    public Object getObject() {
+      return object;
+    }
+
+    @Override
+    public DependencyValidator getValidator() {
+      return dependencyValidator;
+    }
+  }
+
+  private static class ProviderContainer implements Container {
+    private final Provider objectProvider;
+    private final DependencyValidator dependencyValidator;
+
+    private Object object;
+
+    ProviderContainer(Provider objectProvider, DependencyValidator dependencyValidator) {
+      this.objectProvider = objectProvider;
+      this.dependencyValidator = dependencyValidator;
+      this.object = null;
+    }
+
+    @Override
+    public Object getObject() {
+      if (object == null) {
+        object = objectProvider.get();
+      }
+      return object;
+    }
+
+    @Override
+    public DependencyValidator getValidator() {
+      return dependencyValidator;
     }
   }
 }
