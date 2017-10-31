@@ -1,10 +1,7 @@
 package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
-import com.episode6.hackit.mockspresso.api.InjectionConfig;
-import com.episode6.hackit.mockspresso.api.MockerConfig;
-import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
-import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
+import com.episode6.hackit.mockspresso.api.*;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.rules.MethodRule;
@@ -130,19 +127,19 @@ class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implements Mo
   }
 
   @Override
-  public <T, V extends T> Builder dependency(Class<T> clazz, Provider<V> value) {
+  public <T, V extends T> Builder dependency(Class<T> clazz, ObjectProvider<V> value) {
     mBuilder.dependency(clazz, value);
     return this;
   }
 
   @Override
-  public <T, V extends T> Builder dependency(TypeToken<T> typeToken, Provider<V> value) {
+  public <T, V extends T> Builder dependency(TypeToken<T> typeToken, ObjectProvider<V> value) {
     mBuilder.dependency(typeToken, value);
     return this;
   }
 
   @Override
-  public <T, V extends T> Builder dependency(DependencyKey<T> key, Provider<V> value) {
+  public <T, V extends T> Builder dependency(DependencyKey<T> key, ObjectProvider<V> value) {
     mBuilder.dependency(key, value);
     return this;
   }
