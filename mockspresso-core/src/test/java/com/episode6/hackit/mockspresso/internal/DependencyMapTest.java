@@ -7,9 +7,10 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import javax.inject.Provider;
+
 import static org.fest.assertions.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.*;
 
 /**
  * Tests {@link DependencyMap}
@@ -24,6 +25,8 @@ public class DependencyMapTest {
 
   @Mock DependencyValidator mPutValidator;
   @Mock DependencyValidator mGetValidator;
+
+  @Mock Provider<TestClass> mTestClassProvider;
 
   @Before
   public void setup() {
@@ -143,5 +146,20 @@ public class DependencyMapTest {
     assertThat(result)
         .isEqualTo(value2)
         .isNotEqualTo(value1);
+  }
+
+  @Test
+  public void testProviderOnlyCalledOnce() {
+    DependencyMap dependencyMap = new DependencyMap();
+    DependencyKey<TestClass> key = DependencyKey.of(TestClass.class);
+    when(mTestClassProvider.get()).thenReturn(new TestClass());
+
+    dependencyMap.putProvider(key, mTestClassProvider, mPutValidator);
+
+    dependencyMap.get(key, mGetValidator);
+    dependencyMap.get(key, mGetValidator);
+    dependencyMap.get(key, mGetValidator);
+
+    verify(mTestClassProvider, times(1)).get();
   }
 }

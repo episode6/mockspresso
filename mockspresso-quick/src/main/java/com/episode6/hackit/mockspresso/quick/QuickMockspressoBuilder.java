@@ -10,6 +10,7 @@ import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.rules.MethodRule;
 import org.junit.rules.TestRule;
 
+import javax.inject.Provider;
 import java.util.List;
 
 /**
@@ -78,6 +79,15 @@ public interface QuickMockspressoBuilder extends Mockspresso.Builder {
   @Override
   <T, V extends T> QuickMockspressoBuilder dependency(
       DependencyKey<T> key, V value);
+
+  @Override
+  <T, V extends T> QuickMockspressoBuilder dependency(Class<T> clazz, Provider<V> value);
+
+  @Override
+  <T, V extends T> QuickMockspressoBuilder dependency(TypeToken<T> typeToken, Provider<V> value);
+
+  @Override
+  <T, V extends T> QuickMockspressoBuilder dependency(DependencyKey<T> key, Provider<V> value);
 
   @Override
   <T> QuickMockspressoBuilder realObject(Class<T> objectClass);
