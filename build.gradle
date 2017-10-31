@@ -19,5 +19,5 @@ allprojects {
   }
 
   group = "com.episode6.hackit.mockspresso"
-  version = "0.0.10-SNAPSHOT"
+  version = "0.0.10"
 }
