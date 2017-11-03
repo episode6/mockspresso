@@ -128,20 +128,20 @@ class QuickMockspressoBuilderImpl implements QuickMockspressoBuilder {
   }
 
   @Override
-  public <T, V extends T> QuickMockspressoBuilder dependency(Class<T> clazz, ObjectProvider<V> value) {
-    mDelegate.dependency(clazz, value);
+  public <T, V extends T> QuickMockspressoBuilder dependencyProvider(Class<T> clazz, ObjectProvider<V> value) {
+    mDelegate.dependencyProvider(clazz, value);
     return this;
   }
 
   @Override
-  public <T, V extends T> QuickMockspressoBuilder dependency(TypeToken<T> typeToken, ObjectProvider<V> value) {
-    mDelegate.dependency(typeToken, value);
+  public <T, V extends T> QuickMockspressoBuilder dependencyProvider(TypeToken<T> typeToken, ObjectProvider<V> value) {
+    mDelegate.dependencyProvider(typeToken, value);
     return this;
   }
 
   @Override
-  public <T, V extends T> QuickMockspressoBuilder dependency(DependencyKey<T> key, ObjectProvider<V> value) {
-    mDelegate.dependency(key, value);
+  public <T, V extends T> QuickMockspressoBuilder dependencyProvider(DependencyKey<T> key, ObjectProvider<V> value) {
+    mDelegate.dependencyProvider(key, value);
     return this;
   }
 

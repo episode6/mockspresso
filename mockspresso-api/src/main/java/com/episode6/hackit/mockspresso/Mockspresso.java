@@ -204,7 +204,7 @@ public interface Mockspresso {
      * @param <V> value type
      * @return this
      */
-    <T, V extends T> Builder dependency(Class<T> clazz, ObjectProvider<V> value);
+    <T, V extends T> Builder dependencyProvider(Class<T> clazz, ObjectProvider<V> value);
 
     /**
      * Apply a specific instance of an object as a mockspresso dependency.
@@ -214,7 +214,7 @@ public interface Mockspresso {
      * @param <V> instanceType
      * @return this
      */
-    <T, V extends T> Builder dependency(TypeToken<T> typeToken, ObjectProvider<V> value);
+    <T, V extends T> Builder dependencyProvider(TypeToken<T> typeToken, ObjectProvider<V> value);
 
     /**
      * Apply a specific instance of an object as a mockspresso dependency.
@@ -224,7 +224,7 @@ public interface Mockspresso {
      * @param <V> instance type
      * @return this
      */
-    <T, V extends T> Builder dependency(DependencyKey<T> key, ObjectProvider<V> value);
+    <T, V extends T> Builder dependencyProvider(DependencyKey<T> key, ObjectProvider<V> value);
 
     /**
      * Instruct mockspresso to create a real object for the provided dependency key.
