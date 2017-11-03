@@ -77,13 +77,13 @@ public interface QuickMockspressoBuilder extends Mockspresso.Builder {
       DependencyKey<T> key, V value);
 
   @Override
-  <T, V extends T> QuickMockspressoBuilder dependency(Class<T> clazz, ObjectProvider<V> value);
+  <T, V extends T> QuickMockspressoBuilder dependencyProvider(Class<T> clazz, ObjectProvider<V> value);
 
   @Override
-  <T, V extends T> QuickMockspressoBuilder dependency(TypeToken<T> typeToken, ObjectProvider<V> value);
+  <T, V extends T> QuickMockspressoBuilder dependencyProvider(TypeToken<T> typeToken, ObjectProvider<V> value);
 
   @Override
-  <T, V extends T> QuickMockspressoBuilder dependency(DependencyKey<T> key, ObjectProvider<V> value);
+  <T, V extends T> QuickMockspressoBuilder dependencyProvider(DependencyKey<T> key, ObjectProvider<V> value);
 
   @Override
   <T> QuickMockspressoBuilder realObject(Class<T> objectClass);

@@ -170,17 +170,17 @@ class MockspressoBuilderImpl implements Mockspresso.Builder {
   }
 
   @Override
-  public <T, V extends T> Mockspresso.Builder dependency(Class<T> clazz, ObjectProvider<V> value) {
-    return dependency(DependencyKey.of(clazz), value);
+  public <T, V extends T> Mockspresso.Builder dependencyProvider(Class<T> clazz, ObjectProvider<V> value) {
+    return dependencyProvider(DependencyKey.of(clazz), value);
   }
 
   @Override
-  public <T, V extends T> Mockspresso.Builder dependency(TypeToken<T> typeToken, ObjectProvider<V> value) {
-    return dependency(DependencyKey.of(typeToken), value);
+  public <T, V extends T> Mockspresso.Builder dependencyProvider(TypeToken<T> typeToken, ObjectProvider<V> value) {
+    return dependencyProvider(DependencyKey.of(typeToken), value);
   }
 
   @Override
-  public <T, V extends T> Mockspresso.Builder dependency(DependencyKey<T> key, ObjectProvider<V> value) {
+  public <T, V extends T> Mockspresso.Builder dependencyProvider(DependencyKey<T> key, ObjectProvider<V> value) {
     mDependencyMap.putProvider(key, value, null);
     return this;
   }

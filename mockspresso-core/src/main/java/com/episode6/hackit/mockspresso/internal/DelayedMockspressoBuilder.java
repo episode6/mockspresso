@@ -127,20 +127,20 @@ class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implements Mo
   }
 
   @Override
-  public <T, V extends T> Builder dependency(Class<T> clazz, ObjectProvider<V> value) {
-    mBuilder.dependency(clazz, value);
+  public <T, V extends T> Builder dependencyProvider(Class<T> clazz, ObjectProvider<V> value) {
+    mBuilder.dependencyProvider(clazz, value);
     return this;
   }
 
   @Override
-  public <T, V extends T> Builder dependency(TypeToken<T> typeToken, ObjectProvider<V> value) {
-    mBuilder.dependency(typeToken, value);
+  public <T, V extends T> Builder dependencyProvider(TypeToken<T> typeToken, ObjectProvider<V> value) {
+    mBuilder.dependencyProvider(typeToken, value);
     return this;
   }
 
   @Override
-  public <T, V extends T> Builder dependency(DependencyKey<T> key, ObjectProvider<V> value) {
-    mBuilder.dependency(key, value);
+  public <T, V extends T> Builder dependencyProvider(DependencyKey<T> key, ObjectProvider<V> value) {
+    mBuilder.dependencyProvider(key, value);
     return this;
   }
 

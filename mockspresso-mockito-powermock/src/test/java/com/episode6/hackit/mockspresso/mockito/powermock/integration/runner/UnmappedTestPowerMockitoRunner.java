@@ -111,7 +111,7 @@ public class UnmappedTestPowerMockitoRunner {
   public void testNotUnmappedFailureMixedDefineMethod3() {
     mockspresso.buildUpon()
         .testResources(new OneRealClass())
-        .dependency(TestClass.class, new ObjectProvider<TestClass>() {
+        .dependencyProvider(TestClass.class, new ObjectProvider<TestClass>() {
           @Override
           public TestClass get() {
             return new TestClass();
