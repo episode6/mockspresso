@@ -1,5 +1,5 @@
 
-apply plugin: 'java'
+apply plugin: 'java-library'
 apply plugin: 'com.episode6.hackit.deployable.jar'
 apply plugin: 'com.episode6.hackit.gdmc'
 
@@ -7,21 +7,21 @@ sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 dependencies {
-  compile 'com.google.code.findbugs:jsr305'
-  provided 'junit:junit'
+  api 'com.google.code.findbugs:jsr305'
+  mavenProvided 'junit:junit'
 
-  compile project(':mockspresso-api')
-  compile project(':mockspresso-core')
+  api project(':mockspresso-api')
+  api project(':mockspresso-core')
 
   // built-in plugin deps
-  compile project(':mockspresso-mockito')
-  compile project(':mockspresso-easymock')
-  compile project(':mockspresso-mockito-powermock')
-  compile project(':mockspresso-easymock-powermock')
-  compile project(':mockspresso-dagger')
-  compile project(':mockspresso-guava')
+  implementation project(':mockspresso-mockito')
+  implementation project(':mockspresso-easymock')
+  implementation project(':mockspresso-mockito-powermock')
+  implementation project(':mockspresso-easymock-powermock')
+  implementation project(':mockspresso-dagger')
+  implementation project(':mockspresso-guava')
   
-  testCompile 'junit:junit'
-  testCompile 'org.easytesting:fest-assert-core'
+  testImplementation 'junit:junit'
+  testImplementation 'org.easytesting:fest-assert-core'
 }
 

@@ -5,12 +5,12 @@ sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 dependencies {
-  compile project(':mockspresso-core')
-  compile project(':mockspresso-quick')
-  compile 'com.google.code.findbugs:jsr305'
+  implementation project(':mockspresso-core')
+  implementation project(':mockspresso-quick')
+  implementation 'com.google.code.findbugs:jsr305'
 
-  testCompile 'junit:junit'
-  testCompile 'org.easytesting:fest-assert-core'
+  testImplementation 'junit:junit'
+  testImplementation 'org.easytesting:fest-assert-core'
 }
 
 test {

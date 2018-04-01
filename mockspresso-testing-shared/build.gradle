@@ -5,8 +5,8 @@ sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 dependencies {
-  compile 'com.google.code.findbugs:jsr305'
-  compile 'javax.inject:javax.inject'
-  compile 'org.easytesting:fest-assert-core'
+  implementation 'com.google.code.findbugs:jsr305'
+  implementation 'javax.inject:javax.inject'
+  implementation 'org.easytesting:fest-assert-core'
 }
 

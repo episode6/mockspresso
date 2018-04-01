@@ -1,4 +1,4 @@
-apply plugin: 'java'
+apply plugin: 'java-library'
 apply plugin: 'com.episode6.hackit.deployable.jar'
 apply plugin: 'com.episode6.hackit.gdmc'
 
@@ -6,6 +6,6 @@ sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 dependencies {
-  compile project(":mockspresso-reflect")
-  provided 'junit:junit'
+  api project(":mockspresso-reflect")
+  mavenProvided 'junit:junit'
 }

@@ -1,4 +1,4 @@
-apply plugin: 'java'
+apply plugin: 'java-library'
 apply plugin: 'com.episode6.hackit.deployable.jar'
 apply plugin: 'com.episode6.hackit.gdmc'
 
@@ -6,20 +6,25 @@ sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 dependencies {
-  compile project(':mockspresso-api')
-  compile 'com.google.code.findbugs:jsr305'
+  api project(':mockspresso-api')
+  api 'com.google.code.findbugs:jsr305'
 
-  compile 'org.easymock:easymock', optional
-  compile 'org.powermock:powermock-module-junit4', optional
-  compile 'org.powermock:powermock-api-easymock', optional
-  compile 'org.powermock:powermock-module-junit4-rule', optional
-  compile 'org.powermock:powermock-classloading-xstream', optional
+  mavenOptional 'org.easymock:easymock'
+  mavenOptional 'org.powermock:powermock-module-junit4'
+  mavenOptional 'org.powermock:powermock-api-easymock'
+  mavenOptional 'org.powermock:powermock-module-junit4-rule'
+  mavenOptional 'org.powermock:powermock-classloading-xstream'
 
-  testCompile project(':mockspresso-core')
-  testCompile project(':mockspresso-testing-shared')
-  testCompile project(':mockspresso-quick')
-  testCompile 'junit:junit'
-  testCompile 'org.easytesting:fest-assert-core'
+  testImplementation 'org.easymock:easymock'
+  testImplementation 'org.powermock:powermock-module-junit4'
+  testImplementation 'org.powermock:powermock-api-easymock'
+  testImplementation 'org.powermock:powermock-module-junit4-rule'
+  testImplementation 'org.powermock:powermock-classloading-xstream'
+  testImplementation project(':mockspresso-core')
+  testImplementation project(':mockspresso-testing-shared')
+  testImplementation project(':mockspresso-quick')
+  testImplementation 'junit:junit'
+  testImplementation 'org.easytesting:fest-assert-core'
 }
 
 test {
