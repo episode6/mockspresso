@@ -3,13 +3,13 @@ buildscript {
     jcenter()
   }
   dependencies {
-    classpath 'com.episode6.hackit.deployable:deployable:0.1.9'
-    classpath 'com.episode6.hackit.gdmc:gdmc:0.1.7'
+    classpath 'com.episode6.hackit.deployable:deployable:0.1.10'
+    classpath 'com.episode6.hackit.gdmc:gdmc:0.1.8'
   }
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = "4.1"
+  gradleVersion = "4.4"
   distributionType = "all"
 }
 
