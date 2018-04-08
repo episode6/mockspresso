@@ -1,4 +1,4 @@
-package com.episode6.missingclass.tests;
+package com.episode6.hackit.mockspresso.quick;
 
 import com.episode6.hackit.mockspresso.quick.exception.MissingDependencyError;
 import com.episode6.hackit.mockspresso.quick.QuickBuildMockspresso;
