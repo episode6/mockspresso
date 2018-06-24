@@ -1,7 +1,7 @@
 package com.episode6.hackit.mockspresso.quick.internal;
 
-import com.episode6.hackit.mockspresso.quick.exception.MissingDependencyError;
 import com.episode6.hackit.mockspresso.quick.QuickMockspressoBuilder;
+import com.episode6.hackit.mockspresso.quick.exception.MissingDependencyError;
 
 /**
  * Implementation of {@link QuickMockspressoBuilder.MockerPicker} and {@link QuickMockspressoBuilder.PluginPicker} which enables
@@ -82,14 +82,12 @@ class QuickBuiltInPluginPicker
 
   @Override
   public QuickMockspressoBuilder simple() {
-    mBuilder.getDelegate().injector().simple();
-    return mBuilder;
+    return mBuilder.plugin(new com.episode6.hackit.mockspresso.plugin.simple.SimpleInjectMockspressoPlugin());
   }
 
   @Override
   public QuickMockspressoBuilder javax() {
-    mBuilder.getDelegate().injector().javax();
-    return mBuilder;
+    return mBuilder.plugin(new com.episode6.hackit.mockspresso.plugin.javax.JavaxInjectMockspressoPlugin());
   }
 
   @Override
