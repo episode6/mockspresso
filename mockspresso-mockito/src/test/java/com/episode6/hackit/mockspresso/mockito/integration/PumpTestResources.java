@@ -6,7 +6,6 @@ import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Coffee;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeMakers;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Pump;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Water;
-import com.episode6.hackit.mockspresso.plugin.simple.SimpleInjectMockspressoPlugin;
 import org.junit.Before;
 import org.mockito.Mock;
 

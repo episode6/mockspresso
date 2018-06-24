@@ -1,3 +1,4 @@
+
 apply plugin: 'java-library'
 apply plugin: 'com.episode6.hackit.deployable.jar'
 apply plugin: 'com.episode6.hackit.gdmc'
@@ -6,14 +7,9 @@ sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 dependencies {
-  mavenProvided 'junit:junit'
-  api 'com.google.code.findbugs:jsr305'
-  api 'javax.inject:javax.inject'
-
-  // base deps
   api project(':mockspresso-api')
-  api project(':mockspresso-reflect')
-  api project(':mockspresso-basic-plugins')
+  api 'javax.inject:javax.inject'
+  api 'com.google.code.findbugs:jsr305'
 
   testImplementation project(':mockspresso-testing-shared')
   testImplementation 'junit:junit'
@@ -21,8 +17,3 @@ dependencies {
   testImplementation 'org.easytesting:fest-assert-core'
 }
 
-test {
-  testLogging {
-    showStandardStreams = true
-  }
-}

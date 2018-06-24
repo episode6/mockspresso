@@ -1,12 +1,10 @@
-package com.episode6.hackit.mockspresso.plugin.javax;
+package com.episode6.hackit.mockspresso.basic.plugin.javax;
 
-import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.api.DependencyProvider;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -18,7 +16,6 @@ import static org.mockito.Mockito.*;
 /**
  * Tests {@link ProviderMaker}
  */
-@RunWith(DefaultTestRunner.class)
 public class ProviderMakerTest {
 
   private static final DependencyKey<TestClass> testClassKey = DependencyKey.of(TestClass.class);

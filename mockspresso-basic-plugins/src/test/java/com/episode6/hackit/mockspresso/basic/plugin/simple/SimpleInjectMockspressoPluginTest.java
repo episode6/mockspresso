@@ -1,12 +1,9 @@
-package com.episode6.hackit.mockspresso.plugin.javax;
+package com.episode6.hackit.mockspresso.basic.plugin.simple;
 
-import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.api.InjectionConfig;
-import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -16,28 +13,25 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
- * Tests {@link JavaxInjectMockspressoPlugin}
+ * Tests {@link SimpleInjectMockspressoPlugin}
  */
-@RunWith(DefaultTestRunner.class)
-public class JavaxInjectMockspressoPluginTest {
+public class SimpleInjectMockspressoPluginTest {
 
   @Mock Mockspresso.Builder mBuilder;
 
-  private final JavaxInjectMockspressoPlugin mPlugin = new JavaxInjectMockspressoPlugin();
+  private final SimpleInjectMockspressoPlugin mPlugin = new SimpleInjectMockspressoPlugin();
 
   @Before
   public void setup() {
     MockitoAnnotations.initMocks(this);
     when(mBuilder.injector(any(InjectionConfig.class))).thenReturn(mBuilder);
-    when(mBuilder.specialObjectMaker(any(SpecialObjectMaker.class))).thenReturn(mBuilder);
   }
 
   @Test
   public void testInjectionConfigSet() {
     Mockspresso.Builder returnedBuilder = mPlugin.apply(mBuilder);
 
-    verify(mBuilder).injector(any(JavaxInjectionConfig.class));
-    verify(mBuilder).specialObjectMaker(any(ProviderMaker.class));
+    verify(mBuilder).injector(any(SimpleInjectionConfig.class));
     assertThat(returnedBuilder)
         .isNotNull()
         .isEqualTo(mBuilder);

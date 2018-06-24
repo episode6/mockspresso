@@ -1,4 +1,4 @@
-package com.episode6.hackit.mockspresso.plugin.simple;
+package com.episode6.hackit.mockspresso.basic.plugin.simple;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
