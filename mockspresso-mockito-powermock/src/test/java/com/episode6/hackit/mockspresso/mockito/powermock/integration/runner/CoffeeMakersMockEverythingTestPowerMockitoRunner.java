@@ -38,7 +38,7 @@ public class CoffeeMakersMockEverythingTestPowerMockitoRunner {
       .mocker().mockitoWithPowerMock()
       .buildRule();
   private final Mockspresso injectionMockspresso = simpleMockspresso.buildUpon()
-      .injector().javax()
+      .plugin(new JavaxInjectMockspressoPlugin())
       .build();
 
   @Mock Water mWater;
