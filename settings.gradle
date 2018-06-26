@@ -9,4 +9,5 @@ include ':mockspresso-api',
     ':mockspresso-dagger',
     ':mockspresso-guava',
     ':mockspresso-quick',
-    ':mockspresso-basic-plugins'
+    ':mockspresso-basic-plugins',
+    ':mockspresso-extend'
