@@ -4,7 +4,7 @@ import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.basic.plugin.javax.JavaxInjectMockspressoPlugin;
 import com.episode6.hackit.mockspresso.basic.plugin.simple.SimpleInjectMockspressoPlugin;
-import com.episode6.hackit.mockspresso.quick.QuickBuildMockspresso;
+import com.episode6.hackit.mockspresso.quick.BuildQuickMockspresso;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.*;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeMakers.*;
 import org.junit.Before;
@@ -33,7 +33,7 @@ import static org.mockito.Mockito.when;
 @RunWith(JUnit4.class)
 public class CoffeeMakersMockEverythingTestMockito {
 
-  @Rule public final Mockspresso.Rule simpleMockspresso = QuickBuildMockspresso.with()
+  @Rule public final Mockspresso.Rule simpleMockspresso = BuildQuickMockspresso.with()
       .injector().simple()
       .mocker().mockito()
       .buildRule();

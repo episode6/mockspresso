@@ -12,6 +12,7 @@ dependencies {
 
   api project(':mockspresso-api')
   api project(':mockspresso-core')
+  api project(':mockspresso-extend')
 
   // built-in plugin deps
   implementation project(':mockspresso-mockito')

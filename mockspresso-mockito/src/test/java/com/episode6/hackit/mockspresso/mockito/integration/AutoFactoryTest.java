@@ -2,7 +2,7 @@ package com.episode6.hackit.mockspresso.mockito.integration;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.quick.QuickBuildMockspresso;
+import com.episode6.hackit.mockspresso.quick.BuildQuickMockspresso;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Coffee;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeGrounds;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeGroundsFactory;
@@ -22,7 +22,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(JUnit4.class)
 public class AutoFactoryTest {
 
-  @Rule public final Mockspresso.Rule mockspresso = QuickBuildMockspresso.with()
+  @Rule public final Mockspresso.Rule mockspresso = BuildQuickMockspresso.with()
       .injector().simple()
       .mocker().mockito()
       .plugin().automaticFactories(CoffeeGroundsFactory.class)

@@ -5,7 +5,7 @@ import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.annotation.Unmapped;
 import com.episode6.hackit.mockspresso.api.ObjectProvider;
 import com.episode6.hackit.mockspresso.exception.RepeatedDependencyDefinedException;
-import com.episode6.hackit.mockspresso.quick.QuickBuildMockspresso;
+import com.episode6.hackit.mockspresso.quick.BuildQuickMockspresso;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Coffee;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeGrounds;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeMakers;
@@ -31,7 +31,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @PrepareForTest(UnmappedTestEasyPowerMockRunner.TestClass.class)
 public class UnmappedTestEasyPowerMockRunner {
 
-  @Rule public final Mockspresso.Rule mockspresso = QuickBuildMockspresso.with()
+  @Rule public final Mockspresso.Rule mockspresso = BuildQuickMockspresso.with()
       .injector().javax()
       .mocker().easyMockWithPowerMock()
       .buildRule();
