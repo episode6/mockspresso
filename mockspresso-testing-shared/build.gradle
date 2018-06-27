@@ -1,8 +1,4 @@
-apply plugin: 'java-library'
-apply plugin: 'com.episode6.hackit.gdmc'
-
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+apply plugin: JavaProject
 
 dependencies {
   implementation 'com.google.code.findbugs:jsr305'
