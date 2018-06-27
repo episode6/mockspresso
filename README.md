@@ -36,7 +36,7 @@ dependencies {
 ```
 
 ##### (2) mockspresso-quick
-For quick usage in a new project, where you don't want to worry too much about getting all the right dependencies, we offer the `mockspresso-quick` module. This module includes all of mockspresso's built-in plugins (with their external dependencies being optional), and exposes them via a single, simple api.
+For quick usage in a new project, where you don't want to worry too much about getting all the right dependencies, we offer the `mockspresso-quick` module. This module includes all of mockspresso's built-in plugins (with their external dependencies being optional), and exposes them via a single, simple api extension.
 
 ```groovy
 dependencies {
@@ -53,6 +53,8 @@ dependencies {
 }
 ```
 
+**NOTE:** You can also use the new [`mockspresso-extend` library](mockspresso-extend/README.md) to create your own extension of the mockspresso api.
+
 ## Usage
 
 First you define an instance of `Mockspresso` with an injector and a mocker. In most cases you'll want to do this via a `Mockspresso.Rule`
@@ -61,7 +63,7 @@ First you define an instance of `Mockspresso` with an injector and a mocker. In 
 ```java
 public class CoffeeMakerTest {
     @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
-        .injector().simple()
+        .injector(new SimpleInjectionConfig()) // or new JavaxInjectionConfig()
         .mocker(new MockitoMockerConfig()) // or new EasyMockMockerConfig()
         .buildRule();
 ```
@@ -69,8 +71,8 @@ public class CoffeeMakerTest {
 ##### (2) mockspresso-quick
 ```java
 public class CoffeeMakerTest {
-    @Rule public final Mockspresso.Rule mockspresso = QuickBuildMockspresso.with()
-        .injector().simple()
+    @Rule public final QuickMockspresso.Rule mockspresso = BuildQuickMockspresso.with()
+        .injector().simple() // or injector().javax()
         .mocker().mockito() // or mocker().easyMock()
         .buildRule();
 ```
@@ -82,7 +84,7 @@ Write your unit test
 public class CoffeeMakerTest {
 
     // Define your `Mockspresso` instance using a @Rule
-    @Rule public final Mockspresso.Rule mockspresso = QuickBuildMockspresso.with()
+    @Rule public final Mockspresso.Rule mockspresso = BuildQuickMockspresso.with()
         .injector().simple() // use constructor-based injection for real objects
         .mocker().mockito()
         .buildRule();
@@ -114,7 +116,7 @@ private Mockspresso mockspresso;
 
 @Before
 public void setup() {
-  mockspresso = QuickBuildMockspresso.with()
+  mockspresso = BuildQuickMockspresso.with()
       .injector().simple()
       .mocker().mockito()
       .testResourcesWithoutLifecycle(this) // scan 'this' for @Mocks and @RealObjects, but
@@ -219,7 +221,7 @@ public class ObjectUnderTest {
 // You can write a test that simply pretends the Provider<> doesn't exist
 public class MyTest {
 
-    @Rule public final Mockspresso.Rule mockspresso = QuickBuildMockspresso.with()
+    @Rule public final QuickMockspresso.Rule mockspresso = BuildQuickMockspresso.with()
         .injector().javax() // use the built-in JavaxInjectMockspressoPlugin
         .mocker().mockito()
         .buildRule();
@@ -251,6 +253,18 @@ public class SharedCoffeeMakerTestResource {
     // but they can be shared as well
     @RealObject CoffeeMaker mCofferMaker;
 
+    /**
+     * A mockspresso instance may optionally be included in methods annotated with
+     * org.junit.Before, but only the com.episode6.hackit.mockspresso.Mockspresso
+     * interface may be present in the method signature. To use QuickMockspresso or
+     * another extension, the reference must be wrapped manually.
+     *
+     * i.e.
+     *
+     * QuickMockspresso quickMockspresso = BuildQuickMockspress.upon(mockspresso)
+     *     .plugin().guava()
+     *     .build();
+     */
     @Before
     public void setup(Mockspresso mockspresso) { // Mockspresso param is optional
       when(mPump.pump()).thenReturn(mWater);
