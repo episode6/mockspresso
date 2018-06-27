@@ -1,10 +1,10 @@
 # mockspresso-extend
-The `mockspresso-extend` libraray allows you create your own versions of the `Mockspresso`, `Mockspresso.Rule` and most-importantly `Mockspresso.Builder` apis. The mockspresso-quick library is actually built on top of `mockspresso-extend`, althought it's a more complex example as its intended for general use/bootstrapping.
+The `mockspresso-extend` libraray allows you create your own versions of the `Mockspresso`, `Mockspresso.Rule` and most-importantly `Mockspresso.Builder` apis. The mockspresso-quick library is actually built on top of `mockspresso-extend`, although it's a more complex example as its intended for general use/bootstrapping.
 
 **NOTE:** If your codebase is 100% kotlin, this library + these instructions are completely unnecessary. Everything shown here can more easily be accomplished by simply adding extension methods to `Mockspresso.Builder`. Sadly we don't all live in the land of kotlin and honey yet, so if you need to support keep supporting java, keep reading.
 
 ## Getting started
-In this example we'll create a custom mockspresso extension for our imaginary project. Lets call it `PiedMocker`.
+In this example we'll create a custom mockspresso extension for our imaginary project PiedPiper. Lets call our extension `PiedMocker`.
 
 Our project is big with lots of modules, so we want to create a single module exposing all the test dependencies needed to test with `PiedMocker`...
 
@@ -18,7 +18,7 @@ dependencies {
     api 'com.episode6.hackit.mockspresso:mockspresso-core:+'
     api 'com.episode6.hackit.mockspresso:mockspresso-extend:+'
 
-    // we only mockito with mockito here
+    // we only mock with mockito here
     implementation 'com.episode6.hackit.mockspresso:mockspresso-mockito:+'
     api 'org.mockito:mockito-core:+'
 
@@ -70,7 +70,7 @@ class PiedMockerImpl extends AbstactMockspressoExtension<PiedMocker.Builder> imp
 
     static class Builder extends AbstactMockspressoExtension.Builder<PiedMocker, PiedMocker.Rule, PiedMocker.Builder> implements PiedMocker.Builder {
 
-        Rule(Mockspresso.Builder delegate) {
+        Builder(Mockspresso.Builder delegate) {
             // pass in lambdas that tells us how to create new PiedMockers
             // and PiedMocker.Rules
             super(delegate, PiedMockerImpl::new, PiedMockerImpl.Rule::new);
