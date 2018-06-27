@@ -156,3 +156,4 @@ public class SomeTest {
     }
 }
 ```
+You can see `mockspresso-extend` in action by looking at either the [`mockspresso-quick` library](/mockspresso-quick) or the [test-extension](src/test/java/com/episode6/hackit/mockspresso/extend/testext) in this module.
