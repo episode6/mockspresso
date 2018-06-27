@@ -11,7 +11,7 @@ Mockspresso creates your objects for you, letting you drop the constructors from
 This doc describes mockspresso version `0.0.13-SNAPSHOT`
 
 ## Installation
-There are 2 ways to install the mockspresso into your project.
+There are 3 ways to install the mockspresso into your project.
 
 ##### (1) mockspresso-core
 To use mockspresso with minimal dependencies, install the `mockspresso-core` module along with the modules for the [plugins](#plugins) you actually plan to use.
@@ -53,7 +53,8 @@ dependencies {
 }
 ```
 
-**NOTE:** You can also use the new [`mockspresso-extend` library](mockspresso-extend/README.md) to create your own extension of the mockspresso api.
+##### (3) mockspresso-extend: build a custom mockspresso extension
+You can now easily define your own extension to the Mockspresso api using the `mockspresso-extend` library. This gives your test-code the simple usage patterns of `mockspresso-quick`, but with minimal dependencies and control over the builder-pattern and accessible plugins. To learn how, see the [mockspresso-extend/README.md](mockspresso-extend/README.md)
 
 ## Usage
 
