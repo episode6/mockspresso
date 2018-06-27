@@ -11,7 +11,7 @@ Mockspresso creates your objects for you, letting you drop the constructors from
 This doc describes mockspresso version `0.0.13-SNAPSHOT`
 
 ## Installation
-There are 3 ways to install the mockspresso into your project.
+There are 3 ways to setup mockspresso in your project.
 
 ##### (1) mockspresso-core
 To use mockspresso with minimal dependencies, install the `mockspresso-core` module along with the modules for the [plugins](#plugins) you actually plan to use.
