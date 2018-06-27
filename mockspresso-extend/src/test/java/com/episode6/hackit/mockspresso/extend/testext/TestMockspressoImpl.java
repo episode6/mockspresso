@@ -6,7 +6,8 @@ import com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension;
 import com.episode6.hackit.mockspresso.mockito.MockitoPlugin;
 
 /**
- *
+ * Implementation of {@link TestMockspresso} extension definition. This class is totally boiler-plate except
+ * for the last 2 methods in the builder ({@link Builder#simpleInjector()} and {@link Builder#mockWithMockito()}).
  */
 class TestMockspressoImpl extends AbstractMockspressoExtension<TestMockspresso.Builder> implements TestMockspresso {
 
@@ -41,18 +42,6 @@ class TestMockspressoImpl extends AbstractMockspressoExtension<TestMockspresso.B
     }
 
     @Override
-    public TestMockspresso.Builder simpleInjector() {
-      getDelegate().plugin(new SimpleInjectMockspressoPlugin());
-      return this;
-    }
-
-    @Override
-    public TestMockspresso.Builder mockWithMockito() {
-      getDelegate().plugin(new MockitoPlugin());
-      return this;
-    }
-
-    @Override
     public TestMockspresso build() {
       return new TestMockspressoImpl(getDelegate().build());
     }
@@ -60,6 +49,16 @@ class TestMockspressoImpl extends AbstractMockspressoExtension<TestMockspresso.B
     @Override
     public TestMockspresso.Rule buildRule() {
       return new TestMockspressoImpl.Rule(getDelegate().buildRule());
+    }
+
+    @Override
+    public TestMockspresso.Builder simpleInjector() {
+      return plugin(new SimpleInjectMockspressoPlugin());
+    }
+
+    @Override
+    public TestMockspresso.Builder mockWithMockito() {
+      return plugin(new MockitoPlugin());
     }
   }
 }
