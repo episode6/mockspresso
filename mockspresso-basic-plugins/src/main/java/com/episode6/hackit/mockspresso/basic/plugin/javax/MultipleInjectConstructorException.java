@@ -1,4 +1,4 @@
-package com.episode6.hackit.mockspresso.exception;
+package com.episode6.hackit.mockspresso.basic.plugin.javax;
 
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 

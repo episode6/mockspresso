@@ -13,6 +13,7 @@ dependencies {
   // base deps
   api project(':mockspresso-api')
   api project(':mockspresso-reflect')
+  api project(':mockspresso-basic-plugins')
 
   testImplementation project(':mockspresso-testing-shared')
   testImplementation 'junit:junit'

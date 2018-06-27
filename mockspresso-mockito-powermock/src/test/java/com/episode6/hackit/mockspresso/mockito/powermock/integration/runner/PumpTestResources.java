@@ -2,7 +2,7 @@ package com.episode6.hackit.mockspresso.mockito.powermock.integration.runner;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.plugin.simple.SimpleInjectMockspressoPlugin;
+import com.episode6.hackit.mockspresso.basic.plugin.simple.SimpleInjectMockspressoPlugin;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Coffee;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeMakers;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Pump;
@@ -36,7 +36,7 @@ public class PumpTestResources {
     when(mPump.pump()).thenReturn(mWater);
 
     mSimpleCoffeeMaker = mockspresso.buildUpon()
-        .injector().simple()
+        .plugin(new SimpleInjectMockspressoPlugin())
         .build().create(CoffeeMakers.SimpleCoffeeMaker.class);
   }
 

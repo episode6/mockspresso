@@ -1,10 +1,7 @@
-package com.episode6.hackit.mockspresso.plugin.javax;
+package com.episode6.hackit.mockspresso.basic.plugin.javax;
 
-import com.episode6.hackit.mockspresso.DefaultTestRunner;
-import com.episode6.hackit.mockspresso.exception.MultipleInjectConstructorException;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -16,7 +13,6 @@ import static org.fest.assertions.api.Assertions.assertThat;
  * Tests {@link JavaxInjectionConfig}
  */
 @SuppressWarnings("unchecked")
-@RunWith(DefaultTestRunner.class)
 public class JavaxInjectionConfigTest {
 
   private final JavaxInjectionConfig mInjectionConfig = new JavaxInjectionConfig();

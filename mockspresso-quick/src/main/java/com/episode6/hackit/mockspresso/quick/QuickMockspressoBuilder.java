@@ -105,18 +105,20 @@ public interface QuickMockspressoBuilder extends Mockspresso.Builder {
   /**
    * A selector for one of the built in injection configs
    */
-  interface InjectorPicker extends Mockspresso.InjectorPicker {
+  interface InjectorPicker {
 
     /**
-     * {@inheritDoc}
+     * Applies the {@link InjectionConfig} for simple creation of objects via
+     * their shortest constructor.
+     * @return The {@link QuickMockspressoBuilder} for your mockspresso instance
      */
-    @Override
     QuickMockspressoBuilder simple();
 
     /**
-     * {@inheritDoc}
+     * Applies the {@link InjectionConfig} for javax.inject based object creation
+     * (looks for constructors, fields and methods annotated with @Inject).
+     * @return The {@link QuickMockspressoBuilder} for your mockspresso instance
      */
-    @Override
     QuickMockspressoBuilder javax();
 
     /**

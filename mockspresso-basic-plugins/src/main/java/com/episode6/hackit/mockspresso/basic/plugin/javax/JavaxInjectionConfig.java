@@ -1,7 +1,6 @@
-package com.episode6.hackit.mockspresso.plugin.javax;
+package com.episode6.hackit.mockspresso.basic.plugin.javax;
 
 import com.episode6.hackit.mockspresso.api.InjectionConfig;
-import com.episode6.hackit.mockspresso.exception.MultipleInjectConstructorException;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 
 import javax.annotation.Nullable;

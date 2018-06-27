@@ -1,9 +1,7 @@
-package com.episode6.hackit.mockspresso.plugin.simple;
+package com.episode6.hackit.mockspresso.basic.plugin.simple;
 
-import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -14,7 +12,6 @@ import static org.fest.assertions.api.Assertions.assertThat;
 /**
  * Tests {@link SimpleInjectionConfig}
  */
-@RunWith(DefaultTestRunner.class)
 public class SimpleInjectionConfigTest {
 
   private SimpleInjectionConfig mSimpleInjectionConfig = new SimpleInjectionConfig();

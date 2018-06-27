@@ -19,12 +19,10 @@ import java.util.List;
 class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implements Mockspresso.Builder {
 
   private final MockspressoBuilderImpl mBuilder;
-  private final BuiltInPluginPicker mBuiltInPluginPicker;
 
   DelayedMockspressoBuilder(Provider<MockspressoBuilderImpl> builderProvider) {
     super(builderProvider);
     mBuilder = builderProvider.get();
-    mBuiltInPluginPicker = new BuiltInPluginPicker(this);
   }
 
   void setParent(@Nullable MockspressoConfigContainer parentConfig) {
@@ -89,11 +87,6 @@ class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implements Mo
   public Builder injector(InjectionConfig injectionConfig) {
     mBuilder.injector(injectionConfig);
     return this;
-  }
-
-  @Override
-  public InjectorPicker injector() {
-    return mBuiltInPluginPicker;
   }
 
   @Override
