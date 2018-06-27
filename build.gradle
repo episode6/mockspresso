@@ -3,13 +3,14 @@ buildscript {
     jcenter()
   }
   dependencies {
-    classpath 'com.episode6.hackit.deployable:deployable:0.1.5'
-    classpath 'com.episode6.hackit.gdmc:gdmc:0.1.6'
+    classpath 'com.episode6.hackit.deployable:deployable:0.1.12'
+    classpath 'com.episode6.hackit.gdmc:gdmc:0.1.9'
+    classpath 'me.tatarka:gradle-retrolambda:3.7.0'
   }
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = "3.3"
+  gradleVersion = "4.4"
   distributionType = "all"
 }
 
@@ -19,5 +20,5 @@ allprojects {
   }
 
   group = "com.episode6.hackit.mockspresso"
-  version = "0.0.12"
+  version = "0.0.13"
 }

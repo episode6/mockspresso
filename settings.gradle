@@ -5,8 +5,9 @@ include ':mockspresso-api',
     ':mockspresso-mockito',
     ':mockspresso-mockito-powermock',
     ':mockspresso-easymock-powermock',
-    ':missingclass-tests',
     ':mockspresso-testing-shared',
     ':mockspresso-dagger',
     ':mockspresso-guava',
-    ':mockspresso-quick'
+    ':mockspresso-quick',
+    ':mockspresso-basic-plugins',
+    ':mockspresso-extend'

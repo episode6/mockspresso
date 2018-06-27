@@ -3,15 +3,33 @@ package com.episode6.hackit.mockspresso.quick;
 import com.episode6.hackit.mockspresso.Mockspresso;
 
 /**
- *
+ * Old entry-point for quick mockspresso extension. Will be removed in a future version.
+ * Use {@link BuildQuickMockspresso} instead
  */
+@Deprecated
 public class QuickBuildMockspresso {
 
-  public static QuickMockspressoBuilder with() {
-    return com.episode6.hackit.mockspresso.quick.internal.QuickMockspressoBuilder.create();
+  /**
+   * Old entry-point for quick mockspresso extension. Will be removed in a future version.
+   * Use {@link BuildQuickMockspresso#with()} instead
+   * @return a new instance of {@link QuickMockspresso.Builder}
+   * @deprecated User {@link BuildQuickMockspresso#with()} instead
+   */
+  @Deprecated
+  public static QuickMockspresso.Builder with() {
+    return BuildQuickMockspresso.with();
   }
 
-  public static QuickMockspressoBuilder buildUpon(Mockspresso mockspresso) {
-    return com.episode6.hackit.mockspresso.quick.internal.QuickMockspressoBuilder.buildUpon(mockspresso);
+  /**
+   * Old entry-point for quick mockspresso extension. Will be removed in a future version.
+   * Use {@link BuildQuickMockspresso#upon(Mockspresso)} instead
+   * @param mockspresso The {@link Mockspresso} instance to upon
+   * @return a new instance of {@link QuickMockspresso.Builder} build upon the supplied
+   * {@link Mockspresso} instance
+   * @deprecated User {@link BuildQuickMockspresso#upon(Mockspresso)} instead
+   */
+  @Deprecated
+  public static QuickMockspresso.Builder buildUpon(Mockspresso mockspresso) {
+    return BuildQuickMockspresso.upon(mockspresso);
   }
 }

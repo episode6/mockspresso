@@ -145,12 +145,6 @@ public interface Mockspresso {
     Builder injector(InjectionConfig injectionConfig);
 
     /**
-     * Apply one of the built-in {@link InjectionConfig}s to this builder.
-     * @return A {@link InjectorPicker} that will apply an injectionConfig to this builder.
-     */
-    InjectorPicker injector();
-
-    /**
      * Apply a {@link SpecialObjectMaker} to this builder, which tells mockspresso how it should create
      * object types that should not be mocked by default.
      * @param specialObjectMaker The SpecialObjectMaker to apply
@@ -280,25 +274,5 @@ public interface Mockspresso {
      * @return an instance of {@link Mockspresso.Rule} that is both an instance of {@link Mockspresso} and a {@link org.junit.Rule}
      */
     Rule buildRule();
-  }
-
-  /**
-   * A selector for one of the built in injection configs
-   */
-  interface InjectorPicker {
-
-    /**
-     * Applies the {@link InjectionConfig} for simple creation of objects via
-     * their shortest constructor.
-     * @return The {@link Builder} for your mockspresso instance
-     */
-    Builder simple();
-
-    /**
-     * Applies the {@link InjectionConfig} for javax.inject based object creation
-     * (looks for constructors, fields and methods annotated with @Inject).
-     * @return The {@link Builder} for your mockspresso instance
-     */
-    Builder javax();
   }
 }

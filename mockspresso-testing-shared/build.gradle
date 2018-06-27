@@ -1,12 +1,8 @@
-apply plugin: 'java'
-apply plugin: 'com.episode6.hackit.gdmc'
-
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+apply plugin: JavaProject
 
 dependencies {
-  compile 'com.google.code.findbugs:jsr305'
-  compile 'javax.inject:javax.inject'
-  compile 'org.easytesting:fest-assert-core'
+  implementation 'com.google.code.findbugs:jsr305'
+  implementation 'javax.inject:javax.inject'
+  implementation 'org.easytesting:fest-assert-core'
 }
 

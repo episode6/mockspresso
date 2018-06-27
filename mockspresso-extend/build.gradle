@@ -1,0 +1,17 @@
+apply plugin: DeployableJavaProject
+
+dependencies {
+  api project(':mockspresso-api')
+  api project(':mockspresso-reflect')
+  api 'com.google.code.findbugs:jsr305'
+
+  mavenProvided 'junit:junit'
+
+  testImplementation 'junit:junit'
+  testImplementation 'org.assertj:assertj-core'
+  testImplementation 'org.mockito:mockito-core'
+  testImplementation project(':mockspresso-core')
+  testImplementation project(':mockspresso-testing-shared')
+  testImplementation project(':mockspresso-mockito')
+}
+

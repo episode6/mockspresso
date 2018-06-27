@@ -8,10 +8,10 @@ Mockspresso creates your objects for you, letting you drop the constructors from
 
 
 ## Version
-This doc describes mockspresso version `0.0.12`
+This doc describes mockspresso version `0.0.13`
 
 ## Installation
-There are 2 ways to install the mockspresso into your project.
+There are 3 ways to setup mockspresso in your project.
 
 ##### (1) mockspresso-core
 To use mockspresso with minimal dependencies, install the `mockspresso-core` module along with the modules for the [plugins](#plugins) you actually plan to use.
@@ -36,7 +36,7 @@ dependencies {
 ```
 
 ##### (2) mockspresso-quick
-For quick usage in a new project, where you don't want to worry too much about getting all the right dependencies, we offer the `mockspresso-quick` module. This module includes all of mockspresso's built-in plugins (with their external dependencies being optional), and exposes them via a single, simple api.
+For quick usage in a new project, where you don't want to worry too much about getting all the right dependencies, we offer the `mockspresso-quick` module. This module includes all of mockspresso's built-in plugins (with their external dependencies being optional), and exposes them via a single, simple api extension.
 
 ```groovy
 dependencies {
@@ -53,6 +53,9 @@ dependencies {
 }
 ```
 
+##### (3) mockspresso-extend: build a custom mockspresso extension
+You can now easily define your own extension to the Mockspresso api using the `mockspresso-extend` library. This gives your test-code the simple usage patterns of `mockspresso-quick`, but with minimal dependencies and control over the builder-pattern and accessible plugins. To learn how, see the [mockspresso-extend/README.md](mockspresso-extend/README.md)
+
 ## Usage
 
 First you define an instance of `Mockspresso` with an injector and a mocker. In most cases you'll want to do this via a `Mockspresso.Rule`
@@ -61,7 +64,7 @@ First you define an instance of `Mockspresso` with an injector and a mocker. In 
 ```java
 public class CoffeeMakerTest {
     @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
-        .injector().simple()
+        .injector(new SimpleInjectionConfig()) // or new JavaxInjectionConfig()
         .mocker(new MockitoMockerConfig()) // or new EasyMockMockerConfig()
         .buildRule();
 ```
@@ -69,20 +72,20 @@ public class CoffeeMakerTest {
 ##### (2) mockspresso-quick
 ```java
 public class CoffeeMakerTest {
-    @Rule public final Mockspresso.Rule mockspresso = QuickBuildMockspresso.with()
-        .injector().simple()
+    @Rule public final QuickMockspresso.Rule mockspresso = BuildQuickMockspresso.with()
+        .injector().simple() // or injector().javax()
         .mocker().mockito() // or mocker().easyMock()
         .buildRule();
 ```
 
-NOTE: for the rest of these examples we'll stick with the `mockspresso-quick` api.
+**NOTE**: for the rest of these examples we'll stick with the `mockspresso-quick` api.
 
 Write your unit test
 ```java
 public class CoffeeMakerTest {
 
     // Define your `Mockspresso` instance using a @Rule
-    @Rule public final Mockspresso.Rule mockspresso = QuickBuildMockspresso.with()
+    @Rule public final QuickMockspresso.Rule mockspresso = BuildQuickMockspresso.with()
         .injector().simple() // use constructor-based injection for real objects
         .mocker().mockito()
         .buildRule();
@@ -114,7 +117,7 @@ private Mockspresso mockspresso;
 
 @Before
 public void setup() {
-  mockspresso = QuickBuildMockspresso.with()
+  mockspresso = BuildQuickMockspresso.with()
       .injector().simple()
       .mocker().mockito()
       .testResourcesWithoutLifecycle(this) // scan 'this' for @Mocks and @RealObjects, but
@@ -219,7 +222,7 @@ public class ObjectUnderTest {
 // You can write a test that simply pretends the Provider<> doesn't exist
 public class MyTest {
 
-    @Rule public final Mockspresso.Rule mockspresso = QuickBuildMockspresso.with()
+    @Rule public final QuickMockspresso.Rule mockspresso = BuildQuickMockspresso.with()
         .injector().javax() // use the built-in JavaxInjectMockspressoPlugin
         .mocker().mockito()
         .buildRule();
@@ -251,6 +254,18 @@ public class SharedCoffeeMakerTestResource {
     // but they can be shared as well
     @RealObject CoffeeMaker mCofferMaker;
 
+    /**
+     * A mockspresso instance may optionally be included in methods annotated with
+     * org.junit.Before, but only the com.episode6.hackit.mockspresso.Mockspresso
+     * interface may be present in the method signature. To use QuickMockspresso or
+     * another extension, the reference must be wrapped manually.
+     *
+     * i.e.
+     *
+     * QuickMockspresso quickMockspresso = BuildQuickMockspress.upon(mockspresso)
+     *     .plugin().guava()
+     *     .build();
+     */
     @Before
     public void setup(Mockspresso mockspresso) { // Mockspresso param is optional
       when(mPump.pump()).thenReturn(mWater);
@@ -312,8 +327,8 @@ Multiple bits of mockspresso functionality can be packaged into `MockspressoPlug
 
 `mockspresso-quick` | manual usage | dependencies | description
 ------------------------- | ------------ | ------------ | -----------
-`.injector().simple()` | N/A | N/A | Our most basic injector plugin. Creates POJOs using their shortest constructor and does no post-processing or field injection.
-`.injector().javax()` | N/A | N/A | Creates objects that are compatible with `javax.inject` dependency injection frameworks. When creating objects, mockspresso will only select a constructor annotated with @Inject OR (if none is found) a completely empty constructor. After the object is constructed, field/member injection is performed, followed by method injection. This plugin also applies the above-mentioned `ProviderMaker` for special handling of `javax.inject.Provider<>`
+`.injector().simple()` | `.plugin(new SimpleInjectMockspressoPlugin())` | core | Our most basic injector plugin. Creates POJOs using their shortest constructor and does no post-processing or field injection.
+`.injector().javax()` | `.plugin(new JavaxInjectMockspressoPlugin())` | core | Creates objects that are compatible with `javax.inject` dependency injection frameworks. When creating objects, mockspresso will only select a constructor annotated with @Inject OR (if none is found) a completely empty constructor. After the object is constructed, field/member injection is performed, followed by method injection. This plugin also applies the above-mentioned `ProviderMaker` for special handling of `javax.inject.Provider<>`
 `.injector().dagger()` | `.plugin(new DaggerMockspressoPlugin())` | **`:mockspresso-dagger`**, `com.google.dagger:dagger` | Builds upon the javax injector and adds special object handling for `dagger.Lazy<>`.
 
 **Mockers**: A mocker is also a required component of mockspresso, as it dictates how generic mocks are created and which mock annotations should be processed by the dependency map.
