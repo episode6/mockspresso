@@ -55,48 +55,25 @@ By leveraging the generic extension interfaces and referencing our own types in 
 // implement its own appropriate interface directly
 class PiedMockerImpl extends AbstactMockspressoExtension<PiedMocker.Builder> implements PiedMocker {
 
-    // Mockspresso extension class must override constructor and buildUpon() method
     PiedMockerImpl(Mockspresso delegate) {
-        super(delegate);
-    }
-
-    @Override
-    public PiedMocker.Builder buildUpon() {
-        // buildUpon the delegate and wrap with our builder impl below
-        return new PiedMockerImpl.Builder(getDelegate().buildUpon());
+        // pass in a lambda that tells us how to create new builders
+        super(delegate, PiedMockerImpl.Builder::new);
     }
 
     static class Rule extends AbstactMockspressoExtension.Rule<PiedMocker.Builder> implements PiedMocker.Rule {
 
-        // Mockspresso.Rule extension class must also override constructor and buildUpon() method
         Rule(Mockspresso.Rule delegate) {
-            super(delegate);
-        }
-
-        @Override
-        public PiedMocker.Builder buildUpon() {
-            // buildUpon the delegate and wrap with our builder impl below
-            return new PiedMockerImpl.Builder(getDelegate().buildUpon());
+            // pass in a lambda that tells us how to create new builders
+            super(delegate, PiedMockerImpl.Builder::new);
         }
     }
 
     static class Builder extends AbstactMockspressoExtension.Builder<PiedMocker, PiedMocker.Rule, PiedMocker.Builder> implements PiedMocker.Builder {
 
-        // Mockspresso.Builder extension must override constructor, build() and buildRule() methods
         Rule(Mockspresso.Builder delegate) {
-            super(delegate);
-        }
-
-        @Override
-        public PiedMocker build() {
-            // build the delegate and wrap with our outer class
-            return new PiedMockerImpl(getDelegate().build());
-        }
-
-        @Override
-        public PiedMocker.Rule buildRule() {
-            // build the delegate rule and wrap with our rule impl above
-            return new PiedMockerImpl.Rule(getDelegate().buildRule());
+            // pass in lambdas that tells us how to create new PiedMockers
+            // and PiedMocker.Rules
+            super(delegate, PiedMockerImpl::new, PiedMockerImpl.Rule::new);
         }
 
         /*
