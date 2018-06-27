@@ -103,7 +103,7 @@ class PiedMockerImpl extends AbstactMockspressoExtension<PiedMocker.Builder> imp
          * Now we can implement our custom helper methods. We could also move this logic to
          * its own class if we want to keep the custom logic seperate from the boiler-plate.
          * But for this example, let's just do it here
-         * /
+         */
 
          @Override
          public PierMocker.Builder defaultConfig() {
@@ -126,6 +126,7 @@ class PiedMockerImpl extends AbstactMockspressoExtension<PiedMocker.Builder> imp
 While there is obviously still some unavoidable boiler-plate here, most of it can be "automated" by a decent IDE, and its still considerably less effort then overriding every method in `Mockspresso.Builder` just to change the return type.
 
 The last missing piece is a public way to create new `PiedMocker` instances from scratch.
+
 **Add a static entry-point for new builders**
 ```java
 public class BuildPiedMocker {
