@@ -78,14 +78,14 @@ public class CoffeeMakerTest {
         .buildRule();
 ```
 
-NOTE: for the rest of these examples we'll stick with the `mockspresso-quick` api.
+**NOTE**: for the rest of these examples we'll stick with the `mockspresso-quick` api.
 
 Write your unit test
 ```java
 public class CoffeeMakerTest {
 
     // Define your `Mockspresso` instance using a @Rule
-    @Rule public final Mockspresso.Rule mockspresso = BuildQuickMockspresso.with()
+    @Rule public final QuickMockspresso.Rule mockspresso = BuildQuickMockspresso.with()
         .injector().simple() // use constructor-based injection for real objects
         .mocker().mockito()
         .buildRule();
