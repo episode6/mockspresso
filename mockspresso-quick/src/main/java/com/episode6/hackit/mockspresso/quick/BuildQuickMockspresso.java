@@ -20,7 +20,7 @@ public class BuildQuickMockspresso {
    * @param mockspresso The {@link Mockspresso} instance to wrap
    * @return and new {@link QuickMockspresso.Builder} built upon the supplied mockspresso instance.
    */
-  public static QuickMockspresso.Builder buildUpon(Mockspresso mockspresso) {
+  public static QuickMockspresso.Builder upon(Mockspresso mockspresso) {
     return new QuickMockspressoImpl.Builder(mockspresso.buildUpon());
   }
 }
