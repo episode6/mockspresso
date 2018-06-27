@@ -1,10 +1,10 @@
 package com.episode6.hackit.mockspresso.easymock.powermock.integration.runner;
 
-import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.basic.plugin.javax.JavaxInjectMockspressoPlugin;
 import com.episode6.hackit.mockspresso.basic.plugin.simple.SimpleInjectMockspressoPlugin;
-import com.episode6.hackit.mockspresso.quick.QuickBuildMockspresso;
+import com.episode6.hackit.mockspresso.quick.BuildQuickMockspresso;
+import com.episode6.hackit.mockspresso.quick.QuickMockspresso;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.*;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeMakers.*;
 import org.junit.Before;
@@ -32,13 +32,13 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(PowerMockRunner.class)
 public class CoffeeMakersMockEverythingTestEasyPowerMockRunner {
 
-  @Rule public final Mockspresso.Rule simpleMockspresso = QuickBuildMockspresso.with()
+  @Rule public final QuickMockspresso.Rule simpleMockspresso = BuildQuickMockspresso.with()
       .injector().simple()
       .mocker().easyMockWithPowerMock()
       .buildRule();
 
-  private final Mockspresso injectionMockspresso = simpleMockspresso.buildUpon()
-      .plugin(new JavaxInjectMockspressoPlugin())
+  private final QuickMockspresso injectionMockspresso = simpleMockspresso.buildUpon()
+      .injector().javax()
       .build();
 
   @Mock Water mWater;

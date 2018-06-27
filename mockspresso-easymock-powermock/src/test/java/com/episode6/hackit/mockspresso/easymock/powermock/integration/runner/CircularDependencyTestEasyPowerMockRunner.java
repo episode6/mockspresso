@@ -3,7 +3,7 @@ package com.episode6.hackit.mockspresso.easymock.powermock.integration.runner;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.exception.CircularDependencyError;
-import com.episode6.hackit.mockspresso.quick.QuickBuildMockspresso;
+import com.episode6.hackit.mockspresso.quick.BuildQuickMockspresso;
 import com.episode6.hackit.mockspresso.testing.testobjects.CircularDependencies;
 import org.junit.Rule;
 import org.junit.Test;
@@ -16,7 +16,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @RunWith(PowerMockRunner.class)
 public class CircularDependencyTestEasyPowerMockRunner {
 
-  @Rule public final Mockspresso.Rule mockspresso = QuickBuildMockspresso.with()
+  @Rule public final Mockspresso.Rule mockspresso = BuildQuickMockspresso.with()
       .injector().javax()
       .mocker().easyMockWithPowerMock()
       .buildRule();
