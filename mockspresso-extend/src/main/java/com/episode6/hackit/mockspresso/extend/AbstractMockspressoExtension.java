@@ -21,82 +21,105 @@ import java.util.List;
  * and its inner interfaces. Each subclass should also directly implement the appropriate interface extension
  * of {@link MockspressoExtension}
  *
- * In the subclass of {@link AbstractMockspressoExtension}, you should only need to override the constructor and
- * the {@link #buildUpon()} method.
+ * In the subclass of {@link AbstractMockspressoExtension}, you should only need to override the constructor, providing
+ * a lambda that wraps {@link Mockspresso.Builder} with your custom subclass of {@link AbstractMockspressoExtension.Builder}
  *
  * @param <BLDR> Should point to your custom extension of {@link MockspressoExtension.Builder}
  */
 public abstract class AbstractMockspressoExtension<BLDR extends MockspressoExtension.Builder> implements MockspressoExtension<BLDR> {
 
-  private final Mockspresso mDelegate;
-
-  protected AbstractMockspressoExtension(Mockspresso delegate) {
-    mDelegate = delegate;
+  /**
+   * A simple interface that tells us how wrap a {@link Mockspresso} instance with
+   * your custom implementation (a subclass of one of these abstract classes.
+   * @param <IN> Input type - Either {@link Mockspresso}, {@link Mockspresso.Rule} or {@link Mockspresso.Builder}
+   * @param <OUT> Output type - one of your custom mockspresso extension's types
+   */
+  protected interface Wrapper<IN, OUT> {
+    OUT wrap(IN delegate);
   }
 
-  protected final Mockspresso getDelegate() {
-    return mDelegate;
+  private final Mockspresso mDelegate;
+  private final Wrapper<Mockspresso.Builder, BLDR> mBuilderWrapper;
+
+  protected AbstractMockspressoExtension(
+      Mockspresso delegate,
+      Wrapper<Mockspresso.Builder, BLDR> builderWrapper) {
+    mDelegate = delegate;
+    mBuilderWrapper = builderWrapper;
   }
 
   @Override
   public <T> T create(Class<T> clazz) {
-    return getDelegate().create(clazz);
+    return mDelegate.create(clazz);
   }
 
   @Override
   public <T> T create(TypeToken<T> typeToken) {
-    return getDelegate().create(typeToken);
+    return mDelegate.create(typeToken);
   }
 
   @Override
   public void inject(Object instance) {
-    getDelegate().inject(instance);
+    mDelegate.inject(instance);
+  }
+
+  @Override
+  public BLDR buildUpon() {
+    return mBuilderWrapper.wrap(mDelegate.buildUpon());
   }
 
   /**
    * Extend this abstract class for a custom implementation of the {@link Mockspresso.Rule} interface.
-   * In the subclass of {@link AbstractMockspressoExtension.Rule}, you should only need to override the constructor and
-   * the {@link #buildUpon()} method.
+   * In the subclass of {@link AbstractMockspressoExtension.Rule}, you should only need to override the constructor, providing
+   * a lambda that wraps {@link Mockspresso.Builder} with your custom subclass of {@link AbstractMockspressoExtension.Builder}
    *
    * @param <BLDR> Should point to your custom extension of {@link MockspressoExtension.Builder}
    */
   public abstract static class Rule<BLDR extends MockspressoExtension.Builder> implements MockspressoExtension.Rule<BLDR> {
 
     private final Mockspresso.Rule mDelegate;
+    private final Wrapper<Mockspresso.Builder, BLDR> mBuilderWrapper;
 
-    protected Rule(Mockspresso.Rule delegate) {
+    protected Rule(
+        Rule delegate,
+        Wrapper<Builder, BLDR> builderWrapper) {
       mDelegate = delegate;
-    }
-
-    protected final Mockspresso.Rule getDelegate() {
-      return mDelegate;
+      mBuilderWrapper = builderWrapper;
     }
 
     @Override
     public <T> T create(Class<T> clazz) {
-      return getDelegate().create(clazz);
+      return mDelegate.create(clazz);
     }
 
     @Override
     public <T> T create(TypeToken<T> typeToken) {
-      return getDelegate().create(typeToken);
+      return mDelegate.create(typeToken);
     }
 
     @Override
     public void inject(Object instance) {
-      getDelegate().inject(instance);
+      mDelegate.inject(instance);
+    }
+
+    @Override
+    public BLDR buildUpon() {
+      return mBuilderWrapper.wrap(mDelegate.buildUpon());
     }
 
     @Override
     public Statement apply(Statement base, FrameworkMethod method, Object target) {
-      return getDelegate().apply(base, method, target);
+      return mDelegate.apply(base, method, target);
     }
   }
 
   /**
    * Extend this abstract class for a custom implementation of the {@link Mockspresso.Builder} interface.
-   * In this class you will need to override the constructor, the {@link #build()} and the {@link #buildRule()}
-   * methods. As well as any custom methods you added to your extension of {@link MockspressoExtension.Builder}
+   * In this class you will only need to override the constructor, providing lambdas that wrap
+   * {@link Mockspresso} with your custom subclass of {@link AbstractMockspressoExtension} and
+   * {@link Mockspresso.Rule} with your custom subclass of {@link AbstractMockspressoExtension.Rule}.
+   *
+   * Of course you'll also need to override any custom methods you've added to your api.
    *
    * @param <EXT> Should point to your custom extension of {@link MockspressoExtension}
    * @param <RULE> Should point to your custom extension of {@link MockspressoExtension.Rule}
@@ -109,144 +132,157 @@ public abstract class AbstractMockspressoExtension<BLDR extends MockspressoExten
       BLDR extends MockspressoExtension.Builder> implements MockspressoExtension.Builder<EXT, RULE, BLDR> {
 
     private final Mockspresso.Builder mDelegate;
+    private final Wrapper<Mockspresso, EXT> mExtensionWrapper;
+    private final Wrapper<Mockspresso.Rule, RULE> mRuleWrapper;
 
-    protected Builder(Mockspresso.Builder delegate) {
+    protected Builder(
+        Mockspresso.Builder delegate,
+        Wrapper<Mockspresso, EXT> extensionWrapper,
+        Wrapper<Mockspresso.Rule, RULE> ruleWrapper) {
       mDelegate = delegate;
+      mExtensionWrapper = extensionWrapper;
+      mRuleWrapper = ruleWrapper;
     }
 
-    protected final Mockspresso.Builder getDelegate() {
-      return mDelegate;
+    @Override
+    public EXT build() {
+      return mExtensionWrapper.wrap(mDelegate.build());
+    }
+
+    @Override
+    public RULE buildRule() {
+      return mRuleWrapper.wrap(mDelegate.buildRule());
     }
 
     @Override
     public BLDR plugin(MockspressoPlugin plugin) {
-      getDelegate().plugin(plugin);
+      mDelegate.plugin(plugin);
       return (BLDR) this;
     }
 
     @Override
     public BLDR outerRule(TestRule testRule) {
-      getDelegate().outerRule(testRule);
+      mDelegate.outerRule(testRule);
       return (BLDR) this;
     }
 
     @Override
     public BLDR outerRule(MethodRule methodRule) {
-      getDelegate().outerRule(methodRule);
+      mDelegate.outerRule(methodRule);
       return (BLDR) this;
     }
 
     @Override
     public BLDR innerRule(TestRule testRule) {
-      getDelegate().innerRule(testRule);
+      mDelegate.innerRule(testRule);
       return (BLDR) this;
     }
 
     @Override
     public BLDR innerRule(MethodRule methodRule) {
-      getDelegate().innerRule(methodRule);
+      mDelegate.innerRule(methodRule);
       return (BLDR) this;
     }
 
     @Override
     public BLDR testResources(Object objectWithResources) {
-      getDelegate().testResources(objectWithResources);
+      mDelegate.testResources(objectWithResources);
       return (BLDR) this;
     }
 
     @Override
     public BLDR testResourcesWithoutLifecycle(Object objectWithResources) {
-      getDelegate().testResourcesWithoutLifecycle(objectWithResources);
+      mDelegate.testResourcesWithoutLifecycle(objectWithResources);
       return (BLDR) this;
     }
 
     @Override
     public BLDR mocker(MockerConfig mockerConfig) {
-      getDelegate().mocker(mockerConfig);
+      mDelegate.mocker(mockerConfig);
       return (BLDR) this;
     }
 
     @Override
     public BLDR injector(InjectionConfig injectionConfig) {
-      getDelegate().injector(injectionConfig);
+      mDelegate.injector(injectionConfig);
       return (BLDR) this;
     }
 
     @Override
     public BLDR specialObjectMaker(SpecialObjectMaker specialObjectMaker) {
-      getDelegate().specialObjectMaker(specialObjectMaker);
+      mDelegate.specialObjectMaker(specialObjectMaker);
       return (BLDR) this;
     }
 
     @Override
     public BLDR specialObjectMakers(List<SpecialObjectMaker> specialObjectMakers) {
-      getDelegate().specialObjectMakers(specialObjectMakers);
+      mDelegate.specialObjectMakers(specialObjectMakers);
       return (BLDR) this;
     }
 
     @Override
     public <T, V extends T> BLDR dependency(Class<T> clazz, V value) {
-      getDelegate().dependency(clazz, value);
+      mDelegate.dependency(clazz, value);
       return (BLDR) this;
     }
 
     @Override
     public <T, V extends T> BLDR dependency(TypeToken<T> typeToken, V value) {
-      getDelegate().dependency(typeToken, value);
+      mDelegate.dependency(typeToken, value);
       return (BLDR) this;
     }
 
     @Override
     public <T, V extends T> BLDR dependency(DependencyKey<T> key, V value) {
-      getDelegate().dependency(key, value);
+      mDelegate.dependency(key, value);
       return (BLDR) this;
     }
 
     @Override
     public <T, V extends T> BLDR dependencyProvider(Class<T> clazz, ObjectProvider<V> value) {
-      getDelegate().dependencyProvider(clazz, value);
+      mDelegate.dependencyProvider(clazz, value);
       return (BLDR) this;
     }
 
     @Override
     public <T, V extends T> BLDR dependencyProvider(TypeToken<T> typeToken, ObjectProvider<V> value) {
-      getDelegate().dependencyProvider(typeToken, value);
+      mDelegate.dependencyProvider(typeToken, value);
       return (BLDR) this;
     }
 
     @Override
     public <T, V extends T> BLDR dependencyProvider(DependencyKey<T> key, ObjectProvider<V> value) {
-      getDelegate().dependencyProvider(key, value);
+      mDelegate.dependencyProvider(key, value);
       return (BLDR) this;
     }
 
     @Override
     public <T> BLDR realObject(Class<T> objectClass) {
-      getDelegate().realObject(objectClass);
+      mDelegate.realObject(objectClass);
       return (BLDR) this;
     }
 
     @Override
     public <T> BLDR realObject(TypeToken<T> objectToken) {
-      getDelegate().realObject(objectToken);
+      mDelegate.realObject(objectToken);
       return (BLDR) this;
     }
 
     @Override
     public <T> BLDR realObject(DependencyKey<T> keyAndImplementation) {
-      getDelegate().realObject(keyAndImplementation);
+      mDelegate.realObject(keyAndImplementation);
       return (BLDR) this;
     }
 
     @Override
     public <T> BLDR realObject(DependencyKey<T> key, Class<? extends T> implementationClass) {
-      getDelegate().realObject(key, implementationClass);
+      mDelegate.realObject(key, implementationClass);
       return (BLDR) this;
     }
 
     @Override
     public <T> BLDR realObject(DependencyKey<T> key, TypeToken<? extends T> implementationToken) {
-      getDelegate().realObject(key, implementationToken);
+      mDelegate.realObject(key, implementationToken);
       return (BLDR) this;
     }
   }

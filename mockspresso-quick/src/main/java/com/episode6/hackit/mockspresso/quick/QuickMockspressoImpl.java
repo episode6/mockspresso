@@ -10,23 +10,13 @@ import com.episode6.hackit.mockspresso.quick.exception.MissingDependencyError;
 class QuickMockspressoImpl extends AbstractMockspressoExtension<QuickMockspresso.Builder> implements QuickMockspresso {
 
   private QuickMockspressoImpl(Mockspresso delegate) {
-    super(delegate);
-  }
-
-  @Override
-  public QuickMockspresso.Builder buildUpon() {
-    return new QuickMockspressoImpl.Builder(getDelegate().buildUpon());
+    super(delegate, Builder::new);
   }
 
   static class Rule extends AbstractMockspressoExtension.Rule<QuickMockspresso.Builder> implements QuickMockspresso.Rule {
 
     private Rule(Rule delegate) {
-      super(delegate);
-    }
-
-    @Override
-    public QuickMockspresso.Builder buildUpon() {
-      return new QuickMockspressoImpl.Builder(getDelegate().buildUpon());
+      super(delegate, QuickMockspressoImpl.Builder::new);
     }
   }
 
@@ -38,18 +28,8 @@ class QuickMockspressoImpl extends AbstractMockspressoExtension<QuickMockspresso
     private final PluginPickerImpl mPluginPicker;
 
     Builder(Mockspresso.Builder delegate) {
-      super(delegate);
+      super(delegate, QuickMockspressoImpl::new, Rule::new);
       mPluginPicker = new PluginPickerImpl(this);
-    }
-
-    @Override
-    public QuickMockspresso build() {
-      return new QuickMockspressoImpl(getDelegate().build());
-    }
-
-    @Override
-    public QuickMockspresso.Rule buildRule() {
-      return new QuickMockspressoImpl.Rule(getDelegate().buildRule());
     }
 
     @Override
