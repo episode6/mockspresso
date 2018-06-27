@@ -10,19 +10,47 @@ import org.junit.rules.TestRule;
 import java.util.List;
 
 /**
- * Extend these 3 interfaces to build your own Mockspresso api
+ * Extend these 3 interfaces to build your own Mockspresso extension and own your api.
+ * {@link MockspressoExtension}
+ * {@link MockspressoExtension.Rule}
+ * {@link MockspressoExtension.Builder}
+ *
+ * Each interface/class is generically typed which is what allows you to extend them whithout needing to override
+ * all the default methods.
+ *
+ * Note: if you're working in a 100% kotlin codebase, this is totally unnecessary and you're better off simply
+ * adding extension methods to {@link Mockspresso.Builder}. These interfaces/abstract classes are only needed
+ * for java.
+ *
+ * Usually you will only want to add custom methods to your extension of {@link MockspressoExtension.Builder}
+ *
+ * @param <BLDR> Should point to your custom extension of {@link MockspressoExtension.Builder}
  */
 public interface MockspressoExtension<BLDR extends MockspressoExtension.Builder> extends Mockspresso {
 
   @Override
   BLDR buildUpon();
 
+  /**
+   * Custom extension of {@link MockspressoExtension.Rule}
+   *
+   * @param <BLDR> Should point to your custom extension of {@link MockspressoExtension.Builder}
+   */
   interface Rule<BLDR extends MockspressoExtension.Builder> extends Mockspresso.Rule {
 
     @Override
     BLDR buildUpon();
   }
 
+  /**
+   * Custom extension of {@link MockspressoExtension.Builder}
+   *
+   * Extend this interface and add your custom methods to create your own Mockspresso extension.
+   *
+   * @param <EXT> Should point to your custom extension of {@link MockspressoExtension}
+   * @param <RULE> Should point to your custom extension of {@link MockspressoExtension.Rule}
+   * @param <BLDR> Should point to your custom extension of {@link MockspressoExtension.Builder}
+   */
   interface Builder<
       EXT extends MockspressoExtension,
       RULE extends MockspressoExtension.Rule,

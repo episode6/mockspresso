@@ -12,7 +12,19 @@ import org.junit.runners.model.Statement;
 import java.util.List;
 
 /**
- * Extend these classes to create your own mockspresso extension
+ * Extend these 3 classes to create your own mockspresso extension
+ * {@link AbstractMockspressoExtension}
+ * {@link AbstractMockspressoExtension.Rule}
+ * {@link AbstractMockspressoExtension.Builder}
+ *
+ * In each subclass, point the generic type references to your interface extensions of {@link MockspressoExtension}
+ * and its inner interfaces. Each subclass should also directly implement the appropriate interface extension
+ * of {@link MockspressoExtension}
+ *
+ * In the subclass of {@link AbstractMockspressoExtension}, you should only need to override the constructor and
+ * the {@link #buildUpon()} method.
+ *
+ * @param <BLDR> Should point to your custom extension of {@link MockspressoExtension.Builder}
  */
 public abstract class AbstractMockspressoExtension<BLDR extends MockspressoExtension.Builder> implements MockspressoExtension<BLDR> {
 
@@ -41,6 +53,13 @@ public abstract class AbstractMockspressoExtension<BLDR extends MockspressoExten
     getDelegate().inject(instance);
   }
 
+  /**
+   * Extend this abstract class for a custom implementation of the {@link Mockspresso.Rule} interface.
+   * In the subclass of {@link AbstractMockspressoExtension.Rule}, you should only need to override the constructor and
+   * the {@link #buildUpon()} method.
+   *
+   * @param <BLDR> Should point to your custom extension of {@link MockspressoExtension.Builder}
+   */
   public abstract static class Rule<BLDR extends MockspressoExtension.Builder> implements MockspressoExtension.Rule<BLDR> {
 
     private final Mockspresso.Rule mDelegate;
@@ -74,6 +93,15 @@ public abstract class AbstractMockspressoExtension<BLDR extends MockspressoExten
     }
   }
 
+  /**
+   * Extend this abstract class for a custom implementation of the {@link Mockspresso.Builder} interface.
+   * In this class you will need to override the constructor, the {@link #build()} and the {@link #buildRule()}
+   * methods. As well as any custom methods you added to your extension of {@link MockspressoExtension.Builder}
+   *
+   * @param <EXT> Should point to your custom extension of {@link MockspressoExtension}
+   * @param <RULE> Should point to your custom extension of {@link MockspressoExtension.Rule}
+   * @param <BLDR> Should point to your custom extension of {@link MockspressoExtension.Builder}
+   */
   @SuppressWarnings("unchecked")
   public abstract static class Builder<
       EXT extends MockspressoExtension,
