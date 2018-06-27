@@ -2,7 +2,7 @@ package com.episode6.hackit.mockspresso.mockito.powermock.integration.rule;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.basic.plugin.simple.SimpleInjectMockspressoPlugin;
+import com.episode6.hackit.mockspresso.quick.BuildQuickMockspresso;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Coffee;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeMakers;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Pump;
@@ -35,8 +35,8 @@ public class PumpTestResources {
   public void setup(Mockspresso mockspresso) {
     when(mPump.pump()).thenReturn(mWater);
 
-    mSimpleCoffeeMaker = mockspresso.buildUpon()
-        .plugin(new SimpleInjectMockspressoPlugin())
+    mSimpleCoffeeMaker = BuildQuickMockspresso.upon(mockspresso)
+        .injector().simple()
         .build().create(CoffeeMakers.SimpleCoffeeMaker.class);
   }
 
