@@ -1,6 +1,6 @@
 # ChangeLog
 
-### v0.0.13-SNAPSHOT - unreleased
+### v0.0.13 - June 27th, 2018
  - introduce changelog
  - Remove `injector()` convenience method from main api
  - introduce `mockspresso-extend` library
