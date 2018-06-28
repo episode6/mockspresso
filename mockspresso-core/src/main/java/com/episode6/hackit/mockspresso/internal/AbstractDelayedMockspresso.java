@@ -1,6 +1,7 @@
 package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
+import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import com.episode6.hackit.mockspresso.util.Preconditions;
 
@@ -63,6 +64,11 @@ abstract class AbstractDelayedMockspresso implements Mockspresso, MockspressoInt
   @Override
   public void inject(Object instance) {
     getDelegate().inject(instance);
+  }
+
+  @Override
+  public <T> T getDependency(DependencyKey<T> key) {
+    return getDelegate().getDependency(key);
   }
 
   @Override

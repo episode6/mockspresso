@@ -64,6 +64,11 @@ public abstract class AbstractMockspressoExtension<BLDR extends MockspressoExten
   }
 
   @Override
+  public <T> T getDependency(DependencyKey<T> key) {
+    return mDelegate.getDependency(key);
+  }
+
+  @Override
   public BLDR buildUpon() {
     return mBuilderWrapper.wrap(mDelegate.buildUpon());
   }
@@ -100,6 +105,11 @@ public abstract class AbstractMockspressoExtension<BLDR extends MockspressoExten
     @Override
     public void inject(Object instance) {
       mDelegate.inject(instance);
+    }
+
+    @Override
+    public <T> T getDependency(DependencyKey<T> key) {
+      return mDelegate.getDependency(key);
     }
 
     @Override
