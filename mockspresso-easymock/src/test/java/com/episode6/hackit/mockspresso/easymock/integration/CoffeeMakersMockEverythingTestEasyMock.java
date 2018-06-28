@@ -5,6 +5,7 @@ import com.episode6.hackit.mockspresso.basic.plugin.javax.JavaxInjectMockspresso
 import com.episode6.hackit.mockspresso.basic.plugin.simple.SimpleInjectMockspressoPlugin;
 import com.episode6.hackit.mockspresso.quick.BuildQuickMockspresso;
 import com.episode6.hackit.mockspresso.quick.QuickMockspresso;
+import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.*;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeMakers.*;
 import org.easymock.Mock;
@@ -67,6 +68,13 @@ public class CoffeeMakersMockEverythingTestEasyMock {
     Coffee coffee = mCoffeeMaker.brew();
 
     verifyInterationsAndCoffeeObject(coffee);
+  }
+
+  @Test
+  public void testGetMockDependency() {
+    Water water = simpleMockspresso.getDependency(DependencyKey.of(Water.class));
+
+    assertThat(water).isEqualTo(water);
   }
 
   /**

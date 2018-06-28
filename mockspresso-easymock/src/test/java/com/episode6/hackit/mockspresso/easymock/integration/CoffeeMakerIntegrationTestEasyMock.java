@@ -52,6 +52,14 @@ public class CoffeeMakerIntegrationTestEasyMock {
   }
 
   @Test
+  public void testGetRealObjectDependency() {
+    CoffeeGrounds realCoffeeGrounds =
+        simpleMockspresso.getDependency(DependencyKey.of(CoffeeGrounds.class));
+
+    assertThat(mCoffeeGrounds).isEqualTo(realCoffeeGrounds);
+  }
+
+  @Test
   public void testConstructorInjectedCofferMaker() {
     CoffeeMakers.ConstructorInjectedCofferMaker coffeeMaker = injectionMockspresso
         .create(CoffeeMakers.ConstructorInjectedCofferMaker.class);
