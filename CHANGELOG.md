@@ -1,6 +1,6 @@
 # ChangeLog
 
-### v0.0.14-SNAPSHOT - unreleased
+### v0.0.14 - June 28th, 2018
  - Add `Mockspresso.getDependency(DependencyKey)` to api
  - Add `@Dependency` annotation to api
 
