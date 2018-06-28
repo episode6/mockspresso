@@ -2,11 +2,11 @@ package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.testing.testobjects.TestQualifierAnnotation;
 import com.episode6.hackit.mockspresso.annotation.Unmapped;
 import com.episode6.hackit.mockspresso.reflect.AnnotationLiteral;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.NamedAnnotationLiteral;
+import com.episode6.hackit.mockspresso.testing.testobjects.TestQualifierAnnotation;
 import com.episode6.hackit.mockspresso.testobject.SubclassTestObject;
 import com.episode6.hackit.mockspresso.testobject.SuperclassTestObject;
 import org.junit.Before;
@@ -17,6 +17,7 @@ import org.mockito.MockitoAnnotations;
 
 import javax.inject.Named;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -49,12 +50,16 @@ public class FieldImporterTest {
   @Unmapped @Mock @Named("dontimportme") TestObject testObj8;
 
   private DependencyMap mDependencyMap;
+  private FieldImporter.KeyAdjuster mKeyAdjuster;
   private FieldImporter mImporter;
 
   @Before
   public void setup() {
     MockitoAnnotations.initMocks(this);
     mDependencyMap = mock(DependencyMap.class);
+    mKeyAdjuster = mock(FieldImporter.KeyAdjuster.class);
+
+    when(mKeyAdjuster.adjustKey(any(DependencyKey.class), any(Field.class))).then(invocation -> invocation.getArgument(0));
   }
 
   private void initImporter(Class<? extends Annotation> annotation) {
@@ -62,28 +67,34 @@ public class FieldImporterTest {
   }
 
   private void initImporter(List<Class<? extends Annotation>> annotations) {
-    mImporter = new FieldImporter(annotations, mDependencyMap);
+    mImporter = new FieldImporter(annotations, mDependencyMap, mKeyAdjuster);
   }
 
   @Test
-  public void testImportingRealObjects() {
+  public void testImportingRealObjects() throws NoSuchFieldException {
     initImporter(RealObject.class);
     mImporter.importAnnotatedFields(this);
 
     verify(mDependencyMap).put(key1, testObj1, null);
+    verify(mKeyAdjuster).adjustKey(key1, this.getClass().getDeclaredField("testObj1"));
     verify(mDependencyMap).put(key2, testObj2, null);
+    verify(mKeyAdjuster).adjustKey(key2, this.getClass().getDeclaredField("testObj2"));
     verify(mDependencyMap).put(key3, testObj3, null);
+    verify(mKeyAdjuster).adjustKey(key3, this.getClass().getDeclaredField("testObj3"));
     verifyNoMoreInteractions(mDependencyMap);
   }
 
   @Test
-  public void testImportingMocks() {
+  public void testImportingMocks() throws NoSuchFieldException {
     initImporter(Mock.class);
     mImporter.importAnnotatedFields(this);
 
     verify(mDependencyMap).put(key5, testObj5, null);
+    verify(mKeyAdjuster).adjustKey(key5, this.getClass().getDeclaredField("testObj5"));
     verify(mDependencyMap).put(key6, testObj6, null);
+    verify(mKeyAdjuster).adjustKey(key6, this.getClass().getDeclaredField("testObj6"));
     verify(mDependencyMap).put(key7, testObj7, null);
+    verify(mKeyAdjuster).adjustKey(key7, this.getClass().getDeclaredField("testObj7"));
     verifyNoMoreInteractions(mDependencyMap);
   }
 

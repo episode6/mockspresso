@@ -203,6 +203,20 @@ final @RealObject @Named("coffee_maker_name") String mCoffeeMakerName = "Test Co
 // ever touching a constructor.
 ```
 
+### @Dependency Annotation
+Use the `@Dependency` annotation when you want to explicitly add an instance of an object to mockspresso's dependency map. You can also specify a different class to bind the object to...
+```java
+// Bind a simple implementation to an interface
+@Dependency final Scheduler scheduler = Schedulers.trampoline();
+
+// Bind a concrete implementation as an interface
+@Dependency(bindAs = Scheduler.class) final TestScheduler testScheduler = new TestScheduler();
+
+// Qualifier annotations are also valid and respected as part of the binding key
+@ForMainThread
+@Dependency(bindAs = Scheduler.class) final TestScheduler testScheduler = new TestScheduler();
+```
+
 ### Special Object Handling
 A key feature of mockspresso's dependency mapping is its concept of "special objects." A special object is simply defined as an object type that should not be mocked by default. One can add `SpecialObjectMaker`s via the `Mockspresso.Builder.specialObjectMaker()` method (or via a plugin).
 
