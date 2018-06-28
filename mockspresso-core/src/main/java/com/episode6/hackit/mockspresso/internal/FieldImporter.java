@@ -4,6 +4,7 @@ import com.episode6.hackit.mockspresso.annotation.Unmapped;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.ReflectUtil;
 
+import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Collection;
@@ -15,14 +16,21 @@ import java.util.Set;
  */
 class FieldImporter {
 
+  interface KeyAdjuster {
+    DependencyKey adjustKey(DependencyKey fieldKey, Field field);
+  }
+
   private final Set<Class<? extends Annotation>> mImportAnnotations;
   private final DependencyMap mDependencyMap;
+  private final KeyAdjuster mKeyAdjuster;
 
   FieldImporter(
       Collection<Class<? extends Annotation>> importAnnotations,
-      DependencyMap dependencyMap) {
+      DependencyMap dependencyMap,
+      @Nullable KeyAdjuster keyAdjuster) {
     mImportAnnotations = new HashSet<>(importAnnotations);
     mDependencyMap = dependencyMap;
+    mKeyAdjuster = keyAdjuster == null ? ((key, ignore) -> key) : keyAdjuster;
   }
 
   @SuppressWarnings("unchecked")
@@ -37,7 +45,7 @@ class FieldImporter {
         field.setAccessible(true);
         Object fieldValue = field.get(importFrom);
         if (fieldValue != null) {
-          DependencyKey key = DependencyKey.fromField(field);
+          DependencyKey key = mKeyAdjuster.adjustKey(DependencyKey.fromField(field), field);
           mDependencyMap.put(key, fieldValue, null);
         }
       }
