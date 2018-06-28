@@ -38,6 +38,14 @@ public interface Mockspresso {
   void inject(Object instance);
 
   /**
+   * Get a dependency (creating a new mock, if needed) from mockspresso.
+   * @param key The dependency key to lookup or mock.
+   * @param <T> Dependency type
+   * @return The dependency or a new mock if it is not present.
+   */
+  <T> T getDependency(DependencyKey<T> key);
+
+  /**
    * Build upon this mockspresso instance's configuration and dependencies.
    * @return a new {@link Builder} that is based upon this mockspresso instance.
    */

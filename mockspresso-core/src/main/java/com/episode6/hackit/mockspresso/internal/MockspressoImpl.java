@@ -52,6 +52,11 @@ class MockspressoImpl implements Mockspresso, MockspressoInternal {
   }
 
   @Override
+  public <T> T getDependency(DependencyKey<T> key) {
+    return mDependencyProviderFactory.getBlankDependencyProvider().get(key);
+  }
+
+  @Override
   public Builder buildUpon() {
     MockspressoBuilderImpl builder = mBuilderProvider.get();
     builder.setParent(mMockspressoConfigContainer);

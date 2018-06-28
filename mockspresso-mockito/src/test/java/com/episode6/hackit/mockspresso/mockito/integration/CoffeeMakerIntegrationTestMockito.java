@@ -1,5 +1,6 @@
 package com.episode6.hackit.mockspresso.mockito.integration;
 
+import com.episode6.hackit.mockspresso.annotation.Dependency;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.quick.BuildQuickMockspresso;
 import com.episode6.hackit.mockspresso.quick.QuickMockspresso;
@@ -36,7 +37,7 @@ public class CoffeeMakerIntegrationTestMockito {
       .injector().javax()
       .build();
 
-  @RealObject @Named("heater_name") final String heaterName = "NamedHeaterExample";
+  @Dependency @Named("heater_name") final String heaterName = "NamedHeaterExample";
   @RealObject @Named("heater_number") final int heaterNumber = 12;
   @RealObject @Named("heater_numbers") final int[] heaterNumbers = new int[] {13, 17, 22};
 
@@ -49,6 +50,14 @@ public class CoffeeMakerIntegrationTestMockito {
     Coffee coffee = coffeeMaker.brew();
 
     assertCoffeeIsAsExpected(coffee);
+  }
+
+  @Test
+  public void testGetRealObjectDependency() {
+    CoffeeGrounds realCoffeeGrounds =
+        simpleMockspresso.getDependency(DependencyKey.of(CoffeeGrounds.class));
+
+    assertThat(mCoffeeGrounds).isEqualTo(realCoffeeGrounds);
   }
 
   @Test

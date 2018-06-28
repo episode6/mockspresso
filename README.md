@@ -8,7 +8,7 @@ Mockspresso creates your objects for you, letting you drop the constructors from
 
 
 ## Version
-This doc describes mockspresso version `0.0.13`
+This doc describes mockspresso version `0.0.14`
 
 ## Installation
 There are 3 ways to setup mockspresso in your project.
@@ -201,6 +201,20 @@ final @RealObject @Named("coffee_maker_name") String mCoffeeMakerName = "Test Co
 
 // Combine multiple @RealObjects in one test (as we have above) to create an integration test without
 // ever touching a constructor.
+```
+
+### @Dependency Annotation
+Use the `@Dependency` annotation when you want to explicitly add an instance of an object to mockspresso's dependency map. You can also specify a different class to bind the object to...
+```java
+// Bind a simple implementation to an interface
+@Dependency final Scheduler scheduler = Schedulers.trampoline();
+
+// Bind a concrete implementation as an interface
+@Dependency(bindAs = Scheduler.class) final TestScheduler testScheduler = new TestScheduler();
+
+// Qualifier annotations are also valid and respected as part of the binding key
+@ForMainThread
+@Dependency(bindAs = Scheduler.class) final TestScheduler testScheduler = new TestScheduler();
 ```
 
 ### Special Object Handling

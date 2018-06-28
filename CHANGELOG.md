@@ -1,5 +1,9 @@
 # ChangeLog
 
+### v0.0.14 - June 28th, 2018
+ - Add `Mockspresso.getDependency(DependencyKey)` to api
+ - Add `@Dependency` annotation to api
+
 ### v0.0.13 - June 27th, 2018
  - introduce changelog
  - Remove `injector()` convenience method from main api

@@ -1,6 +1,7 @@
 package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
+import com.episode6.hackit.mockspresso.annotation.Dependency;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.api.*;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
@@ -244,8 +245,9 @@ class MockspressoBuilderImpl implements Mockspresso.Builder {
         realObjectMaker);
 
     FieldImporter fieldImporter = new FieldImporter(
-        CollectionUtil.concatList(mockerConfig.provideMockAnnotations(), RealObject.class),
-        dependencyMap);
+        CollectionUtil.concatList(mockerConfig.provideMockAnnotations(), RealObject.class, Dependency.class),
+        dependencyMap,
+        new DependencyFieldKeyAdjuster());
 
     RealObjectFieldTracker realObjectFieldTracker = new RealObjectFieldTracker(
         realObjectMapping,

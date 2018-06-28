@@ -40,6 +40,10 @@ public class CoffeeMakers {
     public Heater getHeater() {
       return mHeater;
     }
+
+    public Pump getPump() {
+      return mPump;
+    }
   }
 
   /**
