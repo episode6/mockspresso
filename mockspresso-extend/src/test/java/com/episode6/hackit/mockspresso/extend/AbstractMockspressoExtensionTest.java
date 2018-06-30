@@ -97,6 +97,12 @@ public class AbstractMockspressoExtensionTest {
   }
 
   @Test
+  public void testMockspressoExtension_getDependency() {
+    testMockspresso.getDependency(DEP_KEY);
+    verify(mockspresso).getDependency(DEP_KEY);
+  }
+
+  @Test
   public void testMockspressoExtension_buildUpon() {
     TestMockspresso.Builder newBuilder = testMockspresso.buildUpon();
     verify(mockspresso).buildUpon();
@@ -119,6 +125,12 @@ public class AbstractMockspressoExtensionTest {
   public void testMockspressoExtensionRule_inject() {
     testMockspressoRule.inject(this);
     verify(mockspressoRule).inject(this);
+  }
+
+  @Test
+  public void testMockspressoExtensionRule_getDependency() {
+    testMockspressoRule.getDependency(DEP_KEY);
+    verify(mockspressoRule).getDependency(DEP_KEY);
   }
 
   @Test
