@@ -1,11 +1,10 @@
 buildscript {
   repositories {
     jcenter()
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
   }
   dependencies {
-    classpath 'com.episode6.hackit.deployable:deployable:0.2.0-SNAPSHOT'
-    classpath 'com.episode6.hackit.gdmc:gdmc:0.1.10-SNAPSHOT'
+    classpath 'com.episode6.hackit.deployable:deployable:0.2.1'
+    classpath 'com.episode6.hackit.gdmc:gdmc:0.1.10'
     classpath 'me.tatarka:gradle-retrolambda:3.7.0'
   }
 }
