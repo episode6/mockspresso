@@ -141,7 +141,7 @@ class MockspressoBuilderImpl implements Mockspresso.Builder {
   }
 
   @Override
-  public Mockspresso.Builder specialObjectMakers(List<SpecialObjectMaker> specialObjectMakers) {
+  public Mockspresso.Builder specialObjectMakers(List<? extends SpecialObjectMaker> specialObjectMakers) {
     mSpecialObjectMakers.addAll(specialObjectMakers);
     return this;
   }

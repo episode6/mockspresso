@@ -225,7 +225,7 @@ public abstract class AbstractMockspressoExtension<BLDR extends MockspressoExten
     }
 
     @Override
-    public BLDR specialObjectMakers(List<SpecialObjectMaker> specialObjectMakers) {
+    public BLDR specialObjectMakers(List<? extends SpecialObjectMaker> specialObjectMakers) {
       mDelegate.specialObjectMakers(specialObjectMakers);
       return (BLDR) this;
     }

@@ -87,7 +87,7 @@ public interface MockspressoExtension<BLDR extends MockspressoExtension.Builder>
     BLDR specialObjectMaker(SpecialObjectMaker specialObjectMaker);
 
     @Override
-    BLDR specialObjectMakers(List<SpecialObjectMaker> specialObjectMakers);
+    BLDR specialObjectMakers(List<? extends SpecialObjectMaker> specialObjectMakers);
 
     @Override
     <T, V extends T> BLDR dependency(Class<T> clazz, V value);

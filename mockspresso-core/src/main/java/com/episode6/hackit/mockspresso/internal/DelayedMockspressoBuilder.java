@@ -96,7 +96,7 @@ class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implements Mo
   }
 
   @Override
-  public Builder specialObjectMakers(List<SpecialObjectMaker> specialObjectMakers) {
+  public Builder specialObjectMakers(List<? extends SpecialObjectMaker> specialObjectMakers) {
     mBuilder.specialObjectMakers(specialObjectMakers);
     return this;
   }
