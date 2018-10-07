@@ -17,5 +17,5 @@ node {
   }
 
   gradleRunner.buildAndTest()
-  gradleRunner.forceDeploy()
+  gradleRunner.deploy()
 }
