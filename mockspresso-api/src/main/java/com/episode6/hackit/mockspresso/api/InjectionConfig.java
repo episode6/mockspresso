@@ -2,7 +2,7 @@ package com.episode6.hackit.mockspresso.api;
 
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.util.List;

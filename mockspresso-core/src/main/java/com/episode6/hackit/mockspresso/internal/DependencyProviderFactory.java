@@ -6,7 +6,7 @@ import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Factory that spits out the actual {@link DependencyProvider}s which are instances

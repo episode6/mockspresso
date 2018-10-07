@@ -2,7 +2,7 @@ package com.episode6.hackit.mockspresso.reflect;
 
 import com.episode6.hackit.mockspresso.reflect.exception.MultipleQualifierAnnotationException;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import javax.inject.Qualifier;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;

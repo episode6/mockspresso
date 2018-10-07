@@ -4,10 +4,10 @@ import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.api.*;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
+import org.jetbrains.annotations.Nullable;
 import org.junit.rules.MethodRule;
 import org.junit.rules.TestRule;
 
-import javax.annotation.Nullable;
 import javax.inject.Provider;
 import java.util.List;
 

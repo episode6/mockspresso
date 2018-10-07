@@ -1,7 +1,6 @@
 apply plugin: DeployableJavaProject
 
 dependencies {
-  api 'com.google.code.findbugs:jsr305'
   mavenProvided 'junit:junit'
 
   api project(':mockspresso-api')
@@ -15,7 +14,7 @@ dependencies {
   implementation project(':mockspresso-easymock-powermock')
   implementation project(':mockspresso-dagger')
   implementation project(':mockspresso-guava')
-  
+
   testImplementation 'junit:junit'
   testImplementation 'org.easytesting:fest-assert-core'
 }

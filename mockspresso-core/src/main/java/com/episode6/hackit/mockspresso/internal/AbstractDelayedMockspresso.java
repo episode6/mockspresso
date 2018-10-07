@@ -5,7 +5,7 @@ import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import com.episode6.hackit.mockspresso.util.Preconditions;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import javax.inject.Provider;
 import java.util.HashSet;
 import java.util.Set;

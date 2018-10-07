@@ -4,7 +4,7 @@ import com.episode6.hackit.mockspresso.api.DependencyProvider;
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
