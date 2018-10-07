@@ -174,7 +174,7 @@ interface Mockspresso {
      * @param <V> value type
      * @return this
     </V></T> */
-    fun <T, V : T> dependency(clazz: Class<T>, value: V): Builder
+    fun <T, V : T> dependency(clazz: Class<T>, value: V?): Builder
 
     /**
      * Apply a specific instance of an object as a mockspresso dependency.
@@ -184,7 +184,7 @@ interface Mockspresso {
      * @param <V> instanceType
      * @return this
     </V></T> */
-    fun <T, V : T> dependency(typeToken: TypeToken<T>, value: V): Builder
+    fun <T, V : T> dependency(typeToken: TypeToken<T>, value: V?): Builder
 
     /**
      * Apply a specific instance of an object as a mockspresso dependency.
@@ -194,7 +194,7 @@ interface Mockspresso {
      * @param <V> instance type
      * @return this
     </V></T> */
-    fun <T, V : T> dependency(key: DependencyKey<T>, value: V): Builder
+    fun <T, V : T> dependency(key: DependencyKey<T>, value: V?): Builder
 
     /**
      * Apply a specific instance of an object as a mockspresso dependency.
