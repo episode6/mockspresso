@@ -1,3 +1,6 @@
+// dokka's dependencies fail to resolve without this
+buildscript { repositories { jcenter() } }
+
 wrapper {
   gradleVersion = "4.9"
   distributionType = "all"
