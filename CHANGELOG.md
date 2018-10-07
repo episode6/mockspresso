@@ -1,6 +1,8 @@
 # ChangeLog
 
 ### v0.0.15-SNAPSHOT - unreleased
+ - Convert api to kotlin for cleaner usage in kotlin code.
+   - This includes a small change to the signature of `Mockspress.Builder#specialObjectMakers` that should only be breaking for legacy custom mockspresso extensions not using `mockspressod-extend`.
 
 ### v0.0.14 - June 28th, 2018
  - Add `Mockspresso.getDependency(DependencyKey)` to api
