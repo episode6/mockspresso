@@ -1,3 +1,7 @@
+// some buildscript dependencies fail to resolve without this
+// actual buildscript dependencies are defined in buildSrc/build.gradle
+buildscript { repositories { jcenter() } }
+
 wrapper {
   gradleVersion = "4.9"
   distributionType = "all"
