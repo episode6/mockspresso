@@ -102,7 +102,8 @@ public class RealObjectMakerTest {
     TestClassWithInjectParams testObject = new TestClassWithInjectParams();
     mRealObjectMaker.injectObject(
         mDependencyProvider,
-        testObject);
+        testObject,
+        TypeToken.of(TestClassWithInjectParams.class));
 
     assertTestObjectNormal(testObject, TestClassWithInjectParams.class);
     verifyDependencyProviderCalls(runnableKey, runnableProviderKey);
@@ -145,7 +146,8 @@ public class RealObjectMakerTest {
     TestClassWithWeirdInjectAnnotations testObject = new TestClassWithWeirdInjectAnnotations();
     mRealObjectMaker.injectObject(
         mDependencyProvider,
-        testObject);
+        testObject,
+        TypeToken.of(TestClassWithWeirdInjectAnnotations.class));
 
     assertTestObjectNormal(testObject, TestClassWithWeirdInjectAnnotations.class);
     verifyDependencyProviderCalls(runnableKey, runnableProviderKey);
@@ -174,7 +176,8 @@ public class RealObjectMakerTest {
     TestSubclass testObject = new TestSubclass();
     mRealObjectMaker.injectObject(
         mDependencyProvider,
-        testObject);
+        testObject,
+        TypeToken.of(TestSubclass.class));
 
     assertTestObjectNormal(testObject, TestSubclass.class);
     verifyDependencyProviderCalls(runnableKey, runnableProviderKey);
@@ -202,7 +205,8 @@ public class RealObjectMakerTest {
     TestMethodInjection testObject = new TestMethodInjection();
     mRealObjectMaker.injectObject(
         mDependencyProvider,
-        testObject);
+        testObject,
+        TypeToken.of(TestMethodInjection.class));
 
     assertTestObjectNormal(testObject, TestMethodInjection.class);
     verifyDependencyProviderCalls(runnableKey);
@@ -232,7 +236,7 @@ public class RealObjectMakerTest {
     prep(Inject.class);
 
     TestMethodInjectionSubclass testObject = new TestMethodInjectionSubclass();
-    mRealObjectMaker.injectObject(mDependencyProvider, testObject);
+    mRealObjectMaker.injectObject(mDependencyProvider, testObject, TypeToken.of(TestMethodInjectionSubclass.class));
 
     assertTestObjectNormal(testObject, TestMethodInjectionSubclass.class);
     // here we want to verify that the super class's injectable method is called first
