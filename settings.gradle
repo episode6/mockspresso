@@ -10,5 +10,4 @@ include ':mockspresso-api',
     ':mockspresso-guava',
     ':mockspresso-quick',
     ':mockspresso-basic-plugins',
-    ':mockspresso-extend',
-    ':mockspresso-guavapack'
+    ':mockspresso-extend'

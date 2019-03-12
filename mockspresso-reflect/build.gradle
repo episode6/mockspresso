@@ -4,7 +4,7 @@ dependencies {
   api('com.google.code.findbugs:jsr305')
   api('javax.inject:javax.inject')
 
-  api project(path: ':mockspresso-guavapack', configuration: 'shadow')
+  api 'com.episode6.hackit.mockspresso.tools:mockspresso-reflect-guava:27.1-android-SNAPSHOT'
 
   testImplementation('junit:junit')
   testImplementation('org.easytesting:fest-assert-core')
