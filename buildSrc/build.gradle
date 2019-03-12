@@ -18,5 +18,4 @@ dependencies {
   runtimeClasspath 'com.episode6.hackit.gdmc:gdmc'
   runtimeClasspath 'com.episode6.hackit.deployable:deployable'
   runtimeClasspath 'me.tatarka:gradle-retrolambda'
-  runtimeClasspath 'com.github.jengelman.gradle.plugins:shadow'
 }
