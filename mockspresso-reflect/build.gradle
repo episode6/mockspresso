@@ -4,7 +4,10 @@ dependencies {
   api('com.google.code.findbugs:jsr305')
   api('javax.inject:javax.inject')
 
+  compile project(path: ':mockspresso-guavapack', configuration: 'shadow')
+
   testImplementation('junit:junit')
   testImplementation('org.easytesting:fest-assert-core')
   testImplementation('org.mockito:mockito-core')
 }
+
