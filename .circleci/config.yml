@@ -25,7 +25,6 @@ jobs:
       - checkout
       - run: git submodule sync
       - run: git submodule update --init
-      - run: ./gradlew :mockspresso-guavapack:assemble
       - run: ./gradlew assemble
       - run: ./gradlew check
       - run:
