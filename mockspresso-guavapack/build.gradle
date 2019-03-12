@@ -6,15 +6,22 @@ dependencies {
   compileOnly 'com.google.guava:guava:27.1-android'
 }
 
+javadoc {
+  options.memberLevel = JavadocMemberLevel.PRIVATE
+}
+
 shadowJar {
   configurations = [project.configurations.compileOnly]
   classifier = ""
-//  dependencies {
-//    include(dependency('com.google.guava:guava'))
-//  }
+
+  exclude 'META-INF/services/'
+  exclude 'META-INF/maven/'
+
   relocate 'com.google.common.reflect', 'com.episode6.hackit.mockspresso.reflect'
   relocate 'com.google', 'com.episode6.hackit.mockspresso.guavapack'
-  relocate 'org.checkerframework', 'com.episode6.hackit.mockspresso.guavapack'
+  relocate 'org.checkerframework', 'com.episode6.hackit.mockspresso.guavapack.checkerframework'
+
+  minimize()
 }
 
 //task relocateShadowJar(type: com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation) {
