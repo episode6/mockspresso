@@ -29,6 +29,10 @@ public final class DependencyKey<V> {
     return new DependencyKey<>(TypeToken.of(field.getGenericType()), ReflectUtil.findQualifierAnnotation(field));
   }
 
+  public static DependencyKey<?> fromField(Field field, TypeToken<?> context) {
+    return new DependencyKey<>(context.resolveType(field.getGenericType()), ReflectUtil.findQualifierAnnotation(field));
+  }
+
   public final TypeToken<V> typeToken;
   public final @Nullable Annotation identityAnnotation;
 
