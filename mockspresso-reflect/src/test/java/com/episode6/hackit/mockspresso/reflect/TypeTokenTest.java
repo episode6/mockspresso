@@ -75,8 +75,8 @@ public class TypeTokenTest {
 
   @Test
   public void testGenericsFromField() throws NoSuchFieldException {
-    TypeToken stringListToken = TypeToken.of(TestClass.class.getDeclaredField("stringList"));
-    TypeToken hashmapTypeToken = TypeToken.of(TestClass.class.getDeclaredField("stringIntHashmap"));
+    TypeToken stringListToken = TypeToken.of(TestClass.class.getDeclaredField("stringList").getGenericType());
+    TypeToken hashmapTypeToken = TypeToken.of(TestClass.class.getDeclaredField("stringIntHashmap").getGenericType());
 
     assertThat(stringListToken.getType()).isInstanceOf(ParameterizedType.class);
     Type[] stringListTypeArgs = ((ParameterizedType)stringListToken.getType()).getActualTypeArguments();

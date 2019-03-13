@@ -26,7 +26,11 @@ public final class DependencyKey<V> {
   }
 
   public static DependencyKey<?> fromField(Field field) {
-    return new DependencyKey<>(TypeToken.of(field), ReflectUtil.findQualifierAnnotation(field));
+    return new DependencyKey<>(TypeToken.of(field.getGenericType()), ReflectUtil.findQualifierAnnotation(field));
+  }
+
+  public static DependencyKey<?> fromField(Field field, TypeToken<?> context) {
+    return new DependencyKey<>(context.resolveType(field.getGenericType()), ReflectUtil.findQualifierAnnotation(field));
   }
 
   public final TypeToken<V> typeToken;

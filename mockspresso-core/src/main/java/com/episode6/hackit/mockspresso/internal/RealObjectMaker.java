@@ -37,10 +37,10 @@ class RealObjectMaker  {
     }
   }
 
-  void injectObject(DependencyProvider dependencyProvider, Object instance) {
+  void injectObject(DependencyProvider dependencyProvider, Object instance, TypeToken<?> typeToken) {
     try {
-      assignInjectableFields(dependencyProvider, instance);
-      callInjectableMethods(dependencyProvider, instance);
+      assignInjectableFields(dependencyProvider, instance, typeToken);
+      callInjectableMethods(dependencyProvider, instance, typeToken);
     } catch (IllegalAccessException e) {
       throw new RuntimeException(e);
     }
@@ -62,7 +62,8 @@ class RealObjectMaker  {
           dependencyProvider,
           paramTypes[i],
           paramAnnotations[i],
-          String.format("Constructor (%s)", typeToken));
+          String.format("Constructor (%s)", typeToken),
+          typeToken);
     }
 
     if (!constructor.isAccessible()) {
@@ -70,7 +71,7 @@ class RealObjectMaker  {
     }
 
     T instance = constructor.newInstance(paramValues);
-    injectObject(dependencyProvider, instance);
+    injectObject(dependencyProvider, instance, typeToken);
     return instance;
   }
 
@@ -78,8 +79,9 @@ class RealObjectMaker  {
       DependencyProvider dependencyProvider,
       Type paramType,
       Annotation[] paramAnnotations,
-      String description) {
-    TypeToken<?> paramToken = TypeToken.of(paramType);
+      String description,
+      TypeToken<?> context) {
+    TypeToken<?> paramToken = context.resolveType(paramType);
     @Nullable Annotation qualifierAnnotation = ReflectUtil.findQualifierAnnotation(
         paramAnnotations,
         String.format("%s, Param (%s)", description, paramToken));
@@ -87,14 +89,14 @@ class RealObjectMaker  {
     return dependencyProvider.get(paramKey);
   }
 
-  private void assignInjectableFields(DependencyProvider dependencyProvider, Object instance) throws IllegalAccessException {
+  private void assignInjectableFields(DependencyProvider dependencyProvider, Object instance, TypeToken<?> context) throws IllegalAccessException {
     if (mInjectFieldAnnotations.isEmpty()) {
       return;
     }
 
     for (Field field : ReflectUtil.getAllDeclaredFields(instance.getClass())) {
       if (ReflectUtil.isAnyAnnotationPresent(field, mInjectFieldAnnotations)) {
-        DependencyKey<?> paramKey = DependencyKey.fromField(field);
+        DependencyKey<?> paramKey = DependencyKey.fromField(field, context);
         Object paramValue = dependencyProvider.get(paramKey);
         if (!field.isAccessible()) {
           field.setAccessible(true);
@@ -104,19 +106,19 @@ class RealObjectMaker  {
     }
   }
 
-  private void callInjectableMethods(DependencyProvider dependencyProvider, Object instance) {
+  private void callInjectableMethods(DependencyProvider dependencyProvider, Object instance, TypeToken<?> context) {
     if (mInjectMethodAnnotations.isEmpty()) {
       return;
     }
 
     for (Method method : ReflectUtil.getAllDeclaredMethods(instance.getClass())) {
       if (ReflectUtil.isAnyAnnotationPresent(method, mInjectMethodAnnotations)) {
-        invokeMethod(method, instance, dependencyProvider);
+        invokeMethod(method, instance, dependencyProvider, context);
       }
     }
   }
 
-  private void invokeMethod(Method method, Object instance, DependencyProvider dependencyProvider) {
+  private void invokeMethod(Method method, Object instance, DependencyProvider dependencyProvider, TypeToken<?> context) {
     int paramCount = method.getParameterCount();
     Type[] paramTypes = method.getGenericParameterTypes();
     Annotation[][] paramAnnotations = method.getParameterAnnotations();
@@ -127,7 +129,8 @@ class RealObjectMaker  {
           dependencyProvider,
           paramTypes[i],
           paramAnnotations[i],
-          String.format("Method (name: %s, during creation of: %s)", method, instance.getClass().getSimpleName()));
+          String.format("Method (name: %s, during creation of: %s)", method, instance.getClass().getSimpleName()),
+          context);
     }
 
     if (!method.isAccessible()) {
