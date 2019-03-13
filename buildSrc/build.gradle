@@ -1,0 +1,21 @@
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.episode6.hackit.gdmc:gdmc:0.1.10'
+  }
+}
+
+repositories {
+    jcenter()
+}
+
+apply plugin: 'groovy'
+apply plugin: 'com.episode6.hackit.gdmc'
+
+dependencies {
+  runtimeClasspath 'com.episode6.hackit.gdmc:gdmc'
+  runtimeClasspath 'com.episode6.hackit.deployable:deployable'
+  runtimeClasspath 'me.tatarka:gradle-retrolambda'
+}

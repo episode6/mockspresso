@@ -8,7 +8,7 @@ Mockspresso creates your objects for you, letting you drop the constructors from
 
 
 ## Version
-This doc describes mockspresso version `0.0.14`
+This doc describes mockspresso version `0.0.15`
 
 ## Installation
 There are 3 ways to setup mockspresso in your project.
