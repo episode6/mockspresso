@@ -65,7 +65,7 @@ public class MockspressoImplTest {
     inOrder.verify(mRealObjectMaker).createObject(mDependencyProvider, TypeToken.of(Integer.class));
 
     inOrder.verify(mDependencyProviderFactory).getDependencyProviderFor(DependencyKey.of(Object.class));
-    inOrder.verify(mRealObjectMaker).injectObject(mDependencyProvider, thing);
+    inOrder.verify(mRealObjectMaker).injectObject(mDependencyProvider, thing, TypeToken.of(Object.class));
 
     inOrder.verify(mDependencyProviderFactory).getBlankDependencyProvider();
     inOrder.verify(mDependencyProvider).get(DependencyKey.of(String.class));

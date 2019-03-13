@@ -44,11 +44,12 @@ class MockspressoImpl implements Mockspresso, MockspressoInternal {
 
   @Override
   public void inject(Object instance) {
-    DependencyProvider dependencyProvider = mDependencyProviderFactory.getDependencyProviderFor(
-        DependencyKey.of(instance.getClass()));
+    DependencyKey<?> key = DependencyKey.of(instance.getClass());
+    DependencyProvider dependencyProvider = mDependencyProviderFactory.getDependencyProviderFor(key);
     mRealObjectMaker.injectObject(
         dependencyProvider,
-        instance);
+        instance,
+        key.typeToken);
   }
 
   @Override
