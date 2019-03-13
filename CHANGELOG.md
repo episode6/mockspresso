@@ -1,7 +1,7 @@
 # ChangeLog
 
 ### v0.0.15-SNAPSHOT - unreleased
- - Replaced old `TypeToken` implementation with guava's by way of https://github.com/episode6/mockspresso-reflect-guava. Adds about 1MB of bloat to the overall build side, but now mockspresso doesn't fall over when parsing TypeVariable parameter.
+ - Replaced old `TypeToken` implementation with guava's by way of https://github.com/episode6/mockspresso-reflect-guava. Adds about 1MB of bloat to the overall build, but now mockspresso doesn't fall over when parsing TypeVariable parameter.
  - **BREAKING**: The method `TypeToken.of(Field)` is no longer available. If you were using it for some reason, replace it with `TypeToken.of(field.getGenericType())`  
 
 ### v0.0.14 - June 28th, 2018
