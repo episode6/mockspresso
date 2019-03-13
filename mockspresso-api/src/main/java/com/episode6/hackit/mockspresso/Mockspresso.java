@@ -33,9 +33,24 @@ public interface Mockspresso {
    * Inject an existing object with mockspresso dependencies.
    * Field and method injection will be performed (assuming the
    * injector of this mockspresso instance supports it)
-   * @param instance The object to be injected.
+   * @param instance The object to inject mocks/dependencies into.
    */
   void inject(Object instance);
+
+  /**
+   * An alternative signature to {@link #inject(Object)}. Use this
+   * method and pass an explic type token if injecting a pre-
+   * constructed generic object that injects parameters defined as
+   * TypeVariables. I.e.
+   * {@code class MySampleGeneric<V> { @Inject V myInjectedVariable; } }
+   * Without the typeToken represented the object being injected, we're
+   * unable to infer the correct type for the generic paremeter, and may
+   * wind up providing a mock {@link Object} instead of the correct mapping.
+   * @param instance The object to inject mocks/dependencies into.
+   * @param typeToken A TypeToken representing the complete type of instance
+   * @param <T> The Type of instance param
+   */
+  <T> void inject(T instance, TypeToken<T> typeToken);
 
   /**
    * Get a dependency (creating a new mock, if needed) from mockspresso.

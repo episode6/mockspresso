@@ -111,7 +111,7 @@ public class GenericConstructorTest {
         .injector().javax()
         .dependency(TestObject.class, testMock)
         .build()
-        .inject(testGeneric);
+        .inject(testGeneric, new TypeToken<TestInjectGeneric<TestObject>>() {});
 
     assertThat(testGeneric.obj)
         .isNotNull()
@@ -127,7 +127,7 @@ public class GenericConstructorTest {
         .injector().javax()
         .dependency(TestObject.class, testMock)
         .build()
-        .inject(testGeneric);
+        .inject(testGeneric, new TypeToken<TestMethodInjectGeneric<TestObject>>() {});
 
     assertThat(testGeneric.obj)
         .isNotNull()
