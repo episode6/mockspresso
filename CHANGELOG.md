@@ -1,6 +1,7 @@
 # ChangeLog
 
 ### v0.0.16-SNAPSHOT - unreleased
+ - Added new method to Mockspresso api `<T> void Mockspresso.inject(T, TypeToken<T>)`. This acts as a workaround when injecting a pre-existing object that is generic and has injected TypeVariables defined.
 
 ### v0.0.15 - March 12th, 2019
  - Replaced old `TypeToken` implementation with guava's by way of https://github.com/episode6/mockspresso-reflect-guava. Adds about 1MB of bloat to the overall build, but now mockspresso doesn't fall over when parsing TypeVariable parameter.
