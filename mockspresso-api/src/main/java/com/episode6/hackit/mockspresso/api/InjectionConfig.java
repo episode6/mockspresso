@@ -1,8 +1,9 @@
 package com.episode6.hackit.mockspresso.api;
 
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.util.List;
@@ -13,10 +14,10 @@ import java.util.List;
 public interface InjectionConfig {
 
   interface ConstructorSelector {
-    @Nullable <T> Constructor<T> chooseConstructor(TypeToken<T> typeToken);
+    @Nullable <T> Constructor<T> chooseConstructor(@NotNull TypeToken<T> typeToken);
   }
 
-  ConstructorSelector provideConstructorSelector();
-  List<Class<? extends Annotation>> provideInjectableFieldAnnotations();
-  List<Class<? extends Annotation>> provideInjectableMethodAnnotations();
+  @NotNull ConstructorSelector provideConstructorSelector();
+  @NotNull List<Class<? extends Annotation>> provideInjectableFieldAnnotations();
+  @NotNull List<Class<? extends Annotation>> provideInjectableMethodAnnotations();
 }
