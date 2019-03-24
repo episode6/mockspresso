@@ -145,6 +145,14 @@ public void testCoffeeMaker() {
 
     // test androidCoffeeMakerView...
 }
+
+@Test
+public void testGenericCoffeeMaker() {
+    GenericCoffeeMaker<FilterType> injectableGeneric = new GenericCoffeeMaker<>();
+    
+    // include the TypeToken for classes with injectable generic typeVariables
+    mockspresso.inject(injectableGeneric, new TypeToken<GenericCoffeeMaker<FilterType>>() {});
+}
 ```
 
 You can buildUpon existing mockspresso instances (if some tests require different properties/dependencies).
