@@ -150,7 +150,7 @@ public void testCoffeeMaker() {
 public void testGenericCoffeeMaker() {
     GenericCoffeeMaker<FilterType> injectableGeneric = new GenericCoffeeMaker<>();
     
-    // for classes with injectable generic typeVariables
+    // include the TypeToken for classes with injectable generic typeVariables
     mockspresso.inject(injectableGeneric, new TypeToken<GenericCoffeeMaker<FilterType>>() {});
 }
 ```
