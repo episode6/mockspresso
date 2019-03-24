@@ -2,7 +2,6 @@ apply plugin: DeployableJavaProject
 
 dependencies {
   api project(':mockspresso-api')
-  api 'com.google.code.findbugs:jsr305'
 
   mavenOptional 'org.easymock:easymock'
 

@@ -7,7 +7,7 @@ import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.ReflectUtil;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
 import java.util.List;

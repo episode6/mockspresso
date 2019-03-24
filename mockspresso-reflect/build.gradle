@@ -1,7 +1,6 @@
 apply plugin: DeployableJavaProject
 
 dependencies {
-  api('com.google.code.findbugs:jsr305')
   api('javax.inject:javax.inject')
 
   api 'com.episode6.hackit.mockspresso:mockspresso-reflect-guava'

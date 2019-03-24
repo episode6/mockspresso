@@ -2,7 +2,6 @@ apply plugin: DeployableJavaProject
 
 dependencies {
   mavenProvided 'junit:junit'
-  api 'com.google.code.findbugs:jsr305'
   api 'javax.inject:javax.inject'
 
   // base deps
