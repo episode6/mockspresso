@@ -10,8 +10,8 @@ class JavaProject implements Plugin<Project> {
     project.with {
       plugins.with {
         apply 'java-library'
-        apply 'me.tatarka.retrolambda'
         apply 'kotlin'
+        apply 'me.tatarka.retrolambda'
         applyDeployablePlugin(it)
         apply 'com.episode6.hackit.gdmc'
       }
