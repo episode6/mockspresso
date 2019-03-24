@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 
 import javax.inject.Inject;
 
@@ -100,5 +101,37 @@ public class GenericConstructorTest {
 
     assertThat(resources.testGeneric).isNotNull();
     assertThat(resources.testGeneric.obj).isNotNull().is(mockCondition());
+  }
+
+  @Test public void testFieldInjectionOfExistingObject() {
+    TestInjectGeneric<TestObject> testGeneric = new TestInjectGeneric<>();
+    TestObject testMock = Mockito.mock(TestObject.class);
+
+    mockspresso.buildUpon()
+        .injector().javax()
+        .dependency(TestObject.class, testMock)
+        .build()
+        .inject(testGeneric, new TypeToken<TestInjectGeneric<TestObject>>() {});
+
+    assertThat(testGeneric.obj)
+        .isNotNull()
+        .is(mockCondition())
+        .isEqualTo(testMock);
+  }
+
+  @Test public void testMethodInjectionOfExistingObject() {
+    TestMethodInjectGeneric<TestObject> testGeneric = new TestMethodInjectGeneric<>();
+    TestObject testMock = Mockito.mock(TestObject.class);
+
+    mockspresso.buildUpon()
+        .injector().javax()
+        .dependency(TestObject.class, testMock)
+        .build()
+        .inject(testGeneric, new TypeToken<TestMethodInjectGeneric<TestObject>>() {});
+
+    assertThat(testGeneric.obj)
+        .isNotNull()
+        .is(mockCondition())
+        .isEqualTo(testMock);
   }
 }

@@ -8,7 +8,7 @@ Mockspresso creates your objects for you, letting you drop the constructors from
 
 
 ## Version
-This doc describes mockspresso version `0.0.15`
+This doc describes mockspresso version `0.0.16`
 
 ## Installation
 There are 3 ways to setup mockspresso in your project.
@@ -144,6 +144,14 @@ public void testCoffeeMaker() {
     mockspresso.inject(androidCoffeeMakerView);
 
     // test androidCoffeeMakerView...
+}
+
+@Test
+public void testGenericCoffeeMaker() {
+    GenericCoffeeMaker<FilterType> injectableGeneric = new GenericCoffeeMaker<>();
+    
+    // include the TypeToken for classes with injectable generic typeVariables
+    mockspresso.inject(injectableGeneric, new TypeToken<GenericCoffeeMaker<FilterType>>() {});
 }
 ```
 

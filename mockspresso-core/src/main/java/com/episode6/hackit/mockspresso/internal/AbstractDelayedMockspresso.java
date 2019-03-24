@@ -67,6 +67,11 @@ abstract class AbstractDelayedMockspresso implements Mockspresso, MockspressoInt
   }
 
   @Override
+  public <T> void inject(T instance, TypeToken<T> typeToken) {
+    getDelegate().inject(instance, typeToken);
+  }
+
+  @Override
   public <T> T getDependency(DependencyKey<T> key) {
     return getDelegate().getDependency(key);
   }

@@ -64,6 +64,11 @@ public abstract class AbstractMockspressoExtension<BLDR extends MockspressoExten
   }
 
   @Override
+  public <T> void inject(T instance, TypeToken<T> typeToken) {
+    mDelegate.inject(instance, typeToken);
+  }
+
+  @Override
   public <T> T getDependency(DependencyKey<T> key) {
     return mDelegate.getDependency(key);
   }
@@ -105,6 +110,11 @@ public abstract class AbstractMockspressoExtension<BLDR extends MockspressoExten
     @Override
     public void inject(Object instance) {
       mDelegate.inject(instance);
+    }
+
+    @Override
+    public <T> void inject(T instance, TypeToken<T> typeToken) {
+      mDelegate.inject(instance, typeToken);
     }
 
     @Override
