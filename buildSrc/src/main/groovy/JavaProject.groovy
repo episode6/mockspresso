@@ -1,3 +1,4 @@
+import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.PluginContainer
@@ -9,6 +10,7 @@ class JavaProject implements Plugin<Project> {
     project.with {
       plugins.with {
         apply 'java-library'
+        apply 'me.tatarka.retrolambda'
         apply 'kotlin'
         applyDeployablePlugin(it)
         apply 'com.episode6.hackit.gdmc'
@@ -16,6 +18,10 @@ class JavaProject implements Plugin<Project> {
 
       sourceCompatibility = 1.8
       targetCompatibility = 1.8
+
+      retrolambda {
+        javaVersion JavaVersion.VERSION_1_7
+      }
 
       dependencies {
         implementation 'org.jetbrains.kotlin:kotlin-stdlib'
