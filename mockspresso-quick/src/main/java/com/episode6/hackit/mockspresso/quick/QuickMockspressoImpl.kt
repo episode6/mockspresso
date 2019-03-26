@@ -23,11 +23,7 @@ internal class QuickMockspressoImpl(delegate: Mockspresso) : QuickMockspresso,
           ::QuickMockspressoImpl,
           ::Rule) {
 
-    private val pluginPicker: PluginPickerImpl
-
-    init {
-      pluginPicker = PluginPickerImpl(this)
-    }
+    private val pluginPicker = PluginPickerImpl(this)
 
     override fun injector(): QuickMockspresso.InjectorPicker {
       return pluginPicker
@@ -42,104 +38,57 @@ internal class QuickMockspressoImpl(delegate: Mockspresso) : QuickMockspresso,
     }
   }
 
-  internal class PluginPickerImpl(private val builder: QuickMockspresso.Builder) : QuickMockspresso.InjectorPicker,
-      QuickMockspresso.MockerPicker, QuickMockspresso.PluginPicker {
+  internal class PluginPickerImpl(private val builder: QuickMockspresso.Builder) :
+      QuickMockspresso.InjectorPicker, QuickMockspresso.MockerPicker, QuickMockspresso.PluginPicker {
 
-    override fun simple(): QuickMockspresso.Builder {
-      return builder.plugin(com.episode6.hackit.mockspresso.basic.plugin.simple.SimpleInjectMockspressoPlugin())
-    }
-
-    override fun javax(): QuickMockspresso.Builder {
-      return builder.plugin(com.episode6.hackit.mockspresso.basic.plugin.javax.JavaxInjectMockspressoPlugin())
-    }
-
-    override fun dagger(): QuickMockspresso.Builder {
+    private fun tryApply(errorMessage: String, instruction: ()->QuickMockspresso.Builder): QuickMockspresso.Builder {
       try {
-        return builder.plugin(com.episode6.hackit.mockspresso.dagger.DaggerMockspressoPlugin())
+        return instruction()
       } catch (e: NoClassDefFoundError) {
-        throw MissingDependencyError("com.google.dagger:dagger or com.squareup.dagger:dagger", e)
+        throw MissingDependencyError(errorMessage, e)
       }
-
     }
 
-    override fun mockito(): QuickMockspresso.Builder {
-      try {
-        return builder.plugin(com.episode6.hackit.mockspresso.mockito.MockitoPlugin())
-      } catch (e: NoClassDefFoundError) {
-        throw MissingDependencyError("org.mockito:mockito-core v2.x", e)
-      }
+    override fun simple(): QuickMockspresso.Builder =
+        builder.plugin(com.episode6.hackit.mockspresso.basic.plugin.simple.SimpleInjectMockspressoPlugin())
+    
+    override fun javax(): QuickMockspresso.Builder =
+        builder.plugin(com.episode6.hackit.mockspresso.basic.plugin.javax.JavaxInjectMockspressoPlugin())
 
+    override fun dagger(): QuickMockspresso.Builder = tryApply("com.google.dagger:dagger or com.squareup.dagger:dagger") {
+      builder.plugin(com.episode6.hackit.mockspresso.dagger.DaggerMockspressoPlugin())
     }
 
-    override fun easyMock(): QuickMockspresso.Builder {
-      try {
-        return builder.plugin(com.episode6.hackit.mockspresso.easymock.EasyMockPlugin())
-      } catch (e: NoClassDefFoundError) {
-        throw MissingDependencyError("org.easymock:easymock v3.4", e)
-      }
-
+    override fun mockito(): QuickMockspresso.Builder = tryApply("org.mockito:mockito-core v2.x") {
+      builder.plugin(com.episode6.hackit.mockspresso.mockito.MockitoPlugin())
     }
 
-    override fun mockitoWithPowerMock(): QuickMockspresso.Builder {
-      try {
-        return builder.plugin(com.episode6.hackit.mockspresso.mockito.powermock.PowerMockitoPlugin())
-      } catch (e: NoClassDefFoundError) {
-        throw MissingDependencyError(
-            "org.mockito:mockito-core v2.x, org.powermock:powermock-api-mockito2 or powermock-module-junit4 v1.7.0",
-            e)
-      }
-
+    override fun easyMock(): QuickMockspresso.Builder = tryApply("org.easymock:easymock v3.4") {
+      builder.plugin(com.episode6.hackit.mockspresso.easymock.EasyMockPlugin())
     }
 
-    override fun mockitoWithPowerMockRule(): QuickMockspresso.Builder {
-      try {
-        return builder.plugin(com.episode6.hackit.mockspresso.mockito.powermock.PowerMockitoRulePlugin())
-      } catch (e: NoClassDefFoundError) {
-        throw MissingDependencyError(
-            "org.mockito:mockito-core v2.x, org.powermock:powermock-api-mockito2, powermock-module-junit4 or powermock-module-junit4-rule v1.7.0",
-            e)
-      }
-
+    override fun mockitoWithPowerMock(): QuickMockspresso.Builder = tryApply("org.mockito:mockito-core v2.x, org.powermock:powermock-api-mockito2 or powermock-module-junit4 v1.7.0") {
+      builder.plugin(com.episode6.hackit.mockspresso.mockito.powermock.PowerMockitoPlugin())
     }
 
-    override fun easyMockWithPowerMock(): QuickMockspresso.Builder {
-      try {
-        return builder.plugin(com.episode6.hackit.mockspresso.easymock.powermock.EasyPowerMockPlugin())
-      } catch (e: NoClassDefFoundError) {
-        throw MissingDependencyError(
-            "org.easymock:easymock v3.4, org.powermock:powermock-api-easymock or powermock-module-junit4 v1.7.0",
-            e)
-      }
-
+    override fun mockitoWithPowerMockRule(): QuickMockspresso.Builder = tryApply("org.mockito:mockito-core v2.x, org.powermock:powermock-api-mockito2, powermock-module-junit4 or powermock-module-junit4-rule v1.7.0") {
+      builder.plugin(com.episode6.hackit.mockspresso.mockito.powermock.PowerMockitoRulePlugin())
     }
 
-    override fun easyMockWithPowerMockRule(): QuickMockspresso.Builder {
-      try {
-        return builder.plugin(com.episode6.hackit.mockspresso.easymock.powermock.EasyPowerMockRulePlugin())
-      } catch (e: NoClassDefFoundError) {
-        throw MissingDependencyError(
-            "org.easymock:easymock v3.4, org.powermock:powermock-api-easymock, powermock-module-junit4 or powermock-module-junit4-rule v1.7.0",
-            e)
-      }
-
+    override fun easyMockWithPowerMock(): QuickMockspresso.Builder = tryApply("org.easymock:easymock v3.4, org.powermock:powermock-api-easymock or powermock-module-junit4 v1.7.0") {
+      builder.plugin(com.episode6.hackit.mockspresso.easymock.powermock.EasyPowerMockPlugin())
     }
 
-    override fun guava(): QuickMockspresso.Builder {
-      try {
-        return builder.plugin(com.episode6.hackit.mockspresso.guava.GuavaMockspressoPlugin())
-      } catch (e: NoClassDefFoundError) {
-        throw MissingDependencyError("com.google.guava:guava", e)
-      }
-
+    override fun easyMockWithPowerMockRule(): QuickMockspresso.Builder = tryApply("org.easymock:easymock v3.4, org.powermock:powermock-api-easymock, powermock-module-junit4 or powermock-module-junit4-rule v1.7.0") {
+      builder.plugin(com.episode6.hackit.mockspresso.easymock.powermock.EasyPowerMockRulePlugin())
     }
 
-    override fun automaticFactories(vararg factoryClasses: Class<*>): QuickMockspresso.Builder {
-      try {
-        return builder.specialObjectMaker(com.episode6.hackit.mockspresso.mockito.MockitoAutoFactoryMaker.create(*factoryClasses))
-      } catch (e: NoClassDefFoundError) {
-        throw MissingDependencyError("org.mockito:mockito-core v2.x", e)
-      }
+    override fun guava(): QuickMockspresso.Builder = tryApply("com.google.guava:guava") {
+      builder.plugin(com.episode6.hackit.mockspresso.guava.GuavaMockspressoPlugin())
+    }
 
+    override fun automaticFactories(vararg factoryClasses: Class<*>): QuickMockspresso.Builder = tryApply("org.mockito:mockito-core v2.x") {
+      builder.specialObjectMaker(com.episode6.hackit.mockspresso.mockito.MockitoAutoFactoryMaker.create(*factoryClasses))
     }
   }
 }
