@@ -4,6 +4,7 @@ import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.api.*;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
+import org.jetbrains.annotations.NotNull;
 import org.junit.rules.MethodRule;
 import org.junit.rules.TestRule;
 
@@ -39,139 +40,163 @@ class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implements Mo
     }
   }
 
+  @NotNull
   @Override
-  public Builder plugin(MockspressoPlugin plugin) {
+  public Builder plugin(@NotNull MockspressoPlugin plugin) {
     mBuilder.plugin(plugin);
     return this;
   }
 
+  @NotNull
   @Override
-  public Builder outerRule(TestRule testRule) {
+  public Builder outerRule(@NotNull TestRule testRule) {
     throw new VerifyError("Can't build a new mockspresso @Rule on top of an existing one.");
   }
 
+  @NotNull
   @Override
-  public Builder outerRule(MethodRule methodRule) {
+  public Builder outerRule(@NotNull MethodRule methodRule) {
     throw new VerifyError("Can't build a new mockspresso @Rule on top of an existing one.");
   }
 
+  @NotNull
   @Override
-  public Builder innerRule(TestRule testRule) {
+  public Builder innerRule(@NotNull TestRule testRule) {
     throw new VerifyError("Can't build a new mockspresso @Rule on top of an existing one.");
   }
 
+  @NotNull
   @Override
-  public Builder innerRule(MethodRule methodRule) {
+  public Builder innerRule(@NotNull MethodRule methodRule) {
     throw new VerifyError("Can't build a new mockspresso @Rule on top of an existing one.");
   }
 
+  @NotNull
   @Override
-  public Builder testResources(Object objectWithResources) {
+  public Builder testResources(@NotNull Object objectWithResources) {
     mBuilder.testResources(objectWithResources);
     return this;
   }
 
+  @NotNull
   @Override
-  public Builder testResourcesWithoutLifecycle(Object objectWithResources) {
+  public Builder testResourcesWithoutLifecycle(@NotNull Object objectWithResources) {
     mBuilder.testResourcesWithoutLifecycle(objectWithResources);
     return this;
   }
 
+  @NotNull
   @Override
-  public Builder mocker(MockerConfig mockerConfig) {
+  public Builder mocker(@NotNull MockerConfig mockerConfig) {
     mBuilder.mocker(mockerConfig);
     return this;
   }
 
+  @NotNull
   @Override
-  public Builder injector(InjectionConfig injectionConfig) {
+  public Builder injector(@NotNull InjectionConfig injectionConfig) {
     mBuilder.injector(injectionConfig);
     return this;
   }
 
+  @NotNull
   @Override
-  public Builder specialObjectMaker(SpecialObjectMaker specialObjectMaker) {
+  public Builder specialObjectMaker(@NotNull SpecialObjectMaker specialObjectMaker) {
     mBuilder.specialObjectMaker(specialObjectMaker);
     return this;
   }
 
+  @NotNull
   @Override
-  public Builder specialObjectMakers(List<SpecialObjectMaker> specialObjectMakers) {
+  public Builder specialObjectMakers(@NotNull List<SpecialObjectMaker> specialObjectMakers) {
     mBuilder.specialObjectMakers(specialObjectMakers);
     return this;
   }
 
+  @NotNull
   @Override
-  public <T, V extends T> Builder dependency(Class<T> clazz, V value) {
+  public <T, V extends T> Builder dependency(@NotNull Class<T> clazz, V value) {
     mBuilder.dependency(clazz, value);
     return this;
   }
 
+  @NotNull
   @Override
-  public <T, V extends T> Builder dependency(TypeToken<T> typeToken, V value) {
+  public <T, V extends T> Builder dependency(@NotNull TypeToken<T> typeToken, V value) {
     mBuilder.dependency(typeToken, value);
     return this;
   }
 
+  @NotNull
   @Override
-  public <T, V extends T> Builder dependency(DependencyKey<T> key, V value) {
+  public <T, V extends T> Builder dependency(@NotNull DependencyKey<T> key, V value) {
     mBuilder.dependency(key, value);
     return this;
   }
 
+  @NotNull
   @Override
-  public <T, V extends T> Builder dependencyProvider(Class<T> clazz, ObjectProvider<V> value) {
+  public <T, V extends T> Builder dependencyProvider(@NotNull Class<T> clazz, @NotNull ObjectProvider<V> value) {
     mBuilder.dependencyProvider(clazz, value);
     return this;
   }
 
+  @NotNull
   @Override
-  public <T, V extends T> Builder dependencyProvider(TypeToken<T> typeToken, ObjectProvider<V> value) {
+  public <T, V extends T> Builder dependencyProvider(@NotNull TypeToken<T> typeToken, @NotNull ObjectProvider<V> value) {
     mBuilder.dependencyProvider(typeToken, value);
     return this;
   }
 
+  @NotNull
   @Override
-  public <T, V extends T> Builder dependencyProvider(DependencyKey<T> key, ObjectProvider<V> value) {
+  public <T, V extends T> Builder dependencyProvider(@NotNull DependencyKey<T> key, @NotNull ObjectProvider<V> value) {
     mBuilder.dependencyProvider(key, value);
     return this;
   }
 
+  @NotNull
   @Override
-  public <T> Builder realObject(Class<T> objectClass) {
+  public <T> Builder realObject(@NotNull Class<T> objectClass) {
     mBuilder.realObject(objectClass);
     return this;
   }
 
+  @NotNull
   @Override
-  public <T> Builder realObject(TypeToken<T> objectToken) {
+  public <T> Builder realObject(@NotNull TypeToken<T> objectToken) {
     mBuilder.realObject(objectToken);
     return this;
   }
 
+  @NotNull
   @Override
-  public <T> Builder realObject(DependencyKey<T> keyAndImplementation) {
+  public <T> Builder realObject(@NotNull DependencyKey<T> keyAndImplementation) {
     mBuilder.realObject(keyAndImplementation);
     return this;
   }
 
+  @NotNull
   @Override
-  public <T> Builder realObject(DependencyKey<T> key, Class<? extends T> implementationClass) {
+  public <T> Builder realObject(@NotNull DependencyKey<T> key, @NotNull Class<? extends T> implementationClass) {
     mBuilder.realObject(key, implementationClass);
     return this;
   }
 
+  @NotNull
   @Override
-  public <T> Builder realObject(DependencyKey<T> key, TypeToken<? extends T> implementationToken) {
+  public <T> Builder realObject(@NotNull DependencyKey<T> key, @NotNull TypeToken<? extends T> implementationToken) {
     mBuilder.realObject(key, implementationToken);
     return this;
   }
 
+  @NotNull
   @Override
   public Mockspresso build() {
     return this;
   }
 
+  @NotNull
   @Override
   public Rule buildRule() {
     throw new VerifyError("Can't build a new mockspresso @Rule on top of an existing one.");

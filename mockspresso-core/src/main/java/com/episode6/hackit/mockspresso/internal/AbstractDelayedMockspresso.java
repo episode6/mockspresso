@@ -5,6 +5,7 @@ import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import com.episode6.hackit.mockspresso.util.Preconditions;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import javax.inject.Provider;
 import java.util.HashSet;
@@ -51,31 +52,34 @@ abstract class AbstractDelayedMockspresso implements Mockspresso, MockspressoInt
     return Preconditions.assertNotNull(mDelegate, ERROR_MESSAGE);
   }
 
+  @NotNull
   @Override
-  public <T> T create(Class<T> clazz) {
+  public <T> T create(@NotNull Class<T> clazz) {
     return getDelegate().create(clazz);
   }
 
+  @NotNull
   @Override
-  public <T> T create(TypeToken<T> typeToken) {
+  public <T> T create(@NotNull TypeToken<T> typeToken) {
     return getDelegate().create(typeToken);
   }
 
   @Override
-  public void inject(Object instance) {
+  public void inject(@NotNull Object instance) {
     getDelegate().inject(instance);
   }
 
   @Override
-  public <T> void inject(T instance, TypeToken<T> typeToken) {
+  public <T> void inject(@NotNull T instance, @NotNull TypeToken<T> typeToken) {
     getDelegate().inject(instance, typeToken);
   }
 
   @Override
-  public <T> T getDependency(DependencyKey<T> key) {
+  public <T> T getDependency(@NotNull DependencyKey<T> key) {
     return getDelegate().getDependency(key);
   }
 
+  @NotNull
   @Override
   public synchronized Builder buildUpon() {
     if (mDelegate != null) {

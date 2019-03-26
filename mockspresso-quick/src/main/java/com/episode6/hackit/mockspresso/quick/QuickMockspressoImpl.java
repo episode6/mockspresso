@@ -3,19 +3,20 @@ package com.episode6.hackit.mockspresso.quick;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension;
 import com.episode6.hackit.mockspresso.quick.exception.MissingDependencyError;
+import org.jetbrains.annotations.NotNull;
 
 /**
  *
  */
 class QuickMockspressoImpl extends AbstractMockspressoExtension<QuickMockspresso.Builder> implements QuickMockspresso {
 
-  private QuickMockspressoImpl(Mockspresso delegate) {
+  private QuickMockspressoImpl(@NotNull Mockspresso delegate) {
     super(delegate, Builder::new);
   }
 
   static class Rule extends AbstractMockspressoExtension.Rule<QuickMockspresso.Builder> implements QuickMockspresso.Rule {
 
-    private Rule(Rule delegate) {
+    private Rule(@NotNull Rule delegate) {
       super(delegate, QuickMockspressoImpl.Builder::new);
     }
   }
@@ -27,21 +28,24 @@ class QuickMockspressoImpl extends AbstractMockspressoExtension<QuickMockspresso
 
     private final PluginPickerImpl mPluginPicker;
 
-    Builder(Mockspresso.Builder delegate) {
+    Builder(@NotNull Mockspresso.Builder delegate) {
       super(delegate, QuickMockspressoImpl::new, Rule::new);
       mPluginPicker = new PluginPickerImpl(this);
     }
 
+    @NotNull
     @Override
     public InjectorPicker injector() {
       return mPluginPicker;
     }
 
+    @NotNull
     @Override
     public PluginPicker plugin() {
       return mPluginPicker;
     }
 
+    @NotNull
     @Override
     public MockerPicker mocker() {
       return mPluginPicker;
@@ -56,16 +60,19 @@ class QuickMockspressoImpl extends AbstractMockspressoExtension<QuickMockspresso
       mBuilder = builder;
     }
 
+    @NotNull
     @Override
     public QuickMockspresso.Builder simple() {
       return mBuilder.plugin(new com.episode6.hackit.mockspresso.basic.plugin.simple.SimpleInjectMockspressoPlugin());
     }
 
+    @NotNull
     @Override
     public QuickMockspresso.Builder javax() {
       return mBuilder.plugin(new com.episode6.hackit.mockspresso.basic.plugin.javax.JavaxInjectMockspressoPlugin());
     }
 
+    @NotNull
     @Override
     public QuickMockspresso.Builder dagger() {
       try {
@@ -75,6 +82,7 @@ class QuickMockspressoImpl extends AbstractMockspressoExtension<QuickMockspresso
       }
     }
 
+    @NotNull
     @Override
     public QuickMockspresso.Builder mockito() {
       try {
@@ -84,6 +92,7 @@ class QuickMockspressoImpl extends AbstractMockspressoExtension<QuickMockspresso
       }
     }
 
+    @NotNull
     @Override
     public QuickMockspresso.Builder easyMock() {
       try {
@@ -93,6 +102,7 @@ class QuickMockspressoImpl extends AbstractMockspressoExtension<QuickMockspresso
       }
     }
 
+    @NotNull
     @Override
     public QuickMockspresso.Builder mockitoWithPowerMock() {
       try {
@@ -104,6 +114,7 @@ class QuickMockspressoImpl extends AbstractMockspressoExtension<QuickMockspresso
       }
     }
 
+    @NotNull
     @Override
     public QuickMockspresso.Builder mockitoWithPowerMockRule() {
       try {
@@ -115,6 +126,7 @@ class QuickMockspressoImpl extends AbstractMockspressoExtension<QuickMockspresso
       }
     }
 
+    @NotNull
     @Override
     public QuickMockspresso.Builder easyMockWithPowerMock() {
       try {
@@ -126,6 +138,7 @@ class QuickMockspressoImpl extends AbstractMockspressoExtension<QuickMockspresso
       }
     }
 
+    @NotNull
     @Override
     public QuickMockspresso.Builder easyMockWithPowerMockRule() {
       try {
@@ -137,6 +150,7 @@ class QuickMockspressoImpl extends AbstractMockspressoExtension<QuickMockspresso
       }
     }
 
+    @NotNull
     @Override
     public QuickMockspresso.Builder guava() {
       try {
@@ -146,6 +160,7 @@ class QuickMockspressoImpl extends AbstractMockspressoExtension<QuickMockspresso
       }
     }
 
+    @NotNull
     @Override
     public QuickMockspresso.Builder automaticFactories(Class<?>... factoryClasses) {
       try {
