@@ -24,18 +24,10 @@ internal class QuickMockspressoImpl(delegate: Mockspresso) : QuickMockspresso,
           ::Rule) {
 
     private val pluginPicker = PluginPickerImpl(this)
-
-    override fun injector(): QuickMockspresso.InjectorPicker {
-      return pluginPicker
-    }
-
-    override fun plugin(): QuickMockspresso.PluginPicker {
-      return pluginPicker
-    }
-
-    override fun mocker(): QuickMockspresso.MockerPicker {
-      return pluginPicker
-    }
+    
+    override fun injector(): QuickMockspresso.InjectorPicker = pluginPicker
+    override fun plugin(): QuickMockspresso.PluginPicker = pluginPicker
+    override fun mocker(): QuickMockspresso.MockerPicker = pluginPicker
   }
 
   internal class PluginPickerImpl(private val builder: QuickMockspresso.Builder) :
