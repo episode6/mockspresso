@@ -4,6 +4,7 @@ import com.episode6.hackit.mockspresso.api.InjectionConfig;
 import com.episode6.hackit.mockspresso.api.MockerConfig;
 import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
 import com.episode6.hackit.mockspresso.extend.MockspressoExtension;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A mockspresso extension for bootstrapping / general use
@@ -21,19 +22,19 @@ public interface QuickMockspresso extends MockspressoExtension<QuickMockspresso.
      * Apply one of the built-in {@link InjectionConfig}s to this builder.
      * @return A {@link InjectorPicker} that will apply an injectionConfig to this builder.
      */
-    InjectorPicker injector();
+    @NotNull InjectorPicker injector();
 
     /**
      * Apply one of the built-in {@link MockspressoPlugin}s to this builder.
      * @return A {@link PluginPicker} that will apply a plugin to this builder.
      */
-    PluginPicker plugin();
+    @NotNull PluginPicker plugin();
 
     /**
      * Apply one of the built-in {@link MockerConfig}s to this builder.
      * @return A {@link MockerPicker} that will apply a mockerConfig to this builder.
      */
-    MockerPicker mocker();
+    @NotNull MockerPicker mocker();
 
   }
 
@@ -48,7 +49,7 @@ public interface QuickMockspresso extends MockspressoExtension<QuickMockspresso.
      *
      * @return The {@link QuickMockspresso.Builder} for your mockspresso instance
      */
-    QuickMockspresso.Builder simple();
+    @NotNull QuickMockspresso.Builder simple();
 
     /**
      * Applies the {@link InjectionConfig} for javax.inject based object creation
@@ -56,7 +57,7 @@ public interface QuickMockspresso extends MockspressoExtension<QuickMockspresso.
      *
      * @return The {@link QuickMockspresso.Builder} for your mockspresso instance
      */
-    QuickMockspresso.Builder javax();
+    @NotNull QuickMockspresso.Builder javax();
 
     /**
      * Applies an {@link InjectionConfig} for dagger. This is the same as the
@@ -66,7 +67,7 @@ public interface QuickMockspresso extends MockspressoExtension<QuickMockspresso.
      *
      * @return The {@link QuickMockspresso.Builder} for your mockspresso instance
      */
-    QuickMockspresso.Builder dagger();
+    @NotNull QuickMockspresso.Builder dagger();
   }
 
   /**
@@ -80,7 +81,7 @@ public interface QuickMockspresso extends MockspressoExtension<QuickMockspresso.
      *
      * @return The {@link QuickMockspresso.Builder} for your mockspresso instance
      */
-    QuickMockspresso.Builder mockito();
+    @NotNull QuickMockspresso.Builder mockito();
 
     /**
      * Applies the {@link MockerConfig} for EasyMock.
@@ -88,7 +89,7 @@ public interface QuickMockspresso extends MockspressoExtension<QuickMockspresso.
      *
      * @return The {@link QuickMockspresso.Builder} for your mockspresso instance
      */
-    QuickMockspresso.Builder easyMock();
+    @NotNull QuickMockspresso.Builder easyMock();
 
     /**
      * Applies the {@link MockerConfig} for Powermock + Mockito.
@@ -98,7 +99,7 @@ public interface QuickMockspresso extends MockspressoExtension<QuickMockspresso.
      *
      * @return The {@link QuickMockspresso.Builder} for your mockspresso instance
      */
-    QuickMockspresso.Builder mockitoWithPowerMock();
+    @NotNull QuickMockspresso.Builder mockitoWithPowerMock();
 
     /**
      * Applies the {@link MockerConfig} for Powermock + Mockito AND applies a PowerMockRule as
@@ -108,7 +109,7 @@ public interface QuickMockspresso extends MockspressoExtension<QuickMockspresso.
      *
      * @return The {@link QuickMockspresso.Builder} for your mockspresso instance
      */
-    QuickMockspresso.Builder mockitoWithPowerMockRule();
+    @NotNull QuickMockspresso.Builder mockitoWithPowerMockRule();
 
     /**
      * Applies the {@link MockerConfig} for Powermock + EasyMock.
@@ -122,7 +123,7 @@ public interface QuickMockspresso extends MockspressoExtension<QuickMockspresso.
      *
      * @return The {@link QuickMockspresso.Builder} for your mockspresso instance
      */
-    QuickMockspresso.Builder easyMockWithPowerMock();
+    @NotNull QuickMockspresso.Builder easyMockWithPowerMock();
 
     /**
      * Applies the {@link MockerConfig} for Powermock + EasyMock AND applies a PowerMockRule as
@@ -132,7 +133,7 @@ public interface QuickMockspresso extends MockspressoExtension<QuickMockspresso.
      *
      * @return The {@link QuickMockspresso.Builder} for your mockspresso instance
      */
-    QuickMockspresso.Builder easyMockWithPowerMockRule();
+    @NotNull QuickMockspresso.Builder easyMockWithPowerMockRule();
   }
 
 
@@ -148,7 +149,7 @@ public interface QuickMockspresso extends MockspressoExtension<QuickMockspresso.
      *
      * @return The {@link QuickMockspresso.Builder} for your mockspresso instance
      */
-    QuickMockspresso.Builder guava();
+    @NotNull QuickMockspresso.Builder guava();
 
     /**
      * Applies special object handling for the provided factory classes. The
@@ -164,7 +165,7 @@ public interface QuickMockspresso extends MockspressoExtension<QuickMockspresso.
      *                       if they are encountered in your test.
      * @return The {@link QuickMockspresso.Builder} for your mockspresso instance
      */
-    QuickMockspresso.Builder automaticFactories(Class<?>... factoryClasses);
+    @NotNull QuickMockspresso.Builder automaticFactories(Class<?>... factoryClasses);
   }
 
 }
