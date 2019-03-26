@@ -8,6 +8,7 @@ import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import com.episode6.hackit.mockspresso.util.CollectionUtil;
 import com.episode6.hackit.mockspresso.util.Preconditions;
+import org.jetbrains.annotations.NotNull;
 import org.junit.rules.MethodRule;
 import org.junit.rules.TestRule;
 
@@ -82,128 +83,151 @@ class MockspressoBuilderImpl implements Mockspresso.Builder {
     }
   }
 
+  @NotNull
   @Override
-  public Mockspresso.Builder plugin(MockspressoPlugin plugin) {
+  public Mockspresso.Builder plugin(@NotNull MockspressoPlugin plugin) {
     return plugin.apply(this);
   }
 
+  @NotNull
   @Override
-  public Mockspresso.Builder outerRule(TestRule testRule) {
+  public Mockspresso.Builder outerRule(@NotNull TestRule testRule) {
     mRuleConfig.addOuterRule(testRule);
     return this;
   }
 
+  @NotNull
   @Override
-  public Mockspresso.Builder outerRule(MethodRule methodRule) {
+  public Mockspresso.Builder outerRule(@NotNull MethodRule methodRule) {
     mRuleConfig.addOuterRule(methodRule);
     return this;
   }
 
+  @NotNull
   @Override
-  public Mockspresso.Builder innerRule(TestRule testRule) {
+  public Mockspresso.Builder innerRule(@NotNull TestRule testRule) {
     mRuleConfig.addInnerRule(testRule);
     return this;
   }
 
+  @NotNull
   @Override
-  public Mockspresso.Builder innerRule(MethodRule methodRule) {
+  public Mockspresso.Builder innerRule(@NotNull MethodRule methodRule) {
     mRuleConfig.addInnerRule(methodRule);
     return this;
   }
 
-  public Mockspresso.Builder testResources(Object objectWithResources) {
+  @NotNull
+  public Mockspresso.Builder testResources(@NotNull Object objectWithResources) {
     mTestResources.add(new TestResource(objectWithResources, true));
     return this;
   }
 
+  @NotNull
   @Override
-  public Mockspresso.Builder testResourcesWithoutLifecycle(Object objectWithResources) {
+  public Mockspresso.Builder testResourcesWithoutLifecycle(@NotNull Object objectWithResources) {
     mTestResources.add(new TestResource(objectWithResources, false));
     return this;
   }
 
+  @NotNull
   @Override
-  public Mockspresso.Builder mocker(MockerConfig mockerConfig) {
+  public Mockspresso.Builder mocker(@NotNull MockerConfig mockerConfig) {
     mMockerConfig = mockerConfig;
     return this;
   }
 
+  @NotNull
   @Override
-  public Mockspresso.Builder injector(InjectionConfig injectionConfig) {
+  public Mockspresso.Builder injector(@NotNull InjectionConfig injectionConfig) {
     mInjectionConfig = injectionConfig;
     return this;
   }
 
+  @NotNull
   @Override
-  public Mockspresso.Builder specialObjectMaker(SpecialObjectMaker specialObjectMaker) {
+  public Mockspresso.Builder specialObjectMaker(@NotNull SpecialObjectMaker specialObjectMaker) {
     mSpecialObjectMakers.add(specialObjectMaker);
     return this;
   }
 
+  @NotNull
   @Override
-  public Mockspresso.Builder specialObjectMakers(List<SpecialObjectMaker> specialObjectMakers) {
+  public Mockspresso.Builder specialObjectMakers(@NotNull List<SpecialObjectMaker> specialObjectMakers) {
     mSpecialObjectMakers.addAll(specialObjectMakers);
     return this;
   }
 
+  @NotNull
   @Override
-  public <T, V extends T> Mockspresso.Builder dependency(Class<T> clazz, V value) {
+  public <T, V extends T> Mockspresso.Builder dependency(@NotNull Class<T> clazz, V value) {
     return dependency(DependencyKey.of(clazz), value);
   }
 
+  @NotNull
   @Override
-  public <T, V extends T> Mockspresso.Builder dependency(TypeToken<T> typeToken, V value) {
+  public <T, V extends T> Mockspresso.Builder dependency(@NotNull TypeToken<T> typeToken, V value) {
     return dependency(DependencyKey.of(typeToken), value);
   }
 
+  @NotNull
   @Override
-  public <T, V extends T> Mockspresso.Builder dependency(DependencyKey<T> key, V value) {
+  public <T, V extends T> Mockspresso.Builder dependency(@NotNull DependencyKey<T> key, V value) {
     mDependencyMap.put(key, value, null);
     return this;
   }
 
+  @NotNull
   @Override
-  public <T, V extends T> Mockspresso.Builder dependencyProvider(Class<T> clazz, ObjectProvider<V> value) {
+  public <T, V extends T> Mockspresso.Builder dependencyProvider(@NotNull Class<T> clazz, @NotNull ObjectProvider<V> value) {
     return dependencyProvider(DependencyKey.of(clazz), value);
   }
 
+  @NotNull
   @Override
-  public <T, V extends T> Mockspresso.Builder dependencyProvider(TypeToken<T> typeToken, ObjectProvider<V> value) {
+  public <T, V extends T> Mockspresso.Builder dependencyProvider(@NotNull TypeToken<T> typeToken, @NotNull ObjectProvider<V> value) {
     return dependencyProvider(DependencyKey.of(typeToken), value);
   }
 
+  @NotNull
   @Override
-  public <T, V extends T> Mockspresso.Builder dependencyProvider(DependencyKey<T> key, ObjectProvider<V> value) {
+  public <T, V extends T> Mockspresso.Builder dependencyProvider(@NotNull DependencyKey<T> key, @NotNull ObjectProvider<V> value) {
     mDependencyMap.putProvider(key, value, null);
     return this;
   }
 
+  @NotNull
   @Override
-  public <T> Mockspresso.Builder realObject(Class<T> objectClass) {
+  public <T> Mockspresso.Builder realObject(@NotNull Class<T> objectClass) {
     return realObject(TypeToken.of(objectClass));
   }
 
+  @NotNull
   @Override
-  public <T> Mockspresso.Builder realObject(TypeToken<T> objectToken) {
+  public <T> Mockspresso.Builder realObject(@NotNull TypeToken<T> objectToken) {
     return realObject(DependencyKey.of(objectToken));
   }
 
+  @NotNull
   @Override
-  public <T> Mockspresso.Builder realObject(DependencyKey<T> keyAndImplementation) {
+  public <T> Mockspresso.Builder realObject(@NotNull DependencyKey<T> keyAndImplementation) {
     return realObject(keyAndImplementation, keyAndImplementation.typeToken);
   }
 
+  @NotNull
   @Override
-  public <T> Mockspresso.Builder realObject(DependencyKey<T> key, Class<? extends T> implementationClass) {
+  public <T> Mockspresso.Builder realObject(@NotNull DependencyKey<T> key, @NotNull Class<? extends T> implementationClass) {
     return realObject(key, TypeToken.of(implementationClass));
   }
 
+  @NotNull
   @Override
-  public <T> Mockspresso.Builder realObject(DependencyKey<T> key, TypeToken<? extends T> implementationToken) {
+  public <T> Mockspresso.Builder realObject(@NotNull DependencyKey<T> key, @NotNull TypeToken<? extends T> implementationToken) {
     mRealObjectMapping.put(key, implementationToken, false);
     return this;
   }
 
+  @NotNull
   @Override
   public Mockspresso build() {
     if (!mRuleConfig.isEmpty()) {
@@ -214,6 +238,7 @@ class MockspressoBuilderImpl implements Mockspresso.Builder {
     return instance;
   }
 
+  @NotNull
   @Override
   public Mockspresso.Rule buildRule() {
     return new MockspressoRuleImpl(
