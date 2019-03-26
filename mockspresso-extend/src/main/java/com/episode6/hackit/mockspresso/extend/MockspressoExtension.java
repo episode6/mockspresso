@@ -31,7 +31,7 @@ import java.util.List;
 public interface MockspressoExtension<BLDR extends MockspressoExtension.Builder> extends Mockspresso {
 
   @Override
-  BLDR buildUpon();
+  @NotNull BLDR buildUpon();
 
   /**
    * Custom extension of {@link MockspressoExtension.Rule}
