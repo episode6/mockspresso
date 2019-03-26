@@ -1,6 +1,11 @@
 # ChangeLog
 
-### v0.0.16-SNAPSHOT - unreleased
+### v0.0.17 - unreleased
+ - Add kotlin support
+ - Replace jsr305 with jetbrains annotations
+ - Annotate interfaces null/not null for kotlin compatibility
+
+### v0.0.16 - March 24th, 2019
  - Added new method to Mockspresso api `<T> void Mockspresso.inject(T, TypeToken<T>)`. This acts as a workaround when injecting a pre-existing object that is generic and has injected TypeVariables defined.
 
 ### v0.0.15 - March 12th, 2019
