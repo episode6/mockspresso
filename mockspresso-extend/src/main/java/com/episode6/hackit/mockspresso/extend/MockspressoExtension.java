@@ -98,7 +98,7 @@ public interface MockspressoExtension<BLDR extends MockspressoExtension.Builder>
     @NotNull <T, V extends T> BLDR dependency(@NotNull TypeToken<T> typeToken, @Nullable V value);
 
     @Override
-    <T, V extends T> BLDR dependency(@NotNull DependencyKey<T> key, @Nullable V value);
+    @NotNull <T, V extends T> BLDR dependency(@NotNull DependencyKey<T> key, @Nullable V value);
 
     @Override
     @NotNull <T, V extends T> BLDR dependencyProvider(@NotNull Class<T> clazz, @NotNull ObjectProvider<V> value);
@@ -119,10 +119,10 @@ public interface MockspressoExtension<BLDR extends MockspressoExtension.Builder>
     @NotNull <T> BLDR realObject(@NotNull DependencyKey<T> keyAndImplementation);
 
     @Override
-    <T> BLDR realObject(@NotNull DependencyKey<T> key, @NotNull Class<? extends T> implementationClass);
+    @NotNull<T> BLDR realObject(@NotNull DependencyKey<T> key, @NotNull Class<? extends T> implementationClass);
 
     @Override
-    <T> BLDR realObject(@NotNull DependencyKey<T> key, @NotNull TypeToken<? extends T> implementationToken);
+    @NotNull<T> BLDR realObject(@NotNull DependencyKey<T> key, @NotNull TypeToken<? extends T> implementationToken);
 
     @Override
     @NotNull EXT build();
