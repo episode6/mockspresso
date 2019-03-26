@@ -1,6 +1,7 @@
 package com.episode6.hackit.mockspresso.api;
 
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
@@ -16,7 +17,7 @@ public interface MockerConfig {
    * are not part of the dependency map
    */
   interface MockMaker {
-    <T> T makeMock(TypeToken<T> typeToken);
+    @NotNull <T> T makeMock(@NotNull TypeToken<T> typeToken);
   }
 
   /**
@@ -24,23 +25,23 @@ public interface MockerConfig {
    * the current test class, but can be any generic pojo with annotated fields)
    */
   interface FieldPreparer {
-    void prepareFields(Object objectWithMockFields);
+    void prepareFields(@NotNull Object objectWithMockFields);
   }
 
   /**
    * @return The MockMaker to be used by this config
    */
-  MockMaker provideMockMaker();
+  @NotNull MockMaker provideMockMaker();
 
   /**
    * @return The FieldPreparer to be used by this config.
    */
-  FieldPreparer provideFieldPreparer();
+  @NotNull FieldPreparer provideFieldPreparer();
 
   /**
    * @return a list of annotations that identify objects as mocks (or spys or whatever).
    * Fields with these annotations should be set my the FieldPreparer, and mockspresso will
    * pull their values and add them to the dependency map.
    */
-  List<Class<? extends Annotation>> provideMockAnnotations();
+  @NotNull List<Class<? extends Annotation>> provideMockAnnotations();
 }

@@ -3,7 +3,7 @@ package com.episode6.hackit.mockspresso.internal;
 import com.episode6.hackit.mockspresso.exception.CircularDependencyError;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.HashSet;
 import java.util.Set;
 

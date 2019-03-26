@@ -1,6 +1,8 @@
 package com.episode6.hackit.mockspresso.api;
 
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A class that creates "special" objects, i.e. objects that, by default, should not
@@ -8,6 +10,6 @@ import com.episode6.hackit.mockspresso.reflect.DependencyKey;
  * rather return a real Provider that provides a mock (or a mapped dependency).
  */
 public interface SpecialObjectMaker {
-  boolean canMakeObject(DependencyKey<?> key);
-  <T> T makeObject(DependencyProvider dependencyProvider, DependencyKey<T> key);
+  boolean canMakeObject(@NotNull DependencyKey<?> key);
+  @Nullable <T> T makeObject(@NotNull DependencyProvider dependencyProvider, @NotNull DependencyKey<T> key);
 }

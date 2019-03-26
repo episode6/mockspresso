@@ -7,7 +7,7 @@ import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.rules.MethodRule;
 import org.junit.rules.TestRule;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import javax.inject.Provider;
 import java.util.List;
 

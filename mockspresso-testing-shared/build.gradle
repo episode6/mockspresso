@@ -1,7 +1,6 @@
 apply plugin: JavaProject
 
 dependencies {
-  implementation 'com.google.code.findbugs:jsr305'
   implementation 'javax.inject:javax.inject'
   implementation 'org.easytesting:fest-assert-core'
 }

@@ -1,6 +1,6 @@
 package com.episode6.hackit.mockspresso.reflect;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
