@@ -11,17 +11,12 @@ class JavaProject implements Plugin<Project> {
       plugins.with {
         apply 'java-library'
         apply 'kotlin'
-        apply 'me.tatarka.retrolambda'
         applyDeployablePlugin(it)
         apply 'com.episode6.hackit.gdmc'
       }
 
       sourceCompatibility = 1.8
       targetCompatibility = 1.8
-
-      retrolambda {
-        javaVersion JavaVersion.VERSION_1_7
-      }
 
       dependencies {
         implementation 'org.jetbrains.kotlin:kotlin-stdlib'
