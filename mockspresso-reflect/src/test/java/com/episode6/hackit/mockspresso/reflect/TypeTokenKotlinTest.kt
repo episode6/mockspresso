@@ -23,19 +23,21 @@ class TypeTokenKotlinTest {
   }
 
   @Test fun testStringListToken() {
-    val token = typeToken<List<String>>()
+    // using a MutableList causes the type to be cast to List without the `out` type variable
+    // thus this test starts passing
+    val token = typeToken<MutableList<String>>()
 
     assertThat(token).isEqualTo(JavaTypeTokens.stringListToken)
   }
 
   @Test fun testStringListTokenManual() {
-    val token: TypeToken<List<String>> = object : TypeToken<List<String>>() {}
+    val token: TypeToken<MutableList<String>> = object : TypeToken<MutableList<String>>() {}
 
     assertThat(token).isEqualTo(JavaTypeTokens.stringListToken)
   }
 
   @Test fun testStringIntMapTokenToken() {
-    val token = typeToken<Map<String, Int>>()
+    val token = typeToken<MutableMap<String, Int>>()
 
     assertThat(token).isEqualTo(JavaTypeTokens.stringIntMapToken)
   }
