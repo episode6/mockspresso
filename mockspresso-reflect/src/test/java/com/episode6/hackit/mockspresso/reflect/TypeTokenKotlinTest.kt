@@ -1,6 +1,8 @@
 package com.episode6.hackit.mockspresso.reflect
 
 import com.episode6.hackit.mockspresso.reflect.testobject.JavaTypeTokens
+import com.episode6.hackit.mockspresso.reflect.testobject.TestGenericKtInterface
+import com.episode6.hackit.mockspresso.reflect.testobject.TestJavaObjectWithKtGeneric
 import org.fest.assertions.api.Assertions.assertThat
 import org.junit.Test
 import java.util.*
@@ -52,5 +54,14 @@ class TypeTokenKotlinTest {
     val token = typeToken<HashMap<String, Int>>()
 
     assertThat(token).isEqualTo(JavaTypeTokens.stringIntHashMapToken)
+  }
+
+  @Test
+  fun testKotlinGeneric() {
+    val testObj = TestJavaObjectWithKtGeneric()
+    val manualToken = typeToken<TestGenericKtInterface<String>>()
+    val fieldToken = TypeToken.of(testObj.genericIfaceField.genericType)
+
+    assertThat(fieldToken).isEqualTo(manualToken)
   }
 }
