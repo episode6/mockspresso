@@ -1,6 +1,7 @@
 package com.episode6.hackit.mockspresso.reflect;
 
 import org.jetbrains.annotations.Nullable;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
@@ -17,11 +18,11 @@ public final class DependencyKey<V> {
     return new DependencyKey<T>(typeToken, null);
   }
 
-  public static <T> DependencyKey<T> of(Class<T> clazz, Annotation identityAnnotation) {
+  public static <T> DependencyKey<T> of(Class<T> clazz, @Nullable Annotation identityAnnotation) {
     return of(TypeToken.of(clazz), identityAnnotation);
   }
 
-  public static <T> DependencyKey<T> of(TypeToken<T> typeToken, Annotation identityAnnotation) {
+  public static <T> DependencyKey<T> of(TypeToken<T> typeToken, @Nullable Annotation identityAnnotation) {
     return new DependencyKey<T>(typeToken, identityAnnotation);
   }
 
