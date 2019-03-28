@@ -28,6 +28,12 @@ class TypeTokenKotlinTest {
     assertThat(token).isEqualTo(JavaTypeTokens.stringListToken)
   }
 
+  @Test fun testStringListTokenManual() {
+    val token: TypeToken<List<String>> = object : TypeToken<List<String>>() {}
+
+    assertThat(token).isEqualTo(JavaTypeTokens.stringListToken)
+  }
+
   @Test fun testStringIntMapTokenToken() {
     val token = typeToken<Map<String, Int>>()
 
