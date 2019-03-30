@@ -1,6 +1,6 @@
 package com.episode6.hackit.mockspresso.reflect
 
-import com.episode6.hackit.mockspresso.reflect.testobject.JavaTypeTokens
+import com.episode6.hackit.mockspresso.reflect.testobject.JavaTokens
 import com.episode6.hackit.mockspresso.reflect.testobject.TestGenericKtInterface
 import com.episode6.hackit.mockspresso.reflect.testobject.TestJavaObjectWithKtGeneric
 import org.fest.assertions.api.Assertions.assertThat
@@ -15,49 +15,49 @@ class TypeTokenKotlinTest {
   @Test fun testStringToken() {
     val token = typeToken<String>()
 
-    assertThat(token).isEqualTo(JavaTypeTokens.stringToken)
+    assertThat(token).isEqualTo(JavaTokens.stringToken)
   }
 
   @Test fun testIntToken() {
     val token = typeToken<Int>()
 
-    assertThat(token).isEqualTo(JavaTypeTokens.intToken)
+    assertThat(token).isEqualTo(JavaTokens.intToken)
   }
 
   @Test fun testStringListToken() {
     val token = typeToken<List<String>>()
 
-    assertThat(token).isEqualTo(JavaTypeTokens.stringListToken)
+    assertThat(token).isEqualTo(JavaTokens.stringListToken)
   }
 
-  @Test fun testStringIntMapTokenToken() {
+  @Test fun testStringIntMapToken() {
     val token = typeToken<Map<String, Int>>()
 
-    assertThat(token).isEqualTo(JavaTypeTokens.stringIntMapToken)
+    assertThat(token).isEqualTo(JavaTokens.stringIntMapToken)
   }
 
   @Test fun testStringMutableListToken() {
     val token = typeToken<MutableList<String>>()
 
-    assertThat(token).isEqualTo(JavaTypeTokens.stringMutableListToken)
+    assertThat(token).isEqualTo(JavaTokens.stringMutableListToken)
   }
 
-  @Test fun testStringIntMutableMapTokenToken() {
+  @Test fun testStringIntMutableMapToken() {
     val token = typeToken<MutableMap<String, Int>>()
 
-    assertThat(token).isEqualTo(JavaTypeTokens.stringIntMutableMapToken)
+    assertThat(token).isEqualTo(JavaTokens.stringIntMutableMapToken)
   }
 
   @Test fun testStringLinkedListToken() {
     val token = typeToken<LinkedList<String>>()
 
-    assertThat(token).isEqualTo(JavaTypeTokens.stringLinkedListToken)
+    assertThat(token).isEqualTo(JavaTokens.stringLinkedListToken)
   }
 
-  @Test fun testStringIntHashMapTokenToken() {
+  @Test fun testStringIntHashMapToken() {
     val token = typeToken<HashMap<String, Int>>()
 
-    assertThat(token).isEqualTo(JavaTypeTokens.stringIntHashMapToken)
+    assertThat(token).isEqualTo(JavaTokens.stringIntHashMapToken)
   }
 
   /**
@@ -92,7 +92,7 @@ class TypeTokenKotlinTest {
   @Test fun testKotlinGenericWithoutTypeMatchesJavaToken() {
     // if we create the the TypeToken in a java file in the same incorrect way the
     // TestJavaObjectWithKtGeneric defines it's field, the tokens now match.
-    val manualJavaToken = JavaTypeTokens.genericInterfaceIllegalToken
+    val manualJavaToken = JavaTokens.genericInterfaceIllegalToken
     val testObj = TestJavaObjectWithKtGeneric()
     val fieldToken = TypeToken.of(testObj.genericIfaceField.genericType)
 

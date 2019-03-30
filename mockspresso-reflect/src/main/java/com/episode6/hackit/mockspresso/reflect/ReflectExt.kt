@@ -7,8 +7,7 @@ package com.episode6.hackit.mockspresso.reflect
 /**
  * Creates a [TypeToken] for [T]
  */
-inline fun <reified T : Any> typeToken(): TypeToken<T> =
-    object : TypeToken<T>() {}
+inline fun <reified T : Any> typeToken(): TypeToken<T> = object : TypeToken<T>() {}
 
 /**
  * Creates a [DependencyKey] for [T] with the provided qualifier annotation
