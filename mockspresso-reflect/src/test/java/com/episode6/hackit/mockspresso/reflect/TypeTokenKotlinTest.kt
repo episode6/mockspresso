@@ -86,7 +86,7 @@ class TypeTokenKotlinTest {
   }
 
   /**
-   * This test just demonstrates that we can use typeTokens defines/scanned in java to work
+   * This test just demonstrates that we can use typeTokens defined in java to work
    * around the issue described in the above test.
    */
   @Test fun testKotlinGenericWithoutTypeMatchesJavaToken() {
