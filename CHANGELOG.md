@@ -6,6 +6,9 @@
  - Annotate interfaces null/not null for kotlin compatibility
  - Remove retrolambda and target Java 8
  - Hide internal entry-point using kotlin `internal` visibility that was formerly public but not intended for public use.
+ - Added kotlin extension methods using reified types to reduce verbosity
+     - `typeToken<T>()`: Create a `TypeToken<T>`
+     - `dependencyKey<T>(Annotation? = null)`: Create a `DependencyKey<T>` with an optional qualifier.  
 
 ### v0.0.16 - March 24th, 2019
  - Added new method to Mockspresso api `<T> void Mockspresso.inject(T, TypeToken<T>)`. This acts as a workaround when injecting a pre-existing object that is generic and has injected TypeVariables defined.
