@@ -16,13 +16,13 @@ import javax.inject.Named
  */
 class MockitoKotlinExtensionTest {
 
-  private interface TestInterface
-  private class TestDependency : TestInterface
+  private interface TestDependencyInterface
+  private class TestDependency : TestDependencyInterface
   private class TestObjectWithConcrete(val testDep: TestDependency)
-  private class TestObjectWithInterface(val testDep: TestInterface)
-  private class TestObjectWithAnnotatedInterface(@Named("testing") val testDep: TestInterface)
+  private class TestObjectWithInterface(val testDep: TestDependencyInterface)
+  private class TestObjectWithAnnotatedInterface(@Named("testing") val testDep: TestDependencyInterface)
   private class TestResources {
-    @Dependency(bindAs = TestInterface::class) @field:Named("testing") val testDependency = TestDependency()
+    @Dependency(bindAs = TestDependencyInterface::class) @field:Named("testing") val testDependency = TestDependency()
   }
 
   @get:Rule val mockspresso = BuildMockspresso.with()
@@ -43,7 +43,7 @@ class MockitoKotlinExtensionTest {
 
   @Test fun testInterfaceDependency() {
     val testObject: TestObjectWithInterface = mockspresso.buildUpon()
-        .dependencyOf<TestInterface> { testDependency }
+        .dependencyOf<TestDependencyInterface> { testDependency }
         .build()
         .create(TestObjectWithInterface::class.java)
 
@@ -54,7 +54,7 @@ class MockitoKotlinExtensionTest {
     // we can't define an annotation literal in kotlin, but we can use one
     // that is defined in java
     val testObject: TestObjectWithAnnotatedInterface = mockspresso.buildUpon()
-        .dependencyOf<TestInterface>(qualifier = NamedAnnotationLiteral("testing")) { testDependency }
+        .dependencyOf<TestDependencyInterface>(qualifier = NamedAnnotationLiteral("testing")) { testDependency }
         .build()
         .create(TestObjectWithAnnotatedInterface::class.java)
 
