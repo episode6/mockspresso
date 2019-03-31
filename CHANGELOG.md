@@ -1,6 +1,6 @@
 # ChangeLog
 
-### v0.0.17 - unreleased
+### v0.1.0 - unreleased
  - Add kotlin support
  - Replace jsr305 with jetbrains annotations
  - Annotate interfaces null/not null for kotlin compatibility
