@@ -10,6 +10,8 @@
      - `typeToken<T>()`: Create a `TypeToken<T>`
      - `dependencyKey<T>(Annotation? = null)`: Create a `DependencyKey<T>` with an optional qualifier.
      - `Builder.dependencyOf<T>(Annotation? = null, ()->T?)`: Alias for `Builder.dependencyProvider<T>()`.   
+     - `Builder.realImpl<BIND, IMPL>(Annotation? = null)`: Alias for `Builder.realObject(DependencyKey<BIND>, TypeToken<IMPL>)`
+     - `Builder.realClass<BIND_AND_IMPL>(Annotation? = null)`: Alias for `realImpl()` where `BIND` and `IMPL` are the same   
 
 ### v0.0.16 - March 24th, 2019
  - Added new method to Mockspresso api `<T> void Mockspresso.inject(T, TypeToken<T>)`. This acts as a workaround when injecting a pre-existing object that is generic and has injected TypeVariables defined.
