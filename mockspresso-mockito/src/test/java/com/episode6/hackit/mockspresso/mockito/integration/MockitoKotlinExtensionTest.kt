@@ -4,7 +4,10 @@ import com.episode6.hackit.mockspresso.BuildMockspresso
 import com.episode6.hackit.mockspresso.annotation.Dependency
 import com.episode6.hackit.mockspresso.basic.plugin.simple.SimpleInjectMockspressoPlugin
 import com.episode6.hackit.mockspresso.dependencyOf
+import com.episode6.hackit.mockspresso.mockito.Conditions.mockCondition
 import com.episode6.hackit.mockspresso.mockito.MockitoPlugin
+import com.episode6.hackit.mockspresso.realClassOf
+import com.episode6.hackit.mockspresso.realImplOf
 import com.episode6.hackit.mockspresso.reflect.NamedAnnotationLiteral
 import org.fest.assertions.api.Assertions.assertThat
 import org.junit.Rule
@@ -17,13 +20,19 @@ import javax.inject.Named
 class MockitoKotlinExtensionTest {
 
   private interface TestDependencyInterface
+  private interface TestObjectInterface
   private class TestDependency : TestDependencyInterface
-  private class TestObjectWithConcrete(val testDep: TestDependency)
+
+  private class TestObjectWithConcrete(val testDep: TestDependency) : TestObjectInterface
   private class TestObjectWithInterface(val testDep: TestDependencyInterface)
   private class TestObjectWithAnnotatedInterface(@Named("testing") val testDep: TestDependencyInterface)
   private class TestResources {
     @Dependency(bindAs = TestDependencyInterface::class) @field:Named("testing") val testDependency = TestDependency()
   }
+
+  private class OuterTestObjectWithConcreteObj(val testObj: TestObjectWithConcrete)
+  private class OuterTestObjectWithInterface(val testObj: TestObjectInterface)
+  private class OuterTestObjectWithAnnotatedInterface(@Named("testing")  val testObj: TestObjectInterface)
 
   @get:Rule val mockspresso = BuildMockspresso.with()
       .plugin(SimpleInjectMockspressoPlugin())
@@ -71,5 +80,47 @@ class MockitoKotlinExtensionTest {
         .create(TestObjectWithAnnotatedInterface::class.java)
 
     assertThat(testObject.testDep).isEqualTo(testResources.testDependency)
+  }
+
+  @Test fun testRealClassOf() {
+    val outerObj: OuterTestObjectWithConcreteObj = mockspresso.buildUpon()
+        .realClassOf<TestObjectWithConcrete>()
+        .dependencyOf { testDependency }
+        .build()
+        .create(OuterTestObjectWithConcreteObj::class.java)
+
+    outerObj.apply {
+      assertThat(testObj).isNot(mockCondition())
+      assertThat(testObj.javaClass).isEqualTo(TestObjectWithConcrete::class.java)
+      assertThat(testObj.testDep).isEqualTo(testDependency)
+    }
+  }
+
+  @Test fun testRealImplOf() {
+    val outerObj: OuterTestObjectWithInterface = mockspresso.buildUpon()
+        .realImplOf<TestObjectInterface, TestObjectWithConcrete>()
+        .dependencyOf { testDependency }
+        .build()
+        .create(OuterTestObjectWithInterface::class.java)
+
+    outerObj.apply {
+      assertThat(testObj).isNot(mockCondition())
+      assertThat(testObj).isExactlyInstanceOf(TestObjectWithConcrete::class.java)
+      assertThat((testObj as TestObjectWithConcrete).testDep).isEqualTo(testDependency)
+    }
+  }
+
+  @Test fun testAnnotatedRealImplOf() {
+    val outerObj: OuterTestObjectWithAnnotatedInterface = mockspresso.buildUpon()
+        .realImplOf<TestObjectInterface, TestObjectWithConcrete>(qualifier = NamedAnnotationLiteral("testing"))
+        .dependencyOf { testDependency }
+        .build()
+        .create(OuterTestObjectWithAnnotatedInterface::class.java)
+
+    outerObj.apply {
+      assertThat(testObj).isNot(mockCondition())
+      assertThat(testObj).isExactlyInstanceOf(TestObjectWithConcrete::class.java)
+      assertThat((testObj as TestObjectWithConcrete).testDep).isEqualTo(testDependency)
+    }
   }
 }
