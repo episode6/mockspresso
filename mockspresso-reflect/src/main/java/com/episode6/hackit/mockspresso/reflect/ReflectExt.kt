@@ -11,6 +11,8 @@ inline fun <reified T : Any> typeToken(): TypeToken<T> = object : TypeToken<T>()
 
 /**
  * Creates a [DependencyKey] for [T] with the provided qualifier annotation
+ *
+ * @param qualifier Optional qualifier annotation that applies to this key
  */
 inline fun <reified T : Any> dependencyKey(qualifier: Annotation? = null): DependencyKey<T> =
     DependencyKey.of<T>(typeToken<T>(), qualifier)
