@@ -8,8 +8,6 @@ import org.jetbrains.annotations.Nullable;
 import org.junit.rules.MethodRule;
 import org.junit.rules.TestRule;
 
-import java.util.List;
-
 /**
  * Main mockspresso interface
  */
@@ -182,16 +180,6 @@ public interface Mockspresso {
      * @return this
      */
     @NotNull Builder specialObjectMaker(@NotNull SpecialObjectMaker specialObjectMaker);
-
-    /**
-     * Apply a list of {@link SpecialObjectMaker}s to this builder, which tells mockspresso how it should create
-     * object types that should not be mocked by default.
-     * @param specialObjectMakers The SpecialObjectMakers to apply
-     * @return this
-     *
-     * TODO: Signature of this method is wrong, should be generic should be '? extends SpecialObjectMaker'
-     */
-    @NotNull Builder specialObjectMakers(@NotNull List<SpecialObjectMaker> specialObjectMakers);
 
     /**
      * Apply a specific instance of an object as a mockspresso dependency.

@@ -10,8 +10,6 @@ import org.junit.rules.TestRule;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
 
-import java.util.List;
-
 /**
  * Extend these 3 classes to create your own mockspresso extension
  * {@link AbstractMockspressoExtension}
@@ -250,13 +248,6 @@ public abstract class AbstractMockspressoExtension<BLDR extends MockspressoExten
     @Override
     public BLDR specialObjectMaker(@NotNull SpecialObjectMaker specialObjectMaker) {
       mDelegate.specialObjectMaker(specialObjectMaker);
-      return (BLDR) this;
-    }
-
-    @NotNull
-    @Override
-    public BLDR specialObjectMakers(@NotNull List<SpecialObjectMaker> specialObjectMakers) {
-      mDelegate.specialObjectMakers(specialObjectMakers);
       return (BLDR) this;
     }
 
