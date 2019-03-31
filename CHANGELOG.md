@@ -2,7 +2,7 @@
 
 ### v0.1.0 - unreleased
  - Add kotlin support/dependencies too all modules
- - **BREAKING** Replace jsr305 with jetbrains annotations
+ - **BREAKING** Replace jsr305 (`@Nullable`) with jetbrains annotations
  - Annotate interfaces null/not null for kotlin compatibility
  - **BREAKING** Remove retrolambda and target Java 8
  - **BREAKING** Hide internal entry-point using kotlin `internal` visibility that was formerly public but not intended for public use.
