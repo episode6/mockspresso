@@ -9,10 +9,10 @@ import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import com.episode6.hackit.mockspresso.util.CollectionUtil;
 import com.episode6.hackit.mockspresso.util.Preconditions;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.junit.rules.MethodRule;
 import org.junit.rules.TestRule;
 
-import org.jetbrains.annotations.Nullable;
 import javax.inject.Provider;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -148,13 +148,6 @@ class MockspressoBuilderImpl implements Mockspresso.Builder {
   @Override
   public Mockspresso.Builder specialObjectMaker(@NotNull SpecialObjectMaker specialObjectMaker) {
     mSpecialObjectMakers.add(specialObjectMaker);
-    return this;
-  }
-
-  @NotNull
-  @Override
-  public Mockspresso.Builder specialObjectMakers(@NotNull List<SpecialObjectMaker> specialObjectMakers) {
-    mSpecialObjectMakers.addAll(specialObjectMakers);
     return this;
   }
 

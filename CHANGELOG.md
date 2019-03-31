@@ -6,6 +6,7 @@
  - Annotate interfaces null/not null for kotlin compatibility
  - **BREAKING** Remove retrolambda and target Java 8
  - **BREAKING** Hide internal entry-point using kotlin `internal` visibility that was formerly public but not intended for public use.
+ - **BREAKING** Remove `Mockspresso.Builder.specialObjectMakers(List)` method. It's the only one of its kind and there is no good reason for it.
  - Added kotlin extension methods using reified types to reduce verbosity
      - `typeToken<T>()`: Create a `TypeToken<T>`
      - `dependencyKey<T>(Annotation? = null)`: Create a `DependencyKey<T>` with an optional qualifier.

@@ -9,8 +9,6 @@ import org.jetbrains.annotations.Nullable;
 import org.junit.rules.MethodRule;
 import org.junit.rules.TestRule;
 
-import java.util.List;
-
 /**
  * Extend these 3 interfaces to build your own Mockspresso extension and own your api.
  * {@link MockspressoExtension}
@@ -87,9 +85,6 @@ public interface MockspressoExtension<BLDR extends MockspressoExtension.Builder>
 
     @Override
     @NotNull BLDR specialObjectMaker(@NotNull SpecialObjectMaker specialObjectMaker);
-
-    @Override
-    @NotNull BLDR specialObjectMakers(@NotNull List<SpecialObjectMaker> specialObjectMakers);
 
     @Override
     @NotNull <T, V extends T> BLDR dependency(@NotNull Class<T> clazz, @Nullable V value);

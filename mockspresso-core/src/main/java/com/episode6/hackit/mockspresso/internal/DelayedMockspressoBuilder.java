@@ -5,12 +5,11 @@ import com.episode6.hackit.mockspresso.api.*;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.junit.rules.MethodRule;
 import org.junit.rules.TestRule;
 
-import org.jetbrains.annotations.Nullable;
 import javax.inject.Provider;
-import java.util.List;
 
 /**
  * An implementation of {@link Mockspresso.Builder} that also acts as its own Mockspresso instance.
@@ -103,13 +102,6 @@ class DelayedMockspressoBuilder extends AbstractDelayedMockspresso implements Mo
   @Override
   public Builder specialObjectMaker(@NotNull SpecialObjectMaker specialObjectMaker) {
     mBuilder.specialObjectMaker(specialObjectMaker);
-    return this;
-  }
-
-  @NotNull
-  @Override
-  public Builder specialObjectMakers(@NotNull List<SpecialObjectMaker> specialObjectMakers) {
-    mBuilder.specialObjectMakers(specialObjectMakers);
     return this;
   }
 
