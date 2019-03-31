@@ -9,6 +9,8 @@ import com.episode6.hackit.mockspresso.mockito.MockitoPlugin
 import com.episode6.hackit.mockspresso.realClassOf
 import com.episode6.hackit.mockspresso.realImplOf
 import com.episode6.hackit.mockspresso.reflect.NamedAnnotationLiteral
+import com.episode6.hackit.mockspresso.testing.isConcreteInstanceOf
+import com.episode6.hackit.mockspresso.testing.satisfies
 import org.fest.assertions.api.Assertions.assertThat
 import org.junit.Rule
 import org.junit.Test
@@ -89,11 +91,12 @@ class MockitoKotlinExtensionTest {
         .build()
         .create(OuterTestObjectWithConcreteObj::class.java)
 
-    outerObj.apply {
-      assertThat(testObj).isNot(mockCondition())
-      assertThat(testObj.javaClass).isEqualTo(TestObjectWithConcrete::class.java)
-      assertThat(testObj.testDep).isEqualTo(testDependency)
-    }
+    assertThat(outerObj.testObj)
+        .isNot(mockCondition())
+        .isConcreteInstanceOf<TestObjectWithConcrete>()
+        .satisfies {
+          assertThat(it.testDep).isEqualTo(testDependency)
+        }
   }
 
   @Test fun testRealImplOf() {
@@ -103,11 +106,12 @@ class MockitoKotlinExtensionTest {
         .build()
         .create(OuterTestObjectWithInterface::class.java)
 
-    outerObj.apply {
-      assertThat(testObj).isNot(mockCondition())
-      assertThat(testObj).isExactlyInstanceOf(TestObjectWithConcrete::class.java)
-      assertThat((testObj as TestObjectWithConcrete).testDep).isEqualTo(testDependency)
-    }
+    assertThat(outerObj.testObj)
+        .isNot(mockCondition())
+        .isConcreteInstanceOf<TestObjectWithConcrete>()
+        .satisfies {
+          assertThat(it.testDep).isEqualTo(testDependency)
+        }
   }
 
   @Test fun testAnnotatedRealImplOf() {
@@ -117,10 +121,11 @@ class MockitoKotlinExtensionTest {
         .build()
         .create(OuterTestObjectWithAnnotatedInterface::class.java)
 
-    outerObj.apply {
-      assertThat(testObj).isNot(mockCondition())
-      assertThat(testObj).isExactlyInstanceOf(TestObjectWithConcrete::class.java)
-      assertThat((testObj as TestObjectWithConcrete).testDep).isEqualTo(testDependency)
-    }
+    assertThat(outerObj.testObj)
+        .isNot(mockCondition())
+        .isConcreteInstanceOf<TestObjectWithConcrete>()
+        .satisfies {
+          assertThat(it.testDep).isEqualTo(testDependency)
+        }
   }
 }
