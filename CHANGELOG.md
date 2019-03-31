@@ -1,11 +1,11 @@
 # ChangeLog
 
-### v0.0.17 - unreleased
- - Add kotlin support
- - Replace jsr305 with jetbrains annotations
+### v0.1.0 - unreleased
+ - Add kotlin support/dependencies too all modules
+ - **BREAKING** Replace jsr305 (`@Nullable`) with jetbrains annotations
  - Annotate interfaces null/not null for kotlin compatibility
- - Remove retrolambda and target Java 8
- - Hide internal entry-point using kotlin `internal` visibility that was formerly public but not intended for public use.
+ - **BREAKING** Remove retrolambda and target Java 8
+ - **BREAKING** Hide internal entry-point using kotlin `internal` visibility that was formerly public but not intended for public use.
  - Added kotlin extension methods using reified types to reduce verbosity
      - `typeToken<T>()`: Create a `TypeToken<T>`
      - `dependencyKey<T>(Annotation? = null)`: Create a `DependencyKey<T>` with an optional qualifier.
