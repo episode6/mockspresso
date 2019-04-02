@@ -17,9 +17,9 @@ import org.junit.Test
 import javax.inject.Named
 
 /**
- * Testing kotlin extensions with mockito
+ * Testing kotlin extensions to [com.episode6.hackit.mockspresso.Mockspresso.Builder] with mockito
  */
-class MockitoKotlinExtensionTest {
+class MockitoKotlinBuilderExtensionTest {
 
   private interface TestDependencyInterface
   private interface TestObjectInterface
