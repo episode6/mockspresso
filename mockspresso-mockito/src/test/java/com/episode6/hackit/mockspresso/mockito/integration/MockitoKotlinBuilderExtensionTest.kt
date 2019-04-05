@@ -5,7 +5,7 @@ import com.episode6.hackit.mockspresso.annotation.Dependency
 import com.episode6.hackit.mockspresso.basic.plugin.injectWithSimpleConfig
 import com.episode6.hackit.mockspresso.dependencyOf
 import com.episode6.hackit.mockspresso.mockito.Conditions.mockCondition
-import com.episode6.hackit.mockspresso.mockito.MockitoPlugin
+import com.episode6.hackit.mockspresso.mockito.mockWithMockito
 import com.episode6.hackit.mockspresso.realClassOf
 import com.episode6.hackit.mockspresso.realImplOf
 import com.episode6.hackit.mockspresso.reflect.NamedAnnotationLiteral
@@ -38,7 +38,7 @@ class MockitoKotlinBuilderExtensionTest {
 
   @get:Rule val mockspresso = BuildMockspresso.with()
       .injectWithSimpleConfig()
-      .plugin(MockitoPlugin())
+      .mockWithMockito()
       .buildRule()
 
   private val testDependency = TestDependency()
