@@ -16,6 +16,8 @@
  - Added kotlin convenience extension methods for built in plugins
      - `Builder.injectWithSimpleConfig()`: Applies the simple injection configuration plugin
      - `Builder.injectWithJavaxConfig()`: Applies the Javax injection configuration plugin
+     - `Builder.mockWithMockito()`: Applies the mockito mocker config
+     - `Builder.automaticFactories(vararg KClass<*>)`: Special object handling using `MockitoAutoFactoryMaker`
 
 ### v0.0.16 - March 24th, 2019
  - Added new method to Mockspresso api `<T> void Mockspresso.inject(T, TypeToken<T>)`. This acts as a workaround when injecting a pre-existing object that is generic and has injected TypeVariables defined.
