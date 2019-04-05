@@ -9,6 +9,7 @@ import com.nhaarman.mockitokotlin2.verify
 import org.fest.assertions.api.Assertions.assertThat
 import org.junit.Test
 import org.mockito.stubbing.Answer
+import javax.inject.Provider
 
 /**
  * Tests [com.episode6.hackit.mockspresso.mockito.MockitoPluginsExtKt]
@@ -24,25 +25,25 @@ class MockitoPluginsExtTest {
   }
 
   @Test fun testAutomaticFactorySourceOfTruthKotlin() {
-    builder.automaticFactories(String::class, Int::class)
+    builder.automaticFactories(Provider::class, HashMap::class)
 
     argumentCaptor<MockitoAutoFactoryMaker> {
       verify(builder).specialObjectMaker(capture())
 
-      assertThat(firstValue.canMakeObject(dependencyKey<String>())).isTrue
-      assertThat(firstValue.canMakeObject(dependencyKey<Int>())).isTrue
+      assertThat(firstValue.canMakeObject(dependencyKey<Provider<String>>())).isTrue
+      assertThat(firstValue.canMakeObject(dependencyKey<HashMap<String, Int>>())).isTrue
       assertThat(firstValue.canMakeObject(dependencyKey<Long>())).isFalse
     }
   }
 
   @Test fun testAutomaticFactorySourceOfTruthJava() {
-    builder.automaticFactories(String::class.java, Int::class.java)
+    builder.automaticFactories(Provider::class.java, HashMap::class.java)
 
     argumentCaptor<MockitoAutoFactoryMaker> {
       verify(builder).specialObjectMaker(capture())
 
-      assertThat(firstValue.canMakeObject(dependencyKey<String>())).isTrue
-      assertThat(firstValue.canMakeObject(dependencyKey<Int>())).isTrue
+      assertThat(firstValue.canMakeObject(dependencyKey<Provider<String>>())).isTrue
+      assertThat(firstValue.canMakeObject(dependencyKey<HashMap<String, Int>>())).isTrue
       assertThat(firstValue.canMakeObject(dependencyKey<Long>())).isFalse
     }
   }
