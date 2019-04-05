@@ -3,8 +3,8 @@ package com.episode6.hackit.mockspresso.mockito.integration
 import com.episode6.hackit.mockspresso.BuildMockspresso
 import com.episode6.hackit.mockspresso.annotation.Dependency
 import com.episode6.hackit.mockspresso.annotation.RealObject
-import com.episode6.hackit.mockspresso.basic.plugin.javax.JavaxInjectMockspressoPlugin
-import com.episode6.hackit.mockspresso.basic.plugin.simple.SimpleInjectMockspressoPlugin
+import com.episode6.hackit.mockspresso.basic.plugin.injectWithJavaxConfig
+import com.episode6.hackit.mockspresso.basic.plugin.injectWithSimpleConfig
 import com.episode6.hackit.mockspresso.createNew
 import com.episode6.hackit.mockspresso.getDependencyOf
 import com.episode6.hackit.mockspresso.injectType
@@ -34,7 +34,7 @@ class MockitoKotlinExtensionTest {
   }
 
   @get:Rule val mockspresso = BuildMockspresso.with()
-      .plugin(SimpleInjectMockspressoPlugin())
+      .injectWithSimpleConfig()
       .plugin(MockitoPlugin())
       .buildRule()
 
@@ -58,7 +58,7 @@ class MockitoKotlinExtensionTest {
   @Test fun testCreateGeneric() {
     InjectTestResources().apply {
       val testObject2: TestGeneric<TestDependencyInterface> = mockspresso.buildUpon()
-          .plugin(JavaxInjectMockspressoPlugin())
+          .injectWithJavaxConfig()
           .testResources(this)
           .build()
           .createNew()
@@ -85,7 +85,7 @@ class MockitoKotlinExtensionTest {
   @Test fun testGetGenericObject() {
     InjectTestResources().apply {
       val testObject2: TestGeneric<TestDependencyInterface> = mockspresso.buildUpon()
-          .plugin(JavaxInjectMockspressoPlugin())
+          .injectWithJavaxConfig()
           .testResources(this)
           .build()
           .getDependencyOf()!!
@@ -100,7 +100,7 @@ class MockitoKotlinExtensionTest {
   @Test fun testGenericInjection() {
     val testObject2 = TestGeneric<TestDependencyInterface>()
     mockspresso.buildUpon()
-        .plugin(JavaxInjectMockspressoPlugin())
+        .injectWithJavaxConfig()
         .build()
         .injectType(testObject2)
 

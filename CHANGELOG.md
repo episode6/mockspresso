@@ -9,10 +9,13 @@
  - **BREAKING** Remove `Mockspresso.Builder.specialObjectMakers(List)` method. It's the only one of its kind and there is no good reason for it.
  - Added kotlin extension methods using reified types to reduce verbosity
      - `typeToken<T>()`: Create a `TypeToken<T>`
-     - `dependencyKey<T>(Annotation? = null)`: Create a `DependencyKey<T>` with an optional qualifier.
-     - `Builder.dependencyOf<T>(Annotation? = null, ()->T?)`: Alias for `Builder.dependencyProvider<T>()`.   
+     - `dependencyKey<T>(Annotation? = null)`: Create a `DependencyKey<T>` with an optional qualifier
+     - `Builder.dependencyOf<T>(Annotation? = null, ()->T?)`: Alias for `Builder.dependencyProvider<T>()`   
      - `Builder.realImpl<BIND, IMPL>(Annotation? = null)`: Alias for `Builder.realObject(DependencyKey<BIND>, TypeToken<IMPL>)`
-     - `Builder.realClass<BIND_AND_IMPL>(Annotation? = null)`: Alias for `realImpl()` where `BIND` and `IMPL` are the same   
+     - `Builder.realClass<BIND_AND_IMPL>(Annotation? = null)`: Alias for `realImpl()` where `BIND` and `IMPL` are the same
+ - Added kotlin convenience extension methods for built in plugins
+     - `Builder.injectWithSimpleConfig()`: Applies the simple injection configuration plugin
+     - `Builder.injectWithJavaxConfig()`: Applies the Javax injection configuration plugin
 
 ### v0.0.16 - March 24th, 2019
  - Added new method to Mockspresso api `<T> void Mockspresso.inject(T, TypeToken<T>)`. This acts as a workaround when injecting a pre-existing object that is generic and has injected TypeVariables defined.
