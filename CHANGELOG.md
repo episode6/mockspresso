@@ -27,8 +27,14 @@
      - **:mockspresso-mockito** module
      - `Builder.mockByMockito()`: Applies the mockito mocker config
      - `Builder.automaticFactories(vararg KClass<*>)`: Special object handling using MockitoAutoFactoryMaker
+     - **:mockspresso-mockito-powermock** module
+     - `Builder.mockByPowerMockito()`: Applies the power mockito mocker config
+     - `Builder.mockByPowerMockitoRule()`: Applies the power mockito + junit rule mocker config
      - **:mockspresso-easymock** module
      - `Builder.mockByEasyMock()`: Applies the easy mock mocker config
+     - **:mockspresso-easymock-powermock** module
+     - `Builder.mockByPowerMock()`: Applies the power mock mocker config
+     - `Builder.mockByPowerMockRule()`: Applies the power mock + junit rule mocker config     
 
 ### v0.0.16 - March 24th, 2019
  - Added new method to Mockspresso api `<T> void Mockspresso.inject(T, TypeToken<T>)`. This acts as a workaround when injecting a pre-existing object that is generic and has injected TypeVariables defined.
