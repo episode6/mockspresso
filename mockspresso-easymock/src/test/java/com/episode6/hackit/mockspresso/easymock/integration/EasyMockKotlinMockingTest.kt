@@ -1,22 +1,21 @@
-package com.episode6.hackit.mockspresso.mockito
+package com.episode6.hackit.mockspresso.easymock.integration
 
 import com.episode6.hackit.mockspresso.BuildMockspresso
-import com.episode6.hackit.mockspresso.annotation.Dependency
 import com.episode6.hackit.mockspresso.annotation.RealObject
 import com.episode6.hackit.mockspresso.basic.plugin.injectBySimpleConfig
-import com.episode6.hackit.mockspresso.mockito.Conditions.mockCondition
+import com.episode6.hackit.mockspresso.easymock.Conditions.mockCondition
+import com.episode6.hackit.mockspresso.easymock.mockByEasyMock
 import com.episode6.hackit.mockspresso.testing.matches
-import com.nhaarman.mockitokotlin2.mock
+import org.easymock.Mock
 import org.fest.assertions.api.Assertions.assertThat
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.Mock
 import javax.inject.Named
 
 /**
  * Test mocking using kotlin ext methods
  */
-class MockitoKotlinMockingTest {
+class EasyMockKotlinMockingTest {
 
   private interface TestDep1
   private interface TestDep2
@@ -28,11 +27,11 @@ class MockitoKotlinMockingTest {
 
   @get:Rule val mockspresso = BuildMockspresso.with()
       .injectBySimpleConfig()
-      .mockByMockito()
+      .mockByEasyMock()
       .buildRule()
 
   @Mock private lateinit var dep1: TestDep1
-  @Dependency @field:Named("dep2") private val dep2: TestDep2 = mock()
+  @Mock @field:Named("dep2") private lateinit var dep2: TestDep2
 
   @RealObject private lateinit var testObj: TestObj
 

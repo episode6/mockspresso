@@ -1,4 +1,4 @@
-package com.episode6.hackit.mockspresso.mockito.integration
+package com.episode6.hackit.mockspresso.easymock.integration
 
 import com.episode6.hackit.mockspresso.BuildMockspresso
 import com.episode6.hackit.mockspresso.annotation.Dependency
@@ -6,19 +6,19 @@ import com.episode6.hackit.mockspresso.annotation.RealObject
 import com.episode6.hackit.mockspresso.basic.plugin.injectByJavaxConfig
 import com.episode6.hackit.mockspresso.basic.plugin.injectBySimpleConfig
 import com.episode6.hackit.mockspresso.createNew
+import com.episode6.hackit.mockspresso.easymock.Conditions.mockCondition
+import com.episode6.hackit.mockspresso.easymock.mockByEasyMock
 import com.episode6.hackit.mockspresso.getDependencyOf
 import com.episode6.hackit.mockspresso.injectType
-import com.episode6.hackit.mockspresso.mockito.Conditions.mockCondition
-import com.episode6.hackit.mockspresso.mockito.mockByMockito
 import org.fest.assertions.api.Assertions.assertThat
 import org.junit.Rule
 import org.junit.Test
 import javax.inject.Inject
 
 /**
- * Testing kotlin extensions to [com.episode6.hackit.mockspresso.Mockspresso] with mockito
+ * Testing kotlin extensions to [com.episode6.hackit.mockspresso.Mockspresso] with easymock
  */
-class MockitoKotlinExtensionTest {
+class EasyMockKotlinExtensionTest {
 
   private interface TestDependencyInterface
   private class TestDependency : TestDependencyInterface
@@ -35,7 +35,7 @@ class MockitoKotlinExtensionTest {
 
   @get:Rule val mockspresso = BuildMockspresso.with()
       .injectBySimpleConfig()
-      .mockByMockito()
+      .mockByEasyMock()
       .buildRule()
 
   @Dependency private val testDependency: TestDependencyInterface = TestDependency()
