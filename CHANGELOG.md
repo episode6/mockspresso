@@ -7,6 +7,7 @@
  - **BREAKING** Remove retrolambda and target Java 8
  - **BREAKING** Hide internal entry-point using kotlin `internal` visibility that was formerly public but not intended for public use.
  - **BREAKING** Remove `Mockspresso.Builder.specialObjectMakers(List)` method. It's the only one of its kind and there is no good reason for it.
+ - **BREAKING** Remove deprecated `QuickBuildMockspresso` entry-point
  - Added kotlin extension methods using reified types to reduce verbosity
      - **:mockspresso-reflect** module
      - `typeToken<T>()`: Create a TypeToken<T>
