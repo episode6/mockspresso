@@ -18,13 +18,13 @@ class BasicPluginsExtTest {
   val builder: Mockspresso.Builder = mock(defaultAnswer = Answer { it.mock })
 
   @Test fun testSimplePluginSourceOfTruth() {
-    builder.injectWithSimpleConfig()
+    builder.injectBySimpleConfig()
 
     verify(builder).plugin(any<SimpleInjectMockspressoPlugin>())
   }
 
   @Test fun testJavaxPluginSourceOfTruth() {
-    builder.injectWithJavaxConfig()
+    builder.injectByJavaxConfig()
 
     verify(builder).plugin(any<JavaxInjectMockspressoPlugin>())
   }

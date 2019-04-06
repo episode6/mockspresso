@@ -14,9 +14,9 @@
      - `Builder.realImpl<BIND, IMPL>(Annotation? = null)`: Alias for `Builder.realObject(DependencyKey<BIND>, TypeToken<IMPL>)`
      - `Builder.realClass<BIND_AND_IMPL>(Annotation? = null)`: Alias for `realImpl()` where `BIND` and `IMPL` are the same
  - Added kotlin convenience extension methods for built in plugins
-     - `Builder.injectWithSimpleConfig()`: Applies the simple injection configuration plugin
-     - `Builder.injectWithJavaxConfig()`: Applies the Javax injection configuration plugin
-     - `Builder.mockWithMockito()`: Applies the mockito mocker config
+     - `Builder.injectBySimpleConfig()`: Applies the simple injection configuration plugin
+     - `Builder.injectByJavaxConfig()`: Applies the Javax injection configuration plugin
+     - `Builder.mocksByMockito()`: Applies the mockito mocker config
      - `Builder.automaticFactories(vararg KClass<*>)`: Special object handling using `MockitoAutoFactoryMaker`
 
 ### v0.0.16 - March 24th, 2019

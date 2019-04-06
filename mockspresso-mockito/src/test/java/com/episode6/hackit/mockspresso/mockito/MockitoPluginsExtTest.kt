@@ -19,7 +19,7 @@ class MockitoPluginsExtTest {
   val builder: Mockspresso.Builder = mock(defaultAnswer = Answer { it.mock })
 
   @Test fun testMockPluginSourceOfTruth() {
-    builder.mockWithMockito()
+    builder.mocksByMockito()
 
     verify(builder).plugin(any<MockitoPlugin>())
   }

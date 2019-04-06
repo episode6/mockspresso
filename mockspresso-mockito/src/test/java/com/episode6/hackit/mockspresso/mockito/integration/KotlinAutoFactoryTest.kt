@@ -3,10 +3,10 @@ package com.episode6.hackit.mockspresso.mockito.integration
 import com.episode6.hackit.mockspresso.BuildMockspresso
 import com.episode6.hackit.mockspresso.annotation.Dependency
 import com.episode6.hackit.mockspresso.annotation.RealObject
-import com.episode6.hackit.mockspresso.basic.plugin.injectWithSimpleConfig
+import com.episode6.hackit.mockspresso.basic.plugin.injectBySimpleConfig
 import com.episode6.hackit.mockspresso.mockito.Conditions.mockCondition
 import com.episode6.hackit.mockspresso.mockito.automaticFactories
-import com.episode6.hackit.mockspresso.mockito.mockWithMockito
+import com.episode6.hackit.mockspresso.mockito.mocksByMockito
 import com.episode6.hackit.mockspresso.testing.matches
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeGrounds
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeGroundsFactory
@@ -23,8 +23,8 @@ class KotlinAutoFactoryTest {
 
   @get:Rule
   val mockspresso = BuildMockspresso.with()
-      .injectWithSimpleConfig()
-      .mockWithMockito()
+      .injectBySimpleConfig()
+      .mocksByMockito()
       .automaticFactories(CoffeeGroundsFactory::class)
       .buildRule()
 
