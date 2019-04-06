@@ -10,7 +10,7 @@ import kotlin.reflect.KClass
 /**
  * Applies the [com.episode6.hackit.mockspresso.api.MockerConfig] to support mockito
  */
-fun Mockspresso.Builder.mockWithMockito(): Mockspresso.Builder = plugin(MockitoPlugin())
+fun Mockspresso.Builder.mockByMockito(): Mockspresso.Builder = plugin(MockitoPlugin())
 
 /**
  * Applies special object handling for the provided factory classes. The

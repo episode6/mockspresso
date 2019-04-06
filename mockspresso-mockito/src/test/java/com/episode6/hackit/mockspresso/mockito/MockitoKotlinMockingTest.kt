@@ -3,7 +3,7 @@ package com.episode6.hackit.mockspresso.mockito
 import com.episode6.hackit.mockspresso.BuildMockspresso
 import com.episode6.hackit.mockspresso.annotation.Dependency
 import com.episode6.hackit.mockspresso.annotation.RealObject
-import com.episode6.hackit.mockspresso.basic.plugin.injectWithSimpleConfig
+import com.episode6.hackit.mockspresso.basic.plugin.injectBySimpleConfig
 import com.episode6.hackit.mockspresso.mockito.Conditions.mockCondition
 import com.episode6.hackit.mockspresso.testing.matches
 import com.nhaarman.mockitokotlin2.mock
@@ -27,8 +27,8 @@ class MockitoKotlinMockingTest {
       val dep3: TestDep3)
 
   @get:Rule val mockspresso = BuildMockspresso.with()
-      .injectWithSimpleConfig()
-      .mockWithMockito()
+      .injectBySimpleConfig()
+      .mockByMockito()
       .buildRule()
 
   @Mock private lateinit var dep1: TestDep1
