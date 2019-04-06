@@ -35,6 +35,9 @@
      - **:mockspresso-easymock-powermock** module
      - `Builder.mockByPowerMock()`: Applies the power mock mocker config
      - `Builder.mockByPowerMockRule()`: Applies the power mock + junit rule mocker config     
+     - **:mockspresso-guava** module
+     - `Builder.automaticListenableFutures()`: Adds special object handling for ListenableFutures
+     - `Builder.automaticSuppliers()`: Adds special object handling for Suppliers     
 
 ### v0.0.16 - March 24th, 2019
  - Added new method to Mockspresso api `<T> void Mockspresso.inject(T, TypeToken<T>)`. This acts as a workaround when injecting a pre-existing object that is generic and has injected TypeVariables defined.
