@@ -9,15 +9,15 @@
  - **BREAKING** Remove `Mockspresso.Builder.specialObjectMakers(List)` method. It's the only one of its kind and there is no good reason for it.
  - Added kotlin extension methods using reified types to reduce verbosity
      - **:mockspresso-reflect**
-     - `typeToken<T>()`: Create a `TypeToken<T>`
-     - `dependencyKey<T>(Annotation? = null)`: Create a `DependencyKey<T>` with an optional qualifier
+     - `typeToken<T>()`: Create a TypeToken<T>
+     - `dependencyKey<T>(Annotation? = null)`: Create a DependencyKey<T> with an optional qualifier
      - **:mockspresso-api**
-     - `Builder.dependencyOf<T>(Annotation? = null, ()->T?)`: Alias for `Builder.dependencyProvider<T>()`   
-     - `Builder.realImpl<BIND, IMPL>(Annotation? = null)`: Alias for `Builder.realObject(DependencyKey<BIND>, TypeToken<IMPL>)`
-     - `Builder.realClass<BIND_AND_IMPL>(Annotation? = null)`: Alias for `realImpl()` where `BIND` and `IMPL` are the same
-     - `Mockspresso.createNew<T>()`: Alias for `Mockspresso.create()`
-     - `Mockspresso.injectType<T>(T)`: Alias for `Mockspresso.inject(T, TypeToken<T>)` with support for generic type parameter dependencies
-     - `Mockspresso.getDependencyOf<T>(Annotation? = null)`: Alias for `Mockspresso.getDependency(DependencyKey)`
+     - `Builder.dependencyOf<T>(Annotation? = null, ()->T?)`: Alias for Builder.dependencyProvider<T>()   
+     - `Builder.realImpl<BIND, IMPL>(Annotation? = null)`: Alias for Builder.realObject(DependencyKey<BIND>, TypeToken<IMPL>)
+     - `Builder.realClass<BIND_AND_IMPL>(Annotation? = null)`: Alias for realImpl() where BIND and IMPL are the same
+     - `Mockspresso.createNew<T>()`: Alias for Mockspresso.create()
+     - `Mockspresso.injectType<T>(T)`: Alias for Mockspresso.inject(T, TypeToken<T>) with support for generic type parameter dependencies
+     - `Mockspresso.getDependencyOf<T>(Annotation? = null)`: Alias for Mockspresso.getDependency(DependencyKey)
  - Added kotlin convenience extension methods for built in plugins
      - **:mockspresso-basic-plugins**
      - `Builder.injectBySimpleConfig()`: Applies the simple injection configuration plugin
@@ -26,7 +26,7 @@
      - `Builder.injectByDaggerConfig()`: Applies the dagger injection configuration plugin
      - **:mockspresso-mockito**
      - `Builder.mockByMockito()`: Applies the mockito mocker config
-     - `Builder.automaticFactories(vararg KClass<*>)`: Special object handling using `MockitoAutoFactoryMaker`
+     - `Builder.automaticFactories(vararg KClass<*>)`: Special object handling using MockitoAutoFactoryMaker
 
 ### v0.0.16 - March 24th, 2019
  - Added new method to Mockspresso api `<T> void Mockspresso.inject(T, TypeToken<T>)`. This acts as a workaround when injecting a pre-existing object that is generic and has injected TypeVariables defined.
