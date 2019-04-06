@@ -23,7 +23,7 @@ class GuavaPluginsExtTest {
 
   @Test
   fun testSupplierSourceOfTruth() {
-    builder.automaticListenableFutures()
+    builder.automaticSuppliers()
 
     verify(builder).specialObjectMaker(any<SupplierMaker>())
   }
