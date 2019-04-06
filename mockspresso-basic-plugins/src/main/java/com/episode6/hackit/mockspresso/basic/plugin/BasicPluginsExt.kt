@@ -12,6 +12,7 @@ import com.episode6.hackit.mockspresso.basic.plugin.simple.SimpleInjectMockspres
  * Applies the [com.episode6.hackit.mockspresso.api.InjectionConfig] for simple creation of objects via
  * their shortest constructor.
  */
+@JvmSynthetic
 fun Mockspresso.Builder.injectBySimpleConfig(): Mockspresso.Builder = plugin(SimpleInjectMockspressoPlugin())
 
 /**
@@ -19,4 +20,5 @@ fun Mockspresso.Builder.injectBySimpleConfig(): Mockspresso.Builder = plugin(Sim
  * (looks for constructors, fields and methods annotated with @Inject).
  * Also includes special object support for [javax.inject.Provider]s
  */
+@JvmSynthetic
 fun Mockspresso.Builder.injectByJavaxConfig(): Mockspresso.Builder = plugin(JavaxInjectMockspressoPlugin())

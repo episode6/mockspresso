@@ -10,6 +10,7 @@ import kotlin.reflect.KClass
 /**
  * Applies the [com.episode6.hackit.mockspresso.api.MockerConfig] to support mockito
  */
+@JvmSynthetic
 fun Mockspresso.Builder.mockByMockito(): Mockspresso.Builder = plugin(MockitoPlugin())
 
 /**
@@ -19,11 +20,13 @@ fun Mockspresso.Builder.mockByMockito(): Mockspresso.Builder = plugin(MockitoPlu
  * the javax() injector automatically binds Providers, but applied to any
  * factory class, including generics).
  */
+@JvmSynthetic
 fun Mockspresso.Builder.automaticFactories(vararg classes: Class<*>): Mockspresso.Builder =
     specialObjectMaker(MockitoAutoFactoryMaker.create(*classes))
 
 /**
  * Convenience function to call [automaticFactories] using kotlin KClasses instead of java Classes
  */
+@JvmSynthetic
 fun Mockspresso.Builder.automaticFactories(vararg classes: KClass<*>): Mockspresso.Builder =
     automaticFactories(*classes.map { it.java }.toTypedArray())
