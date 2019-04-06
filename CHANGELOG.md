@@ -16,7 +16,7 @@
  - Added kotlin convenience extension methods for built in plugins
      - `Builder.injectBySimpleConfig()`: Applies the simple injection configuration plugin
      - `Builder.injectByJavaxConfig()`: Applies the Javax injection configuration plugin
-     - `Builder.mocksByMockito()`: Applies the mockito mocker config
+     - `Builder.mockByMockito()`: Applies the mockito mocker config
      - `Builder.automaticFactories(vararg KClass<*>)`: Special object handling using `MockitoAutoFactoryMaker`
 
 ### v0.0.16 - March 24th, 2019

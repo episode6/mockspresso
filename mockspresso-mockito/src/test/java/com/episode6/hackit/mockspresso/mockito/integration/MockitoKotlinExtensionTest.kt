@@ -9,7 +9,7 @@ import com.episode6.hackit.mockspresso.createNew
 import com.episode6.hackit.mockspresso.getDependencyOf
 import com.episode6.hackit.mockspresso.injectType
 import com.episode6.hackit.mockspresso.mockito.Conditions.mockCondition
-import com.episode6.hackit.mockspresso.mockito.mocksByMockito
+import com.episode6.hackit.mockspresso.mockito.mockByMockito
 import org.fest.assertions.api.Assertions.assertThat
 import org.junit.Rule
 import org.junit.Test
@@ -35,7 +35,7 @@ class MockitoKotlinExtensionTest {
 
   @get:Rule val mockspresso = BuildMockspresso.with()
       .injectBySimpleConfig()
-      .mocksByMockito()
+      .mockByMockito()
       .buildRule()
 
   @Dependency private val testDependency: TestDependencyInterface = TestDependency()

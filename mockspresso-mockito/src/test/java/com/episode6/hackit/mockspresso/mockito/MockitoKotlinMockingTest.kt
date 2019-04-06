@@ -28,7 +28,7 @@ class MockitoKotlinMockingTest {
 
   @get:Rule val mockspresso = BuildMockspresso.with()
       .injectBySimpleConfig()
-      .mocksByMockito()
+      .mockByMockito()
       .buildRule()
 
   @Mock private lateinit var dep1: TestDep1
