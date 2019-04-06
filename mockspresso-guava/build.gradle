@@ -12,5 +12,6 @@ dependencies {
   testImplementation 'org.mockito:mockito-core'
   testImplementation 'junit:junit'
   testImplementation 'org.easytesting:fest-assert-core'
+  testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin'
 }
 
