@@ -14,5 +14,6 @@ dependencies {
   testImplementation 'com.google.dagger:dagger'
   testImplementation 'junit:junit'
   testImplementation 'org.easytesting:fest-assert-core'
+  testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin'
 }
 
