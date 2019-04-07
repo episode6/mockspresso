@@ -19,14 +19,16 @@ class MockitoPluginsExtTest {
   val builder: Mockspresso.Builder = mock(defaultAnswer = Answer { it.mock })
 
   @Test fun testMockPluginSourceOfTruth() {
-    builder.mockByMockito()
+    val result = builder.mockByMockito()
 
+    assertThat(result).isEqualTo(builder)
     verify(builder).plugin(any<MockitoPlugin>())
   }
 
   @Test fun testAutomaticFactorySourceOfTruthKotlin() {
-    builder.automaticFactories(Provider::class, HashMap::class)
+    val result = builder.automaticFactories(Provider::class, HashMap::class)
 
+    assertThat(result).isEqualTo(builder)
     argumentCaptor<MockitoAutoFactoryMaker> {
       verify(builder).specialObjectMaker(capture())
 
@@ -37,8 +39,9 @@ class MockitoPluginsExtTest {
   }
 
   @Test fun testAutomaticFactorySourceOfTruthJava() {
-    builder.automaticFactories(Provider::class.java, HashMap::class.java)
+    val result = builder.automaticFactories(Provider::class.java, HashMap::class.java)
 
+    assertThat(result).isEqualTo(builder)
     argumentCaptor<MockitoAutoFactoryMaker> {
       verify(builder).specialObjectMaker(capture())
 
