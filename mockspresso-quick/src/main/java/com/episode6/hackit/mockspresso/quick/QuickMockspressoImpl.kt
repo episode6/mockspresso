@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION")
 package com.episode6.hackit.mockspresso.quick
 
 import com.episode6.hackit.mockspresso.Mockspresso
