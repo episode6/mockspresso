@@ -23,8 +23,10 @@
      - **:mockspresso-basic-plugins** module
      - `Builder.injectBySimpleConfig()`: Applies the simple injection configuration plugin
      - `Builder.injectByJavaxConfig()`: Applies the Javax injection configuration plugin
+     - `Builder.automaticProviders()`: Adds special object handling for javax Providers
      - **:mockspresso-dagger** module
      - `Builder.injectByDaggerConfig()`: Applies the dagger injection configuration plugin
+     - `Builder.automaticLazies()`: Adds special object handling for dagger Lazies
      - **:mockspresso-mockito** module
      - `Builder.mockByMockito()`: Applies the mockito mocker config
      - `Builder.automaticFactories(vararg KClass<*>)`: Special object handling using MockitoAutoFactoryMaker

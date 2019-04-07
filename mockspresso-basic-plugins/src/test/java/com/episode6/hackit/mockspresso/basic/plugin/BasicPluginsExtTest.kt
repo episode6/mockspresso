@@ -2,6 +2,7 @@ package com.episode6.hackit.mockspresso.basic.plugin
 
 import com.episode6.hackit.mockspresso.Mockspresso
 import com.episode6.hackit.mockspresso.basic.plugin.javax.JavaxInjectMockspressoPlugin
+import com.episode6.hackit.mockspresso.basic.plugin.javax.ProviderMaker
 import com.episode6.hackit.mockspresso.basic.plugin.simple.SimpleInjectMockspressoPlugin
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
@@ -30,5 +31,12 @@ class BasicPluginsExtTest {
 
     assertThat(result).isEqualTo(builder)
     verify(builder).plugin(any<JavaxInjectMockspressoPlugin>())
+  }
+
+  @Test fun testAutomaticProvidersSourceOfTruth() {
+    val result = builder.automaticProviders()
+
+    assertThat(result).isEqualTo(builder)
+    verify(builder).specialObjectMaker(any<ProviderMaker>())
   }
 }
