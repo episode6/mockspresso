@@ -41,7 +41,7 @@
      - **:mockspresso-guava** module
      - `Builder.automaticListenableFutures()`: Adds special object handling for ListenableFutures
      - `Builder.automaticSuppliers()`: Adds special object handling for Suppliers
- - Added java support classes with static methods to match our kotlin extension methods (see https://github.com/episode6/mockspresso/pull/33)
+ - Added java support classes with static methods to match our kotlin extension methods (see https://github.com/episode6/mockspresso/pull/32)
 
 ### v0.0.16 - March 24th, 2019
  - Added new method to Mockspresso api `<T> void Mockspresso.inject(T, TypeToken<T>)`. This acts as a workaround when injecting a pre-existing object that is generic and has injected TypeVariables defined.
