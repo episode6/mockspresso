@@ -17,5 +17,6 @@ apply plugin: 'com.episode6.hackit.gdmc'
 dependencies {
   runtimeClasspath 'com.episode6.hackit.gdmc:gdmc'
   runtimeClasspath 'com.episode6.hackit.deployable:deployable'
-  runtimeClasspath 'me.tatarka:gradle-retrolambda'
+  runtimeClasspath 'org.jetbrains.kotlin:kotlin-gradle-plugin'
+  runtimeClasspath 'org.jetbrains.dokka:dokka-gradle-plugin'
 }

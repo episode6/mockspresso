@@ -1,5 +1,7 @@
 # mockspresso
-An extensible auto-mocker for java, designed to simplify your unit tests. (now with PowerMock support!)
+An extensible auto-mocker for java, designed to simplify your unit tests.
+
+`It's like dependency injection for your tests.`
 
 ## What & Why?
 Testing code is a pain in the ass. Mockspresso was created with the simple idea that if tests are easier to write and break less often, developers will hate them less, and write more of them.
@@ -8,7 +10,13 @@ Mockspresso creates your objects for you, letting you drop the constructors from
 
 
 ## Version
-This doc describes mockspresso version `0.0.16`
+#### Mockspresso v0.1.0-beta1 is ready for use!
+Mockspresso v0.1.0 represents a complete shift in focus from Java to Kotlin. We've added extension methods for all built in plugins as well as inline functions with reified types for any method that uses a `TypeToken`.
+ 
+
+Check the [ChangeLog](CHANGELOG.md) for details.
+
+The current release of mockspresso is `0.1.0-beta1` **however** these docs are woefully out of date and don't describe it properly at all. They will be updated before the official release (and hopefully before the next beta).
 
 ## Installation
 There are 3 ways to setup mockspresso in your project.

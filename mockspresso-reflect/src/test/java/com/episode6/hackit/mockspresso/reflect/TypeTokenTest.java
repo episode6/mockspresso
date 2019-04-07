@@ -1,5 +1,7 @@
 package com.episode6.hackit.mockspresso.reflect;
 
+import com.episode6.hackit.mockspresso.reflect.testobject.TestGenericKtInterface;
+import com.episode6.hackit.mockspresso.reflect.testobject.TestJavaObjectWithKtGeneric;
 import org.junit.Test;
 
 import java.lang.reflect.ParameterizedType;
@@ -98,5 +100,14 @@ public class TypeTokenTest {
     TypeToken<HashMap<String, Integer>> manualHashmapTypeToken = new TypeToken<HashMap<String, Integer>>() {};
     assertThat(stringListToken).isEqualTo(manualStringListToken);
     assertThat(hashmapTypeToken).isEqualTo(manualHashmapTypeToken);
+  }
+
+  @Test
+  public void testKotlinGeneric() {
+    TestJavaObjectWithKtGeneric testObj = new TestJavaObjectWithKtGeneric();
+    TypeToken<TestGenericKtInterface<String>> manualToken = new TypeToken<TestGenericKtInterface<String>>() {};
+    TypeToken fieldToken = TypeToken.of(testObj.getGenericIfaceField().getGenericType());
+
+    assertThat(manualToken).isEqualTo(fieldToken);
   }
 }

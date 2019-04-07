@@ -207,12 +207,6 @@ public class AbstractMockspressoExtensionTest {
   }
 
   @Test
-  public void testMockspressoExtensionBuilder_specialObjectMakers() {
-    testMockspressoBuilder.specialObjectMakers(specialObjectMakers);
-    verify(mockspressoBuilder).specialObjectMakers(specialObjectMakers);
-  }
-
-  @Test
   public void testMockspressoExtensionBuilder_dep1() {
     testMockspressoBuilder.dependency(String.class, "hello");
     verify(mockspressoBuilder).dependency(String.class, "hello");

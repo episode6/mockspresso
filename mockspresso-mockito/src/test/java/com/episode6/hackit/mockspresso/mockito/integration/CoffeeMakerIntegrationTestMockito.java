@@ -1,9 +1,9 @@
 package com.episode6.hackit.mockspresso.mockito.integration;
 
+import com.episode6.hackit.mockspresso.BuildMockspresso;
+import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.Dependency;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.quick.BuildQuickMockspresso;
-import com.episode6.hackit.mockspresso.quick.QuickMockspresso;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.*;
 import org.junit.Rule;
@@ -13,6 +13,9 @@ import org.junit.runners.JUnit4;
 
 import javax.inject.Named;
 
+import static com.episode6.hackit.mockspresso.basic.plugin.MockspressoBasicPluginsJavaSupport.injectByJavaxConfig;
+import static com.episode6.hackit.mockspresso.basic.plugin.MockspressoBasicPluginsJavaSupport.injectBySimpleConfig;
+import static com.episode6.hackit.mockspresso.mockito.MockspressoMockitoPluginsJavaSupport.mockByMockito;
 import static com.episode6.hackit.mockspresso.testing.Conditions.rawClass;
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -26,15 +29,15 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(JUnit4.class)
 public class CoffeeMakerIntegrationTestMockito {
 
-  @Rule public final QuickMockspresso.Rule simpleMockspresso = BuildQuickMockspresso.with()
-      .injector().simple()
-      .mocker().mockito()
+  @Rule public final Mockspresso.Rule simpleMockspresso = BuildMockspresso.with()
+      .plugin(injectBySimpleConfig())
+      .plugin(mockByMockito())
       .realObject(DependencyKey.of(Heater.class), CoffeeMakerComponents.RealHeater.class)
       .realObject(DependencyKey.of(Pump.class), CoffeeMakerComponents.RealWaterPump.class)
       .buildRule();
 
-  private final QuickMockspresso injectionMockspresso = simpleMockspresso.buildUpon()
-      .injector().javax()
+  private final Mockspresso injectionMockspresso = simpleMockspresso.buildUpon()
+      .plugin(injectByJavaxConfig())
       .build();
 
   @Dependency @Named("heater_name") final String heaterName = "NamedHeaterExample";

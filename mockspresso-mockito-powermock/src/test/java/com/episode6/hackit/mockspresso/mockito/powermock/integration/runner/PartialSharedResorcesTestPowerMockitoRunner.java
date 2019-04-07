@@ -1,8 +1,8 @@
 package com.episode6.hackit.mockspresso.mockito.powermock.integration.runner;
 
+import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.quick.BuildQuickMockspresso;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeMakers;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Pump;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Water;
@@ -13,6 +13,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import static com.episode6.hackit.mockspresso.basic.plugin.MockspressoBasicPluginsJavaSupport.injectByJavaxConfig;
+import static com.episode6.hackit.mockspresso.mockito.powermock.MockspressoPowerMockitoPluginsJavaSupport.mockByPowerMockito;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -23,9 +25,9 @@ import static org.mockito.Mockito.when;
 public class PartialSharedResorcesTestPowerMockitoRunner {
 
   private final PartialSharedResources t = new PartialSharedResources();
-  @Rule public final Mockspresso.Rule mockspresso = BuildQuickMockspresso.with()
-      .injector().javax()
-      .mocker().mockitoWithPowerMock()
+  @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
+      .plugin(injectByJavaxConfig())
+      .plugin(mockByPowerMockito())
       .testResources(t)
       .buildRule();
 

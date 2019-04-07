@@ -4,6 +4,7 @@ import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.api.DependencyProvider;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
+import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Provider;
 
@@ -28,13 +29,15 @@ class MockspressoImpl implements Mockspresso, MockspressoInternal {
     mBuilderProvider = builderProvider;
   }
 
+  @NotNull
   @Override
-  public <T> T create(Class<T> clazz) {
+  public <T> T create(@NotNull Class<T> clazz) {
     return create(TypeToken.of(clazz));
   }
 
+  @NotNull
   @Override
-  public <T> T create(TypeToken<T> typeToken) {
+  public <T> T create(@NotNull TypeToken<T> typeToken) {
     DependencyProvider dependencyProvider = mDependencyProviderFactory.getDependencyProviderFor(
         DependencyKey.of(typeToken));
     return mRealObjectMaker.createObject(
@@ -43,12 +46,12 @@ class MockspressoImpl implements Mockspresso, MockspressoInternal {
   }
 
   @Override
-  public void inject(Object instance) {
+  public void inject(@NotNull Object instance) {
     injectInternal(instance, TypeToken.of(instance.getClass()));
   }
 
   @Override
-  public <T> void inject(T instance, TypeToken<T> typeToken) {
+  public <T> void inject(@NotNull T instance, @NotNull TypeToken<T> typeToken) {
     injectInternal(instance, typeToken);
   }
 
@@ -62,10 +65,11 @@ class MockspressoImpl implements Mockspresso, MockspressoInternal {
   }
 
   @Override
-  public <T> T getDependency(DependencyKey<T> key) {
+  public <T> T getDependency(@NotNull DependencyKey<T> key) {
     return mDependencyProviderFactory.getBlankDependencyProvider().get(key);
   }
 
+  @NotNull
   @Override
   public Builder buildUpon() {
     MockspressoBuilderImpl builder = mBuilderProvider.get();

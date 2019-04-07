@@ -3,10 +3,10 @@ package com.episode6.hackit.mockspresso;
 import com.episode6.hackit.mockspresso.api.*;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.junit.rules.MethodRule;
 import org.junit.rules.TestRule;
-
-import java.util.List;
 
 /**
  * Main mockspresso interface
@@ -19,7 +19,7 @@ public interface Mockspresso {
    * @param <T> Class type
    * @return An instance of T
    */
-  <T> T create(Class<T> clazz);
+  @NotNull <T> T create(@NotNull Class<T> clazz);
 
   /**
    * Create a real object injected with mockspresso dependencies.
@@ -27,7 +27,7 @@ public interface Mockspresso {
    * @param <T> Class type
    * @return An instance of T
    */
-  <T> T create(TypeToken<T> typeToken);
+  @NotNull <T> T create(@NotNull TypeToken<T> typeToken);
 
   /**
    * Inject an existing object with mockspresso dependencies.
@@ -35,7 +35,7 @@ public interface Mockspresso {
    * injector of this mockspresso instance supports it)
    * @param instance The object to inject mocks/dependencies into.
    */
-  void inject(Object instance);
+  void inject(@NotNull Object instance);
 
   /**
    * An alternative signature to {@link #inject(Object)}. Use this
@@ -50,21 +50,27 @@ public interface Mockspresso {
    * @param typeToken A TypeToken representing the complete type of instance
    * @param <T> The Type of instance param
    */
-  <T> void inject(T instance, TypeToken<T> typeToken);
+  <T> void inject(@NotNull T instance, @NotNull TypeToken<T> typeToken);
 
   /**
    * Get a dependency (creating a new mock, if needed) from mockspresso.
+   *
+   * We purposefully don't annotate the return-type here NotNull
+   * because nulls are theoretically allowed dependencies (they just must
+   * be mapped explicitly). So kotlin users must assume nullability via
+   * platform-type.
+   *
    * @param key The dependency key to lookup or mock.
    * @param <T> Dependency type
    * @return The dependency or a new mock if it is not present.
    */
-  <T> T getDependency(DependencyKey<T> key);
+  <T> T getDependency(@NotNull DependencyKey<T> key);
 
   /**
    * Build upon this mockspresso instance's configuration and dependencies.
    * @return a new {@link Builder} that is based upon this mockspresso instance.
    */
-  Builder buildUpon();
+  @NotNull Builder buildUpon();
 
   /**
    * An implementation of Mockspresso that also implements JUnit's {@link MethodRule}.
@@ -81,7 +87,7 @@ public interface Mockspresso {
      * @param plugin The plugin to apply
      * @return this
      */
-    Builder plugin(MockspressoPlugin plugin);
+    @NotNull Builder plugin(@NotNull MockspressoPlugin plugin);
 
     /**
      * Treat the resulting {@link Mockspresso.Rule} as a RuleChain, and wrap it using the
@@ -93,7 +99,7 @@ public interface Mockspresso {
      * @param testRule The testRule that should be chained outside the {@link Mockspresso.Rule}
      * @return this
      */
-    Builder outerRule(TestRule testRule);
+    @NotNull Builder outerRule(@NotNull TestRule testRule);
 
     /**
      * Treat the resulting {@link Mockspresso.Rule} as a RuleChain, and wrap it using the
@@ -105,7 +111,7 @@ public interface Mockspresso {
      * @param methodRule The methodRule that should be chained outside the {@link Mockspresso.Rule}
      * @return this
      */
-    Builder outerRule(MethodRule methodRule);
+    @NotNull Builder outerRule(@NotNull MethodRule methodRule);
 
     /**
      * Treat the resulting {@link Mockspresso.Rule} as a RuleChain, and wrap the supplied testRule
@@ -117,7 +123,7 @@ public interface Mockspresso {
      * @param testRule The testRule that should be chained inside the {@link Mockspresso.Rule}
      * @return this
      */
-    Builder innerRule(TestRule testRule);
+    @NotNull Builder innerRule(@NotNull TestRule testRule);
 
     /**
      * Treat the resulting {@link Mockspresso.Rule} as a RuleChain, and wrap the supplied testRule
@@ -129,7 +135,7 @@ public interface Mockspresso {
      * @param methodRule The methodRule that should be chained inside the {@link Mockspresso.Rule}
      * @return this
      */
-    Builder innerRule(MethodRule methodRule);
+    @NotNull Builder innerRule(@NotNull MethodRule methodRule);
 
     /**
      * Scans the included objectWithResources for fields annotated with @Mock and @RealObject, then prepares them
@@ -142,7 +148,7 @@ public interface Mockspresso {
      * @param objectWithResources The object to scan, set fields on and initialize
      * @return this
      */
-    Builder testResources(Object objectWithResources);
+    @NotNull Builder testResources(@NotNull Object objectWithResources);
 
     /**
      * Scans the included objectWithResources for fields annotated with @Mock and @RealObject, then prepares them
@@ -150,7 +156,7 @@ public interface Mockspresso {
      * @param objectWithResources The object to scan and set fields on
      * @return this
      */
-    Builder testResourcesWithoutLifecycle(Object objectWithResources);
+    @NotNull Builder testResourcesWithoutLifecycle(@NotNull Object objectWithResources);
 
     /**
      * Apply a {@link MockerConfig} to this builder, which tells mockspresso how to create a mock
@@ -158,14 +164,14 @@ public interface Mockspresso {
      * @param mockerConfig The MockerConfig to apply
      * @return this
      */
-    Builder mocker(MockerConfig mockerConfig);
+    @NotNull Builder mocker(@NotNull MockerConfig mockerConfig);
 
     /**
      * Apply a {@link InjectionConfig} to this builder, which tells mockspresso how to create real objects.
      * @param injectionConfig The InjectionConfig to apply
      * @return this
      */
-    Builder injector(InjectionConfig injectionConfig);
+    @NotNull Builder injector(@NotNull InjectionConfig injectionConfig);
 
     /**
      * Apply a {@link SpecialObjectMaker} to this builder, which tells mockspresso how it should create
@@ -173,15 +179,7 @@ public interface Mockspresso {
      * @param specialObjectMaker The SpecialObjectMaker to apply
      * @return this
      */
-    Builder specialObjectMaker(SpecialObjectMaker specialObjectMaker);
-
-    /**
-     * Apply a list of {@link SpecialObjectMaker}s to this builder, which tells mockspresso how it should create
-     * object types that should not be mocked by default.
-     * @param specialObjectMakers The SpecialObjectMakers to apply
-     * @return this
-     */
-    Builder specialObjectMakers(List<SpecialObjectMaker> specialObjectMakers);
+    @NotNull Builder specialObjectMaker(@NotNull SpecialObjectMaker specialObjectMaker);
 
     /**
      * Apply a specific instance of an object as a mockspresso dependency.
@@ -191,7 +189,7 @@ public interface Mockspresso {
      * @param <V> value type
      * @return this
      */
-    <T, V extends T> Builder dependency(Class<T> clazz, V value);
+    @NotNull <T, V extends T> Builder dependency(@NotNull Class<T> clazz, @Nullable V value);
 
     /**
      * Apply a specific instance of an object as a mockspresso dependency.
@@ -201,7 +199,7 @@ public interface Mockspresso {
      * @param <V> instanceType
      * @return this
      */
-    <T, V extends T> Builder dependency(TypeToken<T> typeToken, V value);
+    @NotNull <T, V extends T> Builder dependency(@NotNull TypeToken<T> typeToken, @Nullable V value);
 
     /**
      * Apply a specific instance of an object as a mockspresso dependency.
@@ -211,7 +209,7 @@ public interface Mockspresso {
      * @param <V> instance type
      * @return this
      */
-    <T, V extends T> Builder dependency(DependencyKey<T> key, V value);
+    @NotNull <T, V extends T> Builder dependency(@NotNull DependencyKey<T> key, @Nullable V value);
 
     /**
      * Apply a specific instance of an object as a mockspresso dependency.
@@ -221,7 +219,7 @@ public interface Mockspresso {
      * @param <V> value type
      * @return this
      */
-    <T, V extends T> Builder dependencyProvider(Class<T> clazz, ObjectProvider<V> value);
+    @NotNull <T, V extends T> Builder dependencyProvider(@NotNull Class<T> clazz, @NotNull ObjectProvider<V> value);
 
     /**
      * Apply a specific instance of an object as a mockspresso dependency.
@@ -231,7 +229,7 @@ public interface Mockspresso {
      * @param <V> instanceType
      * @return this
      */
-    <T, V extends T> Builder dependencyProvider(TypeToken<T> typeToken, ObjectProvider<V> value);
+    @NotNull <T, V extends T> Builder dependencyProvider(@NotNull TypeToken<T> typeToken, @NotNull ObjectProvider<V> value);
 
     /**
      * Apply a specific instance of an object as a mockspresso dependency.
@@ -241,7 +239,7 @@ public interface Mockspresso {
      * @param <V> instance type
      * @return this
      */
-    <T, V extends T> Builder dependencyProvider(DependencyKey<T> key, ObjectProvider<V> value);
+    @NotNull <T, V extends T> Builder dependencyProvider(@NotNull DependencyKey<T> key, @NotNull ObjectProvider<V> value);
 
     /**
      * Instruct mockspresso to create a real object for the provided dependency key.
@@ -250,7 +248,7 @@ public interface Mockspresso {
      * @param <T> objectClass type
      * @return this
      */
-    <T> Builder realObject(Class<T> objectClass);
+    @NotNull <T> Builder realObject(@NotNull Class<T> objectClass);
 
     /**
      * Instruct mockspresso to create a real object for the provided dependency key.
@@ -259,7 +257,7 @@ public interface Mockspresso {
      * @param <T> objectToken type
      * @return this
      */
-    <T> Builder realObject(TypeToken<T> objectToken);
+    @NotNull <T> Builder realObject(@NotNull TypeToken<T> objectToken);
 
     /**
      * Instruct mockspresso to create a real object for the provided dependency key.
@@ -268,7 +266,7 @@ public interface Mockspresso {
      * @param <T> keyAndImplementation type
      * @return this
      */
-    <T> Builder realObject(DependencyKey<T> keyAndImplementation);
+    @NotNull <T> Builder realObject(@NotNull DependencyKey<T> keyAndImplementation);
 
     /**
      * Instruct mockspresso to create a real object (of type implementationClass) for the provided dependency key.
@@ -277,7 +275,7 @@ public interface Mockspresso {
      * @param <T> key type
      * @return this
      */
-    <T> Builder realObject(DependencyKey<T> key, Class<? extends T> implementationClass);
+    @NotNull <T> Builder realObject(@NotNull DependencyKey<T> key, @NotNull Class<? extends T> implementationClass);
 
     /**
      * Instruct mockspresso to create a real object (of type implementationClass) for the provided dependency key.
@@ -286,16 +284,16 @@ public interface Mockspresso {
      * @param <T> key type
      * @return this
      */
-    <T> Builder realObject(DependencyKey<T> key, TypeToken<? extends T> implementationToken);
+    @NotNull <T> Builder realObject(@NotNull DependencyKey<T> key, @NotNull TypeToken<? extends T> implementationToken);
 
     /**
      * @return an instance of {@link Mockspresso} that can used to create real objects (and be further built upon)
      */
-    Mockspresso build();
+    @NotNull Mockspresso build();
 
     /**
      * @return an instance of {@link Mockspresso.Rule} that is both an instance of {@link Mockspresso} and a {@link org.junit.Rule}
      */
-    Rule buildRule();
+    @NotNull Rule buildRule();
   }
 }

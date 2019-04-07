@@ -2,7 +2,6 @@ apply plugin: DeployableJavaProject
 
 dependencies {
   api project(':mockspresso-api')
-  api 'com.google.code.findbugs:jsr305'
 
   mavenOptional 'com.google.guava:guava'
 
@@ -13,5 +12,6 @@ dependencies {
   testImplementation 'org.mockito:mockito-core'
   testImplementation 'junit:junit'
   testImplementation 'org.easytesting:fest-assert-core'
+  testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin'
 }
 

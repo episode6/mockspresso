@@ -1,8 +1,8 @@
 package com.episode6.hackit.mockspresso.mockito.integration;
 
+import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.quick.BuildQuickMockspresso;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Coffee;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeGrounds;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeGroundsFactory;
@@ -13,7 +13,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.Mock;
 
+import static com.episode6.hackit.mockspresso.basic.plugin.MockspressoBasicPluginsJavaSupport.injectBySimpleConfig;
 import static com.episode6.hackit.mockspresso.mockito.Conditions.mockCondition;
+import static com.episode6.hackit.mockspresso.mockito.MockspressoMockitoPluginsJavaSupport.automaticFactories;
+import static com.episode6.hackit.mockspresso.mockito.MockspressoMockitoPluginsJavaSupport.mockByMockito;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 /**
@@ -22,10 +25,10 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(JUnit4.class)
 public class AutoFactoryTest {
 
-  @Rule public final Mockspresso.Rule mockspresso = BuildQuickMockspresso.with()
-      .injector().simple()
-      .mocker().mockito()
-      .plugin().automaticFactories(CoffeeGroundsFactory.class)
+  @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
+      .plugin(injectBySimpleConfig())
+      .plugin(mockByMockito())
+      .plugin(automaticFactories(CoffeeGroundsFactory.class))
       .buildRule();
 
   // this mock should be returned by the CoffeeGroundsFactory that gets injected into mCoffeeMaker

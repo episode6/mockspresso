@@ -1,10 +1,10 @@
 package com.episode6.hackit.mockspresso.easymock.powermock.integration.rule;
 
+import com.episode6.hackit.mockspresso.BuildMockspresso;
+import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.basic.plugin.javax.JavaxInjectMockspressoPlugin;
 import com.episode6.hackit.mockspresso.basic.plugin.simple.SimpleInjectMockspressoPlugin;
-import com.episode6.hackit.mockspresso.quick.BuildQuickMockspresso;
-import com.episode6.hackit.mockspresso.quick.QuickMockspresso;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.*;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeMakers.*;
 import org.easymock.Mock;
@@ -14,7 +14,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import static com.episode6.hackit.mockspresso.basic.plugin.MockspressoBasicPluginsJavaSupport.injectByJavaxConfig;
+import static com.episode6.hackit.mockspresso.basic.plugin.MockspressoBasicPluginsJavaSupport.injectBySimpleConfig;
 import static com.episode6.hackit.mockspresso.easymock.powermock.Conditions.mockCondition;
+import static com.episode6.hackit.mockspresso.easymock.powermock.MockspressoEasyPowerMockPluginsJavaSupport.mockByPowerMockRule;
 import static com.episode6.hackit.mockspresso.testing.Conditions.rawClass;
 import static org.easymock.EasyMock.*;
 import static org.fest.assertions.api.Assertions.assertThat;
@@ -32,13 +35,13 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(JUnit4.class)
 public class CoffeeMakersMockEverythingTestEasyPowerMockRule {
 
-  @Rule public final QuickMockspresso.Rule simpleMockspresso = BuildQuickMockspresso.with()
-      .injector().simple()
-      .mocker().easyMockWithPowerMockRule()
+  @Rule public final Mockspresso.Rule simpleMockspresso = BuildMockspresso.with()
+      .plugin(injectBySimpleConfig())
+      .plugin(mockByPowerMockRule())
       .buildRule();
 
-  private final QuickMockspresso injectionMockspresso = simpleMockspresso.buildUpon()
-      .injector().javax()
+  private final Mockspresso injectionMockspresso = simpleMockspresso.buildUpon()
+      .plugin(injectByJavaxConfig())
       .build();
 
   @Mock Water mWater;

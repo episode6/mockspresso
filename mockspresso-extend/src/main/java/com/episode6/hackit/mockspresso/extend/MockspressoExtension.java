@@ -4,10 +4,10 @@ import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.api.*;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.junit.rules.MethodRule;
 import org.junit.rules.TestRule;
-
-import java.util.List;
 
 /**
  * Extend these 3 interfaces to build your own Mockspresso extension and own your api.
@@ -29,7 +29,7 @@ import java.util.List;
 public interface MockspressoExtension<BLDR extends MockspressoExtension.Builder> extends Mockspresso {
 
   @Override
-  BLDR buildUpon();
+  @NotNull BLDR buildUpon();
 
   /**
    * Custom extension of {@link MockspressoExtension.Rule}
@@ -39,7 +39,7 @@ public interface MockspressoExtension<BLDR extends MockspressoExtension.Builder>
   interface Rule<BLDR extends MockspressoExtension.Builder> extends Mockspresso.Rule {
 
     @Override
-    BLDR buildUpon();
+    @NotNull BLDR buildUpon();
   }
 
   /**
@@ -57,82 +57,72 @@ public interface MockspressoExtension<BLDR extends MockspressoExtension.Builder>
       BLDR extends MockspressoExtension.Builder> extends Mockspresso.Builder {
 
     @Override
-    BLDR plugin(MockspressoPlugin plugin);
+    @NotNull BLDR plugin(@NotNull MockspressoPlugin plugin);
 
     @Override
-    BLDR outerRule(TestRule testRule);
+    @NotNull BLDR outerRule(@NotNull TestRule testRule);
 
     @Override
-    BLDR outerRule(MethodRule methodRule);
+    @NotNull BLDR outerRule(@NotNull MethodRule methodRule);
 
     @Override
-    BLDR innerRule(TestRule testRule);
+    @NotNull BLDR innerRule(@NotNull TestRule testRule);
 
     @Override
-    BLDR innerRule(MethodRule methodRule);
+    @NotNull BLDR innerRule(@NotNull MethodRule methodRule);
 
     @Override
-    BLDR testResources(Object objectWithResources);
+    @NotNull BLDR testResources(@NotNull Object objectWithResources);
 
     @Override
-    BLDR testResourcesWithoutLifecycle(Object objectWithResources);
+    @NotNull BLDR testResourcesWithoutLifecycle(@NotNull Object objectWithResources);
 
     @Override
-    BLDR mocker(MockerConfig mockerConfig);
+    @NotNull BLDR mocker(@NotNull MockerConfig mockerConfig);
 
     @Override
-    BLDR injector(InjectionConfig injectionConfig);
+    @NotNull BLDR injector(@NotNull InjectionConfig injectionConfig);
 
     @Override
-    BLDR specialObjectMaker(SpecialObjectMaker specialObjectMaker);
+    @NotNull BLDR specialObjectMaker(@NotNull SpecialObjectMaker specialObjectMaker);
 
     @Override
-    BLDR specialObjectMakers(List<SpecialObjectMaker> specialObjectMakers);
+    @NotNull <T, V extends T> BLDR dependency(@NotNull Class<T> clazz, @Nullable V value);
 
     @Override
-    <T, V extends T> BLDR dependency(Class<T> clazz, V value);
+    @NotNull <T, V extends T> BLDR dependency(@NotNull TypeToken<T> typeToken, @Nullable V value);
 
     @Override
-    <T, V extends T> BLDR dependency(
-        TypeToken<T> typeToken, V value);
+    @NotNull <T, V extends T> BLDR dependency(@NotNull DependencyKey<T> key, @Nullable V value);
 
     @Override
-    <T, V extends T> BLDR dependency(
-        DependencyKey<T> key, V value);
+    @NotNull <T, V extends T> BLDR dependencyProvider(@NotNull Class<T> clazz, @NotNull ObjectProvider<V> value);
 
     @Override
-    <T, V extends T> BLDR dependencyProvider(
-        Class<T> clazz, ObjectProvider<V> value);
+    @NotNull <T, V extends T> BLDR dependencyProvider(@NotNull TypeToken<T> typeToken, @NotNull ObjectProvider<V> value);
 
     @Override
-    <T, V extends T> BLDR dependencyProvider(
-        TypeToken<T> typeToken, ObjectProvider<V> value);
+    @NotNull <T, V extends T> BLDR dependencyProvider(@NotNull DependencyKey<T> key, @NotNull ObjectProvider<V> value);
 
     @Override
-    <T, V extends T> BLDR dependencyProvider(
-        DependencyKey<T> key, ObjectProvider<V> value);
+    @NotNull <T> BLDR realObject(@NotNull Class<T> objectClass);
 
     @Override
-    <T> BLDR realObject(Class<T> objectClass);
+    @NotNull <T> BLDR realObject(@NotNull TypeToken<T> objectToken);
 
     @Override
-    <T> BLDR realObject(TypeToken<T> objectToken);
+    @NotNull <T> BLDR realObject(@NotNull DependencyKey<T> keyAndImplementation);
 
     @Override
-    <T> BLDR realObject(DependencyKey<T> keyAndImplementation);
+    @NotNull<T> BLDR realObject(@NotNull DependencyKey<T> key, @NotNull Class<? extends T> implementationClass);
 
     @Override
-    <T> BLDR realObject(
-        DependencyKey<T> key, Class<? extends T> implementationClass);
+    @NotNull<T> BLDR realObject(@NotNull DependencyKey<T> key, @NotNull TypeToken<? extends T> implementationToken);
 
     @Override
-    <T> BLDR realObject(
-        DependencyKey<T> key, TypeToken<? extends T> implementationToken);
+    @NotNull EXT build();
 
     @Override
-    EXT build();
-
-    @Override
-    RULE buildRule();
+    @NotNull RULE buildRule();
   }
 }

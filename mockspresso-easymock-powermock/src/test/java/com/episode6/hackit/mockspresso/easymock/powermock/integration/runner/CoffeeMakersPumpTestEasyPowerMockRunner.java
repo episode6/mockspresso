@@ -1,7 +1,7 @@
 package com.episode6.hackit.mockspresso.easymock.powermock.integration.runner;
 
+import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
-import com.episode6.hackit.mockspresso.quick.BuildQuickMockspresso;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Coffee;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeMakers;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Pump;
@@ -11,6 +11,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import static com.episode6.hackit.mockspresso.basic.plugin.MockspressoBasicPluginsJavaSupport.injectByJavaxConfig;
+import static com.episode6.hackit.mockspresso.easymock.powermock.MockspressoEasyPowerMockPluginsJavaSupport.mockByPowerMock;
 import static com.episode6.hackit.mockspresso.testing.Conditions.rawClass;
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -27,9 +29,9 @@ import static org.fest.assertions.api.Assertions.assertThat;
 public class CoffeeMakersPumpTestEasyPowerMockRunner {
 
   private final PumpTestResources t = new PumpTestResources();
-  @Rule public final Mockspresso.Rule mockspresso = BuildQuickMockspresso.with()
-      .injector().javax()
-      .mocker().easyMockWithPowerMock()
+  @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
+      .plugin(injectByJavaxConfig())
+      .plugin(mockByPowerMock())
       .testResources(t)
       .buildRule();
 

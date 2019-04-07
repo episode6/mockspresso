@@ -1,8 +1,10 @@
 package com.episode6.hackit.mockspresso.api;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * Similar to {@link javax.inject.Provider} but get method is allowed to throw
  */
 public interface ObjectProvider<V> {
-  V get() throws Throwable;
+  @Nullable V get() throws Throwable;
 }

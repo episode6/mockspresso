@@ -1,8 +1,8 @@
 package com.episode6.hackit.mockspresso.easymock.integration;
 
+import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.quick.BuildQuickMockspresso;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeMakers;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Pump;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Water;
@@ -13,6 +13,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import static com.episode6.hackit.mockspresso.basic.plugin.MockspressoBasicPluginsJavaSupport.injectByJavaxConfig;
+import static com.episode6.hackit.mockspresso.easymock.MockspressoEasyMockPluginsJavaSupport.mockByEasyMock;
 import static org.easymock.EasyMock.*;
 
 
@@ -23,9 +25,9 @@ import static org.easymock.EasyMock.*;
 public class PartialSharedResorcesTestEasyMock {
 
   private final PartialSharedResources t = new PartialSharedResources();
-  @Rule public final Mockspresso.Rule mockspresso = BuildQuickMockspresso.with()
-      .injector().javax()
-      .mocker().easyMock()
+  @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
+      .plugin(injectByJavaxConfig())
+      .plugin(mockByEasyMock())
       .testResources(t)
       .buildRule();
 

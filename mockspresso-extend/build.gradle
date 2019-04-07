@@ -3,7 +3,6 @@ apply plugin: DeployableJavaProject
 dependencies {
   api project(':mockspresso-api')
   api project(':mockspresso-reflect')
-  api 'com.google.code.findbugs:jsr305'
 
   mavenProvided 'junit:junit'
 

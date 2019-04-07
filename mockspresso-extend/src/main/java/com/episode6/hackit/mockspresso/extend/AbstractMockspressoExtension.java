@@ -4,12 +4,11 @@ import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.api.*;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
+import org.jetbrains.annotations.NotNull;
 import org.junit.rules.MethodRule;
 import org.junit.rules.TestRule;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
-
-import java.util.List;
 
 /**
  * Extend these 3 classes to create your own mockspresso extension
@@ -35,44 +34,47 @@ public abstract class AbstractMockspressoExtension<BLDR extends MockspressoExten
    * @param <OUT> Output type - one of your custom mockspresso extension's types
    */
   protected interface Wrapper<IN, OUT> {
-    OUT wrap(IN delegate);
+    @NotNull OUT wrap(@NotNull IN delegate);
   }
 
   private final Mockspresso mDelegate;
   private final Wrapper<Mockspresso.Builder, BLDR> mBuilderWrapper;
 
   protected AbstractMockspressoExtension(
-      Mockspresso delegate,
-      Wrapper<Mockspresso.Builder, BLDR> builderWrapper) {
+      @NotNull Mockspresso delegate,
+      @NotNull Wrapper<Mockspresso.Builder, BLDR> builderWrapper) {
     mDelegate = delegate;
     mBuilderWrapper = builderWrapper;
   }
 
+  @NotNull
   @Override
-  public <T> T create(Class<T> clazz) {
+  public <T> T create(@NotNull Class<T> clazz) {
     return mDelegate.create(clazz);
   }
 
+  @NotNull
   @Override
-  public <T> T create(TypeToken<T> typeToken) {
+  public <T> T create(@NotNull TypeToken<T> typeToken) {
     return mDelegate.create(typeToken);
   }
 
   @Override
-  public void inject(Object instance) {
+  public void inject(@NotNull Object instance) {
     mDelegate.inject(instance);
   }
 
   @Override
-  public <T> void inject(T instance, TypeToken<T> typeToken) {
+  public <T> void inject(@NotNull T instance, @NotNull TypeToken<T> typeToken) {
     mDelegate.inject(instance, typeToken);
   }
 
   @Override
-  public <T> T getDependency(DependencyKey<T> key) {
+  public <T> T getDependency(@NotNull DependencyKey<T> key) {
     return mDelegate.getDependency(key);
   }
 
+  @NotNull
   @Override
   public BLDR buildUpon() {
     return mBuilderWrapper.wrap(mDelegate.buildUpon());
@@ -91,37 +93,40 @@ public abstract class AbstractMockspressoExtension<BLDR extends MockspressoExten
     private final Wrapper<Mockspresso.Builder, BLDR> mBuilderWrapper;
 
     protected Rule(
-        Rule delegate,
-        Wrapper<Builder, BLDR> builderWrapper) {
+        @NotNull Rule delegate,
+        @NotNull Wrapper<Builder, BLDR> builderWrapper) {
       mDelegate = delegate;
       mBuilderWrapper = builderWrapper;
     }
 
+    @NotNull
     @Override
-    public <T> T create(Class<T> clazz) {
+    public <T> T create(@NotNull Class<T> clazz) {
       return mDelegate.create(clazz);
     }
 
+    @NotNull
     @Override
-    public <T> T create(TypeToken<T> typeToken) {
+    public <T> T create(@NotNull TypeToken<T> typeToken) {
       return mDelegate.create(typeToken);
     }
 
     @Override
-    public void inject(Object instance) {
+    public void inject(@NotNull Object instance) {
       mDelegate.inject(instance);
     }
 
     @Override
-    public <T> void inject(T instance, TypeToken<T> typeToken) {
+    public <T> void inject(@NotNull T instance, @NotNull TypeToken<T> typeToken) {
       mDelegate.inject(instance, typeToken);
     }
 
     @Override
-    public <T> T getDependency(DependencyKey<T> key) {
+    public <T> T getDependency(@NotNull DependencyKey<T> key) {
       return mDelegate.getDependency(key);
     }
 
+    @NotNull
     @Override
     public BLDR buildUpon() {
       return mBuilderWrapper.wrap(mDelegate.buildUpon());
@@ -156,152 +161,169 @@ public abstract class AbstractMockspressoExtension<BLDR extends MockspressoExten
     private final Wrapper<Mockspresso.Rule, RULE> mRuleWrapper;
 
     protected Builder(
-        Mockspresso.Builder delegate,
-        Wrapper<Mockspresso, EXT> extensionWrapper,
-        Wrapper<Mockspresso.Rule, RULE> ruleWrapper) {
+        @NotNull Mockspresso.Builder delegate,
+        @NotNull Wrapper<Mockspresso, EXT> extensionWrapper,
+        @NotNull Wrapper<Mockspresso.Rule, RULE> ruleWrapper) {
       mDelegate = delegate;
       mExtensionWrapper = extensionWrapper;
       mRuleWrapper = ruleWrapper;
     }
 
+    @NotNull
     @Override
     public EXT build() {
       return mExtensionWrapper.wrap(mDelegate.build());
     }
 
+    @NotNull
     @Override
     public RULE buildRule() {
       return mRuleWrapper.wrap(mDelegate.buildRule());
     }
 
+    @NotNull
     @Override
-    public BLDR plugin(MockspressoPlugin plugin) {
+    public BLDR plugin(@NotNull MockspressoPlugin plugin) {
       mDelegate.plugin(plugin);
       return (BLDR) this;
     }
 
+    @NotNull
     @Override
-    public BLDR outerRule(TestRule testRule) {
+    public BLDR outerRule(@NotNull TestRule testRule) {
       mDelegate.outerRule(testRule);
       return (BLDR) this;
     }
 
+    @NotNull
     @Override
-    public BLDR outerRule(MethodRule methodRule) {
+    public BLDR outerRule(@NotNull MethodRule methodRule) {
       mDelegate.outerRule(methodRule);
       return (BLDR) this;
     }
 
+    @NotNull
     @Override
-    public BLDR innerRule(TestRule testRule) {
+    public BLDR innerRule(@NotNull TestRule testRule) {
       mDelegate.innerRule(testRule);
       return (BLDR) this;
     }
 
+    @NotNull
     @Override
-    public BLDR innerRule(MethodRule methodRule) {
+    public BLDR innerRule(@NotNull MethodRule methodRule) {
       mDelegate.innerRule(methodRule);
       return (BLDR) this;
     }
 
+    @NotNull
     @Override
-    public BLDR testResources(Object objectWithResources) {
+    public BLDR testResources(@NotNull Object objectWithResources) {
       mDelegate.testResources(objectWithResources);
       return (BLDR) this;
     }
 
+    @NotNull
     @Override
-    public BLDR testResourcesWithoutLifecycle(Object objectWithResources) {
+    public BLDR testResourcesWithoutLifecycle(@NotNull Object objectWithResources) {
       mDelegate.testResourcesWithoutLifecycle(objectWithResources);
       return (BLDR) this;
     }
 
+    @NotNull
     @Override
-    public BLDR mocker(MockerConfig mockerConfig) {
+    public BLDR mocker(@NotNull MockerConfig mockerConfig) {
       mDelegate.mocker(mockerConfig);
       return (BLDR) this;
     }
 
+    @NotNull
     @Override
-    public BLDR injector(InjectionConfig injectionConfig) {
+    public BLDR injector(@NotNull InjectionConfig injectionConfig) {
       mDelegate.injector(injectionConfig);
       return (BLDR) this;
     }
 
+    @NotNull
     @Override
-    public BLDR specialObjectMaker(SpecialObjectMaker specialObjectMaker) {
+    public BLDR specialObjectMaker(@NotNull SpecialObjectMaker specialObjectMaker) {
       mDelegate.specialObjectMaker(specialObjectMaker);
       return (BLDR) this;
     }
 
+    @NotNull
     @Override
-    public BLDR specialObjectMakers(List<SpecialObjectMaker> specialObjectMakers) {
-      mDelegate.specialObjectMakers(specialObjectMakers);
-      return (BLDR) this;
-    }
-
-    @Override
-    public <T, V extends T> BLDR dependency(Class<T> clazz, V value) {
+    public <T, V extends T> BLDR dependency(@NotNull Class<T> clazz, V value) {
       mDelegate.dependency(clazz, value);
       return (BLDR) this;
     }
 
+    @NotNull
     @Override
-    public <T, V extends T> BLDR dependency(TypeToken<T> typeToken, V value) {
+    public <T, V extends T> BLDR dependency(@NotNull TypeToken<T> typeToken, V value) {
       mDelegate.dependency(typeToken, value);
       return (BLDR) this;
     }
 
+    @NotNull
     @Override
-    public <T, V extends T> BLDR dependency(DependencyKey<T> key, V value) {
+    public <T, V extends T> BLDR dependency(@NotNull DependencyKey<T> key, V value) {
       mDelegate.dependency(key, value);
       return (BLDR) this;
     }
 
+    @NotNull
     @Override
-    public <T, V extends T> BLDR dependencyProvider(Class<T> clazz, ObjectProvider<V> value) {
+    public <T, V extends T> BLDR dependencyProvider(@NotNull Class<T> clazz, @NotNull ObjectProvider<V> value) {
       mDelegate.dependencyProvider(clazz, value);
       return (BLDR) this;
     }
 
+    @NotNull
     @Override
-    public <T, V extends T> BLDR dependencyProvider(TypeToken<T> typeToken, ObjectProvider<V> value) {
+    public <T, V extends T> BLDR dependencyProvider(@NotNull TypeToken<T> typeToken, @NotNull ObjectProvider<V> value) {
       mDelegate.dependencyProvider(typeToken, value);
       return (BLDR) this;
     }
 
+    @NotNull
     @Override
-    public <T, V extends T> BLDR dependencyProvider(DependencyKey<T> key, ObjectProvider<V> value) {
+    public <T, V extends T> BLDR dependencyProvider(@NotNull DependencyKey<T> key, @NotNull ObjectProvider<V> value) {
       mDelegate.dependencyProvider(key, value);
       return (BLDR) this;
     }
 
+    @NotNull
     @Override
-    public <T> BLDR realObject(Class<T> objectClass) {
+    public <T> BLDR realObject(@NotNull Class<T> objectClass) {
       mDelegate.realObject(objectClass);
       return (BLDR) this;
     }
 
+    @NotNull
     @Override
-    public <T> BLDR realObject(TypeToken<T> objectToken) {
+    public <T> BLDR realObject(@NotNull TypeToken<T> objectToken) {
       mDelegate.realObject(objectToken);
       return (BLDR) this;
     }
 
+    @NotNull
     @Override
-    public <T> BLDR realObject(DependencyKey<T> keyAndImplementation) {
+    public <T> BLDR realObject(@NotNull DependencyKey<T> keyAndImplementation) {
       mDelegate.realObject(keyAndImplementation);
       return (BLDR) this;
     }
 
+    @NotNull
     @Override
-    public <T> BLDR realObject(DependencyKey<T> key, Class<? extends T> implementationClass) {
+    public <T> BLDR realObject(@NotNull DependencyKey<T> key, @NotNull Class<? extends T> implementationClass) {
       mDelegate.realObject(key, implementationClass);
       return (BLDR) this;
     }
 
+    @NotNull
     @Override
-    public <T> BLDR realObject(DependencyKey<T> key, TypeToken<? extends T> implementationToken) {
+    public <T> BLDR realObject(@NotNull DependencyKey<T> key, @NotNull TypeToken<? extends T> implementationToken) {
       mDelegate.realObject(key, implementationToken);
       return (BLDR) this;
     }

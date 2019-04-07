@@ -2,7 +2,6 @@ apply plugin: DeployableJavaProject
 
 dependencies {
   api project(':mockspresso-api')
-  api 'com.google.code.findbugs:jsr305'
 
   mavenOptional 'org.mockito:mockito-core'
   mavenOptional 'org.powermock:powermock-module-junit4'
@@ -21,6 +20,7 @@ dependencies {
 
   testImplementation 'junit:junit'
   testImplementation 'org.easytesting:fest-assert-core'
+  testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin'
 }
 
 test {

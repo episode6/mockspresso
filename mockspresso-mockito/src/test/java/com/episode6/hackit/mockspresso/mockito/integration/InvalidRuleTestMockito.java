@@ -1,12 +1,14 @@
 package com.episode6.hackit.mockspresso.mockito.integration;
 
+import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
-import com.episode6.hackit.mockspresso.quick.BuildQuickMockspresso;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
+import static com.episode6.hackit.mockspresso.basic.plugin.MockspressoBasicPluginsJavaSupport.injectBySimpleConfig;
+import static com.episode6.hackit.mockspresso.mockito.MockspressoMockitoPluginsJavaSupport.mockByMockito;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verifyZeroInteractions;
@@ -18,9 +20,9 @@ public class InvalidRuleTestMockito {
 
   private final TestClass mInitializerWithFields = new TestClass();
 
-  public final Mockspresso.Rule invalidMockspresso = BuildQuickMockspresso.with()
-      .injector().simple()
-      .mocker().mockito()
+  public final Mockspresso.Rule invalidMockspresso = BuildMockspresso.with()
+      .plugin(injectBySimpleConfig())
+      .plugin(mockByMockito())
       .testResources(mInitializerWithFields)
       .buildRule();
 

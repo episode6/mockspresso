@@ -1,11 +1,11 @@
 package com.episode6.hackit.mockspresso.mockito.powermock.integration.rule;
 
+import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.annotation.Unmapped;
 import com.episode6.hackit.mockspresso.api.ObjectProvider;
 import com.episode6.hackit.mockspresso.exception.RepeatedDependencyDefinedException;
-import com.episode6.hackit.mockspresso.quick.BuildQuickMockspresso;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Coffee;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeGrounds;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeMakers;
@@ -16,7 +16,9 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 
 import javax.inject.Provider;
 
+import static com.episode6.hackit.mockspresso.basic.plugin.MockspressoBasicPluginsJavaSupport.injectByJavaxConfig;
 import static com.episode6.hackit.mockspresso.mockito.powermock.Conditions.mockCondition;
+import static com.episode6.hackit.mockspresso.mockito.powermock.MockspressoPowerMockitoPluginsJavaSupport.mockByPowerMockitoRule;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -27,9 +29,9 @@ import static org.mockito.Mockito.when;
 @PrepareForTest(UnmappedTestPowerMockitoRule.TestClass.class)
 public class UnmappedTestPowerMockitoRule {
 
-  @Rule public final Mockspresso.Rule mockspresso = BuildQuickMockspresso.with()
-      .injector().javax()
-      .mocker().mockitoWithPowerMockRule()
+  @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
+      .plugin(injectByJavaxConfig())
+      .plugin(mockByPowerMockitoRule())
       .buildRule();
 
   @Mock Provider<CoffeeGrounds> mGroundsProvider;
