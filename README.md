@@ -10,12 +10,14 @@ Mockspresso creates your objects for you, letting you drop the constructors from
 
 
 ## Version
-#### Mockspresso is turning 0.1.0 soon! With Kotlin support!
-Mockspresso v0.1.0 will be bringing proper kotlin support. We're adding extension methods to simplify mockspresso usage in kotlin, and making kotlin use-cases the primary focus of this project. 
+#### Mockspresso v0.1.0-beta1 is ready for use!
+Mockspresso v0.1.0 represents a complete shift in focus from Java to Kotlin. We've added extension methods for all built in plugins as well as inline functions with reified types for any method that uses a `TypeToken`.
+ 
 
-We are trying to avoid too many breaking api changes in this version, and will save those for the next major update. However there are some minor ones. Check the [ChangeLog](CHANGELOG.md) for details.
+Check the [ChangeLog](CHANGELOG.md) for details.
 
-This doc describes mockspresso version `0.1.0-SNAPSHOT`
+This doc should represent is `0.1.0-beta2-SNAPSHOT` 
+**HOWEVER** it is woefully out of date and doesn't describe it properly at all. They will be updated before the official release (and hopefully before the next beta).
 
 ## Installation
 There are 3 ways to setup mockspresso in your project.
