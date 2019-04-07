@@ -1,8 +1,8 @@
 package com.episode6.hackit.mockspresso.mockito.integration;
 
+import com.episode6.hackit.mockspresso.BuildMockspresso;
+import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.quick.BuildQuickMockspresso;
-import com.episode6.hackit.mockspresso.quick.QuickMockspresso;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Rule;
 import org.junit.Test;
@@ -13,7 +13,10 @@ import org.mockito.Mockito;
 
 import javax.inject.Inject;
 
+import static com.episode6.hackit.mockspresso.basic.plugin.MockspressoBasicPluginsJavaSupport.injectByJavaxConfig;
+import static com.episode6.hackit.mockspresso.basic.plugin.MockspressoBasicPluginsJavaSupport.injectBySimpleConfig;
 import static com.episode6.hackit.mockspresso.mockito.Conditions.mockCondition;
+import static com.episode6.hackit.mockspresso.mockito.MockspressoMockitoPluginsJavaSupport.mockByMockito;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 /**
@@ -56,9 +59,9 @@ public class GenericConstructorTest {
     @RealObject TestMethodInjectGeneric<TestObject> testGeneric;
   }
 
-  @Rule public final QuickMockspresso.Rule mockspresso = BuildQuickMockspresso.with()
-      .injector().simple()
-      .mocker().mockito()
+  @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
+      .plugin(injectBySimpleConfig())
+      .plugin(mockByMockito())
       .buildRule();
 
   @Test public void testCreateViaTypeToken() {
@@ -89,7 +92,7 @@ public class GenericConstructorTest {
 
   @Test public void testInjectViaAnnotation() {
     TestInjectResources resources = new TestInjectResources();
-    mockspresso.buildUpon().injector().javax().testResources(resources).build();
+    mockspresso.buildUpon().plugin(injectByJavaxConfig()).testResources(resources).build();
 
     assertThat(resources.testGeneric).isNotNull();
     assertThat(resources.testGeneric.obj).isNotNull().is(mockCondition());
@@ -97,7 +100,7 @@ public class GenericConstructorTest {
 
   @Test public void testMethodInjectViaAnnotation() {
     TestMethodInjectResources resources = new TestMethodInjectResources();
-    mockspresso.buildUpon().injector().javax().testResources(resources).build();
+    mockspresso.buildUpon().plugin(injectByJavaxConfig()).testResources(resources).build();
 
     assertThat(resources.testGeneric).isNotNull();
     assertThat(resources.testGeneric.obj).isNotNull().is(mockCondition());
@@ -108,7 +111,7 @@ public class GenericConstructorTest {
     TestObject testMock = Mockito.mock(TestObject.class);
 
     mockspresso.buildUpon()
-        .injector().javax()
+        .plugin(injectByJavaxConfig())
         .dependency(TestObject.class, testMock)
         .build()
         .inject(testGeneric, new TypeToken<TestInjectGeneric<TestObject>>() {});
@@ -124,7 +127,7 @@ public class GenericConstructorTest {
     TestObject testMock = Mockito.mock(TestObject.class);
 
     mockspresso.buildUpon()
-        .injector().javax()
+        .plugin(injectByJavaxConfig())
         .dependency(TestObject.class, testMock)
         .build()
         .inject(testGeneric, new TypeToken<TestMethodInjectGeneric<TestObject>>() {});
