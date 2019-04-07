@@ -7,16 +7,19 @@ import com.episode6.hackit.mockspresso.quick.exception.MissingDependencyError
 /**
  * Internal implementation for quick mockspresso
  */
+@Deprecated(QUICK_DEPRECATION_MESSAGE)
 internal class QuickMockspressoImpl(delegate: Mockspresso) : QuickMockspresso,
     AbstractMockspressoExtension<QuickMockspresso.Builder>(
         delegate,
         ::Builder) {
 
+  @Deprecated(QUICK_DEPRECATION_MESSAGE)
   internal class Rule(delegate: Mockspresso.Rule) : QuickMockspresso.Rule,
       AbstractMockspressoExtension.Rule<QuickMockspresso.Builder>(
           delegate,
           ::Builder)
 
+  @Deprecated(QUICK_DEPRECATION_MESSAGE)
   internal class Builder(delegate: Mockspresso.Builder) : QuickMockspresso.Builder,
       AbstractMockspressoExtension.Builder<QuickMockspresso, QuickMockspresso.Rule, QuickMockspresso.Builder>(
           delegate,
@@ -30,6 +33,7 @@ internal class QuickMockspressoImpl(delegate: Mockspresso) : QuickMockspresso,
     override fun mocker(): QuickMockspresso.MockerPicker = pluginPicker
   }
 
+  @Deprecated(QUICK_DEPRECATION_MESSAGE)
   internal class PluginPickerImpl(private val builder: QuickMockspresso.Builder) :
       QuickMockspresso.InjectorPicker, QuickMockspresso.MockerPicker, QuickMockspresso.PluginPicker {
 

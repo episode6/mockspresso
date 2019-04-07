@@ -6,13 +6,26 @@ import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
 import com.episode6.hackit.mockspresso.extend.MockspressoExtension;
 import org.jetbrains.annotations.NotNull;
 
+import static com.episode6.hackit.mockspresso.quick.DEPRECATEDKt.QUICK_DEPRECATION_MESSAGE;
+
 /**
  * A mockspresso extension for bootstrapping / general use
+ *
+ * @deprecated see {@link DEPRECATEDKt}
  */
+@Deprecated
 public interface QuickMockspresso extends MockspressoExtension<QuickMockspresso.Builder> {
 
+  /**
+   * @deprecated see {@link DEPRECATEDKt}
+   */
+  @Deprecated
   interface Rule extends MockspressoExtension.Rule<QuickMockspresso.Builder> { }
 
+  /**
+   * @deprecated see {@link DEPRECATEDKt}
+   */
+  @Deprecated
   interface Builder extends MockspressoExtension.Builder<
       QuickMockspresso,
       QuickMockspresso.Rule,
@@ -40,7 +53,9 @@ public interface QuickMockspresso extends MockspressoExtension<QuickMockspresso.
 
   /**
    * A selector for one of the built in injection configs
+   * @deprecated see {@link DEPRECATEDKt}
    */
+  @Deprecated
   interface InjectorPicker {
 
     /**
@@ -72,7 +87,9 @@ public interface QuickMockspresso extends MockspressoExtension<QuickMockspresso.
 
   /**
    * A selector for one of the built-in mocker configs
+   * @deprecated see {@link DEPRECATEDKt}
    */
+  @Deprecated
   interface MockerPicker {
 
     /**
@@ -139,7 +156,9 @@ public interface QuickMockspresso extends MockspressoExtension<QuickMockspresso.
 
   /**
    * A selector for one of the built in plugins
+   * @deprecated see {@link DEPRECATEDKt}
    */
+  @Deprecated
   interface PluginPicker {
 
     /**
