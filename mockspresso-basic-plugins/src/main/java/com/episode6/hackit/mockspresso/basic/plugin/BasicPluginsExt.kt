@@ -1,6 +1,7 @@
 package com.episode6.hackit.mockspresso.basic.plugin
 
 import com.episode6.hackit.mockspresso.Mockspresso
+import com.episode6.hackit.mockspresso.api.MockspressoPlugin
 import com.episode6.hackit.mockspresso.basic.plugin.javax.JavaxInjectMockspressoPlugin
 import com.episode6.hackit.mockspresso.basic.plugin.javax.ProviderMaker
 import com.episode6.hackit.mockspresso.basic.plugin.simple.SimpleInjectMockspressoPlugin
@@ -30,3 +31,14 @@ fun Mockspresso.Builder.injectByJavaxConfig(): Mockspresso.Builder = plugin(Java
  */
 @JvmSynthetic
 fun Mockspresso.Builder.automaticProviders(): Mockspresso.Builder = specialObjectMaker(ProviderMaker())
+
+/**
+ * Expose the extension methods defined here as [MockspressoPlugin]s for consumption by java tests
+ */
+@Suppress("NEWER_VERSION_IN_SINCE_KOTLIN")
+@SinceKotlin("9999.0")
+object MockspressoBasicPluginsJavaSupport {
+  @JvmStatic fun injectBySimpleConfig(): MockspressoPlugin = MockspressoPlugin { it.injectBySimpleConfig() }
+  @JvmStatic fun injectByJavaxConfig(): MockspressoPlugin = MockspressoPlugin { it.injectByJavaxConfig() }
+  @JvmStatic fun automaticProviders(): MockspressoPlugin = MockspressoPlugin { it.automaticProviders() }
+}
