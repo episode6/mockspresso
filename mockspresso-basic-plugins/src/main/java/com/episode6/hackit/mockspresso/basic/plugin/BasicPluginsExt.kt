@@ -2,6 +2,7 @@ package com.episode6.hackit.mockspresso.basic.plugin
 
 import com.episode6.hackit.mockspresso.Mockspresso
 import com.episode6.hackit.mockspresso.basic.plugin.javax.JavaxInjectMockspressoPlugin
+import com.episode6.hackit.mockspresso.basic.plugin.javax.ProviderMaker
 import com.episode6.hackit.mockspresso.basic.plugin.simple.SimpleInjectMockspressoPlugin
 
 /**
@@ -22,3 +23,10 @@ fun Mockspresso.Builder.injectBySimpleConfig(): Mockspresso.Builder = plugin(Sim
  */
 @JvmSynthetic
 fun Mockspresso.Builder.injectByJavaxConfig(): Mockspresso.Builder = plugin(JavaxInjectMockspressoPlugin())
+
+/**
+ * Adds a [com.episode6.hackit.mockspresso.api.SpecialObjectMaker] to handle [javax.inject.Provider]s
+ * and automatically pull their dependencies from Mockspresso's dependency map.
+ */
+@JvmSynthetic
+fun Mockspresso.Builder.automaticProviders(): Mockspresso.Builder = specialObjectMaker(ProviderMaker())

@@ -22,4 +22,11 @@ class DaggerPluginsExtTest {
     assertThat(result).isEqualTo(builder)
     verify(builder).plugin(any<DaggerMockspressoPlugin>())
   }
+
+  @Test fun testAutomaticLaziesSourceOfTruth() {
+    val result = builder.automaticLazies()
+
+    assertThat(result).isEqualTo(builder)
+    verify(builder).specialObjectMaker(any<DaggerLazyMaker>())
+  }
 }

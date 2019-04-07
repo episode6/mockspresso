@@ -12,3 +12,10 @@ import com.episode6.hackit.mockspresso.Mockspresso
  */
 @JvmSynthetic
 fun Mockspresso.Builder.injectByDaggerConfig(): Mockspresso.Builder = plugin(DaggerMockspressoPlugin())
+
+/**
+ * Adds a [com.episode6.hackit.mockspresso.api.SpecialObjectMaker] to handle [dagger.Lazy]s
+ * and automatically pull their dependencies from Mockspresso's dependency map.
+ */
+@JvmSynthetic
+fun Mockspresso.Builder.automaticLazies(): Mockspresso.Builder = specialObjectMaker(DaggerLazyMaker())
