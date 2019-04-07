@@ -1,6 +1,7 @@
 package com.episode6.hackit.mockspresso.easymock.powermock
 
 import com.episode6.hackit.mockspresso.Mockspresso
+import com.episode6.hackit.mockspresso.api.MockspressoPlugin
 
 /**
  * Kotlin extension methods for mockspresso's Powermock + EasyMock plugins
@@ -27,3 +28,13 @@ fun Mockspresso.Builder.mockByPowerMock(): Mockspresso.Builder = plugin(EasyPowe
  */
 @JvmSynthetic
 fun Mockspresso.Builder.mockByPowerMockRule(): Mockspresso.Builder = plugin(EasyPowerMockRulePlugin())
+
+/**
+ * Expose the extension methods defined here as [MockspressoPlugin]s for consumption by java tests
+ */
+@Suppress("NEWER_VERSION_IN_SINCE_KOTLIN")
+@SinceKotlin("9999.0")
+object MockspressoEasyPowerMockPluginsJavaSupport {
+  @JvmStatic fun mockByPowerMock(): MockspressoPlugin = MockspressoPlugin { it.mockByPowerMock() }
+  @JvmStatic fun mockByPowerMockRule(): MockspressoPlugin = MockspressoPlugin { it.mockByPowerMockRule() }
+}

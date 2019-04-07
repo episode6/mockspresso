@@ -1,6 +1,7 @@
 package com.episode6.hackit.mockspresso.mockito
 
 import com.episode6.hackit.mockspresso.Mockspresso
+import com.episode6.hackit.mockspresso.api.MockspressoPlugin
 import kotlin.reflect.KClass
 
 /**
@@ -30,3 +31,13 @@ fun Mockspresso.Builder.automaticFactories(vararg classes: Class<*>): Mockspress
 @JvmSynthetic
 fun Mockspresso.Builder.automaticFactories(vararg classes: KClass<*>): Mockspresso.Builder =
     automaticFactories(*classes.map { it.java }.toTypedArray())
+
+/**
+ * Expose the extension methods defined here as [MockspressoPlugin]s for consumption by java tests
+ */
+@Suppress("NEWER_VERSION_IN_SINCE_KOTLIN")
+@SinceKotlin("9999.0")
+object MockspressoMockitoPluginsJavaSupport {
+  @JvmStatic fun mockByMockito(): MockspressoPlugin = MockspressoPlugin { it.mockByMockito() }
+  @JvmStatic fun automaticFactories(vararg classes: Class<*>): MockspressoPlugin = MockspressoPlugin { it.automaticFactories(*classes) }
+}
