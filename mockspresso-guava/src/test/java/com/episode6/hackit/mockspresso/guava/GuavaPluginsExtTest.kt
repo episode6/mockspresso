@@ -4,7 +4,7 @@ import com.episode6.hackit.mockspresso.Mockspresso
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
-import org.fest.assertions.api.Assertions
+import org.fest.assertions.api.Assertions.assertThat
 import org.junit.Test
 import org.mockito.stubbing.Answer
 
@@ -19,7 +19,7 @@ class GuavaPluginsExtTest {
   fun testListenableFutureSourceOfTruth() {
     val result = builder.automaticListenableFutures()
 
-    Assertions.assertThat(result).isEqualTo(builder)
+    assertThat(result).isEqualTo(builder)
     verify(builder).specialObjectMaker(any<ListenableFutureMaker>())
   }
 
@@ -27,7 +27,7 @@ class GuavaPluginsExtTest {
   fun testSupplierSourceOfTruth() {
     val result = builder.automaticSuppliers()
 
-    Assertions.assertThat(result).isEqualTo(builder)
+    assertThat(result).isEqualTo(builder)
     verify(builder).specialObjectMaker(any<SupplierMaker>())
   }
 }

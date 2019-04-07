@@ -4,7 +4,7 @@ import com.episode6.hackit.mockspresso.Mockspresso
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
-import org.fest.assertions.api.Assertions
+import org.fest.assertions.api.Assertions.assertThat
 import org.junit.Test
 import org.mockito.stubbing.Answer
 
@@ -19,7 +19,7 @@ class PowerMockitoPluginsExtTest {
   fun testPowerMockitoPluginSourceOfTruth() {
     val result = builder.mockByPowerMockito()
 
-    Assertions.assertThat(result).isEqualTo(builder)
+    assertThat(result).isEqualTo(builder)
     verify(builder).plugin(any<PowerMockitoPlugin>())
   }
 
@@ -27,7 +27,7 @@ class PowerMockitoPluginsExtTest {
   fun testPowerMockitoRulePluginSourceOfTruth() {
     val result = builder.mockByPowerMockitoRule()
 
-    Assertions.assertThat(result).isEqualTo(builder)
+    assertThat(result).isEqualTo(builder)
     verify(builder).plugin(any<PowerMockitoRulePlugin>())
   }
 }
