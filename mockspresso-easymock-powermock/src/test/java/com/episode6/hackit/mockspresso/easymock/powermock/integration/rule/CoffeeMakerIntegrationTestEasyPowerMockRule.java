@@ -1,8 +1,8 @@
 package com.episode6.hackit.mockspresso.easymock.powermock.integration.rule;
 
+import com.episode6.hackit.mockspresso.BuildMockspresso;
+import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.quick.BuildQuickMockspresso;
-import com.episode6.hackit.mockspresso.quick.QuickMockspresso;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.*;
 import org.junit.Rule;
@@ -12,6 +12,9 @@ import org.junit.runners.JUnit4;
 
 import javax.inject.Named;
 
+import static com.episode6.hackit.mockspresso.basic.plugin.MockspressoBasicPluginsJavaSupport.injectByJavaxConfig;
+import static com.episode6.hackit.mockspresso.basic.plugin.MockspressoBasicPluginsJavaSupport.injectBySimpleConfig;
+import static com.episode6.hackit.mockspresso.easymock.powermock.MockspressoEasyPowerMockPluginsJavaSupport.mockByPowerMockRule;
 import static com.episode6.hackit.mockspresso.testing.Conditions.rawClass;
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -25,15 +28,15 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(JUnit4.class)
 public class CoffeeMakerIntegrationTestEasyPowerMockRule {
 
-  @Rule public final QuickMockspresso.Rule simpleMockspresso = BuildQuickMockspresso.with()
-      .injector().simple()
-      .mocker().easyMockWithPowerMockRule()
+  @Rule public final Mockspresso.Rule simpleMockspresso = BuildMockspresso.with()
+      .plugin(injectBySimpleConfig())
+      .plugin(mockByPowerMockRule())
       .realObject(DependencyKey.of(Heater.class), CoffeeMakerComponents.RealHeater.class)
       .realObject(DependencyKey.of(Pump.class), CoffeeMakerComponents.RealWaterPump.class)
       .buildRule();
 
-  private final QuickMockspresso injectionMockspresso = simpleMockspresso.buildUpon()
-      .injector().javax()
+  private final Mockspresso injectionMockspresso = simpleMockspresso.buildUpon()
+      .plugin(injectByJavaxConfig())
       .build();
 
   @RealObject @Named("heater_name") final String heaterName = "NamedHeaterExample";

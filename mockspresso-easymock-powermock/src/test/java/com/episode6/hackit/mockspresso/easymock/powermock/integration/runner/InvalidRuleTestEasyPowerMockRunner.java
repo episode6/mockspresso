@@ -1,12 +1,14 @@
 package com.episode6.hackit.mockspresso.easymock.powermock.integration.runner;
 
+import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
-import com.episode6.hackit.mockspresso.quick.BuildQuickMockspresso;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.easymock.Mock;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.episode6.hackit.mockspresso.basic.plugin.MockspressoBasicPluginsJavaSupport.injectBySimpleConfig;
+import static com.episode6.hackit.mockspresso.easymock.powermock.MockspressoEasyPowerMockPluginsJavaSupport.mockByPowerMock;
 import static org.easymock.EasyMock.createMock;
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -17,9 +19,9 @@ public class InvalidRuleTestEasyPowerMockRunner {
 
   private final TestClass mInitializerWithFields = new TestClass();
 
-  public final Mockspresso.Rule invalidMockspresso = BuildQuickMockspresso.with()
-      .injector().simple()
-      .mocker().easyMockWithPowerMock()
+  public final Mockspresso.Rule invalidMockspresso = BuildMockspresso.with()
+      .plugin(injectBySimpleConfig())
+      .plugin(mockByPowerMock())
       .testResources(mInitializerWithFields)
       .buildRule();
 

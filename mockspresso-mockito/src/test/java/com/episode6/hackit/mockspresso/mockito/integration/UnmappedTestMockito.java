@@ -1,11 +1,11 @@
 package com.episode6.hackit.mockspresso.mockito.integration;
 
+import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
 import com.episode6.hackit.mockspresso.annotation.Unmapped;
 import com.episode6.hackit.mockspresso.api.ObjectProvider;
 import com.episode6.hackit.mockspresso.exception.RepeatedDependencyDefinedException;
-import com.episode6.hackit.mockspresso.quick.BuildQuickMockspresso;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.Coffee;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeGrounds;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeMakers;
@@ -15,7 +15,9 @@ import org.mockito.Mock;
 
 import javax.inject.Provider;
 
+import static com.episode6.hackit.mockspresso.basic.plugin.MockspressoBasicPluginsJavaSupport.injectByJavaxConfig;
 import static com.episode6.hackit.mockspresso.mockito.Conditions.mockCondition;
+import static com.episode6.hackit.mockspresso.mockito.MockspressoMockitoPluginsJavaSupport.mockByMockito;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -25,9 +27,9 @@ import static org.mockito.Mockito.when;
  */
 public class UnmappedTestMockito {
 
-  @Rule public final Mockspresso.Rule mockspresso = BuildQuickMockspresso.with()
-      .injector().javax()
-      .mocker().mockito()
+  @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
+      .plugin(injectByJavaxConfig())
+      .plugin(mockByMockito())
       .buildRule();
 
   @Mock Provider<CoffeeGrounds> mGroundsProvider;
