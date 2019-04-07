@@ -1,6 +1,8 @@
 # ChangeLog
 
-### v0.1.0 - unreleased
+### v0.1.0-beta2 - unreleased
+
+### v0.1.0-beta1 - unreleased
  - Add kotlin support/dependencies too all modules
  - **BREAKING** Replace jsr305 (`@Nullable`) with jetbrains annotations
  - Annotate interfaces null/not null for kotlin compatibility
