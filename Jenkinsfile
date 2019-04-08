@@ -17,5 +17,10 @@ node {
   }
 
   gradleRunner.buildAndTest()
+
+  stage('docgen') {
+    gradleRunner.runGradle("docgen", "dokka", false)
+  }
+
   gradleRunner.deploy()
 }
