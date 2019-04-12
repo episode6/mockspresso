@@ -17,7 +17,12 @@ import java.util.List;
  * expects some mocks/spies to already be initialized (and doesn't touch those).
  *
  * We use {@link PowerMock#createMock(Class)} to create mocks.
+ *
+ * @deprecated This functionality is internal implementation and shouldn't be exposed
+ *
+ * This class will be marked internal/protected in a future release
  */
+@Deprecated
 public class EasyPowerMockFieldPreparer implements MockerConfig.FieldPreparer {
   @Override
   public void prepareFields(Object objectWithMockFields) {

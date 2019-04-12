@@ -6,7 +6,12 @@ import org.powermock.api.mockito.PowerMockito;
 
 /**
  * Creates generic Powermock mocks
+ *
+ * @deprecated This functionality is internal and should not be exposed.
+ *
+ * This class will be marked internal/protected in a future release
  */
+@Deprecated
 public class PowerMockitoMockMaker implements MockerConfig.MockMaker {
   @Override
   @SuppressWarnings("unchecked")

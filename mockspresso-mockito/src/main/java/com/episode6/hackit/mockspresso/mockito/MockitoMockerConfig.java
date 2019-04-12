@@ -10,7 +10,13 @@ import java.util.List;
 
 /**
  * A MockerConfig for Mockito.
+ *
+ * @deprecated This functionality is now exposed by the kotlin extension method `mockByMockito()` and its
+ * JavaSupport counterpart {@link MockspressoMockitoPluginsJavaSupport#mockByMockito()}
+ *
+ * This class will be marked internal/protected in a future release
  */
+@Deprecated
 public class MockitoMockerConfig implements MockerConfig {
 
   private final MockitoMockMaker mMockMaker = new MockitoMockMaker();

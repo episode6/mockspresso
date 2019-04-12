@@ -24,9 +24,16 @@ import java.util.List;
  * return type (and the factory's optional qualifier annotation).
  *
  * This class should support most generic factory types.
+ *
+ * @deprecated This functionality is now exposed by the kotlin extension method `automaticFactories(vararg KClass)` and its
+ * JavaSupport counterpart {@link MockspressoMockitoPluginsJavaSupport#automaticFactories(Class[])}
+ *
+ * This class will be marked internal/protected in a future release
  */
+@Deprecated
 public class MockitoAutoFactoryMaker implements SpecialObjectMaker {
 
+  @Deprecated
   public static MockitoAutoFactoryMaker create(Class<?>... classes) {
     return new MockitoAutoFactoryMaker(Arrays.asList(classes));
   }

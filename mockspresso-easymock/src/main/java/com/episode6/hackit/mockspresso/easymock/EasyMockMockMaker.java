@@ -6,7 +6,12 @@ import org.easymock.EasyMock;
 
 /**
  * A MockMaker for EasyMock
+ *
+ * @deprecated This functionality is internal implementation and shouldn't be exposed
+ *
+ * This class will be marked internal/protected in a future release
  */
+@Deprecated
 public class EasyMockMockMaker implements MockerConfig.MockMaker {
 
   @SuppressWarnings("unchecked")
