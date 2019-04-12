@@ -3,8 +3,6 @@ package com.episode6.hackit.mockspresso.easymock.powermock.integration.runner;
 import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.basic.plugin.javax.JavaxInjectMockspressoPlugin;
-import com.episode6.hackit.mockspresso.basic.plugin.simple.SimpleInjectMockspressoPlugin;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.*;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeMakers.*;
 import org.junit.Before;
@@ -61,7 +59,7 @@ public class CoffeeMakersMockEverythingTestEasyPowerMockRunner {
 
   /**
    * Test a simple object with a normal constructor using, using the
-   * {@link SimpleInjectMockspressoPlugin}
+   * simple injector
    */
   @Test
   public void testSimpleCoffeeMaker() {
@@ -74,7 +72,7 @@ public class CoffeeMakersMockEverythingTestEasyPowerMockRunner {
 
   /**
    * Test an object that is created by javax.inject rules, using the
-   * {@link JavaxInjectMockspressoPlugin}
+   * javax injector
    */
   @Test
   public void testConstructorInjectedCoffeeMaker() {
@@ -89,7 +87,7 @@ public class CoffeeMakersMockEverythingTestEasyPowerMockRunner {
 
   /**
    * Test an object that is created by javax.inject rules, using the
-   * {@link JavaxInjectMockspressoPlugin}
+   * javax injector
    */
   @Test
   public void testFieldInjedCoffeeMaker() {
@@ -104,7 +102,7 @@ public class CoffeeMakersMockEverythingTestEasyPowerMockRunner {
 
   /**
    * Test an object that is created by javax.inject rules, using the
-   * {@link JavaxInjectMockspressoPlugin}
+   * javax injector
    */
   @Test
   public void testMethodInjectedCoffeeMaker() {
@@ -119,7 +117,7 @@ public class CoffeeMakersMockEverythingTestEasyPowerMockRunner {
 
   /**
    * Test an object that is created by javax.inject rules, using the
-   * {@link JavaxInjectMockspressoPlugin}
+   * javax injector
    */
   @Test
   public void testMixedInjectionCoffeeMaker() {
