@@ -2,9 +2,9 @@ package com.episode6.hackit.mockspresso.basic.plugin
 
 import com.episode6.hackit.mockspresso.Mockspresso
 import com.episode6.hackit.mockspresso.api.MockspressoPlugin
-import com.episode6.hackit.mockspresso.basic.plugin.javax.JavaxInjectMockspressoPlugin
+import com.episode6.hackit.mockspresso.basic.plugin.javax.JavaxInjectionConfig
 import com.episode6.hackit.mockspresso.basic.plugin.javax.ProviderMaker
-import com.episode6.hackit.mockspresso.basic.plugin.simple.SimpleInjectMockspressoPlugin
+import com.episode6.hackit.mockspresso.basic.plugin.simple.SimpleInjectionConfig
 
 /**
  * Kotlin extensions for mockspresso's basic plugins
@@ -15,7 +15,7 @@ import com.episode6.hackit.mockspresso.basic.plugin.simple.SimpleInjectMockspres
  * their shortest constructor.
  */
 @JvmSynthetic
-fun Mockspresso.Builder.injectBySimpleConfig(): Mockspresso.Builder = plugin(SimpleInjectMockspressoPlugin())
+fun Mockspresso.Builder.injectBySimpleConfig(): Mockspresso.Builder = injector(SimpleInjectionConfig())
 
 /**
  * Applies the [com.episode6.hackit.mockspresso.api.InjectionConfig] for javax.inject based object creation
@@ -23,7 +23,9 @@ fun Mockspresso.Builder.injectBySimpleConfig(): Mockspresso.Builder = plugin(Sim
  * Also includes special object support for [javax.inject.Provider]s
  */
 @JvmSynthetic
-fun Mockspresso.Builder.injectByJavaxConfig(): Mockspresso.Builder = plugin(JavaxInjectMockspressoPlugin())
+fun Mockspresso.Builder.injectByJavaxConfig(): Mockspresso.Builder = this
+    .injector(JavaxInjectionConfig())
+    .automaticProviders()
 
 /**
  * Adds a [com.episode6.hackit.mockspresso.api.SpecialObjectMaker] to handle [javax.inject.Provider]s
