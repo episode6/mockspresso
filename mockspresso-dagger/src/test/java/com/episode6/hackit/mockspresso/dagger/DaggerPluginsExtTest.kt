@@ -3,10 +3,10 @@ package com.episode6.hackit.mockspresso.dagger
 import com.episode6.hackit.mockspresso.Mockspresso
 import com.episode6.hackit.mockspresso.api.InjectionConfig
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker
+import com.episode6.hackit.mockspresso.testing.className
 import com.nhaarman.mockitokotlin2.*
 import org.fest.assertions.api.Assertions.assertThat
 import org.fest.assertions.api.Assertions.atIndex
-import org.fest.assertions.core.Condition
 import org.junit.Test
 import org.mockito.stubbing.Answer
 
@@ -40,8 +40,4 @@ class DaggerPluginsExtTest {
     assertThat(result).isEqualTo(builder)
     verify(builder).specialObjectMaker(any<DaggerLazyMaker>())
   }
-}
-
-private fun <T: Any> className(simpleName: String) = object : Condition<T>("expected class named $simpleName") {
-  override fun matches(value: T?): Boolean = value!!.javaClass.simpleName == simpleName
 }
