@@ -5,7 +5,7 @@ dependencies {
 
   implementation project(':mockspresso-basic-plugins')
 
-  mavenProvided 'com.google.dagger:dagger'
+  mavenOptional 'com.google.dagger:dagger'
 
   testImplementation project(':mockspresso-core')
   testImplementation project(':mockspresso-testing-shared')
