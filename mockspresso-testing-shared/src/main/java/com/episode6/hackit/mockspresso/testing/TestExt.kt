@@ -24,3 +24,7 @@ fun <T : Any> ObjectAssert<T>.satisfies(block: (T) -> Unit): ObjectAssert<T> = m
     return true
   }
 })
+
+fun <T: Any> className(simpleName: String) = object : Condition<T>("expected class named $simpleName") {
+  override fun matches(value: T?): Boolean = value!!.javaClass.simpleName == simpleName
+}

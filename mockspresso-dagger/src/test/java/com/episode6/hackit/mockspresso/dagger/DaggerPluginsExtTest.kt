@@ -1,10 +1,12 @@
 package com.episode6.hackit.mockspresso.dagger
 
 import com.episode6.hackit.mockspresso.Mockspresso
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
+import com.episode6.hackit.mockspresso.api.InjectionConfig
+import com.episode6.hackit.mockspresso.api.SpecialObjectMaker
+import com.episode6.hackit.mockspresso.testing.className
+import com.nhaarman.mockitokotlin2.*
 import org.fest.assertions.api.Assertions.assertThat
+import org.fest.assertions.api.Assertions.atIndex
 import org.junit.Test
 import org.mockito.stubbing.Answer
 
@@ -16,11 +18,20 @@ class DaggerPluginsExtTest {
   val builder: Mockspresso.Builder = mock(defaultAnswer = Answer { it.mock })
 
   @Test
-  fun testSimplePluginSourceOfTruth() {
+  fun testInjectByDaggerSourceOfTruth() {
     val result = builder.injectByDaggerConfig()
 
     assertThat(result).isEqualTo(builder)
-    verify(builder).plugin(any<DaggerMockspressoPlugin>())
+    argumentCaptor<InjectionConfig>() {
+      verify(builder).injector(capture())
+      assertThat(firstValue).has(className("JavaxInjectionConfig"))
+    }
+    argumentCaptor<SpecialObjectMaker>() {
+      verify(builder, times(2)).specialObjectMaker(capture())
+      assertThat(allValues)
+          .has(className("ProviderMaker"), atIndex(0))
+          .has(className("DaggerLazyMaker"), atIndex(1))
+    }
   }
 
   @Test fun testAutomaticLaziesSourceOfTruth() {
