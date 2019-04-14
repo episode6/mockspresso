@@ -2,7 +2,6 @@ package com.episode6.hackit.mockspresso.dagger
 
 import com.episode6.hackit.mockspresso.Mockspresso
 import com.episode6.hackit.mockspresso.api.MockspressoPlugin
-import com.episode6.hackit.mockspresso.basic.plugin.injectByJavaxConfig
 
 /**
  * Kotlin extension methods for mockspresso's Dagger plugins
@@ -13,9 +12,7 @@ import com.episode6.hackit.mockspresso.basic.plugin.injectByJavaxConfig
  * with additional support for dagger's Lazy interface.
  */
 @JvmSynthetic
-fun Mockspresso.Builder.injectByDaggerConfig(): Mockspresso.Builder = this
-    .injectByJavaxConfig()
-    .automaticLazies()
+fun Mockspresso.Builder.injectByDaggerConfig(): Mockspresso.Builder = plugin(DaggerMockspressoPlugin())
 
 /**
  * Adds a [com.episode6.hackit.mockspresso.api.SpecialObjectMaker] to handle [dagger.Lazy]s
