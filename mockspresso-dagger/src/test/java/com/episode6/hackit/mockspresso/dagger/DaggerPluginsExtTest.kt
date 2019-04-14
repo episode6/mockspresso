@@ -1,44 +1,32 @@
 package com.episode6.hackit.mockspresso.dagger
 
 import com.episode6.hackit.mockspresso.Mockspresso
-import com.episode6.hackit.mockspresso.api.MockspressoPlugin
-import com.episode6.hackit.mockspresso.api.SpecialObjectMaker
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.slot
-import io.mockk.verify
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
 import org.fest.assertions.api.Assertions.assertThat
 import org.junit.Test
-
+import org.mockito.stubbing.Answer
 
 /**
  * Tests [com.episode6.hackit.mockspresso.dagger.DaggerPluginsExtKt]
  */
 class DaggerPluginsExtTest {
 
-  val builder = mockk<Mockspresso.Builder>().apply {
-    every { plugin(any()) } returns this
-    every { specialObjectMaker(any()) } returns this
-  }
+  val builder: Mockspresso.Builder = mock(defaultAnswer = Answer { it.mock })
 
   @Test
   fun testSimplePluginSourceOfTruth() {
-    val slot = slot<MockspressoPlugin>()
-
     val result = builder.injectByDaggerConfig()
 
     assertThat(result).isEqualTo(builder)
-    verify { builder.plugin(capture(slot)) }
-    assertThat(slot.captured).isInstanceOf(DaggerMockspressoPlugin::class.java)
+    verify(builder).plugin(any<DaggerMockspressoPlugin>())
   }
 
   @Test fun testAutomaticLaziesSourceOfTruth() {
-    val slot = slot<SpecialObjectMaker>()
-
     val result = builder.automaticLazies()
 
     assertThat(result).isEqualTo(builder)
-    verify { builder.specialObjectMaker(capture(slot)) }
-    assertThat(slot.captured).isInstanceOf(DaggerLazyMaker::class.java)
+    verify(builder).specialObjectMaker(any<DaggerLazyMaker>())
   }
 }
