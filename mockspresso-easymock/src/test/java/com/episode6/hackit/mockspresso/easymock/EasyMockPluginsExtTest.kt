@@ -21,7 +21,7 @@ class EasyMockPluginsExtTest {
   }
 
   @Test fun testEasyMockExtensionSourceOfTruth() {
-    expect(builder.plugin(anyObject(EasyMockPlugin::class.java))).andReturn(builder)
+    expect(builder.mocker(anyObject(EasyMockMockerConfig::class.java))).andReturn(builder)
     replay(builder)
 
     val result = builder.mockByEasyMock()
