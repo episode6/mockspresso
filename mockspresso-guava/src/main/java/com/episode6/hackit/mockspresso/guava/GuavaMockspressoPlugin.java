@@ -6,8 +6,12 @@ import com.google.common.base.Supplier;
 import com.google.common.util.concurrent.ListenableFuture;
 
 /**
- *
+ * @deprecated This functionality is now exposed by the kotlin extension methods
+ * `automaticListenableFutures()` and `automaticSuppliers()` and their JavaSupport
+ * counterparts {@link MockspressoGuavaPluginsJavaSupport#automaticListenableFutures()}
+ * and {@link MockspressoGuavaPluginsJavaSupport#automaticSuppliers()}
  */
+@Deprecated
 public class GuavaMockspressoPlugin implements MockspressoPlugin {
   @Override
   public Mockspresso.Builder apply(Mockspresso.Builder builder) {
