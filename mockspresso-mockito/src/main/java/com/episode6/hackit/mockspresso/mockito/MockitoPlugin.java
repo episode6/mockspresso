@@ -6,7 +6,13 @@ import org.mockito.Mockito;
 
 /**
  * A MockspressoPlugin that applies the mockito mocker config.
+ *
+ * @deprecated This functionality is now exposed by the kotlin extension method `mockByMockito()` and its
+ * JavaSupport counterpart {@link MockspressoMockitoPluginsJavaSupport#mockByMockito()}
+ *
+ * This class will be removed in a future release
  */
+@Deprecated
 public class MockitoPlugin implements MockspressoPlugin {
   @Override
   public Mockspresso.Builder apply(Mockspresso.Builder builder) {

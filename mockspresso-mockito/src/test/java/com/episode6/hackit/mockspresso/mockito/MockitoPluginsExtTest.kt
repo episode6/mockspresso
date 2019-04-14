@@ -22,7 +22,7 @@ class MockitoPluginsExtTest {
     val result = builder.mockByMockito()
 
     assertThat(result).isEqualTo(builder)
-    verify(builder).plugin(any<MockitoPlugin>())
+    verify(builder).mocker(any<MockitoMockerConfig>())
   }
 
   @Test fun testAutomaticFactorySourceOfTruthKotlin() {
