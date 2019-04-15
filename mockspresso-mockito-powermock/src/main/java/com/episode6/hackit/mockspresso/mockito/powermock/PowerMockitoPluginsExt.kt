@@ -14,7 +14,7 @@ import com.episode6.hackit.mockspresso.api.MockspressoPlugin
  * Also requires your test be runWith the [org.powermock.modules.junit4.PowerMockRunner]
  */
 @JvmSynthetic
-fun Mockspresso.Builder.mockByPowerMockito(): Mockspresso.Builder = plugin(PowerMockitoPlugin())
+fun Mockspresso.Builder.mockByPowerMockito(): Mockspresso.Builder = mocker(PowerMockitoConfig())
 
 /**
  * Applies the [com.episode6.hackit.mockspresso.api.MockerConfig] for Powermock + Mockito
@@ -23,7 +23,9 @@ fun Mockspresso.Builder.mockByPowerMockito(): Mockspresso.Builder = plugin(Power
  * PLUS org.powermock:powermock-module-junit4-rule and org.powermock:powermock-classloading-xstream
  */
 @JvmSynthetic
-fun Mockspresso.Builder.mockByPowerMockitoRule(): Mockspresso.Builder = plugin(PowerMockitoRulePlugin())
+fun Mockspresso.Builder.mockByPowerMockitoRule(): Mockspresso.Builder = this
+    .mockByPowerMockito()
+    .outerRule(org.powermock.modules.junit4.rule.PowerMockRule())
 
 /**
  * Expose the extension methods defined here as [MockspressoPlugin]s for consumption by java tests

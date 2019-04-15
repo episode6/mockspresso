@@ -7,6 +7,7 @@ import com.nhaarman.mockitokotlin2.verify
 import org.fest.assertions.api.Assertions.assertThat
 import org.junit.Test
 import org.mockito.stubbing.Answer
+import org.powermock.modules.junit4.rule.PowerMockRule
 
 /**
  * Tests [com.episode6.hackit.mockspresso.mockito.powermock.PowerMockitoPluginsExtKt]
@@ -20,7 +21,7 @@ class PowerMockitoPluginsExtTest {
     val result = builder.mockByPowerMockito()
 
     assertThat(result).isEqualTo(builder)
-    verify(builder).plugin(any<PowerMockitoPlugin>())
+    verify(builder).mocker(any<PowerMockitoConfig>())
   }
 
   @Test
@@ -28,6 +29,7 @@ class PowerMockitoPluginsExtTest {
     val result = builder.mockByPowerMockitoRule()
 
     assertThat(result).isEqualTo(builder)
-    verify(builder).plugin(any<PowerMockitoRulePlugin>())
+    verify(builder).mocker(any<PowerMockitoConfig>())
+    verify(builder).outerRule(any<PowerMockRule>())
   }
 }
