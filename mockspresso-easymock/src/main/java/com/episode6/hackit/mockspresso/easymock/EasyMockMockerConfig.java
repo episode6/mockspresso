@@ -9,7 +9,13 @@ import java.util.List;
 
 /**
  * A MockerConfig for EasyMock
+ *
+ * @deprecated This functionality is now exposed by the kotlin extension method `mockByEasyMock()` and its
+ * JavaSupport counterpart {@link MockspressoEasyMockPluginsJavaSupport#mockByEasyMock()}
+ *
+ * This class will be marked internal/protected in a future release
  */
+@Deprecated
 public class EasyMockMockerConfig implements MockerConfig {
 
   private final EasyMockMockMaker mMockMaker = new EasyMockMockMaker();

@@ -12,7 +12,13 @@ import java.lang.reflect.Type;
 
 /**
  * Special object handling for guava's {@link Supplier}
+ *
+ * @deprecated This functionality is now exposed by the kotlin extension method `automaticSuppliers()` and its
+ * JavaSupport counterpart {@link MockspressoGuavaPluginsJavaSupport#automaticSuppliers()}
+ *
+ * This class will be marked internal/protected in a future release
  */
+@Deprecated
 public class SupplierMaker implements SpecialObjectMaker {
   @Override
   public boolean canMakeObject(DependencyKey<?> key) {

@@ -15,7 +15,14 @@ import java.util.List;
  * With this config, we look for the constructor annotated with @Inject, and prefer it.
  * If no @Inject constructor is found, we will use and empty constructor, if one is found.
  * If multiple @Inject constructors are found, an exception will be thrown.
+ *
+ * @deprecated This functionality is now exposed by the kotlin extension method `injectByJavaxConfig()` and its
+ * JavaSupport counterpart
+ * {@link com.episode6.hackit.mockspresso.basic.plugin.MockspressoBasicPluginsJavaSupport#injectByJavaxConfig()}
+ *
+ * This class will be marked internal/protected in a future release
  */
+@Deprecated
 public class JavaxInjectionConfig implements InjectionConfig {
 
   private static final List<Class<? extends Annotation>> INJECT_ANNOTATION = Collections.<Class<? extends Annotation>>singletonList(Inject.class);

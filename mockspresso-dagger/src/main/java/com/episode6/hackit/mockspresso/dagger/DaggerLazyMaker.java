@@ -11,7 +11,13 @@ import java.lang.reflect.Type;
 
 /**
  * An implementation of SpecialObjectMaker for {@link dagger.Lazy}.
+ *
+ * @deprecated This functionality is now exposed by the kotlin extension method `automaticLazies()` and its
+ * JavaSupport counterpart {@link MockspressoDaggerPluginsJavaSupport#automaticLazies()}
+ *
+ * This class will be marked internal/protected in a future release
  */
+@Deprecated
 public class DaggerLazyMaker implements SpecialObjectMaker {
 
   @Override

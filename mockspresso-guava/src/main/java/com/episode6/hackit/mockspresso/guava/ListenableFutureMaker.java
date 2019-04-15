@@ -14,7 +14,13 @@ import java.lang.reflect.Type;
  * Special object maker for guava's {@link ListenableFuture}. Uses param type
  * and ident annotation to look up actual dependency, and returns an immediate
  * future.
+ *
+ * @deprecated This functionality is now exposed by the kotlin extension method `automaticListenableFutures()` and its
+ * JavaSupport counterpart {@link MockspressoGuavaPluginsJavaSupport#automaticListenableFutures()}
+ *
+ * This class will be marked internal/protected in a future release
  */
+@Deprecated
 public class ListenableFutureMaker implements SpecialObjectMaker {
   @Override
   public boolean canMakeObject(DependencyKey<?> key) {
