@@ -9,6 +9,7 @@ import static org.fest.assertions.api.Assertions.fail;
 /**
  * Tests loading of plugins w/o having the appropriate dependencies
  */
+@SuppressWarnings("deprecation")
 public class LoadPluginTest {
 
   @Test

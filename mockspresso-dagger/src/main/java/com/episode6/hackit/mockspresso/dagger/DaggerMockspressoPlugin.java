@@ -2,7 +2,6 @@ package com.episode6.hackit.mockspresso.dagger;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.api.MockspressoPlugin;
-import com.episode6.hackit.mockspresso.basic.plugin.javax.JavaxInjectMockspressoPlugin;
 
 /**
  * A simple dagger plugin that builds off of the javax injector
@@ -19,7 +18,7 @@ public class DaggerMockspressoPlugin implements MockspressoPlugin {
   public Mockspresso.Builder apply(Mockspresso.Builder builder) {
     assert dagger.Lazy.class != null;
     return builder
-        .plugin(new JavaxInjectMockspressoPlugin())
+        .plugin(new com.episode6.hackit.mockspresso.basic.plugin.javax.JavaxInjectMockspressoPlugin())
         .specialObjectMaker(new DaggerLazyMaker());
 
   }
