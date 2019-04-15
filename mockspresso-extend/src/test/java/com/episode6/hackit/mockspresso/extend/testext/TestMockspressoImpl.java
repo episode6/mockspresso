@@ -1,9 +1,10 @@
 package com.episode6.hackit.mockspresso.extend.testext;
 
 import com.episode6.hackit.mockspresso.Mockspresso;
-import com.episode6.hackit.mockspresso.basic.plugin.simple.SimpleInjectMockspressoPlugin;
 import com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension;
-import com.episode6.hackit.mockspresso.mockito.MockitoPlugin;
+
+import static com.episode6.hackit.mockspresso.basic.plugin.MockspressoBasicPluginsJavaSupport.injectBySimpleConfig;
+import static com.episode6.hackit.mockspresso.mockito.MockspressoMockitoPluginsJavaSupport.mockByMockito;
 
 /**
  * Implementation of {@link TestMockspresso} extension definition. This class is totally boiler-plate except
@@ -33,12 +34,12 @@ class TestMockspressoImpl extends AbstractMockspressoExtension<TestMockspresso.B
 
     @Override
     public TestMockspresso.Builder simpleInjector() {
-      return plugin(new SimpleInjectMockspressoPlugin());
+      return plugin(injectBySimpleConfig());
     }
 
     @Override
     public TestMockspresso.Builder mockWithMockito() {
-      return plugin(new MockitoPlugin());
+      return plugin(mockByMockito());
     }
   }
 }

@@ -103,6 +103,7 @@ public class TypeTokenTest {
   }
 
   @Test
+  @SuppressWarnings("unchecked")
   public void testKotlinGeneric() {
     TestJavaObjectWithKtGeneric testObj = new TestJavaObjectWithKtGeneric();
     TypeToken<TestGenericKtInterface<String>> manualToken = new TypeToken<TestGenericKtInterface<String>>() {};
