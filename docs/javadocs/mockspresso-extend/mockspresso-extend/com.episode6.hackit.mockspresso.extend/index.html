@@ -1,0 +1,35 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.episode6.hackit.mockspresso.extend - mockspresso-extend</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">mockspresso-extend</a>&nbsp;/&nbsp;<a href="./index.html">com.episode6.hackit.mockspresso.extend</a><br/>
+<br/>
+<h2>Package com.episode6.hackit.mockspresso.extend</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-abstract-mockspresso-extension/index.html">AbstractMockspressoExtension</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">AbstractMockspressoExtension</span><span class="symbol">&lt;</span><span class="identifier">BLDR</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-mockspresso-extension/-builder/index.html"><span class="identifier">MockspressoExtension.Builder</span></a><span class="symbol">&lt;</span><a href="-mockspresso-extension/index.html"><span class="identifier">MockspressoExtension</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">,</span>&nbsp;<a href="-mockspresso-extension/-rule/index.html"><span class="identifier">MockspressoExtension.Rule</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">,</span>&nbsp;<a href="-mockspresso-extension/-builder/index.html"><span class="identifier">MockspressoExtension.Builder</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-mockspresso-extension/index.html"><span class="identifier">MockspressoExtension</span></a><span class="symbol">&lt;</span><a href="-abstract-mockspresso-extension/index.html#BLDR"><span class="identifier">BLDR</span></a><span class="symbol">&gt;</span></code>
+<p>Extend these 3 classes to create your own mockspresso extension <code><a href="-abstract-mockspresso-extension/index.html">AbstractMockspressoExtension</a></code> <code><a href="-abstract-mockspresso-extension/-rule/index.html">AbstractMockspressoExtension.Rule</a></code> <code><a href="-abstract-mockspresso-extension/-builder/index.html">AbstractMockspressoExtension.Builder</a></code> In each subclass, point the generic type references to your interface extensions of <code><a href="-mockspresso-extension/index.html">MockspressoExtension</a></code> and its inner interfaces. Each subclass should also directly implement the appropriate interface extension of <code><a href="-mockspresso-extension/index.html">MockspressoExtension</a></code> In the subclass of <code><a href="-abstract-mockspresso-extension/index.html">AbstractMockspressoExtension</a></code>, you should only need to override the constructor, providing a lambda that wraps <code><a href="#">Mockspresso.Builder</a></code> with your custom subclass of <code><a href="-abstract-mockspresso-extension/-builder/index.html">AbstractMockspressoExtension.Builder</a></code></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-mockspresso-extension/index.html">MockspressoExtension</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">MockspressoExtension</span><span class="symbol">&lt;</span><span class="identifier">BLDR</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-mockspresso-extension/-builder/index.html"><span class="identifier">MockspressoExtension.Builder</span></a><span class="symbol">&lt;</span><a href="-mockspresso-extension/index.html"><span class="identifier">MockspressoExtension</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">,</span>&nbsp;<a href="-mockspresso-extension/-rule/index.html"><span class="identifier">MockspressoExtension.Rule</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">,</span>&nbsp;<a href="-mockspresso-extension/-builder/index.html"><span class="identifier">MockspressoExtension.Builder</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Mockspresso</span></code>
+<p>Extend these 3 interfaces to build your own Mockspresso extension and own your api. <code><a href="-mockspresso-extension/index.html">MockspressoExtension</a></code> <code><a href="-mockspresso-extension/-rule/index.html">MockspressoExtension.Rule</a></code> <code><a href="-mockspresso-extension/-builder/index.html">MockspressoExtension.Builder</a></code> Each interface/class is generically typed which is what allows you to extend them whithout needing to override all the default methods. Note: if you're working in a 100% kotlin codebase, this is totally unnecessary and you're better off simply adding extension methods to <code><a href="#">Mockspresso.Builder</a></code>. These interfaces/abstract classes are only needed for java. Usually you will only want to add custom methods to your extension of <code><a href="-mockspresso-extension/-builder/index.html">MockspressoExtension.Builder</a></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

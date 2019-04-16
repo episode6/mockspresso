@@ -1,0 +1,6 @@
+$dokka.format:html
+$dokka.linkExtension:html
+
+com.episode6.hackit.mockspresso
+com.episode6.hackit.mockspresso.annotation
+com.episode6.hackit.mockspresso.api

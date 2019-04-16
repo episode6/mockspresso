@@ -1,0 +1,180 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Mockspresso.Builder - mockspresso-api</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">mockspresso-api</a>&nbsp;/&nbsp;<a href="../../index.html">com.episode6.hackit.mockspresso</a>&nbsp;/&nbsp;<a href="../index.html">Mockspresso</a>&nbsp;/&nbsp;<a href="./index.html">Builder</a><br/>
+<br/>
+<h1>Builder</h1>
+<code><span class="keyword">interface </span><span class="identifier">Builder</span></code>
+<p>Class used to build Mockspresso and Mockspresso.Rule instances.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="build.html">build</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">build</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../index.html"><span class="identifier">Mockspresso</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="build-rule.html">buildRule</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">buildRule</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-rule.html"><span class="identifier">Mockspresso.Rule</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="dependency.html">dependency</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">, </span><span class="identifier">V</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="dependency.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span> <span class="identifier">dependency</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$dependency(java.lang.Class((com.episode6.hackit.mockspresso.Mockspresso.Builder.dependency.T)), com.episode6.hackit.mockspresso.Mockspresso.Builder.dependency.V)/clazz">clazz</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><a href="dependency.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$dependency(java.lang.Class((com.episode6.hackit.mockspresso.Mockspresso.Builder.dependency.T)), com.episode6.hackit.mockspresso.Mockspresso.Builder.dependency.V)/value">value</span><span class="symbol">:</span>&nbsp;<a href="dependency.html#V"><span class="identifier">V</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a></code><br/>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">, </span><span class="identifier">V</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="dependency.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span> <span class="identifier">dependency</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$dependency(com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.Mockspresso.Builder.dependency.T)), com.episode6.hackit.mockspresso.Mockspresso.Builder.dependency.V)/typeToken">typeToken</span><span class="symbol">:</span>&nbsp;<span class="identifier">TypeToken</span><span class="symbol">&lt;</span><a href="dependency.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$dependency(com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.Mockspresso.Builder.dependency.T)), com.episode6.hackit.mockspresso.Mockspresso.Builder.dependency.V)/value">value</span><span class="symbol">:</span>&nbsp;<a href="dependency.html#V"><span class="identifier">V</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a></code><br/>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">, </span><span class="identifier">V</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="dependency.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span> <span class="identifier">dependency</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$dependency(com.episode6.hackit.mockspresso.reflect.DependencyKey((com.episode6.hackit.mockspresso.Mockspresso.Builder.dependency.T)), com.episode6.hackit.mockspresso.Mockspresso.Builder.dependency.V)/key">key</span><span class="symbol">:</span>&nbsp;<span class="identifier">DependencyKey</span><span class="symbol">&lt;</span><a href="dependency.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$dependency(com.episode6.hackit.mockspresso.reflect.DependencyKey((com.episode6.hackit.mockspresso.Mockspresso.Builder.dependency.T)), com.episode6.hackit.mockspresso.Mockspresso.Builder.dependency.V)/value">value</span><span class="symbol">:</span>&nbsp;<a href="dependency.html#V"><span class="identifier">V</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a></code>
+<p>Apply a specific instance of an object as a mockspresso dependency.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="dependency-provider.html">dependencyProvider</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">, </span><span class="identifier">V</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="dependency-provider.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span> <span class="identifier">dependencyProvider</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$dependencyProvider(java.lang.Class((com.episode6.hackit.mockspresso.Mockspresso.Builder.dependencyProvider.T)), com.episode6.hackit.mockspresso.api.ObjectProvider((com.episode6.hackit.mockspresso.Mockspresso.Builder.dependencyProvider.V)))/clazz">clazz</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><a href="dependency-provider.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$dependencyProvider(java.lang.Class((com.episode6.hackit.mockspresso.Mockspresso.Builder.dependencyProvider.T)), com.episode6.hackit.mockspresso.api.ObjectProvider((com.episode6.hackit.mockspresso.Mockspresso.Builder.dependencyProvider.V)))/value">value</span><span class="symbol">:</span>&nbsp;<a href="../../../com.episode6.hackit.mockspresso.api/-object-provider/index.html"><span class="identifier">ObjectProvider</span></a><span class="symbol">&lt;</span><a href="dependency-provider.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a></code><br/>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">, </span><span class="identifier">V</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="dependency-provider.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span> <span class="identifier">dependencyProvider</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$dependencyProvider(com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.Mockspresso.Builder.dependencyProvider.T)), com.episode6.hackit.mockspresso.api.ObjectProvider((com.episode6.hackit.mockspresso.Mockspresso.Builder.dependencyProvider.V)))/typeToken">typeToken</span><span class="symbol">:</span>&nbsp;<span class="identifier">TypeToken</span><span class="symbol">&lt;</span><a href="dependency-provider.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$dependencyProvider(com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.Mockspresso.Builder.dependencyProvider.T)), com.episode6.hackit.mockspresso.api.ObjectProvider((com.episode6.hackit.mockspresso.Mockspresso.Builder.dependencyProvider.V)))/value">value</span><span class="symbol">:</span>&nbsp;<a href="../../../com.episode6.hackit.mockspresso.api/-object-provider/index.html"><span class="identifier">ObjectProvider</span></a><span class="symbol">&lt;</span><a href="dependency-provider.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a></code><br/>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">, </span><span class="identifier">V</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="dependency-provider.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span> <span class="identifier">dependencyProvider</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$dependencyProvider(com.episode6.hackit.mockspresso.reflect.DependencyKey((com.episode6.hackit.mockspresso.Mockspresso.Builder.dependencyProvider.T)), com.episode6.hackit.mockspresso.api.ObjectProvider((com.episode6.hackit.mockspresso.Mockspresso.Builder.dependencyProvider.V)))/key">key</span><span class="symbol">:</span>&nbsp;<span class="identifier">DependencyKey</span><span class="symbol">&lt;</span><a href="dependency-provider.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$dependencyProvider(com.episode6.hackit.mockspresso.reflect.DependencyKey((com.episode6.hackit.mockspresso.Mockspresso.Builder.dependencyProvider.T)), com.episode6.hackit.mockspresso.api.ObjectProvider((com.episode6.hackit.mockspresso.Mockspresso.Builder.dependencyProvider.V)))/value">value</span><span class="symbol">:</span>&nbsp;<a href="../../../com.episode6.hackit.mockspresso.api/-object-provider/index.html"><span class="identifier">ObjectProvider</span></a><span class="symbol">&lt;</span><a href="dependency-provider.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a></code>
+<p>Apply a specific instance of an object as a mockspresso dependency.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="injector.html">injector</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">injector</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$injector(com.episode6.hackit.mockspresso.api.InjectionConfig)/injectionConfig">injectionConfig</span><span class="symbol">:</span>&nbsp;<a href="../../../com.episode6.hackit.mockspresso.api/-injection-config/index.html"><span class="identifier">InjectionConfig</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a></code>
+<p>Apply a <code><a href="../../../com.episode6.hackit.mockspresso.api/-injection-config/index.html">InjectionConfig</a></code> to this builder, which tells mockspresso how to create real objects.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="inner-rule.html">innerRule</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">innerRule</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$innerRule(org.junit.rules.TestRule)/testRule">testRule</span><span class="symbol">:</span>&nbsp;<span class="identifier">TestRule</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a></code><br/>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">innerRule</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$innerRule(org.junit.rules.MethodRule)/methodRule">methodRule</span><span class="symbol">:</span>&nbsp;<span class="identifier">MethodRule</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a></code>
+<p>Treat the resulting <code><a href="../-rule.html">Mockspresso.Rule</a></code> as a RuleChain, and wrap the supplied testRule as an innerRule to mockspresso. Rules are processed in the order they are added to the builder. So the first innerRule added will be the outer-most innerRule.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="mocker.html">mocker</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">mocker</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$mocker(com.episode6.hackit.mockspresso.api.MockerConfig)/mockerConfig">mockerConfig</span><span class="symbol">:</span>&nbsp;<a href="../../../com.episode6.hackit.mockspresso.api/-mocker-config/index.html"><span class="identifier">MockerConfig</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a></code>
+<p>Apply a <code><a href="../../../com.episode6.hackit.mockspresso.api/-mocker-config/index.html">MockerConfig</a></code> to this builder, which tells mockspresso how to create a mock and how they are annotated.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="outer-rule.html">outerRule</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">outerRule</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$outerRule(org.junit.rules.TestRule)/testRule">testRule</span><span class="symbol">:</span>&nbsp;<span class="identifier">TestRule</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a></code><br/>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">outerRule</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$outerRule(org.junit.rules.MethodRule)/methodRule">methodRule</span><span class="symbol">:</span>&nbsp;<span class="identifier">MethodRule</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a></code>
+<p>Treat the resulting <code><a href="../-rule.html">Mockspresso.Rule</a></code> as a RuleChain, and wrap it using the supplied testRule as an outerRule. Rules are processed in the order they are added to the builder. So the first outerRule added will be the outermost-rule.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="plugin.html">plugin</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">plugin</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$plugin(com.episode6.hackit.mockspresso.api.MockspressoPlugin)/plugin">plugin</span><span class="symbol">:</span>&nbsp;<a href="../../../com.episode6.hackit.mockspresso.api/-mockspresso-plugin/index.html"><span class="identifier">MockspressoPlugin</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a></code>
+<p>Apply a <code><a href="../../../com.episode6.hackit.mockspresso.api/-mockspresso-plugin/index.html">MockspressoPlugin</a></code> to this builder</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="real-object.html">realObject</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">realObject</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$realObject(java.lang.Class((com.episode6.hackit.mockspresso.Mockspresso.Builder.realObject.T)))/objectClass">objectClass</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><a href="real-object.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a></code>
+<p>Instruct mockspresso to create a real object for the provided dependency key. Convenience method, equivalent to calling realObject(DependencyKey.of(objectClass), objectClass);</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">realObject</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$realObject(com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.Mockspresso.Builder.realObject.T)))/objectToken">objectToken</span><span class="symbol">:</span>&nbsp;<span class="identifier">TypeToken</span><span class="symbol">&lt;</span><a href="real-object.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a></code>
+<p>Instruct mockspresso to create a real object for the provided dependency key. Convenience method, equivalent to calling realObject(DependencyKey.of(objectToken), objectToken);</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">realObject</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$realObject(com.episode6.hackit.mockspresso.reflect.DependencyKey((com.episode6.hackit.mockspresso.Mockspresso.Builder.realObject.T)))/keyAndImplementation">keyAndImplementation</span><span class="symbol">:</span>&nbsp;<span class="identifier">DependencyKey</span><span class="symbol">&lt;</span><a href="real-object.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a></code>
+<p>Instruct mockspresso to create a real object for the provided dependency key. Convenience method, equivalent to calling realObject(keyAndImplementation, keyAndImplementation.typeToken);</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">realObject</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$realObject(com.episode6.hackit.mockspresso.reflect.DependencyKey((com.episode6.hackit.mockspresso.Mockspresso.Builder.realObject.T)), java.lang.Class((com.episode6.hackit.mockspresso.Mockspresso.Builder.realObject.T)))/key">key</span><span class="symbol">:</span>&nbsp;<span class="identifier">DependencyKey</span><span class="symbol">&lt;</span><a href="real-object.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$realObject(com.episode6.hackit.mockspresso.reflect.DependencyKey((com.episode6.hackit.mockspresso.Mockspresso.Builder.realObject.T)), java.lang.Class((com.episode6.hackit.mockspresso.Mockspresso.Builder.realObject.T)))/implementationClass">implementationClass</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="real-object.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a></code><br/>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">realObject</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$realObject(com.episode6.hackit.mockspresso.reflect.DependencyKey((com.episode6.hackit.mockspresso.Mockspresso.Builder.realObject.T)), com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.Mockspresso.Builder.realObject.T)))/key">key</span><span class="symbol">:</span>&nbsp;<span class="identifier">DependencyKey</span><span class="symbol">&lt;</span><a href="real-object.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$realObject(com.episode6.hackit.mockspresso.reflect.DependencyKey((com.episode6.hackit.mockspresso.Mockspresso.Builder.realObject.T)), com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.Mockspresso.Builder.realObject.T)))/implementationToken">implementationToken</span><span class="symbol">:</span>&nbsp;<span class="identifier">TypeToken</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="real-object.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a></code>
+<p>Instruct mockspresso to create a real object (of type implementationClass) for the provided dependency key.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="special-object-maker.html">specialObjectMaker</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">specialObjectMaker</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$specialObjectMaker(com.episode6.hackit.mockspresso.api.SpecialObjectMaker)/specialObjectMaker">specialObjectMaker</span><span class="symbol">:</span>&nbsp;<a href="../../../com.episode6.hackit.mockspresso.api/-special-object-maker/index.html"><span class="identifier">SpecialObjectMaker</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a></code>
+<p>Apply a <code><a href="../../../com.episode6.hackit.mockspresso.api/-special-object-maker/index.html">SpecialObjectMaker</a></code> to this builder, which tells mockspresso how it should create object types that should not be mocked by default.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="test-resources.html">testResources</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">testResources</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$testResources(kotlin.Any)/objectWithResources">objectWithResources</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a></code>
+<p>Scans the included objectWithResources for fields annotated with @Mock and @RealObject, then prepares them and adds them to our dependency map. Will also call any methods annotated with <code><a href="#">org.junit.Before</a></code> during the initialization process, and any methods annotated with <code><a href="#">org.junit.After</a></code> during the teardown process. Don't pass the actual test class to this method, as it will result in multiple calls to your @Before and @After methods. Instead use <code><a href="test-resources-without-lifecycle.html">#testResourcesWithoutLifecycle(Object)</a></code></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="test-resources-without-lifecycle.html">testResourcesWithoutLifecycle</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">testResourcesWithoutLifecycle</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso.Builder$testResourcesWithoutLifecycle(kotlin.Any)/objectWithResources">objectWithResources</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a></code>
+<p>Scans the included objectWithResources for fields annotated with @Mock and @RealObject, then prepares them and adds them to our dependency map. Mockspresso will not call any methods on objects added via this method.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../dependency-of.html">dependencyOf</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a><span class="symbol">.</span><span class="identifier">dependencyOf</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso$dependencyOf(com.episode6.hackit.mockspresso.Mockspresso.Builder, kotlin.Annotation, kotlin.Function0((com.episode6.hackit.mockspresso.dependencyOf.T)))/qualifier">qualifier</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html"><span class="identifier">Annotation</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">, </span><span class="identifier" id="com.episode6.hackit.mockspresso$dependencyOf(com.episode6.hackit.mockspresso.Mockspresso.Builder, kotlin.Annotation, kotlin.Function0((com.episode6.hackit.mockspresso.dependencyOf.T)))/value">value</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../dependency-of.html#T"><span class="identifier">T</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a></code>
+<p>Apply a specific instance of an object as a mockspresso dependency.
+Kotlin alias for <a href="dependency-provider.html">Mockspresso.Builder.dependencyProvider</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../real-class-of.html">realClassOf</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">BIND_AND_IMPL</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a><span class="symbol">.</span><span class="identifier">realClassOf</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso$realClassOf(com.episode6.hackit.mockspresso.Mockspresso.Builder, kotlin.Annotation)/qualifier">qualifier</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html"><span class="identifier">Annotation</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a></code>
+<p>Instruct mockspresso to create a real object and bind with a dependencyKey of its own concrete type
+Convenience method for <a href="../../real-impl-of.html">realImplOf</a> when both BIND and IMPL are the same type</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../real-impl-of.html">realImplOf</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">BIND</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">IMPL</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../real-impl-of.html#BIND"><span class="identifier">BIND</span></a><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a><span class="symbol">.</span><span class="identifier">realImplOf</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso$realImplOf(com.episode6.hackit.mockspresso.Mockspresso.Builder, kotlin.Annotation)/qualifier">qualifier</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html"><span class="identifier">Annotation</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Mockspresso.Builder</span></a></code>
+<p>Instruct mockspresso to create a real object (of type <a href="../../real-impl-of.html#IMPL">IMPL</a>) to be bound using a dependency key of type <a href="../../real-impl-of.html#BIND">BIND</a>.
+Kotlin alias for <a href="real-object.html">Mockspresso.Builder.realObject</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,92 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.episode6.hackit.mockspresso - mockspresso-api</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">mockspresso-api</a>&nbsp;/&nbsp;<a href="./index.html">com.episode6.hackit.mockspresso</a><br/>
+<br/>
+<h2>Package com.episode6.hackit.mockspresso</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-mockspresso/index.html">Mockspresso</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Mockspresso</span></code>
+<p>Main mockspresso interface</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create-new.html">createNew</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="-mockspresso/index.html"><span class="identifier">Mockspresso</span></a><span class="symbol">.</span><span class="identifier">createNew</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="create-new.html#T"><span class="identifier">T</span></a></code>
+<p>Create a real object of type <a href="create-new.html#T">T</a> injected with mockspresso dependencies.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="dependency-of.html">dependencyOf</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="-mockspresso/-builder/index.html"><span class="identifier">Mockspresso.Builder</span></a><span class="symbol">.</span><span class="identifier">dependencyOf</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso$dependencyOf(com.episode6.hackit.mockspresso.Mockspresso.Builder, kotlin.Annotation, kotlin.Function0((com.episode6.hackit.mockspresso.dependencyOf.T)))/qualifier">qualifier</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html"><span class="identifier">Annotation</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">, </span><span class="identifier" id="com.episode6.hackit.mockspresso$dependencyOf(com.episode6.hackit.mockspresso.Mockspresso.Builder, kotlin.Annotation, kotlin.Function0((com.episode6.hackit.mockspresso.dependencyOf.T)))/value">value</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="dependency-of.html#T"><span class="identifier">T</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="-mockspresso/-builder/index.html"><span class="identifier">Mockspresso.Builder</span></a></code>
+<p>Apply a specific instance of an object as a mockspresso dependency.
+Kotlin alias for <a href="-mockspresso/-builder/dependency-provider.html">Mockspresso.Builder.dependencyProvider</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-dependency-of.html">getDependencyOf</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="-mockspresso/index.html"><span class="identifier">Mockspresso</span></a><span class="symbol">.</span><span class="identifier">getDependencyOf</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso$getDependencyOf(com.episode6.hackit.mockspresso.Mockspresso, kotlin.Annotation)/qualifier">qualifier</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html"><span class="identifier">Annotation</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="get-dependency-of.html#T"><span class="identifier">T</span></a><span class="symbol">?</span></code>
+<p>Get a dependency (creating a new mock, if needed) from mockspresso.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="inject-type.html">injectType</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="-mockspresso/index.html"><span class="identifier">Mockspresso</span></a><span class="symbol">.</span><span class="identifier">injectType</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso$injectType(com.episode6.hackit.mockspresso.Mockspresso, com.episode6.hackit.mockspresso.injectType.T)/instance">instance</span><span class="symbol">:</span>&nbsp;<a href="inject-type.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Inject an existing object with mockspresso dependencies.
+Field and method injection will be performed (assuming the
+injector of this mockspresso instance supports it). Uses a reified
+type and includes a TypeToken in the method call, so will work with
+generics.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="real-class-of.html">realClassOf</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">BIND_AND_IMPL</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="-mockspresso/-builder/index.html"><span class="identifier">Mockspresso.Builder</span></a><span class="symbol">.</span><span class="identifier">realClassOf</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso$realClassOf(com.episode6.hackit.mockspresso.Mockspresso.Builder, kotlin.Annotation)/qualifier">qualifier</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html"><span class="identifier">Annotation</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="-mockspresso/-builder/index.html"><span class="identifier">Mockspresso.Builder</span></a></code>
+<p>Instruct mockspresso to create a real object and bind with a dependencyKey of its own concrete type
+Convenience method for <a href="real-impl-of.html">realImplOf</a> when both BIND and IMPL are the same type</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="real-impl-of.html">realImplOf</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">BIND</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">IMPL</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="real-impl-of.html#BIND"><span class="identifier">BIND</span></a><span class="symbol">&gt;</span> <a href="-mockspresso/-builder/index.html"><span class="identifier">Mockspresso.Builder</span></a><span class="symbol">.</span><span class="identifier">realImplOf</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso$realImplOf(com.episode6.hackit.mockspresso.Mockspresso.Builder, kotlin.Annotation)/qualifier">qualifier</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html"><span class="identifier">Annotation</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="-mockspresso/-builder/index.html"><span class="identifier">Mockspresso.Builder</span></a></code>
+<p>Instruct mockspresso to create a real object (of type <a href="real-impl-of.html#IMPL">IMPL</a>) to be bound using a dependency key of type <a href="real-impl-of.html#BIND">BIND</a>.
+Kotlin alias for <a href="-mockspresso/-builder/real-object.html">Mockspresso.Builder.realObject</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

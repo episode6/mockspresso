@@ -1,0 +1,22 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Mockspresso.getDependency - mockspresso-api</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">mockspresso-api</a>&nbsp;/&nbsp;<a href="../index.html">com.episode6.hackit.mockspresso</a>&nbsp;/&nbsp;<a href="index.html">Mockspresso</a>&nbsp;/&nbsp;<a href="./get-dependency.html">getDependency</a><br/>
+<br/>
+<h1>getDependency</h1>
+<a name="com.episode6.hackit.mockspresso.Mockspresso$getDependency(com.episode6.hackit.mockspresso.reflect.DependencyKey((com.episode6.hackit.mockspresso.Mockspresso.getDependency.T)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">getDependency</span><span class="symbol">(</span><span class="identifier">@NotNull</span> <span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso$getDependency(com.episode6.hackit.mockspresso.reflect.DependencyKey((com.episode6.hackit.mockspresso.Mockspresso.getDependency.T)))/key">key</span><span class="symbol">:</span>&nbsp;<span class="identifier">DependencyKey</span><span class="symbol">&lt;</span><a href="get-dependency.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="get-dependency.html#T"><span class="identifier">T</span></a></code>
+<p>Get a dependency (creating a new mock, if needed) from mockspresso. We purposefully don't annotate the return-type here NotNull because nulls are theoretically allowed dependencies (they just must be mapped explicitly). So kotlin users must assume nullability via platform-type.</p>
+<h3>Parameters</h3>
+<p><a name="key"></a>
+<code>key</code> - <span class="identifier">DependencyKey</span><span class="symbol">&lt;</span><a href="get-dependency.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">:</span> The dependency key to lookup or mock.</p>
+<p><a name="&lt;T&gt;"></a>
+<code><T></code> - Dependency type</p>
+<p><strong>Return</strong><br/>
+<a href="get-dependency.html#T"><span class="identifier">T</span></a><span class="symbol">:</span> The dependency or a new mock if it is not present.</p>
+</BODY>
+</HTML>

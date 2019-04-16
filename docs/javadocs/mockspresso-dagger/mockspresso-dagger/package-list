@@ -1,0 +1,5 @@
+$dokka.format:html
+$dokka.linkExtension:html
+$dokka.location:com.episode6.hackit.mockspresso.dagger$automaticLazies(com.episode6.hackit.mockspresso.Mockspresso.Builder)com.episode6.hackit.mockspresso.dagger/com.episode6.hackit.mockspresso.-mockspresso.-builder/automatic-lazies.html
+$dokka.location:com.episode6.hackit.mockspresso.dagger$injectByDaggerConfig(com.episode6.hackit.mockspresso.Mockspresso.Builder)com.episode6.hackit.mockspresso.dagger/com.episode6.hackit.mockspresso.-mockspresso.-builder/inject-by-dagger-config.html
+com.episode6.hackit.mockspresso.dagger
