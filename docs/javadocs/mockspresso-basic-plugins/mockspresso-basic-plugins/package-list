@@ -1,0 +1,8 @@
+$dokka.format:html
+$dokka.linkExtension:html
+$dokka.location:com.episode6.hackit.mockspresso.basic.plugin$automaticProviders(com.episode6.hackit.mockspresso.Mockspresso.Builder)com.episode6.hackit.mockspresso.basic.plugin/com.episode6.hackit.mockspresso.-mockspresso.-builder/automatic-providers.html
+$dokka.location:com.episode6.hackit.mockspresso.basic.plugin$injectByJavaxConfig(com.episode6.hackit.mockspresso.Mockspresso.Builder)com.episode6.hackit.mockspresso.basic.plugin/com.episode6.hackit.mockspresso.-mockspresso.-builder/inject-by-javax-config.html
+$dokka.location:com.episode6.hackit.mockspresso.basic.plugin$injectBySimpleConfig(com.episode6.hackit.mockspresso.Mockspresso.Builder)com.episode6.hackit.mockspresso.basic.plugin/com.episode6.hackit.mockspresso.-mockspresso.-builder/inject-by-simple-config.html
+com.episode6.hackit.mockspresso.basic.plugin
+com.episode6.hackit.mockspresso.basic.plugin.javax
+com.episode6.hackit.mockspresso.basic.plugin.simple

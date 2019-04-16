@@ -1,0 +1,5 @@
+$dokka.format:html
+$dokka.linkExtension:html
+$dokka.location:com.episode6.hackit.mockspresso.guava$automaticListenableFutures(com.episode6.hackit.mockspresso.Mockspresso.Builder)com.episode6.hackit.mockspresso.guava/com.episode6.hackit.mockspresso.-mockspresso.-builder/automatic-listenable-futures.html
+$dokka.location:com.episode6.hackit.mockspresso.guava$automaticSuppliers(com.episode6.hackit.mockspresso.Mockspresso.Builder)com.episode6.hackit.mockspresso.guava/com.episode6.hackit.mockspresso.-mockspresso.-builder/automatic-suppliers.html
+com.episode6.hackit.mockspresso.guava

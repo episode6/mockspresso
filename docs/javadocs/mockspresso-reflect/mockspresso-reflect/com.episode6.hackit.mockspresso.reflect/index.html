@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.episode6.hackit.mockspresso.reflect - mockspresso-reflect</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">mockspresso-reflect</a>&nbsp;/&nbsp;<a href="./index.html">com.episode6.hackit.mockspresso.reflect</a><br/>
+<br/>
+<h2>Package com.episode6.hackit.mockspresso.reflect</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-annotation-literal/index.html">AnnotationLiteral</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">AnnotationLiteral</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html"><span class="identifier">Annotation</span></a><span class="symbol">!</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/io/Serializable.html"><span class="identifier">Serializable</span></a></code>
+<p>Supports inline instantiation of annotation type instances.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-dependency-key/index.html">DependencyKey</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">DependencyKey</span><span class="symbol">&lt;</span><span class="identifier">V</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span></code>
+<p>Key used to identify objects and dependencies</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-named-annotation-literal/index.html">NamedAnnotationLiteral</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">NamedAnnotationLiteral</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-annotation-literal/index.html"><span class="identifier">AnnotationLiteral</span></a><span class="symbol">&lt;</span><span class="identifier">Named</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier">Named</span></code>
+<p>A convenience annotation literal for the @Named annotation.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-reflect-util/index.html">ReflectUtil</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">ReflectUtil</span></code>
+<p>Java reflect utils</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="dependency-key.html">dependencyKey</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">dependencyKey</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.reflect$dependencyKey(kotlin.Annotation)/qualifier">qualifier</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html"><span class="identifier">Annotation</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="-dependency-key/index.html"><span class="identifier">DependencyKey</span></a><span class="symbol">&lt;</span><a href="dependency-key.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Creates a <a href="-dependency-key/index.html">DependencyKey</a> for <a href="dependency-key.html#T">T</a> with the provided qualifier annotation</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="type-token.html">typeToken</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">typeToken</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">TypeToken</span><span class="symbol">&lt;</span><a href="type-token.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Creates a <a href="#">TypeToken</a> for <a href="type-token.html#T">T</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

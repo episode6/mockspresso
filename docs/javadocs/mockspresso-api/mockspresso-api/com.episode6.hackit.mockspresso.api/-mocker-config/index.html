@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MockerConfig - mockspresso-api</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">mockspresso-api</a>&nbsp;/&nbsp;<a href="../index.html">com.episode6.hackit.mockspresso.api</a>&nbsp;/&nbsp;<a href="./index.html">MockerConfig</a><br/>
+<br/>
+<h1>MockerConfig</h1>
+<code><span class="keyword">interface </span><span class="identifier">MockerConfig</span></code>
+<p>A config interface used by mockspresso to handle to mocking of objects using any mocker that supports annotations.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-field-preparer/index.html">FieldPreparer</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FieldPreparer</span></code>
+<p>Class that prepares the mocks on an object (usually an instance of the current test class, but can be any generic pojo with annotated fields)</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-mock-maker/index.html">MockMaker</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">MockMaker</span></code>
+<p>Class that creates mocks, used for automatically generating mocks that are not part of the dependency map</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="provide-field-preparer.html">provideFieldPreparer</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">provideFieldPreparer</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="-field-preparer/index.html"><span class="identifier">MockerConfig.FieldPreparer</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="provide-mock-annotations.html">provideMockAnnotations</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">provideMockAnnotations</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html"><span class="identifier">MutableList</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/6/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html"><span class="identifier">Annotation</span></a><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="provide-mock-maker.html">provideMockMaker</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">provideMockMaker</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="-mock-maker/index.html"><span class="identifier">MockerConfig.MockMaker</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

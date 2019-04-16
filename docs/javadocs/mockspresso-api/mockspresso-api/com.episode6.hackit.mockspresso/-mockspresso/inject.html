@@ -1,0 +1,28 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Mockspresso.inject - mockspresso-api</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">mockspresso-api</a>&nbsp;/&nbsp;<a href="../index.html">com.episode6.hackit.mockspresso</a>&nbsp;/&nbsp;<a href="index.html">Mockspresso</a>&nbsp;/&nbsp;<a href="./inject.html">inject</a><br/>
+<br/>
+<h1>inject</h1>
+<a name="com.episode6.hackit.mockspresso.Mockspresso$inject(kotlin.Any)"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">inject</span><span class="symbol">(</span><span class="identifier">@NotNull</span> <span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso$inject(kotlin.Any)/instance">instance</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Inject an existing object with mockspresso dependencies. Field and method injection will be performed (assuming the injector of this mockspresso instance supports it)</p>
+<h3>Parameters</h3>
+<p><a name="instance"></a>
+<code>instance</code> - <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">:</span> The object to inject mocks/dependencies into.</p>
+<a name="com.episode6.hackit.mockspresso.Mockspresso$inject(com.episode6.hackit.mockspresso.Mockspresso.inject.T, com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.Mockspresso.inject.T)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">inject</span><span class="symbol">(</span><span class="identifier">@NotNull</span> <span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso$inject(com.episode6.hackit.mockspresso.Mockspresso.inject.T, com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.Mockspresso.inject.T)))/instance">instance</span><span class="symbol">:</span>&nbsp;<a href="inject.html#T"><span class="identifier">T</span></a><span class="symbol">, </span><span class="identifier">@NotNull</span> <span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso$inject(com.episode6.hackit.mockspresso.Mockspresso.inject.T, com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.Mockspresso.inject.T)))/typeToken">typeToken</span><span class="symbol">:</span>&nbsp;<span class="identifier">TypeToken</span><span class="symbol">&lt;</span><a href="inject.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>An alternative signature to <code><a href="./inject.html">#inject(Object)</a></code>. Use this method and pass an explic type token if injecting a pre- constructed generic object that injects parameters defined as TypeVariables. I.e. <code>class MySampleGeneric&lt;V&gt; { @Inject V myInjectedVariable; } </code> Without the typeToken represented the object being injected, we're unable to infer the correct type for the generic paremeter, and may wind up providing a mock <code><a href="https://docs.oracle.com/javase/6/docs/api/java/lang/Object.html">Object</a></code> instead of the correct mapping.</p>
+<h3>Parameters</h3>
+<p><a name="instance"></a>
+<code>instance</code> - <a href="inject.html#T"><span class="identifier">T</span></a><span class="symbol">:</span> The object to inject mocks/dependencies into.</p>
+<p><a name="typeToken"></a>
+<code>typeToken</code> - <span class="identifier">TypeToken</span><span class="symbol">&lt;</span><a href="inject.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">:</span> A TypeToken representing the complete type of instance</p>
+<p><a name="&lt;T&gt;"></a>
+<code><T></code> - The Type of instance param</p>
+</BODY>
+</HTML>

@@ -1,0 +1,44 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.episode6.hackit.mockspresso.exception - mockspresso-core</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">mockspresso-core</a>&nbsp;/&nbsp;<a href="./index.html">com.episode6.hackit.mockspresso.exception</a><br/>
+<br/>
+<h2>Package com.episode6.hackit.mockspresso.exception</h2>
+<h3>Exceptions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-circular-dependency-error/index.html">CircularDependencyError</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">CircularDependencyError</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/lang/VerifyError.html"><span class="identifier">VerifyError</span></a></code>
+<p>Error thrown when trying to declare multiple @RealObjects that create a circular dependency.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-no-valid-constructor-exception/index.html">NoValidConstructorException</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">NoValidConstructorException</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/lang/VerifyError.html"><span class="identifier">VerifyError</span></a></code>
+<p>Exception thrown when trying to create a real object that has no constructor.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-repeated-dependency-defined-exception/index.html">RepeatedDependencyDefinedException</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">RepeatedDependencyDefinedException</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/lang/VerifyError.html"><span class="identifier">VerifyError</span></a></code>
+<p>Exception thrown when trying multiple fields/objects are bound to the same <code><a href="#">DependencyKey</a></code> in a single Mockspresso instance.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>QuickMockspresso.InjectorPicker - mockspresso-quick</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">mockspresso-quick</a>&nbsp;/&nbsp;<a href="../../index.html">com.episode6.hackit.mockspresso.quick</a>&nbsp;/&nbsp;<a href="../index.html">QuickMockspresso</a>&nbsp;/&nbsp;<a href="./index.html">InjectorPicker</a><br/>
+<br/>
+<h1>InjectorPicker</h1>
+<code><span class="keyword">interface </span><span class="identifier">InjectorPicker</span></code>
+<p>A selector for one of the built in injection configs</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="dagger.html">dagger</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">dagger</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-builder/index.html"><span class="identifier">QuickMockspresso.Builder</span></a></code>
+<p>Applies an <code><a href="#">InjectionConfig</a></code> for dagger. This is the same as the <code><a href="javax.html">#javax()</a></code> injector with additional support for dagger's Lazy interface. Requires your project have a dependency on 'com.google.dagger:dagger' or 'com.squareup.dagger:dagger'</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="javax.html">javax</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">javax</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-builder/index.html"><span class="identifier">QuickMockspresso.Builder</span></a></code>
+<p>Applies the <code><a href="#">InjectionConfig</a></code> for javax.inject based object creation (looks for constructors, fields and methods annotated with @Inject).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="simple.html">simple</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">simple</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-builder/index.html"><span class="identifier">QuickMockspresso.Builder</span></a></code>
+<p>Applies the <code><a href="#">InjectionConfig</a></code> for simple creation of objects via their shortest constructor.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

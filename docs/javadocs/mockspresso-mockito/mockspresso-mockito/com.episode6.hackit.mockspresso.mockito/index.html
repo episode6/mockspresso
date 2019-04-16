@@ -1,0 +1,82 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.episode6.hackit.mockspresso.mockito - mockspresso-mockito</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">mockspresso-mockito</a>&nbsp;/&nbsp;<a href="./index.html">com.episode6.hackit.mockspresso.mockito</a><br/>
+<br/>
+<h2>Package com.episode6.hackit.mockspresso.mockito</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-mockito-auto-factory-maker/index.html">MockitoAutoFactoryMaker</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">MockitoAutoFactoryMaker</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">SpecialObjectMaker</span></code>
+<p>An implementation of <code><a href="#">SpecialObjectMaker</a></code> that creates mock factories which in-turn query the dependencyProvider for a real binding when their methods are called. Mockito is used to mock the factory classes with a default answer. Upon invocation, that default answer will query the dependencyProvider for a key based on the invoked method's return type (and the factory's optional qualifier annotation). This class should support most generic factory types.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-mockito-field-preparer/index.html">MockitoFieldPreparer</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">MockitoFieldPreparer</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">FieldPreparer</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-mockito-mocker-config/index.html">MockitoMockerConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">MockitoMockerConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">MockerConfig</span></code>
+<p>A MockerConfig for Mockito.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-mockito-mock-maker/index.html">MockitoMockMaker</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">MockitoMockMaker</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">MockMaker</span></code>
+<p>A <code><a href="#">com.episode6.hackit.mockspresso.api.MockerConfig.MockMaker</a></code> for Mockito</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-mockito-plugin/index.html">MockitoPlugin</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">MockitoPlugin</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">MockspressoPlugin</span></code>
+<p>A MockspressoPlugin that applies the mockito mocker config.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-mockspresso-mockito-plugins-java-support/index.html">MockspressoMockitoPluginsJavaSupport</a><br/>
+(Kotlin 9999.0)</p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">MockspressoMockitoPluginsJavaSupport</span></code>
+<p>Expose the extension methods defined here as <a href="#">MockspressoPlugin</a>s for consumption by java tests</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Extensions for External Classes</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="com.episode6.hackit.mockspresso.-mockspresso.-builder/index.html">com.episode6.hackit.mockspresso.Mockspresso.Builder</a></p>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

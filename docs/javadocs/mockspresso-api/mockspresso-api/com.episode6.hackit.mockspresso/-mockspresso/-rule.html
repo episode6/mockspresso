@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Mockspresso.Rule - mockspresso-api</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">mockspresso-api</a>&nbsp;/&nbsp;<a href="../index.html">com.episode6.hackit.mockspresso</a>&nbsp;/&nbsp;<a href="index.html">Mockspresso</a>&nbsp;/&nbsp;<a href="./-rule.html">Rule</a><br/>
+<br/>
+<h1>Rule</h1>
+<code><span class="keyword">interface </span><span class="identifier">Rule</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="index.html"><span class="identifier">Mockspresso</span></a><span class="symbol">, </span><span class="identifier">MethodRule</span></code>
+<p>An implementation of Mockspresso that also implements JUnit's <code><a href="#">MethodRule</a></code>.</p>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="build-upon.html">buildUpon</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">buildUpon</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="-builder/index.html"><span class="identifier">Mockspresso.Builder</span></a></code>
+<p>Build upon this mockspresso instance's configuration and dependencies.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso$create(java.lang.Class((com.episode6.hackit.mockspresso.Mockspresso.create.T)))/clazz">clazz</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="create.html#T"><span class="identifier">T</span></a></code><br/>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso$create(com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.Mockspresso.create.T)))/typeToken">typeToken</span><span class="symbol">:</span>&nbsp;<span class="identifier">TypeToken</span><span class="symbol">&lt;</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="create.html#T"><span class="identifier">T</span></a></code>
+<p>Create a real object injected with mockspresso dependencies.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-dependency.html">getDependency</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">getDependency</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso$getDependency(com.episode6.hackit.mockspresso.reflect.DependencyKey((com.episode6.hackit.mockspresso.Mockspresso.getDependency.T)))/key">key</span><span class="symbol">:</span>&nbsp;<span class="identifier">DependencyKey</span><span class="symbol">&lt;</span><a href="get-dependency.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="get-dependency.html#T"><span class="identifier">T</span></a></code>
+<p>Get a dependency (creating a new mock, if needed) from mockspresso. We purposefully don't annotate the return-type here NotNull because nulls are theoretically allowed dependencies (they just must be mapped explicitly). So kotlin users must assume nullability via platform-type.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="inject.html">inject</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">inject</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso$inject(kotlin.Any)/instance">instance</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Inject an existing object with mockspresso dependencies. Field and method injection will be performed (assuming the injector of this mockspresso instance supports it)</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">inject</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso$inject(com.episode6.hackit.mockspresso.Mockspresso.inject.T, com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.Mockspresso.inject.T)))/instance">instance</span><span class="symbol">:</span>&nbsp;<a href="inject.html#T"><span class="identifier">T</span></a><span class="symbol">, </span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso$inject(com.episode6.hackit.mockspresso.Mockspresso.inject.T, com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.Mockspresso.inject.T)))/typeToken">typeToken</span><span class="symbol">:</span>&nbsp;<span class="identifier">TypeToken</span><span class="symbol">&lt;</span><a href="inject.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>An alternative signature to <code><a href="inject.html">#inject(Object)</a></code>. Use this method and pass an explic type token if injecting a pre- constructed generic object that injects parameters defined as TypeVariables. I.e. <code>class MySampleGeneric&lt;V&gt; { @Inject V myInjectedVariable; } </code> Without the typeToken represented the object being injected, we're unable to infer the correct type for the generic paremeter, and may wind up providing a mock <code><a href="https://docs.oracle.com/javase/6/docs/api/java/lang/Object.html">Object</a></code> instead of the correct mapping.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

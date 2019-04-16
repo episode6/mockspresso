@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>QuickMockspresso.MockerPicker - mockspresso-quick</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">mockspresso-quick</a>&nbsp;/&nbsp;<a href="../../index.html">com.episode6.hackit.mockspresso.quick</a>&nbsp;/&nbsp;<a href="../index.html">QuickMockspresso</a>&nbsp;/&nbsp;<a href="./index.html">MockerPicker</a><br/>
+<br/>
+<h1>MockerPicker</h1>
+<code><span class="keyword">interface </span><span class="identifier">MockerPicker</span></code>
+<p>A selector for one of the built-in mocker configs</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="easy-mock.html">easyMock</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">easyMock</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-builder/index.html"><span class="identifier">QuickMockspresso.Builder</span></a></code>
+<p>Applies the <code><a href="#">MockerConfig</a></code> for EasyMock. Requires your project have a dependency on 'org.easymock:easymock' v3.4</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="easy-mock-with-power-mock.html">easyMockWithPowerMock</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">easyMockWithPowerMock</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-builder/index.html"><span class="identifier">QuickMockspresso.Builder</span></a></code>
+<p>Applies the <code><a href="#">MockerConfig</a></code> for Powermock + EasyMock. Requires your project have a dependency on org.easymock:easymock v3.4, org.powermock:powermock-api-mockito2, and org.powermock:powermock-module-junit4 v1.7.0+. Also requires your test be runWith the PowerMockRunner </p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="easy-mock-with-power-mock-rule.html">easyMockWithPowerMockRule</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">easyMockWithPowerMockRule</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-builder/index.html"><span class="identifier">QuickMockspresso.Builder</span></a></code>
+<p>Applies the <code><a href="#">MockerConfig</a></code> for Powermock + EasyMock AND applies a PowerMockRule as an outerRule to Mockspresso, so theres no need to use the PowerMockRunner Requires your project have the same dependencies as <code><a href="easy-mock-with-power-mock.html">#easyMockWithPowerMock()</a></code> PLUS org.powermock:powermock-module-junit4-rule and org.powermock:powermock-classloading-xstream</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="mockito.html">mockito</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">mockito</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-builder/index.html"><span class="identifier">QuickMockspresso.Builder</span></a></code>
+<p>Applies the <code><a href="#">MockerConfig</a></code> for Mockito. Requires your project have a dependency on 'org.mockito:mockito-core' v2.x</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="mockito-with-power-mock.html">mockitoWithPowerMock</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">mockitoWithPowerMock</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-builder/index.html"><span class="identifier">QuickMockspresso.Builder</span></a></code>
+<p>Applies the <code><a href="#">MockerConfig</a></code> for Powermock + Mockito. Requires your project have a dependency on org.mockito:mockito-core v2.x, org.powermock:powermock-api-mockito2, and org.powermock:powermock-module-junit4 v1.7.0+. Also requires your test be runWith the PowerMockRunner</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="mockito-with-power-mock-rule.html">mockitoWithPowerMockRule</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">mockitoWithPowerMockRule</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-builder/index.html"><span class="identifier">QuickMockspresso.Builder</span></a></code>
+<p>Applies the <code><a href="#">MockerConfig</a></code> for Powermock + Mockito AND applies a PowerMockRule as an outerRule to Mockspresso, so theres no need to use the PowerMockRunner Requires your project have the same dependencies as <code><a href="mockito-with-power-mock.html">#mockitoWithPowerMock()</a></code> PLUS org.powermock:powermock-module-junit4-rule and org.powermock:powermock-classloading-xstream</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

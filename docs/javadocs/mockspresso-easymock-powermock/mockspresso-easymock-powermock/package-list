@@ -1,0 +1,5 @@
+$dokka.format:html
+$dokka.linkExtension:html
+$dokka.location:com.episode6.hackit.mockspresso.easymock.powermock$mockByPowerMock(com.episode6.hackit.mockspresso.Mockspresso.Builder)com.episode6.hackit.mockspresso.easymock.powermock/com.episode6.hackit.mockspresso.-mockspresso.-builder/mock-by-power-mock.html
+$dokka.location:com.episode6.hackit.mockspresso.easymock.powermock$mockByPowerMockRule(com.episode6.hackit.mockspresso.Mockspresso.Builder)com.episode6.hackit.mockspresso.easymock.powermock/com.episode6.hackit.mockspresso.-mockspresso.-builder/mock-by-power-mock-rule.html
+com.episode6.hackit.mockspresso.easymock.powermock
