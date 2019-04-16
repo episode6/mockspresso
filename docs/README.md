@@ -5,7 +5,7 @@ A secondary goal is to be a vehicle to share common test code and dependencies.
 
 ## Installation
 ```groovy
-def version = '{{ site.version }}'
+dev version = '0.1.0-beta2-SNAPSHOT'
 repositories { jcenter() }
 dependencies {
 
