@@ -1,9 +1,10 @@
 # ChangeLog
 
+
 ### v0.1.0-beta3 - unreleased
 
 
-### v0.1.0-beta2 - unreleased
+### v0.1.0-beta2 - April 17th, 2019
  - **DEPRECATED** All concrete implemenations of `MockspressoPlugin` in favor of their kotlin extension and `*JavaSupport` counterparts. These classes are no longer used and will be deleted in a future version.
  - **DEPRECATED** All other concrete classes in our plugin modules (excluding the new `*JavaSupport` objects). These classes will be made final and either kotlin-internal or package-protected in a future version.
 
