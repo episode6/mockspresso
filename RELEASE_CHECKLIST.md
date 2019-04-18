@@ -19,7 +19,7 @@
 3. Update SNAPSHOT version in `CHANGELOG.md`
 4. Update SNAPSHOT version in `README.md`
 5. Update SNAPSHOT version in `docs/README.md`
-6. Commit changes with message `[VERSION] Snapshot v<version`
+6. Commit changes with message `[VERSION] Snapshot v<version>`
 7. **Push both branches**
 
 **Sync Docs**
