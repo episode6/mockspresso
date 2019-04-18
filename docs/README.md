@@ -1,7 +1,10 @@
 ## What & Why?
-Mockspresso is an extensible auto-mocker for java and kotlin. 
+**TL;DR** Mockspresso creates your objects-under-test via reflection and injects them with the dependencies/mocks declared on your test automatically. Any dependencies not declared on your test, are automatically mocked using your mocking framework of choice. 
+
+
 The primary goal is to reduce the friction, boilerplate and barrier-to-entry writing unit-tests. 
 A secondary goal is to be a vehicle to share common test code and dependencies.
+
 
 ## Installation
 ```groovy
@@ -25,6 +28,7 @@ dependencies {
 ```
 
 ## Basic JUnit Examples
+
 **Kotlin Test**
 
 ```kotlin
