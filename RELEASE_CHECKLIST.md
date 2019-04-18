@@ -32,6 +32,6 @@
 **Release**
 
 1. Wait for green builds on Jenkins and CircleCi
-2. `git flow release finish`
+2. `git flow release finish` (tag with `v<version>`)
 3. Resolve merge conflicts on develop
 4. Push branches
