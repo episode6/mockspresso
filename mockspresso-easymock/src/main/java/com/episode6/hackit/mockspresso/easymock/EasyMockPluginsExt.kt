@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.episode6.hackit.mockspresso.easymock
 
 import com.episode6.hackit.mockspresso.Mockspresso
@@ -11,7 +13,7 @@ import com.episode6.hackit.mockspresso.api.MockspressoPlugin
  * Applies the [com.episode6.hackit.mockspresso.api.MockerConfig] to support EasyMock
  */
 @JvmSynthetic
-fun Mockspresso.Builder.mockByEasyMock(): Mockspresso.Builder = plugin(EasyMockPlugin())
+fun Mockspresso.Builder.mockByEasyMock(): Mockspresso.Builder = mocker(EasyMockMockerConfig())
 
 /**
  * Expose the extension methods defined here as [MockspressoPlugin]s for consumption by java tests

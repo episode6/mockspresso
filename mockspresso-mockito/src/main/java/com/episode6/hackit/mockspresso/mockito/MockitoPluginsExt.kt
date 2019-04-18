@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.episode6.hackit.mockspresso.mockito
 
 import com.episode6.hackit.mockspresso.Mockspresso
@@ -12,7 +14,7 @@ import kotlin.reflect.KClass
  * Applies the [com.episode6.hackit.mockspresso.api.MockerConfig] to support mockito
  */
 @JvmSynthetic
-fun Mockspresso.Builder.mockByMockito(): Mockspresso.Builder = plugin(MockitoPlugin())
+fun Mockspresso.Builder.mockByMockito(): Mockspresso.Builder = mocker(MockitoMockerConfig())
 
 /**
  * Applies special object handling for the provided factory classes. The

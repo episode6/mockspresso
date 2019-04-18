@@ -3,8 +3,6 @@ package com.episode6.hackit.mockspresso.easymock.integration;
 import com.episode6.hackit.mockspresso.BuildMockspresso;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.annotation.RealObject;
-import com.episode6.hackit.mockspresso.basic.plugin.javax.JavaxInjectMockspressoPlugin;
-import com.episode6.hackit.mockspresso.basic.plugin.simple.SimpleInjectMockspressoPlugin;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.*;
 import com.episode6.hackit.mockspresso.testing.testobjects.coffee.CoffeeMakers.*;
@@ -62,7 +60,7 @@ public class CoffeeMakersMockEverythingTestEasyMock {
 
   /**
    * Test a simple object with a normal constructor using, using the
-   * {@link SimpleInjectMockspressoPlugin}
+   * simple injector
    */
   @Test
   public void testSimpleCoffeeMaker() {
@@ -82,7 +80,7 @@ public class CoffeeMakersMockEverythingTestEasyMock {
 
   /**
    * Test an object that is created by javax.inject rules, using the
-   * {@link JavaxInjectMockspressoPlugin}
+   * javax injector
    */
   @Test
   public void testConstructorInjectedCoffeeMaker() {
@@ -97,7 +95,7 @@ public class CoffeeMakersMockEverythingTestEasyMock {
 
   /**
    * Test an object that is created by javax.inject rules, using the
-   * {@link JavaxInjectMockspressoPlugin}
+   * javax injector
    */
   @Test
   public void testFieldInjedCoffeeMaker() {
@@ -112,7 +110,7 @@ public class CoffeeMakersMockEverythingTestEasyMock {
 
   /**
    * Test an object that is created by javax.inject rules, using the
-   * {@link JavaxInjectMockspressoPlugin}
+   * javax injector
    */
   @Test
   public void testMethodInjectedCoffeeMaker() {
@@ -127,7 +125,7 @@ public class CoffeeMakersMockEverythingTestEasyMock {
 
   /**
    * Test an object that is created by javax.inject rules, using the
-   * {@link JavaxInjectMockspressoPlugin}
+   * javax injector
    */
   @Test
   public void testMixedInjectionCoffeeMaker() {

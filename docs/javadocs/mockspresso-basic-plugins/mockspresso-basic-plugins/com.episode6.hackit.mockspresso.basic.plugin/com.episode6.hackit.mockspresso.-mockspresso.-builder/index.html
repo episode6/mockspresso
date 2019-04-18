@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.episode6.hackit.mockspresso.basic.plugin.com.episode6.hackit.mockspresso.Mockspresso.Builder - mockspresso-basic-plugins</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">mockspresso-basic-plugins</a>&nbsp;/&nbsp;<a href="../index.html">com.episode6.hackit.mockspresso.basic.plugin</a>&nbsp;/&nbsp;<a href="./index.html">com.episode6.hackit.mockspresso.Mockspresso.Builder</a><br/>
+<br/>
+<h3>Extensions for com.episode6.hackit.mockspresso.Mockspresso.Builder</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="automatic-providers.html">automaticProviders</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">Builder</span><span class="symbol">.</span><span class="identifier">automaticProviders</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code>
+<p>Adds a <a href="#">com.episode6.hackit.mockspresso.api.SpecialObjectMaker</a> to handle <a href="#">javax.inject.Provider</a>s
+and automatically pull their dependencies from Mockspresso's dependency map.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="inject-by-javax-config.html">injectByJavaxConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">Builder</span><span class="symbol">.</span><span class="identifier">injectByJavaxConfig</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code>
+<p>Applies the <a href="#">com.episode6.hackit.mockspresso.api.InjectionConfig</a> for javax.inject based object creation
+(looks for constructors, fields and methods annotated with @Inject).
+Also includes special object support for <a href="#">javax.inject.Provider</a>s</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="inject-by-simple-config.html">injectBySimpleConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">Builder</span><span class="symbol">.</span><span class="identifier">injectBySimpleConfig</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code>
+<p>Applies the <a href="#">com.episode6.hackit.mockspresso.api.InjectionConfig</a> for simple creation of objects via
+their shortest constructor.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

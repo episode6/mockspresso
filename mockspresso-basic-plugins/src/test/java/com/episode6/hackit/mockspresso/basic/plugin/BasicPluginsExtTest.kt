@@ -1,9 +1,11 @@
+@file:Suppress("DEPRECATION")
+
 package com.episode6.hackit.mockspresso.basic.plugin
 
 import com.episode6.hackit.mockspresso.Mockspresso
-import com.episode6.hackit.mockspresso.basic.plugin.javax.JavaxInjectMockspressoPlugin
+import com.episode6.hackit.mockspresso.basic.plugin.javax.JavaxInjectionConfig
 import com.episode6.hackit.mockspresso.basic.plugin.javax.ProviderMaker
-import com.episode6.hackit.mockspresso.basic.plugin.simple.SimpleInjectMockspressoPlugin
+import com.episode6.hackit.mockspresso.basic.plugin.simple.SimpleInjectionConfig
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
@@ -23,14 +25,15 @@ class BasicPluginsExtTest {
     val result = builder.injectBySimpleConfig()
 
     assertThat(result).isEqualTo(builder)
-    verify(builder).plugin(any<SimpleInjectMockspressoPlugin>())
+    verify(builder).injector(any<SimpleInjectionConfig>())
   }
 
   @Test fun testJavaxPluginSourceOfTruth() {
     val result = builder.injectByJavaxConfig()
 
     assertThat(result).isEqualTo(builder)
-    verify(builder).plugin(any<JavaxInjectMockspressoPlugin>())
+    verify(builder).injector(any<JavaxInjectionConfig>())
+    verify(builder).specialObjectMaker(any<ProviderMaker>())
   }
 
   @Test fun testAutomaticProvidersSourceOfTruth() {

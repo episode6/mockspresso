@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AbstractMockspressoExtension.Rule - mockspresso-extend</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">mockspresso-extend</a>&nbsp;/&nbsp;<a href="../../index.html">com.episode6.hackit.mockspresso.extend</a>&nbsp;/&nbsp;<a href="../index.html">AbstractMockspressoExtension</a>&nbsp;/&nbsp;<a href="./index.html">Rule</a><br/>
+<br/>
+<h1>Rule</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">Rule</span><span class="symbol">&lt;</span><span class="identifier">BLDR</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../-mockspresso-extension/-builder/index.html"><span class="identifier">MockspressoExtension.Builder</span></a><span class="symbol">&lt;</span><a href="../../-mockspresso-extension/index.html"><span class="identifier">MockspressoExtension</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">,</span>&nbsp;<a href="../../-mockspresso-extension/-rule/index.html"><span class="identifier">MockspressoExtension.Rule</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">,</span>&nbsp;<a href="../../-mockspresso-extension/-builder/index.html"><span class="identifier">MockspressoExtension.Builder</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../-mockspresso-extension/-rule/index.html"><span class="identifier">MockspressoExtension.Rule</span></a><span class="symbol">&lt;</span><a href="index.html#BLDR"><span class="identifier">BLDR</span></a><span class="symbol">&gt;</span></code>
+<p>Extend this abstract class for a custom implementation of the <code><a href="#">Mockspresso.Rule</a></code> interface. In the subclass of <code><a href="./index.html">AbstractMockspressoExtension.Rule</a></code>, you should only need to override the constructor, providing a lambda that wraps <code><a href="#">Mockspresso.Builder</a></code> with your custom subclass of <code><a href="../-builder/index.html">AbstractMockspressoExtension.Builder</a></code></p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">Rule</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.Rule$<init>(com.episode6.hackit.mockspresso.Mockspresso.Rule, com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.Wrapper((com.episode6.hackit.mockspresso.Mockspresso.Builder, com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.Rule.BLDR)))/delegate">delegate</span><span class="symbol">:</span>&nbsp;<span class="identifier">Rule</span><span class="symbol">, </span><span class="identifier" id="com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.Rule$<init>(com.episode6.hackit.mockspresso.Mockspresso.Rule, com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.Wrapper((com.episode6.hackit.mockspresso.Mockspresso.Builder, com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.Rule.BLDR)))/builderWrapper">builderWrapper</span><span class="symbol">:</span>&nbsp;<a href="../-wrapper/index.html"><span class="identifier">AbstractMockspressoExtension.Wrapper</span></a><span class="symbol">&lt;</span><span class="identifier">Builder</span><span class="symbol">!</span><span class="symbol">,</span>&nbsp;<a href="index.html#BLDR"><span class="identifier">BLDR</span></a><span class="symbol">&gt;</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="apply.html">apply</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">apply</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.Rule$apply(org.junit.runners.model.Statement, org.junit.runners.model.FrameworkMethod, kotlin.Any)/base">base</span><span class="symbol">:</span>&nbsp;<span class="identifier">Statement</span><span class="symbol">!</span><span class="symbol">, </span><span class="identifier" id="com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.Rule$apply(org.junit.runners.model.Statement, org.junit.runners.model.FrameworkMethod, kotlin.Any)/method">method</span><span class="symbol">:</span>&nbsp;<span class="identifier">FrameworkMethod</span><span class="symbol">!</span><span class="symbol">, </span><span class="identifier" id="com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.Rule$apply(org.junit.runners.model.Statement, org.junit.runners.model.FrameworkMethod, kotlin.Any)/target">target</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Statement</span><span class="symbol">!</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="build-upon.html">buildUpon</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">buildUpon</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#BLDR"><span class="identifier">BLDR</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.Rule$create(java.lang.Class((com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.Rule.create.T)))/clazz">clazz</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="create.html#T"><span class="identifier">T</span></a></code><br/>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.Rule$create(com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.Rule.create.T)))/typeToken">typeToken</span><span class="symbol">:</span>&nbsp;<span class="identifier">TypeToken</span><span class="symbol">&lt;</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="create.html#T"><span class="identifier">T</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="get-dependency.html">getDependency</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">getDependency</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.Rule$getDependency(com.episode6.hackit.mockspresso.reflect.DependencyKey((com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.Rule.getDependency.T)))/key">key</span><span class="symbol">:</span>&nbsp;<span class="identifier">DependencyKey</span><span class="symbol">&lt;</span><a href="get-dependency.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="get-dependency.html#T"><span class="identifier">T</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="inject.html">inject</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">inject</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.Rule$inject(kotlin.Any)/instance">instance</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">inject</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.Rule$inject(com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.Rule.inject.T, com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.Rule.inject.T)))/instance">instance</span><span class="symbol">:</span>&nbsp;<a href="inject.html#T"><span class="identifier">T</span></a><span class="symbol">, </span><span class="identifier" id="com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.Rule$inject(com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.Rule.inject.T, com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.Rule.inject.T)))/typeToken">typeToken</span><span class="symbol">:</span>&nbsp;<span class="identifier">TypeToken</span><span class="symbol">&lt;</span><a href="inject.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

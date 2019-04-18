@@ -18,7 +18,12 @@ import java.util.List;
  *
  * We use {@link PowerMockito#mock(Class)} to create mocks and {@link Mockito#spy(Object)}/{@link Mockito#spy(Class)}
  * to create spies.
+ *
+ * @deprecated This functionality is internal and should not be exposed.
+ *
+ * This class will be marked internal/protected in a future release
  */
+@Deprecated
 public class PowerMockitoFieldPreparer implements MockerConfig.FieldPreparer {
 
   @Override

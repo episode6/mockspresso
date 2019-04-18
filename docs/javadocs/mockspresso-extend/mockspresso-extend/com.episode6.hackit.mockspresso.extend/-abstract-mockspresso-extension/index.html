@@ -1,0 +1,93 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AbstractMockspressoExtension - mockspresso-extend</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">mockspresso-extend</a>&nbsp;/&nbsp;<a href="../index.html">com.episode6.hackit.mockspresso.extend</a>&nbsp;/&nbsp;<a href="./index.html">AbstractMockspressoExtension</a><br/>
+<br/>
+<h1>AbstractMockspressoExtension</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">AbstractMockspressoExtension</span><span class="symbol">&lt;</span><span class="identifier">BLDR</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-mockspresso-extension/-builder/index.html"><span class="identifier">MockspressoExtension.Builder</span></a><span class="symbol">&lt;</span><a href="../-mockspresso-extension/index.html"><span class="identifier">MockspressoExtension</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">,</span>&nbsp;<a href="../-mockspresso-extension/-rule/index.html"><span class="identifier">MockspressoExtension.Rule</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">,</span>&nbsp;<a href="../-mockspresso-extension/-builder/index.html"><span class="identifier">MockspressoExtension.Builder</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-mockspresso-extension/index.html"><span class="identifier">MockspressoExtension</span></a><span class="symbol">&lt;</span><a href="index.html#BLDR"><span class="identifier">BLDR</span></a><span class="symbol">&gt;</span></code>
+<p>Extend these 3 classes to create your own mockspresso extension <code><a href="./index.html">AbstractMockspressoExtension</a></code> <code><a href="-rule/index.html">AbstractMockspressoExtension.Rule</a></code> <code><a href="-builder/index.html">AbstractMockspressoExtension.Builder</a></code> In each subclass, point the generic type references to your interface extensions of <code><a href="../-mockspresso-extension/index.html">MockspressoExtension</a></code> and its inner interfaces. Each subclass should also directly implement the appropriate interface extension of <code><a href="../-mockspresso-extension/index.html">MockspressoExtension</a></code> In the subclass of <code><a href="./index.html">AbstractMockspressoExtension</a></code>, you should only need to override the constructor, providing a lambda that wraps <code><a href="#">Mockspresso.Builder</a></code> with your custom subclass of <code><a href="-builder/index.html">AbstractMockspressoExtension.Builder</a></code></p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-builder/index.html">Builder</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">Builder</span><span class="symbol">&lt;</span><span class="identifier">EXT</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-mockspresso-extension/index.html"><span class="identifier">MockspressoExtension</span></a><span class="symbol">&lt;</span><a href="../-mockspresso-extension/-builder/index.html"><span class="identifier">MockspressoExtension.Builder</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">, </span><span class="identifier">RULE</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-mockspresso-extension/-rule/index.html"><span class="identifier">MockspressoExtension.Rule</span></a><span class="symbol">&lt;</span><a href="../-mockspresso-extension/-builder/index.html"><span class="identifier">MockspressoExtension.Builder</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">, </span><span class="identifier">BLDR</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-mockspresso-extension/-builder/index.html"><span class="identifier">MockspressoExtension.Builder</span></a><span class="symbol">&lt;</span><a href="../-mockspresso-extension/index.html"><span class="identifier">MockspressoExtension</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">,</span>&nbsp;<a href="../-mockspresso-extension/-rule/index.html"><span class="identifier">MockspressoExtension.Rule</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">,</span>&nbsp;<a href="../-mockspresso-extension/-builder/index.html"><span class="identifier">MockspressoExtension.Builder</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-mockspresso-extension/-builder/index.html"><span class="identifier">MockspressoExtension.Builder</span></a><span class="symbol">&lt;</span><a href="-builder/index.html#EXT"><span class="identifier">EXT</span></a><span class="symbol">,</span>&nbsp;<a href="-builder/index.html#RULE"><span class="identifier">RULE</span></a><span class="symbol">,</span>&nbsp;<a href="-builder/index.html#BLDR"><span class="identifier">BLDR</span></a><span class="symbol">&gt;</span></code>
+<p>Extend this abstract class for a custom implementation of the <code><a href="#">Mockspresso.Builder</a></code> interface. In this class you will only need to override the constructor, providing lambdas that wrap <code><a href="#">Mockspresso</a></code> with your custom subclass of <code><a href="./index.html">AbstractMockspressoExtension</a></code> and <code><a href="#">Mockspresso.Rule</a></code> with your custom subclass of <code><a href="-rule/index.html">AbstractMockspressoExtension.Rule</a></code>. Of course you'll also need to override any custom methods you've added to your api.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-rule/index.html">Rule</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">Rule</span><span class="symbol">&lt;</span><span class="identifier">BLDR</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-mockspresso-extension/-builder/index.html"><span class="identifier">MockspressoExtension.Builder</span></a><span class="symbol">&lt;</span><a href="../-mockspresso-extension/index.html"><span class="identifier">MockspressoExtension</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">,</span>&nbsp;<a href="../-mockspresso-extension/-rule/index.html"><span class="identifier">MockspressoExtension.Rule</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">,</span>&nbsp;<a href="../-mockspresso-extension/-builder/index.html"><span class="identifier">MockspressoExtension.Builder</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-mockspresso-extension/-rule/index.html"><span class="identifier">MockspressoExtension.Rule</span></a><span class="symbol">&lt;</span><a href="-rule/index.html#BLDR"><span class="identifier">BLDR</span></a><span class="symbol">&gt;</span></code>
+<p>Extend this abstract class for a custom implementation of the <code><a href="#">Mockspresso.Rule</a></code> interface. In the subclass of <code><a href="-rule/index.html">AbstractMockspressoExtension.Rule</a></code>, you should only need to override the constructor, providing a lambda that wraps <code><a href="#">Mockspresso.Builder</a></code> with your custom subclass of <code><a href="-builder/index.html">AbstractMockspressoExtension.Builder</a></code></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-wrapper/index.html">Wrapper</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Wrapper</span><span class="symbol">&lt;</span><span class="identifier">IN</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">, </span><span class="identifier">OUT</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span></code>
+<p>A simple interface that tells us how wrap a <code><a href="#">Mockspresso</a></code> instance with your custom implementation (a subclass of one of these abstract classes.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">AbstractMockspressoExtension</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension$<init>(com.episode6.hackit.mockspresso.Mockspresso, com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.Wrapper((com.episode6.hackit.mockspresso.Mockspresso.Builder, com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.BLDR)))/delegate">delegate</span><span class="symbol">:</span>&nbsp;<span class="identifier">Mockspresso</span><span class="symbol">, </span><span class="identifier" id="com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension$<init>(com.episode6.hackit.mockspresso.Mockspresso, com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.Wrapper((com.episode6.hackit.mockspresso.Mockspresso.Builder, com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.BLDR)))/builderWrapper">builderWrapper</span><span class="symbol">:</span>&nbsp;<a href="-wrapper/index.html"><span class="identifier">AbstractMockspressoExtension.Wrapper</span></a><span class="symbol">&lt;</span><span class="identifier">Builder</span><span class="symbol">!</span><span class="symbol">,</span>&nbsp;<a href="index.html#BLDR"><span class="identifier">BLDR</span></a><span class="symbol">&gt;</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="build-upon.html">buildUpon</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">buildUpon</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#BLDR"><span class="identifier">BLDR</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension$create(java.lang.Class((com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.create.T)))/clazz">clazz</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="create.html#T"><span class="identifier">T</span></a></code><br/>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension$create(com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.create.T)))/typeToken">typeToken</span><span class="symbol">:</span>&nbsp;<span class="identifier">TypeToken</span><span class="symbol">&lt;</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="create.html#T"><span class="identifier">T</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="get-dependency.html">getDependency</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">getDependency</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension$getDependency(com.episode6.hackit.mockspresso.reflect.DependencyKey((com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.getDependency.T)))/key">key</span><span class="symbol">:</span>&nbsp;<span class="identifier">DependencyKey</span><span class="symbol">&lt;</span><a href="get-dependency.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="get-dependency.html#T"><span class="identifier">T</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="inject.html">inject</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">inject</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension$inject(kotlin.Any)/instance">instance</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">inject</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension$inject(com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.inject.T, com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.inject.T)))/instance">instance</span><span class="symbol">:</span>&nbsp;<a href="inject.html#T"><span class="identifier">T</span></a><span class="symbol">, </span><span class="identifier" id="com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension$inject(com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.inject.T, com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.extend.AbstractMockspressoExtension.inject.T)))/typeToken">typeToken</span><span class="symbol">:</span>&nbsp;<span class="identifier">TypeToken</span><span class="symbol">&lt;</span><a href="inject.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

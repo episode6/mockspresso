@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.episode6.hackit.mockspresso.easymock.powermock
 
 import com.episode6.hackit.mockspresso.Mockspresso
@@ -18,7 +20,7 @@ import com.episode6.hackit.mockspresso.api.MockspressoPlugin
  * To work around this problem, use powermock's @Mock, @MockNice and @MockStrict annotations instead.
  */
 @JvmSynthetic
-fun Mockspresso.Builder.mockByPowerMock(): Mockspresso.Builder = plugin(EasyPowerMockPlugin())
+fun Mockspresso.Builder.mockByPowerMock(): Mockspresso.Builder = mocker(EasyPowerMockMockerConfig())
 
 /**
  * Applies the [com.episode6.hackit.mockspresso.api.MockerConfig] for Powermock + EasyMock AND
@@ -27,7 +29,9 @@ fun Mockspresso.Builder.mockByPowerMock(): Mockspresso.Builder = plugin(EasyPowe
  * PLUS org.powermock:powermock-module-junit4-rule and org.powermock:powermock-classloading-xstream
  */
 @JvmSynthetic
-fun Mockspresso.Builder.mockByPowerMockRule(): Mockspresso.Builder = plugin(EasyPowerMockRulePlugin())
+fun Mockspresso.Builder.mockByPowerMockRule(): Mockspresso.Builder = this
+    .mockByPowerMock()
+    .outerRule(org.powermock.modules.junit4.rule.PowerMockRule())
 
 /**
  * Expose the extension methods defined here as [MockspressoPlugin]s for consumption by java tests

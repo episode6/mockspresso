@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.episode6.hackit.mockspresso.easymock
 
 import com.episode6.hackit.mockspresso.Mockspresso
@@ -21,7 +23,7 @@ class EasyMockPluginsExtTest {
   }
 
   @Test fun testEasyMockExtensionSourceOfTruth() {
-    expect(builder.plugin(anyObject(EasyMockPlugin::class.java))).andReturn(builder)
+    expect(builder.mocker(anyObject(EasyMockMockerConfig::class.java))).andReturn(builder)
     replay(builder)
 
     val result = builder.mockByEasyMock()

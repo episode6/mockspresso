@@ -1,0 +1,6 @@
+$dokka.format:html
+$dokka.linkExtension:html
+$dokka.location:com.episode6.hackit.mockspresso.mockito$automaticFactories(com.episode6.hackit.mockspresso.Mockspresso.Builder, kotlin.Array((java.lang.Class((kotlin.Any)))))com.episode6.hackit.mockspresso.mockito/com.episode6.hackit.mockspresso.-mockspresso.-builder/automatic-factories.html
+$dokka.location:com.episode6.hackit.mockspresso.mockito$automaticFactories(com.episode6.hackit.mockspresso.Mockspresso.Builder, kotlin.Array((kotlin.reflect.KClass((kotlin.Any)))))com.episode6.hackit.mockspresso.mockito/com.episode6.hackit.mockspresso.-mockspresso.-builder/automatic-factories.html
+$dokka.location:com.episode6.hackit.mockspresso.mockito$mockByMockito(com.episode6.hackit.mockspresso.Mockspresso.Builder)com.episode6.hackit.mockspresso.mockito/com.episode6.hackit.mockspresso.-mockspresso.-builder/mock-by-mockito.html
+com.episode6.hackit.mockspresso.mockito

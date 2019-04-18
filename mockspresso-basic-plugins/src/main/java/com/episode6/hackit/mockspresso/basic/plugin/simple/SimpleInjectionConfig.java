@@ -12,7 +12,14 @@ import java.util.List;
 /**
  * A very simple implementation of InjectionConfig. Chooses the constructor with the least number of arguments,
  * and provides no injectable field annotations.
+ *
+ * @deprecated This functionality is now exposed by the kotlin extension method `injectBySimpleConfig()` and its
+ * JavaSupport counterpart
+ * {@link com.episode6.hackit.mockspresso.basic.plugin.MockspressoBasicPluginsJavaSupport#injectBySimpleConfig()}
+ *
+ * This class will be marked internal/protected in a future release
  */
+@Deprecated
 public class SimpleInjectionConfig implements InjectionConfig {
 
   private final ConstructorSelector mConstructorSelector = new SimpleConstructorSelector();

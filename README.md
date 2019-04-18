@@ -3,66 +3,17 @@ An extensible auto-mocker for java, designed to simplify your unit tests.
 
 `It's like dependency injection for your tests.`
 
-## What & Why?
-Testing code is a pain in the ass. Mockspresso was created with the simple idea that if tests are easier to write and break less often, developers will hate them less, and write more of them.
-
-Mockspresso creates your objects for you, letting you drop the constructors from your tests, while still giving you complete control over how your objects are created and what dependencies are provided/injected. Using the mocks declared in your test, mockspresso builds a [map of dependencies](#the-dependency-map) with which to inject your real objects. Mockspresso will auto-mock any dependencies that are undefined and can also intelligently map simple `Provider<>` / `Supplier<>` style interfaces to their actual dependencies (via [Special Object Handling](#special-object-handling)). The real objects that mockspresso creates are then also added to the dependency map, enabling complex integration tests as well as simple unit tests. The best part is, your tests wont break (by-default) just because a dependency is added to the class under test. After all, why should adding new functionality to a class, break the tests on its existing functionality?
-
-
-## Version
-#### Mockspresso v0.1.0-beta1 is ready for use!
+## v0.1.0-beta2
 Mockspresso v0.1.0 represents a complete shift in focus from Java to Kotlin. We've added extension methods for all built in plugins as well as inline functions with reified types for any method that uses a `TypeToken`.
  
-
 Check the [ChangeLog](CHANGELOG.md) for details.
 
-The current release of mockspresso is `0.1.0-beta1` **however** these docs are woefully out of date and don't describe it properly at all. They will be updated before the official release (and hopefully before the next beta).
+## Quickstart
+- [Updated Quickstart Guide](docs/README.md)
 
-## Installation
-There are 3 ways to setup mockspresso in your project.
-
-##### (1) mockspresso-core
-To use mockspresso with minimal dependencies, install the `mockspresso-core` module along with the modules for the [plugins](#plugins) you actually plan to use.
-
-```groovy
-dependencies {
-    // mockspresso-core dependency
-    testCompile 'com.episode6.hackit.mockspresso:mockspresso-core:' + mockspressoVersion
-
-    // for mockito compatibility
-    testCompile 'org.mockito:mockito-core:' + mockitoVersion
-    testCompile 'com.episode6.hackit.mockspresso:mockspresso-mockito:' + mockspressoVersion
-
-    // for easymock compatibility
-    testCompile 'org.easymock:easymock:' + easyMockVersion
-    testCompile 'com.episode6.hackit.mockspresso:mockspresso-easymock:' + mockspressoVersion
-
-    // for dagger compatibility
-    testCompile 'com.google.dagger:dagger:' + daggerVersion
-    testCompile 'com.episode6.hackit.mockspresso:mockspresso-dagger:' + mockspressoVersion
-}
-```
-
-##### (2) mockspresso-quick
-For quick usage in a new project, where you don't want to worry too much about getting all the right dependencies, we offer the `mockspresso-quick` module. This module includes all of mockspresso's built-in plugins (with their external dependencies being optional), and exposes them via a single, simple api extension.
-
-```groovy
-dependencies {
-    /* mockspresso-quick dependency includes core and all plugin modules. External modules are optional */
-    testCompile 'com.episode6.hackit.mockspresso:mockspresso-quick:' + mockspressoVersion
-
-    /* You'll still need the external dependencies for your mocking framework of choice */
-
-    // for mockito
-    testCompile 'org.mockito:mockito-core:' + mockitoVersion
-
-    // for easymock
-    testCompile 'org.easymock:easymock:' + easyMockVersion
-}
-```
-
-##### (3) mockspresso-extend: build a custom mockspresso extension
-You can now easily define your own extension to the Mockspresso api using the `mockspresso-extend` library. This gives your test-code the simple usage patterns of `mockspresso-quick`, but with minimal dependencies and control over the builder-pattern and accessible plugins. To learn how, see the [mockspresso-extend/README.md](mockspresso-extend/README.md)
+---
+## Everything below is totally out of date and will be moved/updated in the next release
+---
 
 ## Usage
 

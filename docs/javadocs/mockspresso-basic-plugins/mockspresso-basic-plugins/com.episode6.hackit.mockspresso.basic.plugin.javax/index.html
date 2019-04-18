@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.episode6.hackit.mockspresso.basic.plugin.javax - mockspresso-basic-plugins</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">mockspresso-basic-plugins</a>&nbsp;/&nbsp;<a href="./index.html">com.episode6.hackit.mockspresso.basic.plugin.javax</a><br/>
+<br/>
+<h2>Package com.episode6.hackit.mockspresso.basic.plugin.javax</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-javax-injection-config/index.html">JavaxInjectionConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">JavaxInjectionConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">InjectionConfig</span></code>
+<p>An implementation of <code><a href="#">InjectionConfig</a></code> designed for the javax.inject package. With this config, we look for the constructor annotated with @Inject, and prefer it. If no @Inject constructor is found, we will use and empty constructor, if one is found. If multiple @Inject constructors are found, an exception will be thrown.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-javax-inject-mockspresso-plugin/index.html">JavaxInjectMockspressoPlugin</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">JavaxInjectMockspressoPlugin</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">MockspressoPlugin</span></code>
+<p>A Mockspresso Plugin that applies logic to simulate a javax.inject compatible DI framework.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-provider-maker/index.html">ProviderMaker</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">ProviderMaker</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">SpecialObjectMaker</span></code>
+<p>An implementation of SpecialObjectMaker for <code><a href="#">javax.inject.Provider</a></code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Exceptions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-multiple-inject-constructor-exception/index.html">MultipleInjectConstructorException</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">MultipleInjectConstructorException</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/lang/VerifyError.html"><span class="identifier">VerifyError</span></a></code>
+<p>Exception thrown when trying to create an object with multiple @Inject constructors (when using the JavaxInjectionConfig</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

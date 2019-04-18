@@ -13,5 +13,18 @@ allprojects {
   }
 
   group = "com.episode6.hackit.mockspresso"
-  version = "0.1.0-beta1"
+  version = "0.1.0-beta2"
+}
+
+tasks.create(Tasks.SYNC_DOCS) {
+  doLast {
+    String lines = subprojects.findAll { it.tasks.findByName(Tasks.SYNC_DOCS) != null }
+        .collect { it.name }
+        .collect { " - [$it]($it/$it/index.html)" }
+        .join("\n")
+    file("$rootDir/docs/javadocs/INDEX.md").with {
+      parentFile.mkdirs()
+      text = "# JavaDocs\n$lines\n"
+    }
+  }
 }

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.episode6.hackit.mockspresso.mockito
 
 import com.episode6.hackit.mockspresso.Mockspresso
@@ -22,7 +24,7 @@ class MockitoPluginsExtTest {
     val result = builder.mockByMockito()
 
     assertThat(result).isEqualTo(builder)
-    verify(builder).plugin(any<MockitoPlugin>())
+    verify(builder).mocker(any<MockitoMockerConfig>())
   }
 
   @Test fun testAutomaticFactorySourceOfTruthKotlin() {

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.episode6.hackit.mockspresso.easymock.powermock
 
 import com.episode6.hackit.mockspresso.Mockspresso
@@ -7,6 +9,7 @@ import org.easymock.Mock
 import org.fest.assertions.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
+import org.powermock.modules.junit4.rule.PowerMockRule
 
 /**
  * Tests [com.episode6.hackit.mockspresso.easymock.EasyMockPluginsExtKt]
@@ -21,7 +24,7 @@ class EasyPowerMockPluginsExtTest {
   }
 
   @Test fun testPowerEasyMockExtensionSourceOfTruth() {
-    expect(builder.plugin(anyObject(EasyPowerMockPlugin::class.java))).andReturn(builder)
+    expect(builder.mocker(anyObject(EasyPowerMockMockerConfig::class.java))).andReturn(builder)
     replay(builder)
 
     val result = builder.mockByPowerMock()
@@ -33,7 +36,8 @@ class EasyPowerMockPluginsExtTest {
   }
 
   @Test fun testPowerEasyMockRuleExtensionSourceOfTruth() {
-    expect(builder.plugin(anyObject(EasyPowerMockRulePlugin::class.java))).andReturn(builder)
+    expect(builder.mocker(anyObject(EasyPowerMockMockerConfig::class.java))).andReturn(builder)
+    expect(builder.outerRule(anyObject(PowerMockRule::class.java))).andReturn(builder)
     replay(builder)
 
     val result = builder.mockByPowerMockRule()

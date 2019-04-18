@@ -11,7 +11,14 @@ import java.lang.reflect.Type;
 
 /**
  * An implementation of SpecialObjectMaker for {@link javax.inject.Provider}.
+ *
+ * @deprecated This functionality is now exposed by the kotlin extension method `automaticProviders()` and its
+ * JavaSupport counterpart
+ * {@link com.episode6.hackit.mockspresso.basic.plugin.MockspressoBasicPluginsJavaSupport#automaticProviders()}
+ *
+ * This class will be marked internal/protected in a future release
  */
+@Deprecated
 public class ProviderMaker implements SpecialObjectMaker {
 
   @Override

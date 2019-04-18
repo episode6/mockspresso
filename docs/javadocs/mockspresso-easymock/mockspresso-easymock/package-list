@@ -1,0 +1,4 @@
+$dokka.format:html
+$dokka.linkExtension:html
+$dokka.location:com.episode6.hackit.mockspresso.easymock$mockByEasyMock(com.episode6.hackit.mockspresso.Mockspresso.Builder)com.episode6.hackit.mockspresso.easymock/com.episode6.hackit.mockspresso.-mockspresso.-builder/mock-by-easy-mock.html
+com.episode6.hackit.mockspresso.easymock

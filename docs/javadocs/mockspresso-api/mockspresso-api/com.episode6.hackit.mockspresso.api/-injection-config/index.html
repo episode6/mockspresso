@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>InjectionConfig - mockspresso-api</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">mockspresso-api</a>&nbsp;/&nbsp;<a href="../index.html">com.episode6.hackit.mockspresso.api</a>&nbsp;/&nbsp;<a href="./index.html">InjectionConfig</a><br/>
+<br/>
+<h1>InjectionConfig</h1>
+<code><span class="keyword">interface </span><span class="identifier">InjectionConfig</span></code>
+<p>A configuration interface that defines how we construct real objects.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-constructor-selector/index.html">ConstructorSelector</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ConstructorSelector</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="provide-constructor-selector.html">provideConstructorSelector</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">provideConstructorSelector</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="-constructor-selector/index.html"><span class="identifier">InjectionConfig.ConstructorSelector</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="provide-injectable-field-annotations.html">provideInjectableFieldAnnotations</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">provideInjectableFieldAnnotations</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html"><span class="identifier">MutableList</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/6/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html"><span class="identifier">Annotation</span></a><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="provide-injectable-method-annotations.html">provideInjectableMethodAnnotations</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">provideInjectableMethodAnnotations</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html"><span class="identifier">MutableList</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/6/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html"><span class="identifier">Annotation</span></a><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -11,7 +11,13 @@ import java.util.List;
 
 /**
  * A MockerConfig for PowerMock + EasyMock
+ *
+ * @deprecated This functionality is now exposed by the kotlin extension method `mockByPowerMock()` and its
+ * JavaSupport counterpart {@link MockspressoEasyPowerMockPluginsJavaSupport#mockByPowerMock()}
+ *
+ * This class will be marked internal/protected in a future release
  */
+@Deprecated
 public class EasyPowerMockMockerConfig implements MockerConfig {
 
   private final EasyPowerMockMockMaker mMockMaker = new EasyPowerMockMockMaker();

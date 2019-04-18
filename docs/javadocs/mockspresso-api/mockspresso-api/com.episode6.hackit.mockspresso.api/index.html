@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.episode6.hackit.mockspresso.api - mockspresso-api</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">mockspresso-api</a>&nbsp;/&nbsp;<a href="./index.html">com.episode6.hackit.mockspresso.api</a><br/>
+<br/>
+<h2>Package com.episode6.hackit.mockspresso.api</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-dependency-provider/index.html">DependencyProvider</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">DependencyProvider</span></code>
+<p>A interface for a class that can provide dependencies for an object. Its get method will never return null.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-injection-config/index.html">InjectionConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">InjectionConfig</span></code>
+<p>A configuration interface that defines how we construct real objects.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-mocker-config/index.html">MockerConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">MockerConfig</span></code>
+<p>A config interface used by mockspresso to handle to mocking of objects using any mocker that supports annotations.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-mockspresso-plugin/index.html">MockspressoPlugin</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">MockspressoPlugin</span></code>
+<p>An interface that can encapsulate multiple related mockspresso components into a single plugin.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-object-provider/index.html">ObjectProvider</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ObjectProvider</span><span class="symbol">&lt;</span><span class="identifier">V</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span></code>
+<p>Similar to <code><a href="#">javax.inject.Provider</a></code> but get method is allowed to throw</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-special-object-maker/index.html">SpecialObjectMaker</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">SpecialObjectMaker</span></code>
+<p>A class that creates "special" objects, i.e. objects that, by default, should not be simply mocked. An example of this is <code><a href="#">javax.inject.Provider</a></code>, where we'd rather return a real Provider that provides a mock (or a mapped dependency).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

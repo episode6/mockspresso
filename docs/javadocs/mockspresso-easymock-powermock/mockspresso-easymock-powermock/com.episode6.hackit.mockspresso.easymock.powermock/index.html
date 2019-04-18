@@ -1,0 +1,84 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.episode6.hackit.mockspresso.easymock.powermock - mockspresso-easymock-powermock</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">mockspresso-easymock-powermock</a>&nbsp;/&nbsp;<a href="./index.html">com.episode6.hackit.mockspresso.easymock.powermock</a><br/>
+<br/>
+<h2>Package com.episode6.hackit.mockspresso.easymock.powermock</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-easy-power-mock-field-preparer/index.html">EasyPowerMockFieldPreparer</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">EasyPowerMockFieldPreparer</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">FieldPreparer</span></code>
+<p>A FieldPreparer for Powermock + EasyMock. Powermock doesn't seem to offer a nice way to init mocks on an arbitrary object that isn't the testClass (and the runner/rule deals with those). So to handle testResources, we use this custom FieldPreparer that expects some mocks/spies to already be initialized (and doesn't touch those). We use <code><a href="#">PowerMock#createMock(Class)</a></code> to create mocks.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-easy-power-mock-mocker-config/index.html">EasyPowerMockMockerConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">EasyPowerMockMockerConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">MockerConfig</span></code>
+<p>A MockerConfig for PowerMock + EasyMock</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-easy-power-mock-mock-maker/index.html">EasyPowerMockMockMaker</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">EasyPowerMockMockMaker</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">MockMaker</span></code>
+<p>A MockMaker for PowerMock + EasyMock</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-easy-power-mock-plugin/index.html">EasyPowerMockPlugin</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">EasyPowerMockPlugin</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">MockspressoPlugin</span></code>
+<p>Plugin that applies <code><a href="-easy-power-mock-mocker-config/index.html">EasyPowerMockMockerConfig</a></code> to enable mockspresso usage with Powermock + EasyMock. This plugin does not apply a PowerMockRule, so the implementer is responsible for either running their test with the PowerMockRunner or applying their own PowerMockRule</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-easy-power-mock-rule-plugin/index.html">EasyPowerMockRulePlugin</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">EasyPowerMockRulePlugin</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">MockspressoPlugin</span></code>
+<p>Plugin that applies <code><a href="-easy-power-mock-mocker-config/index.html">EasyPowerMockMockerConfig</a></code> AND applies a PowerMockRule as an outer rule to Mockspresso. Use this plugin if you want to use PowerMock without applying the PowerMockRunner</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-mockspresso-easy-power-mock-plugins-java-support/index.html">MockspressoEasyPowerMockPluginsJavaSupport</a><br/>
+(Kotlin 9999.0)</p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">MockspressoEasyPowerMockPluginsJavaSupport</span></code>
+<p>Expose the extension methods defined here as <a href="#">MockspressoPlugin</a>s for consumption by java tests</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Extensions for External Classes</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="com.episode6.hackit.mockspresso.-mockspresso.-builder/index.html">com.episode6.hackit.mockspresso.Mockspresso.Builder</a></p>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

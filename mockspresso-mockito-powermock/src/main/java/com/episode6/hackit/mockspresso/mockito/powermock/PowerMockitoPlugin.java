@@ -9,7 +9,13 @@ import org.powermock.api.mockito.PowerMockito;
  * Plugin that applies {@link PowerMockitoConfig} to enable mockspresso usage with Powermock + Mockito.
  * This plugin does not apply a PowerMockRule, so the implementer is responsible for either running their
  * test with the PowerMockRunner or applying their own PowerMockRule
+ *
+ * @deprecated This functionality is now exposed by the kotlin extension method `mockByPowerMockito()` and its
+ * JavaSupport counterpart {@link MockspressoPowerMockitoPluginsJavaSupport#mockByPowerMockito()}
+ *
+ * This class will be removed in a future release
  */
+@Deprecated
 public class PowerMockitoPlugin implements MockspressoPlugin {
 
   @Override

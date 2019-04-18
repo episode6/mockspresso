@@ -1,0 +1,86 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AnnotationLiteral - mockspresso-reflect</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">mockspresso-reflect</a>&nbsp;/&nbsp;<a href="../index.html">com.episode6.hackit.mockspresso.reflect</a>&nbsp;/&nbsp;<a href="./index.html">AnnotationLiteral</a><br/>
+<br/>
+<h1>AnnotationLiteral</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">AnnotationLiteral</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html"><span class="identifier">Annotation</span></a><span class="symbol">!</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/io/Serializable.html"><span class="identifier">Serializable</span></a></code>
+<p>Supports inline instantiation of annotation type instances.</p>
+ 
+<p>An instance of an annotation type may be obtained by subclassing AnnotationLiteral.</p>
+ <pre><code>
+  public abstract class PayByQualifier
+        extends AnnotationLiteral&lt;PayBy&gt;
+        implements PayBy {}
+  </code></pre> <pre><code>
+  PayBy paybyCheque = new PayByQualifier() { public PaymentMethod value() { return CHEQUE; } };
+  </code></pre>
+<p><strong>Author</strong><br/>
+Pete Muir</p>
+<p><strong>Author</strong><br/>
+Gavin King see javax.enterprise.inject.Instance#select(Annotation...) see javax.enterprise.event.Event#select(Annotation...)</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">AnnotationLiteral</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="annotation-type.html">annotationType</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">annotationType</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://docs.oracle.com/javase/6/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html"><span class="identifier">Annotation</span></a><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="equals.html">equals</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">equals</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.reflect.AnnotationLiteral$equals(kotlin.Any)/other">other</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="hash-code.html">hashCode</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">hashCode</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="to-string.html">toString</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">toString</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-named-annotation-literal/index.html">NamedAnnotationLiteral</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">NamedAnnotationLiteral</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">AnnotationLiteral</span></a><span class="symbol">&lt;</span><span class="identifier">Named</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier">Named</span></code>
+<p>A convenience annotation literal for the @Named annotation.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -10,7 +10,13 @@ import java.util.List;
 
 /**
  * A MockerConfig for Powermock + Mockito
+ *
+ * @deprecated This functionality is now exposed by the kotlin extension method `mockByPowerMockito()` and its
+ * JavaSupport counterpart {@link MockspressoPowerMockitoPluginsJavaSupport#mockByPowerMockito()}
+ *
+ * This class will be marked internal/protected in a future release
  */
+@Deprecated
 public class PowerMockitoConfig implements MockerConfig {
 
   private final MockMaker mMockMaker = new PowerMockitoMockMaker();
