@@ -24,6 +24,10 @@ class DeployableJavaProject extends JavaProject {
       excludes += "${project.name}/index-outline.html"
     }
 
+    project.tasks.dokka {
+      jdkVersion = 8
+    }
+
     // Each module's javadocs are generated separately and can't see each other (atm).
     // This block links to our already hosted docs from the previous release.
     // It's not ideal, but its better than nothing.
