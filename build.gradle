@@ -22,7 +22,7 @@ tasks.create(Tasks.SYNC_DOCS) {
         .collect { it.name }
         .collect { " - [$it]($it/$it/index.html)" }
         .join("\n")
-    file("$rootDir/docs/javadocs/INDEX.md").with {
+    file("$rootDir/docs/javadocs/README.md").with {
       parentFile.mkdirs()
       text = "# JavaDocs\n$lines\n"
     }
