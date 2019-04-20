@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * A class that creates "special" objects, i.e. objects that, by default, should not
  * be simply mocked. An example of this is {@link javax.inject.Provider}, where we'd
- * rather return a real Provider that provides a mock (or a mapped dependency).
+ * rather return a real instance that provides a mock (or a mapped dependency).
  */
 public interface SpecialObjectMaker {
   boolean canMakeObject(@NotNull DependencyKey<?> key);
