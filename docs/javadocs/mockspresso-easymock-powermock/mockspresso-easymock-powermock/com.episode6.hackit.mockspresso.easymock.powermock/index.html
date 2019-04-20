@@ -17,7 +17,7 @@
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">EasyPowerMockFieldPreparer</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://episode6.github.io/mockspresso/javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso.api/-mocker-config/-field-preparer/index.html"><span class="identifier">FieldPreparer</span></a></code>
-<p>A FieldPreparer for Powermock + EasyMock. Powermock doesn't seem to offer a nice way to init mocks on an arbitrary object that isn't the testClass (and the runner/rule deals with those). So to handle testResources, we use this custom FieldPreparer that expects some mocks/spies to already be initialized (and doesn't touch those). We use <code><a href="#">PowerMock#createMock(Class)</a></code> to create mocks.</p>
+<p>A FieldPreparer for Powermock + EasyMock. Powermock doesn't seem to offer a nice way to init mocks on an arbitrary object that isn't the testClass (and the runner/rule deals with those). So to handle testResources, we use this custom FieldPreparer that expects some mocks/spies to already be initialized (and doesn't touch those). We use <code><a href="https://static.javadoc.io/org.powermock/powermock-api-easymock/2.0.0/org/powermock/api/easymock/PowerMock.html#createMock(java.lang.Class<T>)">PowerMock#createMock(Class)</a></code> to create mocks.</p>
 </td>
 </tr>
 <tr>

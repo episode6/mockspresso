@@ -11,6 +11,6 @@
 <a name="com.episode6.hackit.mockspresso.easymock.powermock.EasyPowerMockFieldPreparer$&lt;init&gt;()"></a>
 <code><span class="identifier">EasyPowerMockFieldPreparer</span><span class="symbol">(</span><span class="symbol">)</span></code><br/>
 <strong>Deprecated:</strong> This functionality is internal implementation and shouldn't be exposed This class will be marked internal/protected in a future release
-<p>A FieldPreparer for Powermock + EasyMock. Powermock doesn't seem to offer a nice way to init mocks on an arbitrary object that isn't the testClass (and the runner/rule deals with those). So to handle testResources, we use this custom FieldPreparer that expects some mocks/spies to already be initialized (and doesn't touch those). We use <code><a href="#">PowerMock#createMock(Class)</a></code> to create mocks.</p>
+<p>A FieldPreparer for Powermock + EasyMock. Powermock doesn't seem to offer a nice way to init mocks on an arbitrary object that isn't the testClass (and the runner/rule deals with those). So to handle testResources, we use this custom FieldPreparer that expects some mocks/spies to already be initialized (and doesn't touch those). We use <code><a href="https://static.javadoc.io/org.powermock/powermock-api-easymock/2.0.0/org/powermock/api/easymock/PowerMock.html#createMock(java.lang.Class<T>)">PowerMock#createMock(Class)</a></code> to create mocks.</p>
 </BODY>
 </HTML>
