@@ -1,9 +1,10 @@
+
+
 ## What & Why?
-**TL;DR** Mockspresso creates your objects-under-test via reflection and injects them with the dependencies/mocks declared on your test automatically. Any dependencies not declared on your test, are automatically mocked using your mocking framework of choice. 
+**TL;DR** Mockspresso acts like a single-use DI graph for your unit and integration tests. `@Mock`s and `@Dependency`s are imported into the graph, and lateinit `@RealObject`s are constructed automatically (via reflection) and injected with your dependencies. Any dependencies that aren't explicitly supplied are mocked by default. RealObjects also get imported into the DI graph and can be combined to perform complex integration tests.
 
-
-The primary goal is to reduce the friction, boilerplate and barrier-to-entry writing unit-tests. 
-A secondary goal is to be a vehicle to share common test code and dependencies.
+The primary goal is to reduce the friction, boilerplate, brittleness and barrier-to-entry when writing and updating unit-tests.
+A secondary goal is to be a vehicle to share common test code and utilities.
 
 
 ## Installation
@@ -14,13 +15,13 @@ dependencies {
 
     // core module is required
     implementation "com.episode6.hackit.mockspresso:mockspresso-core:$version"
-  
+
     // pick a support module for your mocking framework of choice
     implementation "com.episode6.hackit.mockspresso:mockspresso-mockito:$version"
     implementation "com.episode6.hackit.mockspresso:mockspresso-easymock:$version"
     implementation "com.episode6.hackit.mockspresso:mockspresso-mockito-powermock:$version"
     implementation "com.episode6.hackit.mockspresso:mockspresso-easymock-powermock:$version"
-  
+
     // optionally include plugins for popular 3rd party libs
     implementation "com.episode6.hackit.mockspresso:mockspresso-dagger:$version"
     implementation "com.episode6.hackit.mockspresso:mockspresso-guava:$version"
@@ -28,6 +29,7 @@ dependencies {
 ```
 
 ## Basic JUnit Examples
+The simplest and most common way to initialize mockspresso in a unit test is with a JUnit Rule.
 
 **Kotlin Test**
 
@@ -37,10 +39,10 @@ class CoffeeMakerHeaterTest {
 
     // setup mockspresso with junit rule
     @get:Rule val mockspresso = BuildMockspresso.with()
-        .injectBySimpleConfig()
-        .mockByMockito()
+        .injectBySimpleConfig() // choose an injector
+        .mockByMockito() // choose a mock framework
         .buildRule()
-    
+
     // declare only the mocks we need for our test
     @Dependency val heater: Heater = mock()
 
@@ -63,10 +65,10 @@ public class CoffeeMakerHeaterTest {
 
     // setup mockspresso with junit rule
     @Rule public final Mockspresso.Rule mockspresso = BuildMockspresso.with()
-        .plugin(injectBySimpleConfig())
-        .plugin(mockByMockito())
+        .plugin(injectBySimpleConfig()) // choose an injector
+        .plugin(mockByMockito()) // choose a mock framework
         .buildRule();
-    
+
     // declare only the mocks we need for our test
     @Mock Heater heater;
 
@@ -82,7 +84,7 @@ public class CoffeeMakerHeaterTest {
 ```
 
 ## JavaDocs
-- [JavaDocs Root](javadocs/) 
+- [JavaDocs Root](javadocs/)
 
 ## License
 Mockspresso is licensed under the [MIT License](https://github.com/episode6/mockspresso/blob/master/LICENSE)
