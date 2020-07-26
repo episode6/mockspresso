@@ -1,7 +1,5 @@
-
-
 ## What & Why?
-**TL;DR** Mockspresso acts like a single-use DI graph for your unit and integration tests. `@Mock`s and `@Dependency`s are imported into the graph, and lateinit `@RealObject`s are constructed automatically (via reflection) and injected with your dependencies. Any dependencies that aren't explicitly supplied are mocked by default. RealObjects also get imported into the DI graph and can be combined to perform complex integration tests.
+**TL;DR** Mockspresso acts like a single-use DI graph for your java/kotlin unit and integration tests. `@Mock`s and `@Dependency`s are imported into the graph, and lateinit `@RealObject`s are constructed automatically (via reflection) and injected with your dependencies. Any dependencies that aren't explicitly supplied are mocked by default. RealObjects also get imported into the DI graph and can be combined to perform complex integration tests.
 
 The primary goal is to reduce the friction, boilerplate, brittleness and barrier-to-entry when writing and updating unit-tests.
 A secondary goal is to be a vehicle to share common test code and utilities.
@@ -83,7 +81,9 @@ public class CoffeeMakerHeaterTest {
 }
 ```
 
-## JavaDocs
+## More Resources
+- [Getting Started with Mockspresso](GETTING_STARTED.md)
+- [Included Plugins](INCLUDED_PLUGINS.md)
 - [JavaDocs Root](javadocs/)
 
 ## License
