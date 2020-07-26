@@ -1,7 +1,7 @@
 # ChangeLog
 
 
-### v0.1.0-beta3 - unreleased
+### v0.1.0-beta4 - unreleased
 
 
 ### v0.1.0-beta2 - April 17th, 2019

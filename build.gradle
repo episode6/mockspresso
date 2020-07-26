@@ -13,7 +13,7 @@ allprojects {
   }
 
   group = "com.episode6.hackit.mockspresso"
-  version = "0.1.0-beta3-SNAPSHOT"
+  version = "0.1.0-beta4-SNAPSHOT"
 }
 
 tasks.create(Tasks.SYNC_DOCS) {
