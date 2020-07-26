@@ -11,8 +11,9 @@ import com.episode6.hackit.mockspresso.basic.plugin.injectByJavaxConfig
  */
 
 /**
- * Applies an [InjectionConfig] for dagger. This is the same as injectByJavaxConfig()
- * with additional support for dagger's Lazy interface.
+ * Applies an [com.episode6.hackit.mockspresso.api.InjectionConfig] for dagger.
+ * This is the same as injectByJavaxConfig() with additional support for dagger's
+ * Lazy interface.
  */
 @JvmSynthetic
 fun Mockspresso.Builder.injectByDaggerConfig(): Mockspresso.Builder = this

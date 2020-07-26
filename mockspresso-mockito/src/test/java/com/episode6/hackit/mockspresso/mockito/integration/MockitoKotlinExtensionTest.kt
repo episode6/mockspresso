@@ -10,6 +10,7 @@ import com.episode6.hackit.mockspresso.getDependencyOf
 import com.episode6.hackit.mockspresso.injectType
 import com.episode6.hackit.mockspresso.mockito.Conditions.mockCondition
 import com.episode6.hackit.mockspresso.mockito.mockByMockito
+import com.episode6.hackit.mockspresso.testing.isConcreteInstanceOf
 import org.fest.assertions.api.Assertions.assertThat
 import org.junit.Rule
 import org.junit.Test
@@ -23,7 +24,10 @@ class MockitoKotlinExtensionTest {
   private interface TestDependencyInterface
   private class TestDependency : TestDependencyInterface
 
-  private class TestObject(val dep: TestDependencyInterface)
+  private interface TestObjectInterface {
+    val dep: TestDependencyInterface
+  }
+  private class TestObject(override val dep: TestDependencyInterface): TestObjectInterface
 
   private class TestGeneric<T : Any> @Inject constructor() {
     @Inject lateinit var dep: T
@@ -38,10 +42,11 @@ class MockitoKotlinExtensionTest {
       .mockByMockito()
       .buildRule()
 
-  @Dependency private val testDependency: TestDependencyInterface = TestDependency()
+  @Dependency(bindAs = TestDependencyInterface::class)
+  private val testDependency = TestDependency()
 
-  @RealObject private lateinit var testObject: TestObject
-
+  @RealObject(implementation = TestObject::class)
+  private lateinit var testObject: TestObjectInterface
 
   @Test fun testCreateConcrete() {
     val testObject2: TestObject = mockspresso.createNew()
@@ -49,7 +54,7 @@ class MockitoKotlinExtensionTest {
     assertThat(testObject2)
         .isNotNull
         .isNot(mockCondition())
-        .isNotEqualTo(testObject)
+        .isNotEqualTo(testObject as TestObject)
     assertThat(testObject2.dep)
         .isEqualTo(testObject.dep)
         .isEqualTo(testDependency)
@@ -74,12 +79,13 @@ class MockitoKotlinExtensionTest {
   }
 
   @Test fun testGetConcreteObject() {
-    val testObject2: TestObject = mockspresso.getDependencyOf()!!
+    val testObject2: TestObjectInterface = mockspresso.getDependencyOf()!!
 
     assertThat(testObject2)
         .isNotNull
         .isNot(mockCondition())
         .isEqualTo(testObject)
+        .isConcreteInstanceOf<TestObject>()
   }
 
   @Test fun testGetGenericObject() {

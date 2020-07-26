@@ -3,7 +3,7 @@ An extensible auto-mocker for java, designed to simplify your unit tests.
 
 `It's like dependency injection for your tests.`
 
-## v0.1.0-beta2
+## v0.1.0-beta3
 Mockspresso v0.1.0 represents a complete shift in focus from Java to Kotlin. We've added extension methods for all built in plugins as well as inline functions with reified types for any method that uses a `TypeToken`.
  
 Check the [ChangeLog](CHANGELOG.md) for details.

@@ -4,3 +4,8 @@ dependencies {
   api project(":mockspresso-reflect")
   mavenProvided 'junit:junit'
 }
+
+// we mention javax.inject in our docs even though we don't have a dependency on it here.
+dokka {
+  externalDocumentationLink { url = new URL("https://docs.oracle.com/javaee/7/api/") }
+}

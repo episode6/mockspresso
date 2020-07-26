@@ -3,7 +3,7 @@
 buildscript { repositories { jcenter() } }
 
 wrapper {
-  gradleVersion = "4.9"
+  gradleVersion = "5.1.1"
   distributionType = "all"
 }
 
@@ -13,7 +13,7 @@ allprojects {
   }
 
   group = "com.episode6.hackit.mockspresso"
-  version = "0.1.0-beta2"
+  version = "0.1.0-beta3"
 }
 
 tasks.create(Tasks.SYNC_DOCS) {
@@ -22,7 +22,7 @@ tasks.create(Tasks.SYNC_DOCS) {
         .collect { it.name }
         .collect { " - [$it]($it/$it/index.html)" }
         .join("\n")
-    file("$rootDir/docs/javadocs/INDEX.md").with {
+    file("$rootDir/docs/javadocs/README.md").with {
       parentFile.mkdirs()
       text = "# JavaDocs\n$lines\n"
     }

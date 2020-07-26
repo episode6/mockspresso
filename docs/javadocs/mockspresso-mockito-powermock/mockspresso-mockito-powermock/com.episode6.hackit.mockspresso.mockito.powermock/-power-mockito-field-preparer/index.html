@@ -8,8 +8,8 @@
 <a href="../../index.html">mockspresso-mockito-powermock</a>&nbsp;/&nbsp;<a href="../index.html">com.episode6.hackit.mockspresso.mockito.powermock</a>&nbsp;/&nbsp;<a href="./index.html">PowerMockitoFieldPreparer</a><br/>
 <br/>
 <h1>PowerMockitoFieldPreparer</h1>
-<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">PowerMockitoFieldPreparer</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">FieldPreparer</span></code>
-<p>A FieldPreparer for Powermock + Mockito. Powermock doesn't seem to offer a nice way to init mocks on an arbitrary object that isn't the testClass (and the runner/rule deals with those). So to handle testResources, we use this custom FieldPreparer that expects some mocks/spies to already be initialized (and doesn't touch those). We use <code><a href="#">PowerMockito#mock(Class)</a></code> to create mocks and <code><a href="#">Mockito#spy(Object)</a></code>/<code><a href="#">Mockito#spy(Class)</a></code> to create spies.</p>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">PowerMockitoFieldPreparer</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://episode6.github.io/mockspresso/javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso.api/-mocker-config/-field-preparer/index.html"><span class="identifier">FieldPreparer</span></a></code>
+<p>A FieldPreparer for Powermock + Mockito. Powermock doesn't seem to offer a nice way to init mocks on an arbitrary object that isn't the testClass (and the runner/rule deals with those). So to handle testResources, we use this custom FieldPreparer that expects some mocks/spies to already be initialized (and doesn't touch those). We use <code><a href="https://static.javadoc.io/org.powermock/powermock-api-mockito2/2.0.0/org/powermock/api/mockito/PowerMockito.html#mock(java.lang.Class<T>)">PowerMockito#mock(Class)</a></code> to create mocks and <code><a href="https://static.javadoc.io/org.mockito/mockito-core/2.25.0/org/mockito/Mockito.html#spy(T)">Mockito#spy(Object)</a></code>/<code><a href="https://static.javadoc.io/org.mockito/mockito-core/2.25.0/org/mockito/Mockito.html#spy(java.lang.Class<T>)">Mockito#spy(Class)</a></code> to create spies.</p>
 <h3>Constructors</h3>
 <table>
 <tbody>
@@ -19,7 +19,7 @@
 </td>
 <td>
 <code><span class="identifier">PowerMockitoFieldPreparer</span><span class="symbol">(</span><span class="symbol">)</span></code>
-<p>A FieldPreparer for Powermock + Mockito. Powermock doesn't seem to offer a nice way to init mocks on an arbitrary object that isn't the testClass (and the runner/rule deals with those). So to handle testResources, we use this custom FieldPreparer that expects some mocks/spies to already be initialized (and doesn't touch those). We use <code><a href="#">PowerMockito#mock(Class)</a></code> to create mocks and <code><a href="#">Mockito#spy(Object)</a></code>/<code><a href="#">Mockito#spy(Class)</a></code> to create spies.</p>
+<p>A FieldPreparer for Powermock + Mockito. Powermock doesn't seem to offer a nice way to init mocks on an arbitrary object that isn't the testClass (and the runner/rule deals with those). So to handle testResources, we use this custom FieldPreparer that expects some mocks/spies to already be initialized (and doesn't touch those). We use <code><a href="https://static.javadoc.io/org.powermock/powermock-api-mockito2/2.0.0/org/powermock/api/mockito/PowerMockito.html#mock(java.lang.Class<T>)">PowerMockito#mock(Class)</a></code> to create mocks and <code><a href="https://static.javadoc.io/org.mockito/mockito-core/2.25.0/org/mockito/Mockito.html#spy(T)">Mockito#spy(Object)</a></code>/<code><a href="https://static.javadoc.io/org.mockito/mockito-core/2.25.0/org/mockito/Mockito.html#spy(java.lang.Class<T>)">Mockito#spy(Class)</a></code> to create spies.</p>
 </td>
 </tr>
 </tbody>

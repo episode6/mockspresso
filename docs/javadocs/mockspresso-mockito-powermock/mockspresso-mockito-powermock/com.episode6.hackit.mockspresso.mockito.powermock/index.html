@@ -18,7 +18,7 @@
 </td>
 <td>
 <code><span class="keyword">object </span><span class="identifier">MockspressoPowerMockitoPluginsJavaSupport</span></code>
-<p>Expose the extension methods defined here as <a href="#">MockspressoPlugin</a>s for consumption by java tests</p>
+<p>Expose the extension methods defined here as <a href="https://episode6.github.io/mockspresso/javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso.api/-mockspresso-plugin/index.html">MockspressoPlugin</a>s for consumption by java tests</p>
 </td>
 </tr>
 <tr>
@@ -26,7 +26,7 @@
 <p><a href="-power-mockito-config/index.html">PowerMockitoConfig</a></p>
 </td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">PowerMockitoConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">MockerConfig</span></code>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">PowerMockitoConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://episode6.github.io/mockspresso/javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso.api/-mocker-config/index.html"><span class="identifier">MockerConfig</span></a></code>
 <p>A MockerConfig for Powermock + Mockito</p>
 </td>
 </tr>
@@ -35,8 +35,8 @@
 <p><a href="-power-mockito-field-preparer/index.html">PowerMockitoFieldPreparer</a></p>
 </td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">PowerMockitoFieldPreparer</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">FieldPreparer</span></code>
-<p>A FieldPreparer for Powermock + Mockito. Powermock doesn't seem to offer a nice way to init mocks on an arbitrary object that isn't the testClass (and the runner/rule deals with those). So to handle testResources, we use this custom FieldPreparer that expects some mocks/spies to already be initialized (and doesn't touch those). We use <code><a href="#">PowerMockito#mock(Class)</a></code> to create mocks and <code><a href="#">Mockito#spy(Object)</a></code>/<code><a href="#">Mockito#spy(Class)</a></code> to create spies.</p>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">PowerMockitoFieldPreparer</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://episode6.github.io/mockspresso/javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso.api/-mocker-config/-field-preparer/index.html"><span class="identifier">FieldPreparer</span></a></code>
+<p>A FieldPreparer for Powermock + Mockito. Powermock doesn't seem to offer a nice way to init mocks on an arbitrary object that isn't the testClass (and the runner/rule deals with those). So to handle testResources, we use this custom FieldPreparer that expects some mocks/spies to already be initialized (and doesn't touch those). We use <code><a href="https://static.javadoc.io/org.powermock/powermock-api-mockito2/2.0.0/org/powermock/api/mockito/PowerMockito.html#mock(java.lang.Class<T>)">PowerMockito#mock(Class)</a></code> to create mocks and <code><a href="https://static.javadoc.io/org.mockito/mockito-core/2.25.0/org/mockito/Mockito.html#spy(T)">Mockito#spy(Object)</a></code>/<code><a href="https://static.javadoc.io/org.mockito/mockito-core/2.25.0/org/mockito/Mockito.html#spy(java.lang.Class<T>)">Mockito#spy(Class)</a></code> to create spies.</p>
 </td>
 </tr>
 <tr>
@@ -44,7 +44,7 @@
 <p><a href="-power-mockito-mock-maker/index.html">PowerMockitoMockMaker</a></p>
 </td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">PowerMockitoMockMaker</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">MockMaker</span></code>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">PowerMockitoMockMaker</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://episode6.github.io/mockspresso/javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso.api/-mocker-config/-mock-maker/index.html"><span class="identifier">MockMaker</span></a></code>
 <p>Creates generic Powermock mocks</p>
 </td>
 </tr>
@@ -53,7 +53,7 @@
 <p><a href="-power-mockito-plugin/index.html">PowerMockitoPlugin</a></p>
 </td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">PowerMockitoPlugin</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">MockspressoPlugin</span></code>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">PowerMockitoPlugin</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://episode6.github.io/mockspresso/javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso.api/-mockspresso-plugin/index.html"><span class="identifier">MockspressoPlugin</span></a></code>
 <p>Plugin that applies <code><a href="-power-mockito-config/index.html">PowerMockitoConfig</a></code> to enable mockspresso usage with Powermock + Mockito. This plugin does not apply a PowerMockRule, so the implementer is responsible for either running their test with the PowerMockRunner or applying their own PowerMockRule</p>
 </td>
 </tr>
@@ -62,7 +62,7 @@
 <p><a href="-power-mockito-rule-plugin/index.html">PowerMockitoRulePlugin</a></p>
 </td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">PowerMockitoRulePlugin</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">MockspressoPlugin</span></code>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">PowerMockitoRulePlugin</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://episode6.github.io/mockspresso/javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso.api/-mockspresso-plugin/index.html"><span class="identifier">MockspressoPlugin</span></a></code>
 <p>Plugin that applies <code><a href="-power-mockito-config/index.html">PowerMockitoConfig</a></code> AND applies a PowerMockRule as an outer rule to Mockspresso. Use this plugin if you want to use PowerMock without applying the PowerMockRunner</p>
 </td>
 </tr>

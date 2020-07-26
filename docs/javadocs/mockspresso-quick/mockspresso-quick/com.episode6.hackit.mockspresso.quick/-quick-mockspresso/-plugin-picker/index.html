@@ -18,7 +18,7 @@
 <p><a href="automatic-factories.html">automaticFactories</a></p>
 </td>
 <td>
-<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">automaticFactories</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.episode6.hackit.mockspresso.quick.QuickMockspresso.PluginPicker$automaticFactories(kotlin.Array((java.lang.Class((kotlin.Any)))))/factoryClasses">factoryClasses</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-builder/index.html"><span class="identifier">QuickMockspresso.Builder</span></a></code>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">automaticFactories</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.episode6.hackit.mockspresso.quick.QuickMockspresso.PluginPicker$automaticFactories(kotlin.Array((java.lang.Class((kotlin.Any)))))/factoryClasses">factoryClasses</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-builder/index.html"><span class="identifier">QuickMockspresso.Builder</span></a></code>
 <p>Applies special object handling for the provided factory classes. The applicable objects will be mocked by mockito, but with a default answer that returns objects from mockspresso's dependency map (similar to how the javax() injector automatically binds Providers, but applied to any factory class, including generics). </p>
 </td>
 </tr>
@@ -28,7 +28,7 @@
 </td>
 <td>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">guava</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-builder/index.html"><span class="identifier">QuickMockspresso.Builder</span></a></code>
-<p>Applies a <code><a href="#">MockspressoPlugin</a></code> thats adds special object handling for some of the types provided by guava. * Requires your project have a dependency on 'com.google.guava:guava'</p>
+<p>Applies a <code><a href="https://episode6.github.io/mockspresso/javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso.api/-mockspresso-plugin/index.html">MockspressoPlugin</a></code> thats adds special object handling for some of the types provided by guava. * Requires your project have a dependency on 'com.google.guava:guava'</p>
 </td>
 </tr>
 </tbody>

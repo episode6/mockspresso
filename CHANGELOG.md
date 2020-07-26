@@ -1,5 +1,11 @@
 # ChangeLog
 
+
+### v0.1.0-beta3 - July 26th, 2020
+ - Some dependencies have been upgraded (see: https://github.com/episode6/hackit-gdmc/commit/40c186c246ff944fa97917ea7ba873859e910f2b)
+ - Some links in our docs have been fixed
+ 
+
 ### v0.1.0-beta2 - April 17th, 2019
  - **DEPRECATED** All concrete implemenations of `MockspressoPlugin` in favor of their kotlin extension and `*JavaSupport` counterparts. These classes are no longer used and will be deleted in a future version.
  - **DEPRECATED** All other concrete classes in our plugin modules (excluding the new `*JavaSupport` objects). These classes will be made final and either kotlin-internal or package-protected in a future version.
