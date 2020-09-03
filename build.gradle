@@ -3,7 +3,7 @@
 buildscript { repositories { jcenter() } }
 
 wrapper {
-  gradleVersion = "5.1.1"
+  gradleVersion = "5.3"
   distributionType = "all"
 }
 
@@ -13,7 +13,7 @@ allprojects {
   }
 
   group = "com.episode6.hackit.mockspresso"
-  version = "0.1.0-beta3"
+  version = "0.1.0-beta4"
 }
 
 tasks.create(Tasks.SYNC_DOCS) {

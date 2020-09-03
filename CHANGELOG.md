@@ -1,6 +1,11 @@
 # ChangeLog
 
 
+### v0.1.0-beta4 - September 3rd, 2020
+ - Gradle upgraded 5.1.1 -> 5.3
+ - Kotlin upgraded 1.3.72 -> 1.4.0
+
+
 ### v0.1.0-beta3 - July 26th, 2020
  - Some dependencies have been upgraded (see: https://github.com/episode6/hackit-gdmc/commit/40c186c246ff944fa97917ea7ba873859e910f2b)
  - Some links in our docs have been fixed
