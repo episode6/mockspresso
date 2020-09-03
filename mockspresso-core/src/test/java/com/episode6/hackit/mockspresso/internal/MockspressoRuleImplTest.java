@@ -67,13 +67,13 @@ public class MockspressoRuleImplTest {
     Statement result = mRule.apply(base, mFrameworkMethod, mTarget);
     result.evaluate();
 
-    InOrder inOrder = Mockito.inOrder(mConfig, mBuilderProvider, mBuilder, base, mConfig, mChildConfig);
+    InOrder inOrder = Mockito.inOrder(mConfig, mBuilderProvider, mBuilder, base, mConfig, mChildConfig, mOriginal);
     inOrder.verify(mBuilder).deepCopy();
     inOrder.verify(mBuilder).testResourcesWithoutLifecycle(mTarget);
     inOrder.verify(mBuilder).buildInternal();
     inOrder.verify(mConfig).setup(mOriginal);
     inOrder.verify(base).evaluate();
-    inOrder.verify(mConfig).teardown();
+    inOrder.verify(mOriginal).teardown();
 
     assertRuleNoLongerWorks();
   }
@@ -87,7 +87,7 @@ public class MockspressoRuleImplTest {
     Statement result = mRule.apply(base, mFrameworkMethod, mTarget);
     result.evaluate();
 
-    InOrder inOrder = Mockito.inOrder(mConfig, mBuilderProvider, mBuilder, base, mConfig, mChildConfig, mChildBuilder, mChildMockspresso);
+    InOrder inOrder = Mockito.inOrder(mConfig, mBuilderProvider, mBuilder, base, mConfig, mChildConfig, mChildBuilder, mChildMockspresso, mOriginal);
     inOrder.verify(mBuilderProvider).get();
     inOrder.verify(mBuilder).deepCopy();
     inOrder.verify(mBuilder).testResourcesWithoutLifecycle(mTarget);
@@ -97,8 +97,8 @@ public class MockspressoRuleImplTest {
     inOrder.verify(mChildBuilder).buildInternal();
     inOrder.verify(mChildConfig).setup(mChildMockspresso);
     inOrder.verify(base).evaluate();
-    inOrder.verify(mChildConfig).teardown();
-    inOrder.verify(mConfig).teardown();
+    inOrder.verify(mChildMockspresso).teardown();
+    inOrder.verify(mOriginal).teardown();
 
     assertMockspressoNoLongerWorks(mockspresso);
     assertRuleNoLongerWorks();
@@ -124,6 +124,7 @@ public class MockspressoRuleImplTest {
         mConfig,
         mBuilderProvider,
         mBuilder,
+        mOriginal,
         base,
         mConfig,
         innerRule1,
@@ -154,7 +155,7 @@ public class MockspressoRuleImplTest {
     inOrder.verify(base).evaluate();
     inOrder.verify(innerRule2.returnStatement).after();
     inOrder.verify(innerRule1.returnStatement).after();
-    inOrder.verify(mConfig).teardown();
+    inOrder.verify(mOriginal).teardown();
     inOrder.verify(outerRule2.returnStatement).after();
     inOrder.verify(outerRule1.returnStatement).after();
 
@@ -182,6 +183,8 @@ public class MockspressoRuleImplTest {
         mConfig,
         mBuilderProvider,
         mBuilder,
+        mOriginal,
+        mChildMockspresso,
         base,
         mConfig,
         mChildConfig,
@@ -219,8 +222,8 @@ public class MockspressoRuleImplTest {
     inOrder.verify(base).evaluate();
     inOrder.verify(innerRule2.returnStatement).after();
     inOrder.verify(innerRule1.returnStatement).after();
-    inOrder.verify(mChildConfig).teardown();
-    inOrder.verify(mConfig).teardown();
+    inOrder.verify(mChildMockspresso).teardown();
+    inOrder.verify(mOriginal).teardown();
     inOrder.verify(outerRule2.returnStatement).after();
     inOrder.verify(outerRule1.returnStatement).after();
 

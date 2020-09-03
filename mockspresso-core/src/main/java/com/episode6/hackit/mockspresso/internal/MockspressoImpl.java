@@ -78,6 +78,11 @@ class MockspressoImpl implements Mockspresso, MockspressoInternal {
   }
 
   @Override
+  public void teardown() {
+    mMockspressoConfigContainer.teardown();
+  }
+
+  @Override
   public MockspressoConfigContainer getConfig() {
     return mMockspressoConfigContainer;
   }

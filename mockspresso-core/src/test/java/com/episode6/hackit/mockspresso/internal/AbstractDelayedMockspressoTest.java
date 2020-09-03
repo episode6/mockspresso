@@ -72,7 +72,7 @@ public class AbstractDelayedMockspressoTest {
     InOrder inOrder = Mockito.inOrder(mConfig, mMockspressoInternal);
     inOrder.verify(mConfig).setup(mMockspressoInternal);
     inOrder.verify(mMockspressoInternal).create(String.class);
-    inOrder.verify(mConfig).teardown();
+    inOrder.verify(mMockspressoInternal).teardown();
     inOrder.verifyNoMoreInteractions();
   }
 
@@ -86,15 +86,15 @@ public class AbstractDelayedMockspressoTest {
     mMockspresso.setDelegate(null);
 
 
-    InOrder inOrder = Mockito.inOrder(mBuilderProvider, mConfig, mChildBuilder, mChildConfig, mChildMockspresso);
+    InOrder inOrder = Mockito.inOrder(mBuilderProvider, mConfig, mChildBuilder, mChildConfig, mChildMockspresso, mMockspressoInternal);
     inOrder.verify(mBuilderProvider).get();
     inOrder.verify(mConfig).setup(mMockspressoInternal);
     inOrder.verify(mChildBuilder).deepCopy();
     inOrder.verify(mChildBuilder).setParent(mConfig);
     inOrder.verify(mChildConfig).setup(mChildMockspresso);
     inOrder.verify(mChildMockspresso).create(TestClass.class);
-    inOrder.verify(mChildConfig).teardown();
-    inOrder.verify(mConfig).teardown();
+    inOrder.verify(mChildMockspresso).teardown();
+    inOrder.verify(mMockspressoInternal).teardown();
     inOrder.verifyNoMoreInteractions();
     verifyZeroInteractions(mPublicBuilder);
   }
