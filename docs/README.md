@@ -9,7 +9,7 @@ A secondary goal is to be a vehicle to share common test code and utilities.
 
 ## Installation
 ```groovy
-def version = '0.1.0-beta4-SNAPSHOT'
+def version = '0.1.0-beta4'
 repositories { jcenter() }
 dependencies {
 
