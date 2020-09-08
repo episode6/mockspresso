@@ -74,7 +74,7 @@ public interface Mockspresso {
 
   /**
    * Tears down this on-the-fly mockspresso instance.
-   * Throws exceptions when called on {@link Mockspresso.Rule}s, since they're life-cycle is managed by junit.
+   * Throws exceptions when called on {@link Mockspresso.Rule}s, since their life-cycle is managed by junit.
    */
   void teardown();
 
