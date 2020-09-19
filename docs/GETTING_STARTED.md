@@ -52,9 +52,7 @@ class CoffeeMakerHeaterTest {
     }
 }
 ```
-Note that there is also a `build()` method available, but most unit tests will find `buildRule()` more convenient.
-
-**TODO** LINK TO DOC ON ON-THE-FLY USAGE
+Note that there is also a `build()` method available, but most unit tests will find `buildRule()` more convenient. See [Mockspresso on-the-fly](#mockspresso-on-the-fly) for details.
 
 ### Annotations
 
@@ -130,6 +128,31 @@ If `WaterFilter` is an interface, we could apply the following...
 - Java
   - `.realObject(DependencyKey.of(WaterFilter.class), WaterFilterImpl.class)`
 
+**Reference the [`Mockspresso.Builder` java docs](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/index.html) for a complete list of builder methods.**
 
+### Special Object Makers
+Mockspresso special object makers allow us to customize the creation/mocking of objects based on their type and qualifier. They are also able to pull from mockspresso's dependency graph in order to map from one type/dependency to another. For example, the built-in [`automaticProviders()` plugin](javadocs/mockspresso-basic-plugins/mockspresso-basic-plugins/com.episode6.hackit.mockspresso.basic.plugin/com.episode6.hackit.mockspresso.-mockspresso.-builder/automatic-providers.html) leverages a special object maker to generate `javax.inject.Provider<T>`s that automatically map to a dependency of `T`. i.e.
 
-  **Reference the [`Mockspresso.Builder` java docs](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/index.html) for a complete list of builder methods.**
+```kotlin
+class ClassUnderTest @Inject constructor(
+  private val stringProvider: javax.inject.Provider<String>
+) {
+  fun string() = stringProvider.get()
+}
+
+class TestClass {
+  @get:Rule val mockspresso = BuildMockspresso.withDefaults()
+      .automaticProviders() // this isn't really necessary since it's included with javax injector
+      .buildRule()
+
+  @RealObject lateinit var objUnderTest: ClassUnderTest
+  @Dependency val str = "hello"
+
+  @Test fun verifyString() {
+    assertThat(objUnderTest.string()).isEqualTo(str)
+  }
+}
+```
+
+### Mockspresso on-the-fly
+While a junit rule is usually the cleanest
