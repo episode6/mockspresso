@@ -7,16 +7,16 @@ The primary goal is to reduce the friction, boilerplate, brittleness and barrier
 ```diff
  class CoffeeMakerHeaterTest {
 +    @get:Rule val mockspresso = BuildMockspresso.withMyTestDefaults().buildRule()
-
+ 
 +    @Dependency
      val heater: Heater = mock()
 -    val filter: Filter = mock()
 -    val timer: Timer = mock()
 -    val analytics: Analytics = mock()
-
+ 
 +    @RealObject
      lateinit var coffeeMaker: CoffeeMaker
-
+ 
 -    @Before
 -    fun setup() {
 -      coffeeMaker = CoffeeMaker(heater, filter, timer, analytics)
@@ -35,8 +35,8 @@ A secondary goal is to act as a vehicle to share common test code and utilities.
 ```diff
 class CoffeeMakerHeaterTest {
      @get:Rule val mockspresso = BuildMockspresso.withMyTestDefaults()
-+        .fakeFilter() // named extension methods on the Builder allows for simple sharing
-+        .autoTimer()  // of test code/resources/plugins via discoverable composition
++        .fakeFilter()  // named extension methods on the Builder allows for simple sharing
++        .trampoline()  // of test code/resources/plugins via discoverable composition
          .buildRule()
  }
 ```
