@@ -1,4 +1,4 @@
-## Getting Started
+# Getting Started with Mockspresso
 To create a new [`Mockspresso`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/index.html) instance we start with an empty [`Mockspresso.Builder()`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/index.html) and because mockspresso is agnostic to our DI and mocking framework of choice, we must teach it how to create mocks and real objects. We usually do this using kotlin extension functions, but also provide plugins for java callers that can be applied using [`Mockspresso.Builder.plugin(MockspressoPlugin)`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/plugin.html). As a pattern, Java support plugins are provided by identically named methods that return [`MockspressoPlugin`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso.api/-mockspresso-plugin/index.html)s and are invisible to kotlin.
 
 **Kotlin Example**
@@ -15,7 +15,7 @@ BuildMockspresso.with()
     .plugin(MockspressoBasicPluginsJavaSupport.mockByMockito())
 ```
 
-All Mockspresso.Builders require both an Injector and a Mocker in order to build a mockspresso instance. See [INCLUDED_PLUGINS](INCLUDED_PLUGINS.md) for a list of included injectors and mockers.
+*All Mockspresso.Builders require both an Injector and a Mocker in order to build a mockspresso instance. See [INCLUDED_PLUGINS](INCLUDED_PLUGINS.md) for a list of included injectors and mockers.*
 
 **Project Entry-Point**
 
@@ -29,7 +29,7 @@ object BuildMockspresso {
 }
 ```
 
-### JUnit Rule
+## JUnit Rule
 The simplest way to set up a mockspresso test is by applying a JUnit Rule via [`Mockspresso.Builder.buildRule()`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/build-rule.html). Applying the rule will automatically trigger annotation processing on your test for mock generation, dependency import and real object creation.
 
 ```kotlin
@@ -54,7 +54,7 @@ class CoffeeMakerHeaterTest {
 ```
 Note that there is also a `build()` method available, but most unit tests will find `buildRule()` more convenient. See [Mockspresso on-the-fly](#mockspresso-on-the-fly) for details.
 
-### Annotations
+## Annotations
 
 When using the mockspresso junit rule, mockspresso will perform some reflection-based annotation processing on your test class.
 
@@ -96,7 +96,7 @@ lateinit var coffeeMaker: CoffeeMaker
 lateinit var coffeeMaker: CoffeeMaker
 ```
 
-### Builder methods
+## Builder methods
 While mockspresso's annotation processing is usually the simplest way to add dependencies to the graph, we can also perform all the same operations using the methods (and extension methods) on [`Mockspresso.Builder`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/index.html). This can be useful if either a) we don't need/want a strong reference to a dependency in our test, or b) we want to make some common dependencies shareable by all tests.
 
 **adding dependencies**
@@ -130,7 +130,7 @@ If `WaterFilter` is an interface, we could apply the following...
 
 **Reference the [`Mockspresso.Builder` java docs](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/index.html) for a complete list of builder methods.**
 
-### Special Object Makers
+## Special Object Makers
 Mockspresso special object makers allow us to customize the creation/mocking of objects based on their type and qualifier. They are also able to pull from mockspresso's dependency graph in order to map from one type/dependency to another. For example, the built-in [`automaticProviders()` plugin](javadocs/mockspresso-basic-plugins/mockspresso-basic-plugins/com.episode6.hackit.mockspresso.basic.plugin/com.episode6.hackit.mockspresso.-mockspresso.-builder/automatic-providers.html) leverages a special object maker to generate `javax.inject.Provider<T>`s that automatically map to a dependency of `T`.
 
 Example...
@@ -156,7 +156,7 @@ class TestClass {
 ```
 Custom special object makers can be added via [`Mockspresso.Builder.specialObjectMaker()`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/special-object-maker.html)
 
-### Test Resources
+## Test Resources
 
 We've shown how, with the junit rule, mockspresso can automatically perform annotation processing on your test class to contribute dependencies to the dependency graph, and build realObjects from it. If we want to perform the same annotation processing on arbitrary objects other than the test class, we can do that using the [`Mockspresso.Build.testResources(Object)` method](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/test-resources.html). In addition to processing annotations for `@Dependency` `@RealObject` and `@Mock`, mockspresso will also find and execute methods annotated with junit's `@Before` and `@After` annotations (to avoid this, use [`Mockspresso.Build.testResourcesWithoutLifecycle()`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/test-resources-without-lifecycle.html) instead).
 
@@ -180,7 +180,7 @@ class ActualTest {
   @Test fun testComplexDep() { /* etc... */ }
 }
 ```
-### Mockspresso on-the-fly
+## Mockspresso on-the-fly
 While a junit rule is the most common way to build mockspresso, instances can also be built and built-upon on-the-fly. When we use the  [`Mockspresso.Builder.build()` method](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/build.html) instead of buildRule, our [`Mockspresso`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/index.html) instance can be ready for use immediately, but we won't trigger the same automatic annotation processing (we can still leverage the [Test Resources](#test-resources) feature to process annotations on arbitrary objects).
 
 For example, we could replace junit rule example with an on-the-fly instance...
