@@ -17,6 +17,17 @@ BuildMockspresso.with()
 
 All Mockspresso.Builders require both an Injector and a Mocker in order to build a mockspresso instance. See [INCLUDED_PLUGINS](INCLUDED_PLUGINS.md) for a list of included injectors and mockers.
 
+**Project Entry-Point**
+
+Since most of the tests in a single project are likely to use the same mocker & injector, it's a best-practice to set up a single entry-point for all of a project's mockspresso tests...
+```kotlin
+object BuildMockspresso {
+  @JvmStatic
+  fun withDefaults() = com.episode6.hackit.mockspresso.BuildMockspresso.with()
+      .injectBySimpleConfig()
+      .mockByMockito()
+}
+```
 
 ### JUnit Rule
 The simplest way to set up a mockspresso test is by applying a JUnit Rule via [`Mockspresso.Builder.buildRule()`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/build-rule.html). Applying the rule will automatically trigger annotation processing on your test for mock generation, dependency import and real object creation.
