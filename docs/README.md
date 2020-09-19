@@ -5,6 +5,40 @@ The primary goal is to reduce the friction, boilerplate, brittleness and barrier
 A secondary goal is to be a vehicle to share common test code and utilities.
 
 
+```diff
+ class CoffeeMakerHeaterTest {
++    @get:Rule val mockspresso = BuildMockspresso.with()
++        .injectBySimpleConfig()
++        .mockByMockito()
++        .buildRule()
+
++    @Dependency
+     val heater: Heater = mock()
+-    val filter: Filter = mock()
+-    val timer: Timer = mock()
+-    val analytics: Analytics = mock()
+
++    @RealObject
+     lateinit var coffeeMaker: CoffeeMaker
+
+-    @Before
+-    fun setup() {
+-      coffeeMaker = CoffeeMaker(
+-          heater,
+-           filter,
+-           timer,
+-           analytics
+-       )
+-    }
+-
+     @Test fun testHeaterIsUser() {
+         val coffee = coffeeMaker.brew()
+
+         verify(heater).heat(any())
+     }
+ }
+```
+
 ## Installation
 ```groovy
 def version = '0.1.0-beta5-SNAPSHOT'
