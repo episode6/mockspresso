@@ -181,4 +181,68 @@ class ActualTest {
 }
 ```
 ### Mockspresso on-the-fly
-While a junit rule is the most common way to build mockspresso, instances can also be built and built-upon on-the-fly. When we build using the  [`Mockspresso.Builder.build()` method](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/build.html) instead of buildRule, our [`Mockspresso`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/index.html) instance can be ready for use immediately. but we won't trigger the same automatic annotation processing (we can still leverage the [Test Resources](#test-resources) feature to process annotation on arbitrary objects).
+While a junit rule is the most common way to build mockspresso, instances can also be built and built-upon on-the-fly. When we use the  [`Mockspresso.Builder.build()` method](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/build.html) instead of buildRule, our [`Mockspresso`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/index.html) instance can be ready for use immediately, but we won't trigger the same automatic annotation processing (we can still leverage the [Test Resources](#test-resources) feature to process annotations on arbitrary objects).
+
+For example, we could replace junit rule example with an on-the-fly instance...
+```diff
+ class CoffeeMakerHeaterTest {
+-    @get:Rule val mockspresso = BuildMockspresso.withDefaults().buildRule()
+
+     @Mock lateinit var heater: Heater
+     @RealObject lateinit var coffeeMaker: CoffeeMaker
+ 
++    @Before fun setup() {
++      val mockspresso = BuildMockspresso.withDefaults()
++          .testResourcesWithoutLifecycle(this)
++          .build()
++    }   
+
+    @Test fun testHeaterIsUser() {
+        val coffee = coffeeMaker.brew()
+
+        verify(heater).heat(any())
+    }
+ }
+```
+
+Once built, we can also create real objects and get dependencies programmatically as needed from the [`Mockspresso`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/index.html) instance.
+```diff
+ class CoffeeMakerHeaterTest {
+-    @Mock
+     lateinit var heater: Heater
+-    @RealObject
+     lateinit var coffeeMaker: CoffeeMaker
+ 
+    @Before fun setup() {
+      val mockspresso = BuildMockspresso.withDefaults()
+          .testResourcesWithoutLifecycle(this)
+          .build()
++     coffeeMaker = mockspresso.createNew()
++     heater = mockspresso.getDependencyOf()
+    } 
+
+    @Test fun testHeaterIsUser() {
+        val coffee = coffeeMaker.brew()
+
+        verify(heater).heat(any())
+    }
+ }
+```
+
+While we can't make changes to a `Mockspresso` instance once it's been built, we can [`buildUpon()`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/build-upon.html) any mockspresso instance to create a new subgraph. We can override any dependencies in our sub-graph and create new realObjects with the updated deps. 
+
+For example...
+```kotlin
+@Test fun testWithRealHeater() {
+  val coffeeMaker = mockspresso.buildUpon()
+      .realImplOf<Heater, WorkingHeater>() // override the Heater dependency
+      .build()
+      .createNew()
+
+  val coffee = coffeeMaker.brew()
+
+  assertThat(coffee).isHot()
+}
+```
+
+The buildUpon method works both ways between on-the-fly mockspresso instance and rules (but only 1 rule can be generated in the chain).
