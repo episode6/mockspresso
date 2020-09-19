@@ -131,8 +131,9 @@ If `WaterFilter` is an interface, we could apply the following...
 **Reference the [`Mockspresso.Builder` java docs](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/index.html) for a complete list of builder methods.**
 
 ### Special Object Makers
-Mockspresso special object makers allow us to customize the creation/mocking of objects based on their type and qualifier. They are also able to pull from mockspresso's dependency graph in order to map from one type/dependency to another. For example, the built-in [`automaticProviders()` plugin](javadocs/mockspresso-basic-plugins/mockspresso-basic-plugins/com.episode6.hackit.mockspresso.basic.plugin/com.episode6.hackit.mockspresso.-mockspresso.-builder/automatic-providers.html) leverages a special object maker to generate `javax.inject.Provider<T>`s that automatically map to a dependency of `T`. i.e.
+Mockspresso special object makers allow us to customize the creation/mocking of objects based on their type and qualifier. They are also able to pull from mockspresso's dependency graph in order to map from one type/dependency to another. For example, the built-in [`automaticProviders()` plugin](javadocs/mockspresso-basic-plugins/mockspresso-basic-plugins/com.episode6.hackit.mockspresso.basic.plugin/com.episode6.hackit.mockspresso.-mockspresso.-builder/automatic-providers.html) leverages a special object maker to generate `javax.inject.Provider<T>`s that automatically map to a dependency of `T`.
 
+Example...
 ```kotlin
 class ClassUnderTest @Inject constructor(
   private val stringProvider: javax.inject.Provider<String>
@@ -153,6 +154,7 @@ class TestClass {
   }
 }
 ```
+Custom special object makers can be added via [`Mockspresso.Builder.specialObjectMaker()`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/special-object-maker.html)
 
 ### Mockspresso on-the-fly
 While a junit rule is usually the cleanest
