@@ -66,6 +66,7 @@ dependencies {
 - [Getting Started](GETTING_STARTED.md)
 - [Included Plugins](INCLUDED_PLUGINS.md)
 - [JavaDocs Root](javadocs/)
+- [ChangeLog](CHANGELOG.md)
 
 ## License
 Mockspresso is licensed under the [MIT License](https://github.com/episode6/mockspresso/blob/master/LICENSE)
