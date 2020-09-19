@@ -156,5 +156,29 @@ class TestClass {
 ```
 Custom special object makers can be added via [`Mockspresso.Builder.specialObjectMaker()`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/special-object-maker.html)
 
+### Test Resources
+
+We've shown how, with the junit rule, mockspresso can automatically perform annotation processing on your test class to contribute dependencies to the dependency graph, and build realObjects from it. If we want to perform the same annotation processing on arbitrary objects other than the test class, we can do that using the [`Mockspresso.Build.testResources(Object)` method](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/test-resources.html). In addition to processing annotations for `@Dependency` `@RealObject` and `@Mock`, mockspresso will also find and execute methods annotated with junit's `@Before` and `@After` annotations (to avoid this, use [`Mockspresso.Build.testResourcesWithoutLifecycle()`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/test-resources-without-lifecycle.html) instead).
+
+Example...
+```kotlin
+class SharedTestResources {
+  @Mock lateinit var dep: ComplexDependency
+
+  @Before fun setup() {
+    whenever(dep.doThing).thenAnswer { /* complex return */ }
+  }
+}
+
+class ActualTest {
+  @get:Rule val mockspresso = BuildMockspresso.withDefaults()
+      .testResources(SharedTestResources())
+      .buildRule()
+
+  @RealObject lateinit val complexDepWrapper: complexDepWrapper
+
+  @Test fun testComplexDep() { /* etc... */ }
+}
+```
 ### Mockspresso on-the-fly
-While a junit rule is usually the cleanest
+While a junit rule is the most common way to build mockspresso, instances can also be built and built-upon on-the-fly. When we build using the  [`Mockspresso.Builder.build()` method](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/build.html) instead of buildRule, our [`Mockspresso`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/index.html) instance can be ready for use immediately. but we won't trigger the same automatic annotation processing (we can still leverage the [Test Resources](#test-resources) feature to process annotation on arbitrary objects).
