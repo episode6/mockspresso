@@ -1,16 +1,12 @@
 ## What & Why?
 **TL;DR** Mockspresso acts like a single-use DI graph for your java/kotlin unit and integration tests. `@Mock`s and `@Dependency`s are imported into the graph, and lateinit `@RealObject`s are constructed automatically (via reflection) and injected with your dependencies. Any dependencies that aren't explicitly supplied are mocked by default. RealObjects also get imported into the DI graph and can be combined to perform complex integration tests.
 
-The primary goal is to reduce the friction, boilerplate, brittleness and barrier-to-entry when writing and updating unit-tests.
-A secondary goal is to be a vehicle to share common test code and utilities.
+The primary goal is to reduce the friction, boilerplate, brittleness and barrier-to-entry when writing and updating unit-tests. Enabling you to focus on what matters...
 
 
 ```diff
  class CoffeeMakerHeaterTest {
-+    @get:Rule val mockspresso = BuildMockspresso.with()
-+        .injectBySimpleConfig()
-+        .mockByMockito()
-+        .buildRule()
++    @get:Rule val mockspresso = BuildMockspresso.withMyTestDefaults().buildRule()
 
 +    @Dependency
      val heater: Heater = mock()
@@ -23,12 +19,7 @@ A secondary goal is to be a vehicle to share common test code and utilities.
 
 -    @Before
 -    fun setup() {
--      coffeeMaker = CoffeeMaker(
--          heater,
--           filter,
--           timer,
--           analytics
--       )
+-      coffeeMaker = CoffeeMaker(heater, filter, timer, analytics)
 -    }
 -
      @Test fun testHeaterIsUser() {
@@ -36,6 +27,16 @@ A secondary goal is to be a vehicle to share common test code and utilities.
 
          verify(heater).heat(any())
      }
+ }
+```
+
+A secondary goal is to act as a vehicle to share common test code and utilities...
+
+```diff
+class CoffeeMakerHeaterTest {
+     @get:Rule val mockspresso = BuildMockspresso.withMyTestDefaults()
++        .fakeFilter() // include dependency on FakeFilter made for tests
+         .buildRule()
  }
 ```
 
