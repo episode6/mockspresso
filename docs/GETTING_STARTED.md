@@ -23,7 +23,7 @@ Since most of the tests in a single project are likely to use the same mocker & 
 ```kotlin
 object BuildMockspresso {
   @JvmStatic
-  fun withDefaults() = com.episode6.hackit.mockspresso.BuildMockspresso.with()
+  fun withDefaults(): Builder = com.episode6.hackit.mockspresso.BuildMockspresso.with()
       .injectBySimpleConfig()
       .mockByMockito()
 }
@@ -33,12 +33,23 @@ object BuildMockspresso {
 The simplest way to set up a mockspresso test is by applying a JUnit Rule via [`Mockspresso.Builder.buildRule()`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/build-rule.html). Applying the rule will automatically trigger annotation processing on your test for mock generation, dependency import and real object creation.
 
 ```kotlin
-class CoffeeMakerTest {
-  // Note: the `@get:` syntax is required of all junit rules in kotlin tests
-  @get:Rule val mockspresso: Mockspresso.Rule = BuildMockspresso.with()
-    .injectBySimpleConfig()
-    .mockByMockito()
-    .buildRule()
+// kotlin with mockito/mockito-kotlin
+class CoffeeMakerHeaterTest {
+
+    // Note: the `@get:` syntax is required of all junit rules in kotlin tests
+    @get:Rule val mockspresso = BuildMockspresso.withDefaults().buildRule()
+
+    // declare only the mocks we need for our test
+    @Dependency val heater: Heater = mock()
+
+    // real object will be created for us
+    @RealObject lateinit var coffeeMaker: CoffeeMaker
+
+    @Test fun testHeaterIsUser() {
+        val coffee = coffeeMaker.brew()
+
+        verify(heater).heat(any())
+    }
 }
 ```
 Note that there is also a `build()` method available, but most unit tests will find `buildRule()` more convenient.
