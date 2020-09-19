@@ -35,7 +35,8 @@ A secondary goal is to act as a vehicle to share common test code and utilities.
 ```diff
 class CoffeeMakerHeaterTest {
      @get:Rule val mockspresso = BuildMockspresso.withMyTestDefaults()
-+        .fakeFilter() // include dependency on FakeFilter made for tests
++        .fakeFilter() // named extension methods on the Builder allows for simple sharing
++                      // of test code/resources/plugins via discoverable composition
          .buildRule()
  }
 ```
