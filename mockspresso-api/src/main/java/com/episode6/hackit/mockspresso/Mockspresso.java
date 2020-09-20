@@ -73,6 +73,12 @@ public interface Mockspresso {
   @NotNull Builder buildUpon();
 
   /**
+   * Tears down this on-the-fly mockspresso instance.
+   * Throws exceptions when called on {@link Mockspresso.Rule}s, since their life-cycle is managed by junit.
+   */
+  void teardown();
+
+  /**
    * An implementation of Mockspresso that also implements JUnit's {@link MethodRule}.
    */
   interface Rule extends Mockspresso, MethodRule {}

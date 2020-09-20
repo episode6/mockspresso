@@ -80,6 +80,11 @@ public abstract class AbstractMockspressoExtension<BLDR extends MockspressoExten
     return mBuilderWrapper.wrap(mDelegate.buildUpon());
   }
 
+  @Override
+  public void teardown() {
+    mDelegate.teardown();
+  }
+
   /**
    * Extend this abstract class for a custom implementation of the {@link Mockspresso.Rule} interface.
    * In the subclass of {@link AbstractMockspressoExtension.Rule}, you should only need to override the constructor, providing
@@ -130,6 +135,11 @@ public abstract class AbstractMockspressoExtension<BLDR extends MockspressoExten
     @Override
     public BLDR buildUpon() {
       return mBuilderWrapper.wrap(mDelegate.buildUpon());
+    }
+
+    @Override
+    public void teardown() {
+      mDelegate.teardown();
     }
 
     @Override

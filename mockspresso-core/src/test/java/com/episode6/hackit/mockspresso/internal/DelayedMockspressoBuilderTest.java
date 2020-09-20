@@ -72,12 +72,12 @@ public class DelayedMockspressoBuilderTest {
     mDelayedBuilder.setParent(mConfig);
     mDelayedBuilder.setParent(null);
 
-    InOrder inOrder = Mockito.inOrder(mBackingBuilder, mConfig, mChildConfig);
+    InOrder inOrder = Mockito.inOrder(mBackingBuilder, mConfig, mChildConfig, mChildMockspresso);
     inOrder.verify(mBackingBuilder).deepCopy();
     inOrder.verify(mBackingBuilder).setParent(mConfig);
     inOrder.verify(mBackingBuilder).buildInternal();
     inOrder.verify(mChildConfig).setup(mChildMockspresso);
-    inOrder.verify(mChildConfig).teardown();
+    inOrder.verify(mChildMockspresso).teardown();
     verifyNoMoreInteractions(mBackingBuilder, mConfig, mChildConfig);
   }
 

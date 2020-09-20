@@ -30,7 +30,7 @@ abstract class AbstractDelayedMockspresso implements Mockspresso, MockspressoInt
   synchronized void setDelegate(@Nullable MockspressoInternal delegate) {
     if (mDelegate != null) {
       passParentToDelayedBuilders(null);
-      mDelegate.getConfig().teardown();
+      mDelegate.teardown();
     }
 
     mDelegate = delegate;
@@ -89,6 +89,11 @@ abstract class AbstractDelayedMockspresso implements Mockspresso, MockspressoInt
     DelayedMockspressoBuilder delayedBuilder = new DelayedMockspressoBuilder(mBuilderProvider);
     mDelayedBuilders.add(delayedBuilder);
     return delayedBuilder;
+  }
+
+  @Override
+  public void teardown() {
+    setDelegate(null);
   }
 
   @Override

@@ -30,6 +30,11 @@ class MockspressoRuleImpl extends AbstractDelayedMockspresso implements Mockspre
     return mRuleConfig.buildRuleChain(new ImplRule()).apply(base, method, target);
   }
 
+  @Override
+  public void teardown() {
+    throw new IllegalArgumentException("Tear down is not available on Mockspresso.Rules, mockspresso will be torn-down automatically by junit.");
+  }
+
   private class ImplRule implements MethodRule {
     @Override
     public Statement apply(final Statement base, FrameworkMethod method, final Object target) {
