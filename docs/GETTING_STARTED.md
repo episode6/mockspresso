@@ -1,12 +1,14 @@
 # Getting Started with Mockspresso
-To create a new [`Mockspresso`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/index.html) instance we start with an empty [`Mockspresso.Builder()`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/index.html) and because mockspresso is agnostic to our DI and mocking framework of choice, we must teach it how to create mocks and real objects. We usually do this using kotlin extension functions, but also provide plugins for java callers that can be applied using [`Mockspresso.Builder.plugin(MockspressoPlugin)`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/plugin.html). As a pattern, Java support plugins are provided by identically named methods that return [`MockspressoPlugin`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso.api/-mockspresso-plugin/index.html)s and are invisible to kotlin.
+Since [`Mockspresso`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/index.html) is agnostic to your DI and mocking framework of choice, we must start with an empty [`Mockspresso.Builder()`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/index.html) an teach it how to create mocks and real objects. We usually do this using kotlin extension functions... 
 
 **Kotlin Example**
 ```kotlin
 BuildMockspresso.with()
-    .injectBySimpleConfig()
+    .injectBySimpleConfig() // extension functions on Mockspresso.Builder
     .mockByMockito()
 ```
+
+We also provide plugins for java callers that can be applied using [`Mockspresso.Builder.plugin(MockspressoPlugin)`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/plugin.html). As a pattern, Java support plugins are provided by identically named (static) methods that return [`MockspressoPlugin`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso.api/-mockspresso-plugin/index.html)s (and are not visible to kotlin code).
 
 **Java Example**
 ```java
@@ -15,7 +17,7 @@ BuildMockspresso.with()
     .plugin(MockspressoBasicPluginsJavaSupport.mockByMockito())
 ```
 
-*All Mockspresso.Builders require both an Injector and a Mocker in order to build a mockspresso instance. See [INCLUDED_PLUGINS](INCLUDED_PLUGINS.md) for a list of included injectors and mockers.*
+*See [INCLUDED_PLUGINS](INCLUDED_PLUGINS.md) for a list of included injectors and mockers.*
 
 **Project Entry-Point**
 
@@ -52,7 +54,7 @@ class CoffeeMakerHeaterTest {
     }
 }
 ```
-Note that there is also a `build()` method available, but most unit tests will find `buildRule()` more convenient. See [Mockspresso on-the-fly](#mockspresso-on-the-fly) for details.
+*Note: there is also a `build()` method available, but most unit tests will find `buildRule()` more convenient. See [Mockspresso on-the-fly](#mockspresso-on-the-fly) for details.*
 
 ## Annotations
 
@@ -80,7 +82,7 @@ When using the mockspresso junit rule, mockspresso will perform some reflection-
 @Mock lateinit var waterFilter: WaterFilter
 ```
 
-[**@RealObject**](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso.annotation/-real-object/index.html): This is where the magic happens. Lateinit variables annotated with `@RealObject` will be created by mockspresso and injected with the dependencies included in the graph. Any dependencies required by the object that are not explicitly included in the mockspresso graph, will be automatically mocked. The resulting object also gets included in the graph, and can be a dependency of another `@RealObject`, enabling complex integration tests with simplified setups and zero boilerplate constructor calls.
+[**@RealObject**](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso.annotation/-real-object/index.html): This is where the magic happens. Lateinit variables annotated with `@RealObject` will be created by mockspresso and injected with the dependencies included in the graph. **Any dependencies required by the object that are not explicitly included in the mockspresso graph, will be automatically mocked.** The resulting realObject also gets included in the graph, and can be a dependency of another `@RealObject`, enabling complex integration tests with simplified setups and zero boilerplate constructor calls.
 ```kotlin
 // create a real SimpleCoffeeMaker for us to test
 @RealObject lateinit var SimpleCoffeeMaker: SimpleCoffeeMaker
@@ -143,7 +145,7 @@ class ClassUnderTest @Inject constructor(
 
 class TestClass {
   @get:Rule val mockspresso = BuildMockspresso.withDefaults()
-      .automaticProviders() // this isn't really necessary since it's included with javax injector
+      .automaticProviders() // this isn't necessary if we use .injectByJavaxConfig()
       .buildRule()
 
   @RealObject lateinit var objUnderTest: ClassUnderTest
@@ -154,11 +156,11 @@ class TestClass {
   }
 }
 ```
-Custom special object makers can be added via [`Mockspresso.Builder.specialObjectMaker()`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/special-object-maker.html)
+*Custom special object makers can be added via [`Mockspresso.Builder.specialObjectMaker()`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/special-object-maker.html)*
 
 ## Test Resources
 
-We've shown how, with the junit rule, mockspresso can automatically perform annotation processing on your test class to contribute dependencies to the dependency graph, and build realObjects from it. If we want to perform the same annotation processing on arbitrary objects other than the test class, we can do that using the [`Mockspresso.Build.testResources(Object)` method](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/test-resources.html). In addition to processing annotations for `@Dependency` `@RealObject` and `@Mock`, mockspresso will also find and execute methods annotated with junit's `@Before` and `@After` annotations (to avoid this, use [`Mockspresso.Build.testResourcesWithoutLifecycle()`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/test-resources-without-lifecycle.html) instead).
+We've shown how, with the junit rule, mockspresso can automatically perform annotation processing on your test class. If we want to perform the same annotation processing on arbitrary objects other than the test class, we can do that using the [`Mockspresso.Builder.testResources(Object)` method](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/test-resources.html). In addition to processing annotations for `@Dependency` `@RealObject` and `@Mock`, mockspresso will also find and execute methods annotated with junit's `@Before` and `@After` annotations (to avoid this, use [`Mockspresso.Build.testResourcesWithoutLifecycle()`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/test-resources-without-lifecycle.html) instead).
 
 Example...
 ```kotlin
@@ -234,10 +236,10 @@ While we can't make changes to a `Mockspresso` instance once it's been built, we
 For example...
 ```kotlin
 @Test fun testWithRealHeater() {
-  val coffeeMaker = mockspresso.buildUpon()
+  val coffeeMaker = mockspresso.buildUpon() // buildUpon an existing graph
       .realImplOf<Heater, WorkingHeater>() // override the Heater dependency
-      .build()
-      .createNew()
+      .build() // build the sub-graph
+      .createNew<CoffeeMaker>() // create new coffeeMaker from subgraph
 
   val coffee = coffeeMaker.brew()
 
@@ -245,4 +247,4 @@ For example...
 }
 ```
 
-The buildUpon method works both ways between on-the-fly mockspresso instance and rules (but only 1 rule can be generated in the chain).
+*The buildUpon method works both ways between on-the-fly mockspresso instances and rules, but only 1 rule can be generated in the chain.*

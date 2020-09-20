@@ -1,5 +1,5 @@
 ## What & Why?
-Mockspresso acts like a single-use DI graph for your java/kotlin unit and integration tests. `@Mock`s and `@Dependency`s are imported into the graph, and lateinit `@RealObject`s are constructed automatically (via reflection) and injected with your dependencies. Any dependencies that aren't explicitly supplied are mocked by default. RealObjects also get imported into the DI graph and can be combined to perform complex integration tests.
+Mockspresso acts like a single-use DI graph for your java/kotlin unit and integration tests. `@Mock`s and `@Dependency`s are imported into the graph, and lateinit `@RealObject`s are constructed automatically (via reflection) with your dependencies injected. Any dependencies that aren't explicitly supplied are mocked by default. RealObjects also get imported into the DI graph and can be combined to perform complex integration tests.
 
 The primary goal is to reduce the friction, boilerplate, brittleness and barrier-to-entry when writing and updating unit-tests. Enabling you to focus on what matters...
 
@@ -61,6 +61,8 @@ dependencies {
     implementation "com.episode6.hackit.mockspresso:mockspresso-guava:$version"
 }
 ```
+
+*Be sure to check out our [Getting Started](GETTING_STARTED.md)*
 
 ## More Resources
 - [Getting Started](GETTING_STARTED.md)
