@@ -10,6 +10,9 @@ import org.junit.rules.MethodRule;
 import org.junit.rules.TestRule;
 
 /**
+ * DEPRECATED - kotlin usage is easier to maintain and should be preferred. This module will be removed in a future release.
+ *
+ *
  * Extend these 3 interfaces to build your own Mockspresso extension and own your api.
  * {@link MockspressoExtension}
  * {@link MockspressoExtension.Rule}
@@ -26,16 +29,20 @@ import org.junit.rules.TestRule;
  *
  * @param <BLDR> Should point to your custom extension of {@link MockspressoExtension.Builder}
  */
+@Deprecated
 public interface MockspressoExtension<BLDR extends MockspressoExtension.Builder> extends Mockspresso {
 
   @Override
   @NotNull BLDR buildUpon();
 
   /**
+   * DEPRECATED - kotlin usage is easier to maintain and should be preferred. This module will be removed in a future release.
+   *
    * Custom extension of {@link MockspressoExtension.Rule}
    *
    * @param <BLDR> Should point to your custom extension of {@link MockspressoExtension.Builder}
    */
+  @Deprecated
   interface Rule<BLDR extends MockspressoExtension.Builder> extends Mockspresso.Rule {
 
     @Override
@@ -43,6 +50,8 @@ public interface MockspressoExtension<BLDR extends MockspressoExtension.Builder>
   }
 
   /**
+   * DEPRECATED - kotlin usage is easier to maintain and should be preferred. This module will be removed in a future release.
+   *
    * Custom extension of {@link MockspressoExtension.Builder}
    *
    * Extend this interface and add your custom methods to create your own Mockspresso extension.
@@ -51,6 +60,7 @@ public interface MockspressoExtension<BLDR extends MockspressoExtension.Builder>
    * @param <RULE> Should point to your custom extension of {@link MockspressoExtension.Rule}
    * @param <BLDR> Should point to your custom extension of {@link MockspressoExtension.Builder}
    */
+  @Deprecated
   interface Builder<
       EXT extends MockspressoExtension,
       RULE extends MockspressoExtension.Rule,
