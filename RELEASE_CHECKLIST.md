@@ -5,8 +5,7 @@
 1. Ensure `develop` branch is green on Jenkins and CircleCI
 2. `git flow release start v<version>`
 3. Update version in `build.gradle`
-4. Update version in `CHANGELOG.md`
-5. Update version in `README.md`
+4. Update version in `docs/CHANGELOG.md`
 6. Update version in `docs/README.md`
 7. Run `./gradlew gdmcImportSelf` + commit changes to submodule
 8. Commit changes with message `[VERSION] Release v<version>`
