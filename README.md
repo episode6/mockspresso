@@ -1,5 +1,5 @@
 # mockspresso
-An extensible auto-mocker for java, designed to simplify your unit tests.
+An extensible auto-mocker for java designed to simplify your unit tests.
 
 `It's like dependency injection for your tests.`
 
