@@ -8,6 +8,5 @@ include ':mockspresso-api',
     ':mockspresso-testing-shared',
     ':mockspresso-dagger',
     ':mockspresso-guava',
-    ':mockspresso-quick',
     ':mockspresso-basic-plugins',
     ':mockspresso-extend'

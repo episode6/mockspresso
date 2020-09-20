@@ -8,7 +8,6 @@ dependencies {
   testImplementation 'org.mockito:mockito-core'
   testImplementation project(':mockspresso-core')
   testImplementation project(':mockspresso-testing-shared')
-  testImplementation project(':mockspresso-quick')
 
   testImplementation 'junit:junit'
   testImplementation 'org.easytesting:fest-assert-core'
