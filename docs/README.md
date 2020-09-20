@@ -43,7 +43,7 @@ class CoffeeMakerHeaterTest {
 
 ## Installation
 ```groovy
-def version = '0.1.0-beta5-SNAPSHOT'
+def version = '0.2.0-SNAPSHOT'
 repositories { jcenter() }
 dependencies {
 
