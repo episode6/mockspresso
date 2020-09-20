@@ -5,6 +5,7 @@
  - **DEPRECATED** `mockspresso-extend` module in favor of kotlin.
  - **REMOVED** `mockspresso-quick` module
  - **FEATURE** Introduce a public `teardown()` method for on-the-fly instances
+ - **UTIL** Added kotlin extensions `DependencyKey.isParameterizedGeneric` and `DependencyKey.genericParameterKey` to simplify common special object maker implementations.
 
 ### v0.1.0 - September 20th, 2020
  - Documentation re-written
