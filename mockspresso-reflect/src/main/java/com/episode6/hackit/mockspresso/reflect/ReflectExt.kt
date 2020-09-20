@@ -1,5 +1,7 @@
 package com.episode6.hackit.mockspresso.reflect
 
+import java.lang.reflect.ParameterizedType
+
 /**
  * Kotlin extensions for reflection utils using reified type parameters
  */
@@ -16,3 +18,16 @@ inline fun <reified T : Any> typeToken(): TypeToken<T> = object : TypeToken<T>()
  */
 inline fun <reified T : Any> dependencyKey(qualifier: Annotation? = null): DependencyKey<T> =
     DependencyKey.of<T>(typeToken<T>(), qualifier)
+
+/**
+ * If the receiver [DependencyKey] represents a parameterized type, this method returns
+ * a new dependency key for the first type argument with the same identity annotation.
+ *
+ * I.e. if the receiver represents `@Named Provider<String>`, this method will return a
+ * dependency key representing `@Named String`
+ */
+@Suppress("UNCHECKED_CAST")
+fun DependencyKey<*>.genericParameterKey(): DependencyKey<Any>? {
+  val paramType = (typeToken.type as? ParameterizedType)?.actualTypeArguments?.get(0) ?: return null
+  return DependencyKey.of(TypeToken.of(paramType), identityAnnotation) as DependencyKey<Any>
+}
