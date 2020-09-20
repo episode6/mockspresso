@@ -11,6 +11,8 @@ import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
 
 /**
+ * DEPRECATED - kotlin usage is easier to maintain and should be preferred. This module will be removed in a future release.
+ *
  * Extend these 3 classes to create your own mockspresso extension
  * {@link AbstractMockspressoExtension}
  * {@link AbstractMockspressoExtension.Rule}
@@ -25,14 +27,18 @@ import org.junit.runners.model.Statement;
  *
  * @param <BLDR> Should point to your custom extension of {@link MockspressoExtension.Builder}
  */
+@Deprecated
 public abstract class AbstractMockspressoExtension<BLDR extends MockspressoExtension.Builder> implements MockspressoExtension<BLDR> {
 
   /**
+   * DEPRECATED - kotlin usage is easier to maintain and should be preferred. This module will be removed in a future release.
+   *
    * A simple interface that tells us how wrap a {@link Mockspresso} instance with
    * your custom implementation (a subclass of one of these abstract classes.
    * @param <IN> Input type - Either {@link Mockspresso}, {@link Mockspresso.Rule} or {@link Mockspresso.Builder}
    * @param <OUT> Output type - one of your custom mockspresso extension's types
    */
+  @Deprecated
   protected interface Wrapper<IN, OUT> {
     @NotNull OUT wrap(@NotNull IN delegate);
   }
@@ -86,12 +92,15 @@ public abstract class AbstractMockspressoExtension<BLDR extends MockspressoExten
   }
 
   /**
+   * DEPRECATED - kotlin usage is easier to maintain and should be preferred. This module will be removed in a future release.
+   *
    * Extend this abstract class for a custom implementation of the {@link Mockspresso.Rule} interface.
    * In the subclass of {@link AbstractMockspressoExtension.Rule}, you should only need to override the constructor, providing
    * a lambda that wraps {@link Mockspresso.Builder} with your custom subclass of {@link AbstractMockspressoExtension.Builder}
    *
    * @param <BLDR> Should point to your custom extension of {@link MockspressoExtension.Builder}
    */
+  @Deprecated
   public abstract static class Rule<BLDR extends MockspressoExtension.Builder> implements MockspressoExtension.Rule<BLDR> {
 
     private final Mockspresso.Rule mDelegate;
@@ -149,6 +158,8 @@ public abstract class AbstractMockspressoExtension<BLDR extends MockspressoExten
   }
 
   /**
+   * DEPRECATED - kotlin usage is easier to maintain and should be preferred. This module will be removed in a future release.
+   *
    * Extend this abstract class for a custom implementation of the {@link Mockspresso.Builder} interface.
    * In this class you will only need to override the constructor, providing lambdas that wrap
    * {@link Mockspresso} with your custom subclass of {@link AbstractMockspressoExtension} and
@@ -161,6 +172,7 @@ public abstract class AbstractMockspressoExtension<BLDR extends MockspressoExten
    * @param <BLDR> Should point to your custom extension of {@link MockspressoExtension.Builder}
    */
   @SuppressWarnings("unchecked")
+  @Deprecated
   public abstract static class Builder<
       EXT extends MockspressoExtension,
       RULE extends MockspressoExtension.Rule,

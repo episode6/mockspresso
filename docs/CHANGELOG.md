@@ -2,6 +2,7 @@
 
 
 ### v0.2.0 - unreleased
+ - **DEPRECATED** `mockspresso-extend` module in favor of kotlin.
  - **FEATURE** Introduce a public `teardown()` method for on-the-fly instances
 
 ### v0.1.0 - September 20th, 2020

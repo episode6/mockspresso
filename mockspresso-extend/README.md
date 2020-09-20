@@ -1,7 +1,11 @@
-# mockspresso-extend
+# ~~mockspresso-extend~~
+This module has been deprecated in favor of kotlin usage w/extension methods as it's easier to maintain and build upon. We continue to support tests written in java using the new javaSupport plugin pattern described in the [Getting Started Document](https://episode6.github.io/mockspresso/GETTING_STARTED.html#getting-started-with-mockspresso).
+
+**This readme is kept as originally written for posterity until the module is removed in a future release.**
+
 The `mockspresso-extend` libraray allows you create your own versions of the `Mockspresso`, `Mockspresso.Rule` and most-importantly `Mockspresso.Builder` apis. The mockspresso-quick library is actually built on top of `mockspresso-extend`, although it's a more complex example as its intended for general use/bootstrapping.
 
-**NOTE:** If your codebase is 100% kotlin, this library + these instructions are completely unnecessary. Everything shown here can more easily be accomplished by simply adding extension methods to `Mockspresso.Builder`. Sadly we don't all live in the land of kotlin and honey yet, so if you need to support keep supporting java, keep reading.
+**NOTE:** If your codebase is moving towards kotlin, this library + these instructions are completely unnecessary. Everything shown here can more easily be accomplished by simply adding extension methods to `Mockspresso.Builder`. Sadly we don't all live in the land of kotlin and honey yet, so if you need to support keep supporting java, keep reading.
 
 ## Getting started
 In this example we'll create a custom mockspresso extension for our imaginary project PiedPiper. Lets call our extension `PiedMocker`.
