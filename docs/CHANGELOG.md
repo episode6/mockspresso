@@ -1,9 +1,8 @@
 # ChangeLog
 
 
-
-### v0.1.0-beta5 - unreleased
- - Update documentation
+### v0.1.0 - September 20th, 2020
+ - Documentation re-written
 
 
 ### v0.1.0-beta4 - September 3rd, 2020
