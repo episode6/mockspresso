@@ -93,4 +93,22 @@ class DependencyKeyKotlinTest {
     assertThat(namedParamKey.identityAnnotation).isEqualTo(namedKey.identityAnnotation)
     assertThat(unNamedParamKey.identityAnnotation).isNull()
   }
+
+  @Test fun testIsGenericParam_simpleFail() {
+    val result = dependencyKey<String>().isParameterizedGeneric(Provider::class)
+
+    assertThat(result).isFalse
+  }
+
+  @Test fun testIsGenericParam_sameTypeFail() {
+    val result = DependencyKey.of(Provider::class.java).isParameterizedGeneric(Provider::class)
+
+    assertThat(result).isFalse
+  }
+
+  @Test fun testIsGenericParam_pass() {
+    val result = dependencyKey<Provider<String>>().isParameterizedGeneric(Provider::class)
+
+    assertThat(result).isTrue
+  }
 }

@@ -4,16 +4,14 @@ import com.episode6.hackit.mockspresso.api.DependencyProvider
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker
 import com.episode6.hackit.mockspresso.reflect.DependencyKey
 import com.episode6.hackit.mockspresso.reflect.genericParameterKey
-import java.lang.reflect.ParameterizedType
+import com.episode6.hackit.mockspresso.reflect.isParameterizedGeneric
 import javax.inject.Provider
 
 /**
  * An implementation of SpecialObjectMaker for [javax.inject.Provider].
  */
 internal class ProviderMaker : SpecialObjectMaker {
-  override fun canMakeObject(key: DependencyKey<*>): Boolean =
-      key.typeToken.rawType == Provider::class.java &&
-          key.typeToken.type is ParameterizedType
+  override fun canMakeObject(key: DependencyKey<*>): Boolean = key.isParameterizedGeneric(Provider::class)
 
   @Suppress("UNCHECKED_CAST")
   override fun <T> makeObject(dependencyProvider: DependencyProvider, key: DependencyKey<T>): T? {

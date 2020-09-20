@@ -1,6 +1,7 @@
 package com.episode6.hackit.mockspresso.reflect
 
 import java.lang.reflect.ParameterizedType
+import kotlin.reflect.KClass
 
 /**
  * Kotlin extensions for reflection utils using reified type parameters
@@ -18,6 +19,13 @@ inline fun <reified T : Any> typeToken(): TypeToken<T> = object : TypeToken<T>()
  */
 inline fun <reified T : Any> dependencyKey(qualifier: Annotation? = null): DependencyKey<T> =
     DependencyKey.of<T>(typeToken<T>(), qualifier)
+
+/**
+ * return true if the receiver [DependencyKey] represents a parameterized generic of [clazz].
+ * If [clazz] is not generic this method should always return false.
+ */
+fun DependencyKey<*>.isParameterizedGeneric(clazz: KClass<*>): Boolean =
+    typeToken.rawType == clazz.java && typeToken.type is ParameterizedType
 
 /**
  * If the receiver [DependencyKey] represents a parameterized type, this method returns
