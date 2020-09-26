@@ -3,6 +3,7 @@ package com.episode6.hackit.mockspresso.internal;
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.rules.MethodRule;
@@ -42,9 +43,14 @@ public class MockspressoRuleImplTest {
   RuleConfig mRuleConfig;
   Mockspresso.Rule mRule;
 
-  @Before
-  public void setup() throws Exception {
-    MockitoAnnotations.initMocks(this);
+  AutoCloseable mockitoClosable;
+
+  @After public void teardown() throws Exception {
+    mockitoClosable.close();
+  }
+
+  @Before public void setup() {
+    mockitoClosable = MockitoAnnotations.openMocks(this);
 
     when(mOriginal.getConfig()).thenReturn(mConfig);
     when(mChildMockspresso.getConfig()).thenReturn(mChildConfig);
@@ -275,11 +281,13 @@ public class MockspressoRuleImplTest {
 
   private static class TestStatement extends Statement {
     private final Statement mBaseStatement;
+
     private TestStatement(Statement baseStatement) {
       mBaseStatement = baseStatement;
     }
 
     public void before() {} // spy
+
     public void after() {} // spy
 
     @Override

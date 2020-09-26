@@ -48,8 +48,7 @@ public class MockitoAutoFactoryMakerTest {
 
   AutoCloseable mockitoClosable;
 
-  @Before
-  public void setup() {
+  @Before public void setup() {
     mockitoClosable = MockitoAnnotations.openMocks(this);
   }
 

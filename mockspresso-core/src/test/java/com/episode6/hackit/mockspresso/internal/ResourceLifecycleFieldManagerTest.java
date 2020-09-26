@@ -4,6 +4,7 @@ import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.exception.RepeatedDependencyDefinedException;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,9 +38,14 @@ public class ResourceLifecycleFieldManagerTest {
 
   ResourceLifecycleFieldManager mResourceLifecycleFieldManager;
 
-  @Before
-  public void setup() {
-    MockitoAnnotations.initMocks(this);
+  AutoCloseable mockitoClosable;
+
+  @After public void teardown() throws Exception {
+    mockitoClosable.close();
+  }
+
+  @Before public void setup() {
+    mockitoClosable = MockitoAnnotations.openMocks(this);
 
     mTestResources.add(new TestResource(new Object(), false));
     mTestResources.add(new TestResource(new Object(), true));

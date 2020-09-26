@@ -9,6 +9,7 @@ import com.episode6.hackit.mockspresso.reflect.NamedAnnotationLiteral;
 import com.episode6.hackit.mockspresso.testing.testobjects.TestQualifierAnnotation;
 import com.episode6.hackit.mockspresso.testobject.SubclassTestObject;
 import com.episode6.hackit.mockspresso.testobject.SuperclassTestObject;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,9 +54,14 @@ public class FieldImporterTest {
   private FieldImporter.KeyAdjuster mKeyAdjuster;
   private FieldImporter mImporter;
 
-  @Before
-  public void setup() {
-    MockitoAnnotations.initMocks(this);
+  AutoCloseable mockitoClosable;
+
+  @After public void teardown() throws Exception {
+    mockitoClosable.close();
+  }
+
+  @Before public void setup() {
+    mockitoClosable = MockitoAnnotations.openMocks(this);
     mDependencyMap = mock(DependencyMap.class);
     mKeyAdjuster = mock(FieldImporter.KeyAdjuster.class);
 
@@ -116,14 +122,14 @@ public class FieldImporterTest {
   // TODO: part of this test relies on mockito's functionality to handle all declared fields from super-classes
   // I should write a similar test for easy mock to see if it performs the same way.
   @Test
-  public void testImportFromSubAndSuperClasses() {
+  public void testImportFromSubAndSuperClasses() throws Exception {
     SubclassTestObject testObject = new SubclassTestObject();
     DependencyKey<SubclassTestObject.SubClassInnerClass> subClassInnerClassKey =
         DependencyKey.of(SubclassTestObject.SubClassInnerClass.class);
     DependencyKey<SuperclassTestObject.SuperClassInnerClass> superClassInnerClassKey =
         DependencyKey.of(SuperclassTestObject.SuperClassInnerClass.class);
 
-    MockitoAnnotations.initMocks(testObject);
+    AutoCloseable closeable = MockitoAnnotations.openMocks(testObject);
     initImporter(Arrays.asList(RealObject.class, Mock.class));
     mImporter.importAnnotatedFields(testObject);
 
@@ -138,6 +144,8 @@ public class FieldImporterTest {
         any(SuperclassTestObject.SuperClassInnerClass.class),
         nullable(DependencyValidator.class));
     verifyNoMoreInteractions(mDependencyMap);
+
+    closeable.close();
   }
 
   public static class TestObject {}

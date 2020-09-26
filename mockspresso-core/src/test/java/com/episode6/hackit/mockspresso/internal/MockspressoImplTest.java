@@ -4,6 +4,7 @@ import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.api.DependencyProvider;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,9 +37,14 @@ public class MockspressoImplTest {
 
   MockspressoImpl mMockspresso;
 
-  @Before
-  public void setup() {
-    MockitoAnnotations.initMocks(this);
+  AutoCloseable mockitoClosable;
+
+  @After public void teardown() throws Exception {
+    mockitoClosable.close();
+  }
+
+  @Before public void setup() {
+    mockitoClosable = MockitoAnnotations.openMocks(this);
 
     when(mDependencyProviderFactory.getDependencyProviderFor(any(DependencyKey.class))).thenReturn(mDependencyProvider);
     when(mDependencyProviderFactory.getBlankDependencyProvider()).thenReturn(mDependencyProvider);
