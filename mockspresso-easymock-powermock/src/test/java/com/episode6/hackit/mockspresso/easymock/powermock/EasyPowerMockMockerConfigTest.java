@@ -27,18 +27,4 @@ public class EasyPowerMockMockerConfigTest {
             MockNice.class,
             MockStrict.class);
   }
-
-  @Test
-  public void testMockMakerIsExpected() {
-    assertThat(mEasyMockConfig.provideMockMaker())
-        .isNotNull()
-        .isInstanceOf(EasyPowerMockMockMaker.class);
-  }
-
-  @Test
-  public void testFieldPreparerIsExpected() {
-    assertThat(mEasyMockConfig.provideFieldPreparer())
-        .isNotNull()
-        .isInstanceOf(EasyPowerMockFieldPreparer.class);
-  }
 }

@@ -16,7 +16,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(JUnit4.class)
 public class EasyPowerMockFieldPreparerTest {
 
-  private EasyPowerMockFieldPreparer mFieldPreparer;
+  private EasyPowerMockMockerConfig mFieldPreparer;
 
   @Mock Runnable mMockRunnable;
   @org.powermock.api.easymock.annotation.Mock Runnable mMockRunnable2;
@@ -25,7 +25,7 @@ public class EasyPowerMockFieldPreparerTest {
 
   @Before
   public void setup() {
-    mFieldPreparer = new EasyPowerMockFieldPreparer();
+    mFieldPreparer = new EasyPowerMockMockerConfig();
   }
 
   @Test
