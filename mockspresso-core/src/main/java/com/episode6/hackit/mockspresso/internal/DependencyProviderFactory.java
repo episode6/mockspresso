@@ -6,6 +6,7 @@ import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -59,7 +60,7 @@ class DependencyProviderFactory {
     }
 
     @Override
-    public <T> T get(DependencyKey<T> key) {
+    public <T> T get(@NotNull DependencyKey<T> key) {
       DependencyValidator childValidator = DependencyValidator.childOrNew(mDependencyValidator, key);
       DependencyProvider childProvider = new DependencyProviderImpl(childValidator);
 
