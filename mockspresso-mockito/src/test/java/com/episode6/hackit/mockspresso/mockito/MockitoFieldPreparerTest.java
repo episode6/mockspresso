@@ -1,5 +1,6 @@
 package com.episode6.hackit.mockspresso.mockito;
 
+import com.episode6.hackit.mockspresso.api.MockerConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,20 +18,23 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(JUnit4.class)
 public class MockitoFieldPreparerTest {
 
-  private MockitoFieldPreparer mFieldPreparer;
+  private MockitoMockerConfig mFieldPreparer;
 
-  @Mock Runnable mMockRunnable;
-  @Spy Runnable mSpyRunnable = new Runnable() {
+  @Mock
+  Runnable mMockRunnable;
+  @Spy
+  Runnable mSpyRunnable = new Runnable() {
     @Override
     public void run() {
 
     }
   };
-  @Spy Runnable mSpyRunnable2;
+  @Spy
+  Runnable mSpyRunnable2;
 
   @Before
   public void setup() {
-    mFieldPreparer = new MockitoFieldPreparer();
+    mFieldPreparer = new MockitoMockerConfig();
   }
 
   @Test
