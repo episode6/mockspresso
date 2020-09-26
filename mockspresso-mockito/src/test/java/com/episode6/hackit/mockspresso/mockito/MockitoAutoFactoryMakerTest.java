@@ -4,6 +4,7 @@ import com.episode6.hackit.mockspresso.api.DependencyProvider;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.NamedAnnotationLiteral;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -45,9 +46,15 @@ public class MockitoAutoFactoryMakerTest {
   @Mock DependencyProvider mDependencyProvider;
   @Mock TestClass mTestClass;
 
+  AutoCloseable mockitoClosable;
+
   @Before
   public void setup() {
-    MockitoAnnotations.initMocks(this);
+    mockitoClosable = MockitoAnnotations.openMocks(this);
+  }
+
+  @After public void teardown() throws Exception {
+    mockitoClosable.close();
   }
 
   @Test

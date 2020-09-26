@@ -1,5 +1,6 @@
 package com.episode6.hackit.mockspresso.mockito;
 
+import com.episode6.hackit.mockspresso.api.MockerConfig;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,11 +19,11 @@ import static org.mockito.Mockito.verify;
 @RunWith(JUnit4.class)
 public class MockitoMockMakerTest {
 
-  private MockitoMockMaker mMockMaker;
+  private MockitoMockerConfig mMockMaker;
 
   @Before
   public void setup() {
-    mMockMaker = new MockitoMockMaker();
+    mMockMaker = new MockitoMockerConfig();
   }
 
   @Test
@@ -39,7 +40,8 @@ public class MockitoMockMakerTest {
 
   @Test
   public void testGenericMock() {
-    TypeToken<HashMap<String, Integer>> typeToken = new TypeToken<HashMap<String, Integer>>() {};
+    TypeToken<HashMap<String, Integer>> typeToken = new TypeToken<HashMap<String, Integer>>() {
+    };
 
     HashMap<String, Integer> hashMap = mMockMaker.makeMock(typeToken);
 
