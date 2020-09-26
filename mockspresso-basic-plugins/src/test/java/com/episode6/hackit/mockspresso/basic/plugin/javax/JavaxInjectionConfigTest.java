@@ -24,7 +24,7 @@ public class JavaxInjectionConfigTest {
 
   @Test
   public void testFindInjectConstructor() {
-    Constructor<TestClassWithMultipleConstructorsButOnlyOneInject> constructor = mInjectionConfig.provideConstructorSelector()
+    Constructor<TestClassWithMultipleConstructorsButOnlyOneInject> constructor = mInjectionConfig
         .chooseConstructor(TypeToken.of(TestClassWithMultipleConstructorsButOnlyOneInject.class));
 
     assertThat(constructor).isNotNull();
@@ -34,13 +34,13 @@ public class JavaxInjectionConfigTest {
 
   @Test(expected = MultipleInjectConstructorException.class)
   public void testMultipleInjectConstructors() {
-    Constructor<TestClassWithTwoInjectAnnotations> constructor = mInjectionConfig.provideConstructorSelector()
+    Constructor<TestClassWithTwoInjectAnnotations> constructor = mInjectionConfig
         .chooseConstructor(TypeToken.of(TestClassWithTwoInjectAnnotations.class));
   }
 
   @Test
   public void testFindFallbackConstructor() {
-    Constructor<TestClassWithEmptyFallback> constructor = mInjectionConfig.provideConstructorSelector()
+    Constructor<TestClassWithEmptyFallback> constructor = mInjectionConfig
         .chooseConstructor(TypeToken.of(TestClassWithEmptyFallback.class));
 
     assertThat(constructor).isNotNull();
@@ -50,7 +50,7 @@ public class JavaxInjectionConfigTest {
 
   @Test
   public void testNoValidConstructor() {
-    Constructor<TestClassWithNoValidConstructor> constructor = mInjectionConfig.provideConstructorSelector()
+    Constructor<TestClassWithNoValidConstructor> constructor = mInjectionConfig
         .chooseConstructor(TypeToken.of(TestClassWithNoValidConstructor.class));
 
     assertThat(constructor).isNull();
@@ -58,7 +58,7 @@ public class JavaxInjectionConfigTest {
 
   @Test
   public void testFindFallbackConstructorWhenNoneDeclared() {
-    Constructor<TestClassWithNoDefinedConstructors> constructor = mInjectionConfig.provideConstructorSelector()
+    Constructor<TestClassWithNoDefinedConstructors> constructor = mInjectionConfig
         .chooseConstructor(TypeToken.of(TestClassWithNoDefinedConstructors.class));
 
     assertThat(constructor).isNotNull();
