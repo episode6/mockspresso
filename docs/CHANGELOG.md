@@ -4,6 +4,8 @@
 ### v0.2.0 - unreleased
  - **DEPRECATED** `mockspresso-extend` module in favor of kotlin.
  - **REMOVED** `mockspresso-quick` module
+ - **REMOVED** previously deprecated concrete implementations of `MockspressoPlugin`
+ - **REMOVED** previously deprecated concrete implementations of `InjectionConfig`, `MockerConfig` and `SpecialObjectMaker` (they are now kotlin internal classes)
  - **FEATURE** Introduce a public `teardown()` method for on-the-fly instances
  - **UTIL** Added kotlin extensions `DependencyKey.isParameterizedGeneric` and `DependencyKey.genericParameterKey` to simplify common special object maker implementations.
 
@@ -22,7 +24,7 @@
  
 
 ### v0.1.0-beta2 - April 17th, 2019
- - **DEPRECATED** All concrete implemenations of `MockspressoPlugin` in favor of their kotlin extension and `*JavaSupport` counterparts. These classes are no longer used and will be deleted in a future version.
+ - **DEPRECATED** All concrete implementations of `MockspressoPlugin` in favor of their kotlin extension and `*JavaSupport` counterparts. These classes are no longer used and will be deleted in a future version.
  - **DEPRECATED** All other concrete classes in our plugin modules (excluding the new `*JavaSupport` objects). These classes will be made final and either kotlin-internal or package-protected in a future version.
 
 
