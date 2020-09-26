@@ -4,6 +4,7 @@ import com.episode6.hackit.mockspresso.api.DependencyProvider;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import com.google.common.base.Supplier;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -26,9 +27,14 @@ public class SupplierMakerTest {
 
   final SupplierMaker mSupplierMaker = new SupplierMaker();
 
-  @Before
-  public void setup() {
-    MockitoAnnotations.initMocks(this);
+  AutoCloseable mockitoClosable;
+
+  @After public void teardown() throws Exception {
+    mockitoClosable.close();
+  }
+
+  @Before public void setup() {
+    mockitoClosable = MockitoAnnotations.openMocks(this);
   }
 
   @Test

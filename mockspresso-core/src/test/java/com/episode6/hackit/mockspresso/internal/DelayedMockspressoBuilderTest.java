@@ -2,6 +2,7 @@ package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.Mockspresso;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,9 +32,14 @@ public class DelayedMockspressoBuilderTest {
 
   private DelayedMockspressoBuilder mDelayedBuilder;
 
-  @Before
-  public void setup() {
-    MockitoAnnotations.initMocks(this);
+  AutoCloseable mockitoClosable;
+
+  @After public void teardown() throws Exception {
+    mockitoClosable.close();
+  }
+
+  @Before public void setup() {
+    mockitoClosable = MockitoAnnotations.openMocks(this);
 
     when(mBuilderProvider.get()).thenReturn(mBackingBuilder);
     when(mBackingBuilder.deepCopy()).thenReturn(mBackingBuilder);
@@ -48,7 +54,7 @@ public class DelayedMockspressoBuilderTest {
 
     assertThat(mockspresso)
         .isNotNull();
-    verifyZeroInteractions(mBackingBuilder);
+    verifyNoInteractions(mBackingBuilder);
   }
 
   @Test

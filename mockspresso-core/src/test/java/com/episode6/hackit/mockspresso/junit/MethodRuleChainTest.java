@@ -1,6 +1,7 @@
 package com.episode6.hackit.mockspresso.junit;
 
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.rules.MethodRule;
@@ -32,9 +33,14 @@ public class MethodRuleChainTest {
   @Mock FrameworkMethod mockFrameworkMethod;
   @Mock Object mockTestObject;
 
-  @Before
-  public void setup() {
-    MockitoAnnotations.initMocks(this);
+  AutoCloseable mockitoClosable;
+
+  @Before public void setup() {
+    mockitoClosable = MockitoAnnotations.openMocks(this);
+  }
+
+  @After public void teardown() throws Exception {
+    mockitoClosable.close();
   }
 
   @Test
@@ -115,7 +121,7 @@ public class MethodRuleChainTest {
           any(Statement.class),
           any(FrameworkMethod.class),
           any(Object.class))).then(
-              ruleApplyAnswer(beforeRunnable, afterRunnable));
+          ruleApplyAnswer(beforeRunnable, afterRunnable));
     }
   }
 

@@ -3,6 +3,7 @@ package com.episode6.hackit.mockspresso.internal;
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.api.MockerConfig;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,9 +29,14 @@ public class ResourcesLifecycleMockManagerTest {
   List<TestResource> mTestResources;
   ResourcesLifecycleMockManager mResourcesLifecycleMockManager;
 
-  @Before
-  public void setup() {
-    MockitoAnnotations.initMocks(this);
+  AutoCloseable mockitoClosable;
+
+  @After public void teardown() throws Exception {
+    mockitoClosable.close();
+  }
+
+  @Before public void setup() {
+    mockitoClosable = MockitoAnnotations.openMocks(this);
 
     mTestResources = new ArrayList<>(3);
     mTestResources.add(new TestResource(new Object(), false));
@@ -45,7 +51,7 @@ public class ResourcesLifecycleMockManagerTest {
     mResourcesLifecycleMockManager.setup(mMockspresso);
 
     InOrder inOrder = Mockito.inOrder(mFieldPreparer);
-    for (int i = 0; i<mTestResources.size(); i++) {
+    for (int i = 0; i < mTestResources.size(); i++) {
       inOrder.verify(mFieldPreparer).prepareFields(mTestResources.get(i).getObjectWithResources());
     }
     verifyNoMoreInteractions(mFieldPreparer);

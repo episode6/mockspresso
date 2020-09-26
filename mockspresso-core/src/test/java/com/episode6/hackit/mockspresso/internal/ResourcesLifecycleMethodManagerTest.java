@@ -32,9 +32,14 @@ public class ResourcesLifecycleMethodManagerTest {
   List<TestResource> mTestResources;
   ResourcesLifecycleMethodManager mResourcesLifecycleMethodManager;
 
-  @Before
-  public void setup() {
-    MockitoAnnotations.initMocks(this);
+  AutoCloseable mockitoClosable;
+
+  @After public void teardown() throws Exception {
+    mockitoClosable.close();
+  }
+
+  @Before public void setup() {
+    mockitoClosable = MockitoAnnotations.openMocks(this);
 
     mTestResources = new ArrayList<>(3);
     mTestResources.add(new TestResource(testRes1, true));
@@ -67,12 +72,14 @@ public class ResourcesLifecycleMethodManagerTest {
   }
 
   private Object[] getMocks() {
-    return new Object[] {testRes1.notifier, testRes2.subclassNotifier, testRes2.notifier, testRes3.notifier};
+    return new Object[]{testRes1.notifier, testRes2.subclassNotifier, testRes2.notifier, testRes3.notifier};
   }
 
   interface Notifier {
     void setup();
+
     void setup(Mockspresso instance);
+
     void teardown();
   }
 

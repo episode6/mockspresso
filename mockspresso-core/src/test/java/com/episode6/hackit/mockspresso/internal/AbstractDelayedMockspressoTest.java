@@ -3,6 +3,7 @@ package com.episode6.hackit.mockspresso.internal;
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.Mockspresso;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,9 +35,11 @@ public class AbstractDelayedMockspressoTest {
 
   private AbstractDelayedMockspresso mMockspresso;
 
+  AutoCloseable mockitoClosable;
+
   @Before
   public void setup() {
-    MockitoAnnotations.initMocks(this);
+    mockitoClosable = MockitoAnnotations.openMocks(this);
 
     when(mMockspressoInternal.getConfig()).thenReturn(mConfig);
     when(mBuilderProvider.get()).thenReturn(mChildBuilder);
@@ -46,6 +49,10 @@ public class AbstractDelayedMockspressoTest {
     when(mMockspressoInternal.buildUpon()).thenReturn(mPublicBuilder);
 
     mMockspresso = new AbstractDelayedMockspresso(mBuilderProvider) {};
+  }
+
+  @After public void teardown() throws Exception {
+    mockitoClosable.close();
   }
 
   @Test(expected = NullPointerException.class)
@@ -96,7 +103,7 @@ public class AbstractDelayedMockspressoTest {
     inOrder.verify(mChildMockspresso).teardown();
     inOrder.verify(mMockspressoInternal).teardown();
     inOrder.verifyNoMoreInteractions();
-    verifyZeroInteractions(mPublicBuilder);
+    verifyNoInteractions(mPublicBuilder);
   }
 
   @Test(expected = NullPointerException.class)

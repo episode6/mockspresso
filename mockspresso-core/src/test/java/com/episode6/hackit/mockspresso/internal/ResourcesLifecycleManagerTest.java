@@ -2,6 +2,7 @@ package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.DefaultTestRunner;
 import com.episode6.hackit.mockspresso.Mockspresso;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,9 +28,14 @@ public class ResourcesLifecycleManagerTest {
   List<ResourcesLifecycleComponent> mLifecycleComponents;
   ResourcesLifecycleManager mResourcesLifecycleManager;
 
-  @Before
-  public void setup() {
-    MockitoAnnotations.initMocks(this);
+  AutoCloseable mockitoClosable;
+
+  @After public void teardown() throws Exception {
+    mockitoClosable.close();
+  }
+
+  @Before public void setup() {
+    mockitoClosable = MockitoAnnotations.openMocks(this);
 
     mLifecycleComponents = new ArrayList<>();
     for (int i = 0; i < 5; i++) {
@@ -54,7 +60,7 @@ public class ResourcesLifecycleManagerTest {
     mResourcesLifecycleManager.teardown();
 
     InOrder inOrder = Mockito.inOrder(mLifecycleComponents.toArray());
-    for (int i = mLifecycleComponents.size() - 1; i>=0; i--) {
+    for (int i = mLifecycleComponents.size() - 1; i >= 0; i--) {
       inOrder.verify(mLifecycleComponents.get(i)).teardown();
     }
     verifyNoMoreInteractions(mLifecycleComponents.toArray());

@@ -6,6 +6,7 @@ import com.episode6.hackit.mockspresso.api.InjectionConfig;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.NamedAnnotationLiteral;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,9 +51,14 @@ public class RealObjectMakerTest {
 
   private RealObjectMaker mRealObjectMaker;
 
-  @Before
-  public void setup() {
-    MockitoAnnotations.initMocks(this);
+  AutoCloseable mockitoClosable;
+
+  @After public void teardown() throws Exception {
+    mockitoClosable.close();
+  }
+
+  @Before public void setup() {
+    mockitoClosable = MockitoAnnotations.openMocks(this);
     // testing with first constructor available
     when(mConstructorSelector.chooseConstructor(any(TypeToken.class)))
         .thenAnswer(new Answer<Constructor>() {
@@ -266,7 +272,7 @@ public class RealObjectMakerTest {
       verify(mDependencyProvider).get(key);
     }
   }
-  
+
   public static class TestClassWithConstructorOnly {
     final Runnable mRunnable;
     final Provider<Runnable> mRunnableProvider;
