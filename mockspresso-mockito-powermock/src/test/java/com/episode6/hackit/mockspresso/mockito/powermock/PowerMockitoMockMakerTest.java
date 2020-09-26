@@ -18,11 +18,11 @@ import static org.mockito.Mockito.verify;
 @RunWith(JUnit4.class)
 public class PowerMockitoMockMakerTest {
 
-  private PowerMockitoMockMaker mMockMaker;
+  private PowerMockitoConfig mMockMaker;
 
   @Before
   public void setup() {
-    mMockMaker = new PowerMockitoMockMaker();
+    mMockMaker = new PowerMockitoConfig();
   }
 
   @Test

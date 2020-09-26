@@ -16,7 +16,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(JUnit4.class)
 public class PowerMockitoFieldPreparerTest {
 
-  private PowerMockitoFieldPreparer mFieldPreparer;
+  private PowerMockitoConfig mFieldPreparer;
 
   @Mock Runnable mMockRunnable;
   @Spy Runnable mSpyRunnable = new Runnable() {
@@ -29,7 +29,7 @@ public class PowerMockitoFieldPreparerTest {
 
   @Before
   public void setup() {
-    mFieldPreparer = new PowerMockitoFieldPreparer();
+    mFieldPreparer = new PowerMockitoConfig();
   }
 
   @Test

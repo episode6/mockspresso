@@ -24,18 +24,4 @@ public class PowerMockitoConfigTest {
             Spy.class,
             Mock.class);
   }
-
-  @Test
-  public void testMockMakerIsExpected() {
-    assertThat(mMockitoConfig.provideMockMaker())
-        .isNotNull()
-        .isInstanceOf(PowerMockitoMockMaker.class);
-  }
-
-  @Test
-  public void testFieldPreparerIsExpected() {
-    assertThat(mMockitoConfig.provideFieldPreparer())
-        .isNotNull()
-        .isInstanceOf(PowerMockitoFieldPreparer.class);
-  }
 }

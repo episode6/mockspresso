@@ -11,7 +11,7 @@ import static com.episode6.hackit.mockspresso.basic.plugin.MockspressoBasicPlugi
 import static com.episode6.hackit.mockspresso.mockito.powermock.MockspressoPowerMockitoPluginsJavaSupport.mockByPowerMockito;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 /**
  * Tests how a mockspresso rule acts when not properly annotated (i.e. never applied)
@@ -55,7 +55,7 @@ public class InvalidRuleTestPowerMockitoRunner {
 
   @Test
   public void testInitializerNotRun() {
-    verifyZeroInteractions(notifier);
+    verifyNoInteractions(notifier);
   }
 
   @Test
