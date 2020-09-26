@@ -16,11 +16,11 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(JUnit4.class)
 public class EasyPowerMockMockMakerTest {
 
-  private EasyPowerMockMockMaker mMockMaker;
+  private EasyPowerMockMockerConfig mMockMaker;
 
   @Before
   public void setup() {
-    mMockMaker = new EasyPowerMockMockMaker();
+    mMockMaker = new EasyPowerMockMockerConfig();
   }
 
   @Test
