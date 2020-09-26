@@ -15,13 +15,13 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(JUnit4.class)
 public class EasyMockFieldPreparerTest {
 
-  private EasyMockFieldPreparer mFieldPreparer;
+  private EasyMockMockerConfig mFieldPreparer;
 
   @Mock Runnable mMockRunnable;
 
   @Before
   public void setup() {
-    mFieldPreparer = new EasyMockFieldPreparer();
+    mFieldPreparer = new EasyMockMockerConfig();
   }
 
   @Test

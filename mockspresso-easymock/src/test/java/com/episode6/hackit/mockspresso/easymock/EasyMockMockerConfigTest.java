@@ -21,18 +21,4 @@ public class EasyMockMockerConfigTest {
     assertThat(mEasyMockConfig.provideMockAnnotations())
         .contains(Mock.class);
   }
-
-  @Test
-  public void testMockMakerIsExpected() {
-    assertThat(mEasyMockConfig.provideMockMaker())
-        .isNotNull()
-        .isInstanceOf(EasyMockMockMaker.class);
-  }
-
-  @Test
-  public void testFieldPreparerIsExpected() {
-    assertThat(mEasyMockConfig.provideFieldPreparer())
-        .isNotNull()
-        .isInstanceOf(EasyMockFieldPreparer.class);
-  }
 }
