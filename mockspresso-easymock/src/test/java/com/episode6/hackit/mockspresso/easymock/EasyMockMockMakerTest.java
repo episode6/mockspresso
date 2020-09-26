@@ -17,11 +17,11 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(JUnit4.class)
 public class EasyMockMockMakerTest {
 
-  private EasyMockMockMaker mMockMaker;
+  private EasyMockMockerConfig mMockMaker;
 
   @Before
   public void setup() {
-    mMockMaker = new EasyMockMockMaker();
+    mMockMaker = new EasyMockMockerConfig();
   }
 
   @Test
