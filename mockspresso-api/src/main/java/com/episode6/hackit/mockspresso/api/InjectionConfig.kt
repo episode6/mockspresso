@@ -9,5 +9,5 @@ import java.lang.reflect.Constructor
 interface InjectionConfig {
   fun provideInjectableFieldAnnotations(): List<Class<out Annotation>>
   fun provideInjectableMethodAnnotations(): List<Class<out Annotation>>
-  fun <T : Any> chooseConstructor(typeToken: TypeToken<T>): Constructor<T>?
+  fun chooseConstructor(typeToken: TypeToken<*>): Constructor<out Any>?
 }

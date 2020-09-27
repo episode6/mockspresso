@@ -12,15 +12,15 @@ import static org.fest.assertions.api.Assertions.assertThat;
 /**
  * Tests {@link SimpleInjectionConfig}
  */
-public class SimpleInjectionConfigTest {
+@SuppressWarnings("unchecked") public class SimpleInjectionConfigTest {
 
   private SimpleInjectionConfig mSimpleInjectionConfig = new SimpleInjectionConfig();
 
   @Test
   public void testFindSmalledConstructor() {
-    Constructor<TestClass1> constructor1 = mSimpleInjectionConfig
+    Constructor<TestClass1> constructor1 = (Constructor<TestClass1>) mSimpleInjectionConfig
         .chooseConstructor(TypeToken.of(TestClass1.class));
-    Constructor<TestClass2> constructor2 = mSimpleInjectionConfig
+    Constructor<TestClass2> constructor2 = (Constructor<TestClass2>) mSimpleInjectionConfig
         .chooseConstructor(TypeToken.of(TestClass2.class));
 
     assertThat(constructor1.getParameterCount()).isEqualTo(1);
@@ -36,7 +36,7 @@ public class SimpleInjectionConfigTest {
 
   @Test
   public void testFailWithNoConstructor() {
-    Constructor<TestInterface> constructor = mSimpleInjectionConfig
+    Constructor<TestInterface> constructor = (Constructor<TestInterface>) mSimpleInjectionConfig
         .chooseConstructor(TypeToken.of(TestInterface.class));
 
     assertThat(constructor).isNull();

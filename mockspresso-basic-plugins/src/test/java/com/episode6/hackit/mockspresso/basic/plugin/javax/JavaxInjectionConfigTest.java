@@ -24,7 +24,7 @@ public class JavaxInjectionConfigTest {
 
   @Test
   public void testFindInjectConstructor() {
-    Constructor<TestClassWithMultipleConstructorsButOnlyOneInject> constructor = mInjectionConfig
+    Constructor<TestClassWithMultipleConstructorsButOnlyOneInject> constructor = (Constructor<TestClassWithMultipleConstructorsButOnlyOneInject>) mInjectionConfig
         .chooseConstructor(TypeToken.of(TestClassWithMultipleConstructorsButOnlyOneInject.class));
 
     assertThat(constructor).isNotNull();
@@ -34,13 +34,13 @@ public class JavaxInjectionConfigTest {
 
   @Test(expected = MultipleInjectConstructorException.class)
   public void testMultipleInjectConstructors() {
-    Constructor<TestClassWithTwoInjectAnnotations> constructor = mInjectionConfig
+    Constructor<TestClassWithTwoInjectAnnotations> constructor = (Constructor<TestClassWithTwoInjectAnnotations>) mInjectionConfig
         .chooseConstructor(TypeToken.of(TestClassWithTwoInjectAnnotations.class));
   }
 
   @Test
   public void testFindFallbackConstructor() {
-    Constructor<TestClassWithEmptyFallback> constructor = mInjectionConfig
+    Constructor<TestClassWithEmptyFallback> constructor = (Constructor<TestClassWithEmptyFallback>) mInjectionConfig
         .chooseConstructor(TypeToken.of(TestClassWithEmptyFallback.class));
 
     assertThat(constructor).isNotNull();
@@ -50,7 +50,7 @@ public class JavaxInjectionConfigTest {
 
   @Test
   public void testNoValidConstructor() {
-    Constructor<TestClassWithNoValidConstructor> constructor = mInjectionConfig
+    Constructor<TestClassWithNoValidConstructor> constructor = (Constructor<TestClassWithNoValidConstructor>) mInjectionConfig
         .chooseConstructor(TypeToken.of(TestClassWithNoValidConstructor.class));
 
     assertThat(constructor).isNull();
@@ -58,7 +58,7 @@ public class JavaxInjectionConfigTest {
 
   @Test
   public void testFindFallbackConstructorWhenNoneDeclared() {
-    Constructor<TestClassWithNoDefinedConstructors> constructor = mInjectionConfig
+    Constructor<TestClassWithNoDefinedConstructors> constructor = (Constructor<TestClassWithNoDefinedConstructors>) mInjectionConfig
         .chooseConstructor(TypeToken.of(TestClassWithNoDefinedConstructors.class));
 
     assertThat(constructor).isNotNull();
