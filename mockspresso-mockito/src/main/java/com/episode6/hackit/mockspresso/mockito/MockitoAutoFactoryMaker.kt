@@ -43,19 +43,15 @@ private class FactoryAnswer constructor(
     if (invocation.method.returnType == Void.TYPE) {
       return null
     }
-    var genericReturnType = invocation.method.genericReturnType
-    if (genericReturnType is TypeVariable<*>) {
-      genericReturnType = try {
-        findActualTypeOfGenericTypeArgument(
-            factoryToken = originalKey.typeToken,
-            rootClass = invocation.method.declaringClass,
-            rootTypeParamName = genericReturnType.name)
-      } catch (t: Throwable) {
-        throw AssertionError("Could not determine return type for automatic factory class: ${originalKey.typeToken} , method: ${invocation.method.name}", t)
-      }
+    val genericReturnType = when (val genRtrType = invocation.method.genericReturnType) {
+      !is TypeVariable<*> -> genRtrType
+      else                -> findActualTypeOfGenericTypeArgument(
+          factoryToken = originalKey.typeToken,
+          rootClass = invocation.method.declaringClass,
+          rootTypeParamName = genRtrType.name,
+          errorProvider = { "Could not determine return type for automatic factory class: ${originalKey.typeToken} , method: ${invocation.method.name}" })
     }
-    val returnType = TypeToken.of(genericReturnType)
-    val subKey = DependencyKey.of(returnType, originalKey.identityAnnotation)
+    val subKey = DependencyKey.of(TypeToken.of(genericReturnType), originalKey.identityAnnotation)
     return dependencyProvider[subKey]
   }
 }
@@ -73,10 +69,15 @@ private class FactoryAnswer constructor(
 private fun findActualTypeOfGenericTypeArgument(
     factoryToken: TypeToken<*>,
     rootClass: Class<*>,
-    rootTypeParamName: String): Type {
-  require(factoryToken.type is ParameterizedType) { "Expected ${factoryToken.type} to be a ParameterizedType" }
-  val typeArgumentIndex = findIndexForTypeArgument(factoryToken.rawType, rootClass, rootTypeParamName)
-  return (factoryToken.type as ParameterizedType).actualTypeArguments[typeArgumentIndex]
+    rootTypeParamName: String,
+    errorProvider: () -> String): Type {
+  try {
+    require(factoryToken.type is ParameterizedType) { "Expected ${factoryToken.type} to be a ParameterizedType" }
+    val typeArgumentIndex = findIndexForTypeArgument(factoryToken.rawType, rootClass, rootTypeParamName)
+    return (factoryToken.type as ParameterizedType).actualTypeArguments[typeArgumentIndex]
+  } catch (t: Throwable) {
+    throw AssertionError(errorProvider(), t)
+  }
 }
 
 /**
