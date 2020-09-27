@@ -11,9 +11,7 @@ import java.lang.reflect.Constructor
 internal class SimpleInjectionConfig : InjectionConfig {
   override fun provideInjectableFieldAnnotations(): List<Class<out Annotation>> = emptyList()
   override fun provideInjectableMethodAnnotations(): List<Class<out Annotation>> = emptyList()
-
-  @Suppress("UNCHECKED_CAST")
-  override fun <T : Any> chooseConstructor(typeToken: TypeToken<T>): Constructor<T>? = typeToken.rawType
+  override fun chooseConstructor(typeToken: TypeToken<*>): Constructor<out Any>? = typeToken.rawType
       .declaredConstructors
-      .minByOrNull { it.parameterCount } as Constructor<T>?
+      .minByOrNull { it.parameterCount }
 }

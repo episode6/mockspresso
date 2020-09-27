@@ -14,14 +14,12 @@ import javax.inject.Inject
 internal class JavaxInjectionConfig : InjectionConfig {
   override fun provideInjectableFieldAnnotations(): List<Class<out Annotation>> = listOf(Inject::class.java)
   override fun provideInjectableMethodAnnotations(): List<Class<out Annotation>> = listOf(Inject::class.java)
-
-  @Suppress("UNCHECKED_CAST")
-  override fun <T : Any> chooseConstructor(typeToken: TypeToken<T>): Constructor<T>? {
+  override fun chooseConstructor(typeToken: TypeToken<*>): Constructor<out Any>? {
     val injectConstructors = typeToken.rawType.declaredConstructors.filter { it.isAnnotationPresent(Inject::class.java) }
     return when (injectConstructors.size) {
       0    -> typeToken.rawType.declaredConstructors.firstOrNull { it.parameterCount == 0 }
       1    -> injectConstructors[0]
       else -> throw MultipleInjectConstructorException(typeToken)
-    } as Constructor<T>?
+    }
   }
 }
