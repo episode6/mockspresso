@@ -43,7 +43,7 @@ public class RealObjectMakerTest {
       new TypeToken<Provider<Runnable>>() {},
       new NamedAnnotationLiteral("testprovider"));
 
-  @Mock InjectionConfig.ConstructorSelector mConstructorSelector;
+  @Mock InjectionConfig mInjectionConfig;
   @Mock DependencyProvider mDependencyProvider;
 
   @Mock Runnable mRunnableMock;
@@ -60,7 +60,7 @@ public class RealObjectMakerTest {
   @Before public void setup() {
     mockitoClosable = MockitoAnnotations.openMocks(this);
     // testing with first constructor available
-    when(mConstructorSelector.chooseConstructor(any(TypeToken.class)))
+    when(mInjectionConfig.chooseConstructor(any(TypeToken.class)))
         .thenAnswer(new Answer<Constructor>() {
           @Override
           public Constructor answer(InvocationOnMock invocation) throws Throwable {
@@ -257,7 +257,9 @@ public class RealObjectMakerTest {
   @SafeVarargs
   private final void prep(Class<? extends Annotation>... annotations) {
     List<Class<? extends Annotation>> annotationList = Arrays.asList(annotations);
-    mRealObjectMaker = new RealObjectMaker(mConstructorSelector, annotationList, annotationList);
+    when(mInjectionConfig.provideInjectableMethodAnnotations()).thenReturn(annotationList);
+    when(mInjectionConfig.provideInjectableFieldAnnotations()).thenReturn(annotationList);
+    mRealObjectMaker = new RealObjectMaker(mInjectionConfig);
   }
 
   private <T> void assertTestObjectNormal(T testObject, Class<T> expectedClass) {

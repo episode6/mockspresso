@@ -18,9 +18,9 @@ public class SimpleInjectionConfigTest {
 
   @Test
   public void testFindSmalledConstructor() {
-    Constructor<TestClass1> constructor1 = mSimpleInjectionConfig.provideConstructorSelector()
+    Constructor<TestClass1> constructor1 = mSimpleInjectionConfig
         .chooseConstructor(TypeToken.of(TestClass1.class));
-    Constructor<TestClass2> constructor2 = mSimpleInjectionConfig.provideConstructorSelector()
+    Constructor<TestClass2> constructor2 = mSimpleInjectionConfig
         .chooseConstructor(TypeToken.of(TestClass2.class));
 
     assertThat(constructor1.getParameterCount()).isEqualTo(1);
@@ -36,7 +36,7 @@ public class SimpleInjectionConfigTest {
 
   @Test
   public void testFailWithNoConstructor() {
-    Constructor<TestInterface> constructor = mSimpleInjectionConfig.provideConstructorSelector()
+    Constructor<TestInterface> constructor = mSimpleInjectionConfig
         .chooseConstructor(TypeToken.of(TestInterface.class));
 
     assertThat(constructor).isNull();

@@ -250,10 +250,7 @@ class MockspressoBuilderImpl implements Mockspresso.Builder {
     final DependencyMap dependencyMap = mDependencyMap;
     final RealObjectMapping realObjectMapping = mRealObjectMapping;
 
-    RealObjectMaker realObjectMaker = new RealObjectMaker(
-        injectionConfig.provideConstructorSelector(),
-        injectionConfig.provideInjectableFieldAnnotations(),
-        injectionConfig.provideInjectableMethodAnnotations());
+    RealObjectMaker realObjectMaker = new RealObjectMaker(injectionConfig);
 
     DependencyProviderFactory dependencyProviderFactory = new DependencyProviderFactory(
         mockerConfig.provideMockMaker(),
