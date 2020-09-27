@@ -16,17 +16,10 @@ import java.util.List;
  * Does the job of actually creating real objects
  */
 class RealObjectMaker  {
-  private final InjectionConfig.ConstructorSelector mConstructorSelector;
-  private final List<Class<? extends Annotation>> mInjectFieldAnnotations;
-  private final List<Class<? extends Annotation>> mInjectMethodAnnotations;
+  private final InjectionConfig mInjectionConfig;
 
-  RealObjectMaker(
-      InjectionConfig.ConstructorSelector constructorSelector,
-      List<Class<? extends Annotation>> injectFieldAnnotations,
-      List<Class<? extends Annotation>> injectMethodAnnotations) {
-    mConstructorSelector = constructorSelector;
-    mInjectFieldAnnotations = injectFieldAnnotations;
-    mInjectMethodAnnotations = injectMethodAnnotations;
+  RealObjectMaker(InjectionConfig injectionConfig) {
+    mInjectionConfig = injectionConfig;
   }
 
   <T> T createObject(DependencyProvider dependencyProvider, TypeToken<T> typeToken) {
@@ -47,7 +40,7 @@ class RealObjectMaker  {
   }
 
   private <T> T createObjectInternal(DependencyProvider dependencyProvider, TypeToken<T> typeToken) throws IllegalAccessException, InvocationTargetException, InstantiationException {
-    Constructor<T> constructor = mConstructorSelector.chooseConstructor(typeToken);
+    Constructor<T> constructor = mInjectionConfig.chooseConstructor(typeToken);
     if (constructor == null) {
       throw new NoValidConstructorException(typeToken);
     }
@@ -90,12 +83,13 @@ class RealObjectMaker  {
   }
 
   private void assignInjectableFields(DependencyProvider dependencyProvider, Object instance, TypeToken<?> context) throws IllegalAccessException {
-    if (mInjectFieldAnnotations.isEmpty()) {
+    List<Class<? extends Annotation>> injectFieldAnnotations = mInjectionConfig.provideInjectableFieldAnnotations();
+    if (injectFieldAnnotations.isEmpty()) {
       return;
     }
 
     for (Field field : ReflectUtil.getAllDeclaredFields(instance.getClass())) {
-      if (ReflectUtil.isAnyAnnotationPresent(field, mInjectFieldAnnotations)) {
+      if (ReflectUtil.isAnyAnnotationPresent(field, injectFieldAnnotations)) {
         DependencyKey<?> paramKey = DependencyKey.fromField(field, context);
         Object paramValue = dependencyProvider.get(paramKey);
         if (!field.isAccessible()) {
@@ -107,12 +101,13 @@ class RealObjectMaker  {
   }
 
   private void callInjectableMethods(DependencyProvider dependencyProvider, Object instance, TypeToken<?> context) {
-    if (mInjectMethodAnnotations.isEmpty()) {
+    List<Class<? extends Annotation>> injectMethodAnnotations = mInjectionConfig.provideInjectableMethodAnnotations();
+    if (injectMethodAnnotations.isEmpty()) {
       return;
     }
 
     for (Method method : ReflectUtil.getAllDeclaredMethods(instance.getClass())) {
-      if (ReflectUtil.isAnyAnnotationPresent(method, mInjectMethodAnnotations)) {
+      if (ReflectUtil.isAnyAnnotationPresent(method, injectMethodAnnotations)) {
         invokeMethod(method, instance, dependencyProvider, context);
       }
     }
