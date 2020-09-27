@@ -13,7 +13,7 @@ internal class SimpleInjectionConfig : InjectionConfig {
   override fun provideInjectableMethodAnnotations(): List<Class<out Annotation>> = emptyList()
 
   @Suppress("UNCHECKED_CAST")
-  override fun <T : Any> chooseConstructor(typeToken: TypeToken<T>): Constructor<T>? = typeToken.rawType
+  override fun <T> chooseConstructor(typeToken: TypeToken<T>): Constructor<T>? = typeToken.rawType
       .declaredConstructors
       .minByOrNull { it.parameterCount } as Constructor<T>?
 }
