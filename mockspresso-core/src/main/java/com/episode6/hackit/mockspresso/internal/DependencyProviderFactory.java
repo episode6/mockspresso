@@ -13,9 +13,9 @@ import org.jetbrains.annotations.Nullable;
  * of a non-static inner class. We do this so each instance of our {@link DependencyProvider}
  * can own their own {@link DependencyValidator}, but we can keep that object completely
  * shielded from the external api.
- * 
+ *
  * The acutal {@link DependencyProvider} checks our properties in the following order
- * 
+ *
  * 1) DependencyMap
  * 2) RealObjectMapping / RealObjectMaker
  * 3) SpecialObjectMaker
