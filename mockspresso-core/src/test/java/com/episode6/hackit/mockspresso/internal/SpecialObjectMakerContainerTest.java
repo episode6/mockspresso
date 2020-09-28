@@ -28,7 +28,7 @@ public class SpecialObjectMakerContainerTest {
   @Mock SpecialObjectMaker specialObjectMaker2;
   @Mock SpecialObjectMaker specialObjectMaker3;
 
-  @Mock DependencyKey<String> dependencyKey;
+  DependencyKey<String> dependencyKey = DependencyKey.of(String.class);
   @Mock DependencyProvider dependencyProvider;
 
   AutoCloseable mockitoClosable;
