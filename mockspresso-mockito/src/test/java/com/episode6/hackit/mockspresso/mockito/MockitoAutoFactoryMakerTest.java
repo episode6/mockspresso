@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 /**
  * Tests {@link MockitoAutoFactoryMaker}
  */
-public class MockitoAutoFactoryMakerTest {
+@SuppressWarnings("unchecked") public class MockitoAutoFactoryMakerTest {
 
   static final DependencyKey<TestClassFactory> factoryKey = DependencyKey.of(TestClassFactory.class);
   static final DependencyKey<TestClass> testClassKey = DependencyKey.of(TestClass.class);
@@ -62,7 +62,7 @@ public class MockitoAutoFactoryMakerTest {
     MockitoAutoFactoryMaker maker = MockitoAutoFactoryMaker.create(TestClassFactory.class);
 
     boolean canMake = maker.canMakeObject(factoryKey);
-    TestClassFactory factory = maker.makeObject(mDependencyProvider, factoryKey);
+    TestClassFactory factory = (TestClassFactory) maker.makeObject(mDependencyProvider, factoryKey);
     TestClass testClass = factory.create("some name");
 
     verify(mDependencyProvider).get(testClassKey);
@@ -76,7 +76,7 @@ public class MockitoAutoFactoryMakerTest {
     MockitoAutoFactoryMaker maker = MockitoAutoFactoryMaker.create(TestClassFactory.class);
 
     boolean canMake = maker.canMakeObject(DependencyKey.of(TestClassFactory.class));
-    TestClassFactory factory = maker.makeObject(mDependencyProvider, annotatestFactoryKey);
+    TestClassFactory factory = (TestClassFactory) maker.makeObject(mDependencyProvider, annotatestFactoryKey);
     TestClass testClass = factory.create("some name");
 
     verify(mDependencyProvider).get(annotatestTestClassKey);
@@ -90,7 +90,7 @@ public class MockitoAutoFactoryMakerTest {
     MockitoAutoFactoryMaker maker = MockitoAutoFactoryMaker.create(GenericFactory.class);
 
     boolean canMake = maker.canMakeObject(genericFactoryKey);
-    GenericFactory<TestClass> factory = maker.makeObject(mDependencyProvider, genericFactoryKey);
+    GenericFactory<TestClass> factory = (GenericFactory<TestClass>) maker.makeObject(mDependencyProvider, genericFactoryKey);
     TestClass testClass = factory.createThing("some name");
 
     verify(mDependencyProvider).get(testClassKey);
@@ -104,7 +104,7 @@ public class MockitoAutoFactoryMakerTest {
     MockitoAutoFactoryMaker maker = MockitoAutoFactoryMaker.create(VarChangeGenericFactory.class);
 
     boolean canMake = maker.canMakeObject(varChangeGenericFactoryKey);
-    VarChangeGenericFactory<TestClass> factory = maker.makeObject(mDependencyProvider, varChangeGenericFactoryKey);
+    VarChangeGenericFactory<TestClass> factory = (VarChangeGenericFactory<TestClass>) maker.makeObject(mDependencyProvider, varChangeGenericFactoryKey);
     TestClass testClass = factory.createThing("some name");
 
     verify(mDependencyProvider).get(testClassKey);
@@ -118,7 +118,7 @@ public class MockitoAutoFactoryMakerTest {
     MockitoAutoFactoryMaker maker = MockitoAutoFactoryMaker.create(ComplexVarChangeGeneric.class);
 
     boolean canMake = maker.canMakeObject(complexVarChangeFactoryKey);
-    ComplexVarChangeGeneric<String, TestClass> factory = maker.makeObject(mDependencyProvider, complexVarChangeFactoryKey);
+    ComplexVarChangeGeneric<String, TestClass> factory = (ComplexVarChangeGeneric<String, TestClass>) maker.makeObject(mDependencyProvider, complexVarChangeFactoryKey);
     TestClass testClass = factory.createThing("some name");
 
     verify(mDependencyProvider).get(testClassKey);

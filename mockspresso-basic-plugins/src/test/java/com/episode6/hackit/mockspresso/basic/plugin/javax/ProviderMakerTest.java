@@ -17,7 +17,7 @@ import static org.mockito.Mockito.*;
 /**
  * Tests {@link ProviderMaker}
  */
-public class ProviderMakerTest {
+@SuppressWarnings("unchecked") public class ProviderMakerTest {
 
   private static final DependencyKey<TestClass> testClassKey = DependencyKey.of(TestClass.class);
   private static final DependencyKey<Provider<TestClass>> testClassProviderKey =
@@ -40,7 +40,7 @@ public class ProviderMakerTest {
   @Test
   public void testCantCreateTestClass() {
     boolean canMake = mProviderMaker.canMakeObject(testClassKey);
-    TestClass objMade = mProviderMaker.makeObject(mDependencyProvider, testClassKey);
+    TestClass objMade = (TestClass) mProviderMaker.makeObject(mDependencyProvider, testClassKey);
 
     assertThat(canMake).isFalse();
     assertThat(objMade).isNull();
@@ -53,7 +53,7 @@ public class ProviderMakerTest {
     when(mDependencyProvider.get(testClassKey)).thenReturn(expectedObj);
 
     boolean canMake = mProviderMaker.canMakeObject(testClassProviderKey);
-    Provider<TestClass> objMade = mProviderMaker.makeObject(mDependencyProvider, testClassProviderKey);
+    Provider<TestClass> objMade = (Provider<TestClass>) mProviderMaker.makeObject(mDependencyProvider, testClassProviderKey);
 
     assertThat(canMake).isTrue();
     assertThat(objMade)
@@ -68,7 +68,7 @@ public class ProviderMakerTest {
   @Test
   public void testCantCreateUnParameterizedProvider() {
     boolean canMake = mProviderMaker.canMakeObject(DependencyKey.of(Provider.class));
-    Provider provider = mProviderMaker.makeObject(mDependencyProvider, DependencyKey.of(Provider.class));
+    Provider provider = (Provider) mProviderMaker.makeObject(mDependencyProvider, DependencyKey.of(Provider.class));
 
     assertThat(canMake).isFalse();
     assertThat(provider).isNull();

@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 /**
  * Tests {@link SupplierMaker}
  */
-public class SupplierMakerTest {
+@SuppressWarnings("unchecked") public class SupplierMakerTest {
 
   static final TypeToken<Supplier<String>> typeToken = new TypeToken<Supplier<String>>() {};
   static final DependencyKey<Supplier<String>> key = DependencyKey.of(typeToken);
@@ -42,7 +42,7 @@ public class SupplierMakerTest {
     when(mDependencyProvider.get(DependencyKey.of(String.class))).thenReturn("hello world");
 
     boolean canMake = mSupplierMaker.canMakeObject(key);
-    Supplier<String> supplier = mSupplierMaker.makeObject(mDependencyProvider, key);
+    Supplier<String> supplier = (Supplier<String>) mSupplierMaker.makeObject(mDependencyProvider, key);
 
     verify(mDependencyProvider).get(DependencyKey.of(String.class));
     assertThat(canMake).isTrue();
@@ -52,7 +52,7 @@ public class SupplierMakerTest {
   @Test
   public void testCantCreateUnParameterizedSupplier() {
     boolean canMake = mSupplierMaker.canMakeObject(DependencyKey.of(Supplier.class));
-    Supplier supplier = mSupplierMaker.makeObject(mDependencyProvider, DependencyKey.of(Supplier.class));
+    Supplier supplier = (Supplier) mSupplierMaker.makeObject(mDependencyProvider, DependencyKey.of(Supplier.class));
 
     assertThat(canMake).isFalse();
     assertThat(supplier).isNull();

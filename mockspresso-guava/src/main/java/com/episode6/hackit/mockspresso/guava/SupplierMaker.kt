@@ -13,10 +13,8 @@ import com.google.common.base.Suppliers
  */
 internal class SupplierMaker : SpecialObjectMaker {
   override fun canMakeObject(key: DependencyKey<*>): Boolean = key.isParameterizedGeneric(Supplier::class)
-
-  @Suppress("UNCHECKED_CAST")
-  override fun <T> makeObject(dependencyProvider: DependencyProvider, key: DependencyKey<T>): T? {
+  override fun makeObject(dependencyProvider: DependencyProvider, key: DependencyKey<*>): Any? {
     if (!canMakeObject(key)) return null
-    return Suppliers.ofInstance(dependencyProvider[key.genericParameterKey()!!]) as T
+    return Suppliers.ofInstance(dependencyProvider[key.genericParameterKey()!!])
   }
 }

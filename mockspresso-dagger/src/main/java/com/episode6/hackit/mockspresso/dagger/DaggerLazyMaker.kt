@@ -12,10 +12,8 @@ import dagger.Lazy
  */
 internal class DaggerLazyMaker : SpecialObjectMaker {
   override fun canMakeObject(key: DependencyKey<*>): Boolean = key.isParameterizedGeneric(Lazy::class)
-
-  @Suppress("UNCHECKED_CAST")
-  override fun <T> makeObject(dependencyProvider: DependencyProvider, key: DependencyKey<T>): T? {
+  override fun makeObject(dependencyProvider: DependencyProvider, key: DependencyKey<*>): Any? {
     if (!canMakeObject(key)) return null
-    return Lazy { dependencyProvider[key.genericParameterKey()!!] } as T
+    return Lazy { dependencyProvider[key.genericParameterKey()!!] }
   }
 }

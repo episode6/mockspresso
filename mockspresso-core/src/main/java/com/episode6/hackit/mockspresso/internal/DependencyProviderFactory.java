@@ -5,7 +5,6 @@ import com.episode6.hackit.mockspresso.api.MockerConfig;
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -14,9 +13,9 @@ import org.jetbrains.annotations.Nullable;
  * of a non-static inner class. We do this so each instance of our {@link DependencyProvider}
  * can own their own {@link DependencyValidator}, but we can keep that object completely
  * shielded from the external api.
- *
+ * <p>
  * The acutal {@link DependencyProvider} checks our properties in the following order
- *
+ * <p>
  * 1) DependencyMap
  * 2) RealObjectMapping / RealObjectMaker
  * 3) SpecialObjectMaker
@@ -76,7 +75,8 @@ class DependencyProviderFactory {
         return obj;
       }
       if (mSpecialObjectMaker.canMakeObject(key)) {
-        return mSpecialObjectMaker.makeObject(childProvider, key);
+        @SuppressWarnings("unchecked") T specialObject = (T) mSpecialObjectMaker.makeObject(childProvider, key);
+        return specialObject;
       }
       return mMockMaker.makeMock(key.typeToken);
     }

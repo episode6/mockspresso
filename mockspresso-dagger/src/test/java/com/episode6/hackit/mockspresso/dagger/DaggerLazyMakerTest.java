@@ -16,7 +16,7 @@ import static org.mockito.Mockito.*;
 /**
  * Tests {@link DaggerLazyMaker}
  */
-public class DaggerLazyMakerTest {
+@SuppressWarnings("unchecked") public class DaggerLazyMakerTest {
   private static final DependencyKey<TestClass> testClassKey = DependencyKey.of(TestClass.class);
   private static final DependencyKey<Lazy<TestClass>> testClassProviderKey =
       DependencyKey.of(new TypeToken<Lazy<TestClass>>() {});
@@ -38,7 +38,7 @@ public class DaggerLazyMakerTest {
   @Test
   public void testCantCreateTestClass() {
     boolean canMake = mLazyMaker.canMakeObject(testClassKey);
-    TestClass objMade = mLazyMaker.makeObject(mDependencyProvider, testClassKey);
+    TestClass objMade = (TestClass) mLazyMaker.makeObject(mDependencyProvider, testClassKey);
 
     assertThat(canMake).isFalse();
     assertThat(objMade).isNull();
@@ -51,7 +51,7 @@ public class DaggerLazyMakerTest {
     when(mDependencyProvider.get(testClassKey)).thenReturn(expectedObj);
 
     boolean canMake = mLazyMaker.canMakeObject(testClassProviderKey);
-    Lazy<TestClass> objMade = mLazyMaker.makeObject(mDependencyProvider, testClassProviderKey);
+    Lazy<TestClass> objMade = (Lazy<TestClass>) mLazyMaker.makeObject(mDependencyProvider, testClassProviderKey);
 
     assertThat(canMake).isTrue();
     assertThat(objMade)
@@ -66,7 +66,7 @@ public class DaggerLazyMakerTest {
   @Test
   public void testCantCreateUnParameterizedProvider() {
     boolean canMake = mLazyMaker.canMakeObject(DependencyKey.of(Lazy.class));
-    Lazy lazy = mLazyMaker.makeObject(mDependencyProvider, DependencyKey.of(Lazy.class));
+    Lazy lazy = (Lazy) mLazyMaker.makeObject(mDependencyProvider, DependencyKey.of(Lazy.class));
 
     assertThat(canMake).isFalse();
     assertThat(lazy).isNull();

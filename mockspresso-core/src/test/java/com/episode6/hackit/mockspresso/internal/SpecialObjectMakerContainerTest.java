@@ -85,7 +85,7 @@ public class SpecialObjectMakerContainerTest {
     specialObjectMakerContainer.add(specialObjectMaker2);
     specialObjectMakerContainer.add(specialObjectMaker3);
 
-    String result = specialObjectMakerContainer.makeObject(dependencyProvider, dependencyKey);
+    String result = (String) specialObjectMakerContainer.makeObject(dependencyProvider, dependencyKey);
     InOrder inOrder = inOrder(specialObjectMaker1, specialObjectMaker2, specialObjectMaker3, parentMaker);
     inOrder.verify(specialObjectMaker1).canMakeObject(dependencyKey);
     inOrder.verify(specialObjectMaker2).canMakeObject(dependencyKey);
@@ -104,7 +104,7 @@ public class SpecialObjectMakerContainerTest {
     specialObjectMakerContainer.add(specialObjectMaker2);
     specialObjectMakerContainer.add(specialObjectMaker3);
 
-    String result = specialObjectMakerContainer.makeObject(dependencyProvider, dependencyKey);
+    String result = (String) specialObjectMakerContainer.makeObject(dependencyProvider, dependencyKey);
     InOrder inOrder = inOrder(specialObjectMaker1, specialObjectMaker2, specialObjectMaker3, parentMaker);
     inOrder.verify(specialObjectMaker1).canMakeObject(dependencyKey);
     inOrder.verify(specialObjectMaker2).canMakeObject(dependencyKey);

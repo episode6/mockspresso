@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 /**
  * Tests {@link ListenableFutureMaker}
  */
-public class ListenableFutureMakerTest {
+@SuppressWarnings("unchecked") public class ListenableFutureMakerTest {
 
   static final TypeToken<ListenableFuture<String>> typeToken = new TypeToken<ListenableFuture<String>>() {};
   static final DependencyKey<ListenableFuture<String>> key = DependencyKey.of(typeToken);
@@ -44,7 +44,7 @@ public class ListenableFutureMakerTest {
     when(mDependencyProvider.get(DependencyKey.of(String.class))).thenReturn("hi there");
 
     boolean canMake = mFutureMaker.canMakeObject(key);
-    ListenableFuture<String> future = mFutureMaker.makeObject(mDependencyProvider, key);
+    ListenableFuture<String> future = (ListenableFuture<String>) mFutureMaker.makeObject(mDependencyProvider, key);
 
     verify(mDependencyProvider).get(DependencyKey.of(String.class));
     assertThat(canMake).isTrue();
@@ -55,7 +55,7 @@ public class ListenableFutureMakerTest {
   @Test
   public void testCantCreateUnParameterizedFuture() {
     boolean canMake = mFutureMaker.canMakeObject(DependencyKey.of(ListenableFuture.class));
-    ListenableFuture future = mFutureMaker.makeObject(mDependencyProvider, DependencyKey.of(ListenableFuture.class));
+    ListenableFuture future = (ListenableFuture) mFutureMaker.makeObject(mDependencyProvider, DependencyKey.of(ListenableFuture.class));
 
     assertThat(canMake).isFalse();
     assertThat(future).isNull();
