@@ -12,10 +12,8 @@ import javax.inject.Provider
  */
 internal class ProviderMaker : SpecialObjectMaker {
   override fun canMakeObject(key: DependencyKey<*>): Boolean = key.isParameterizedGeneric(Provider::class)
-
-  @Suppress("UNCHECKED_CAST")
-  override fun <T> makeObject(dependencyProvider: DependencyProvider, key: DependencyKey<T>): T? {
+  override fun makeObject(dependencyProvider: DependencyProvider, key: DependencyKey<*>): Any? {
     if (!canMakeObject(key)) return null
-    return Provider { dependencyProvider[key.genericParameterKey()!!] } as T
+    return Provider { dependencyProvider[key.genericParameterKey()!!] }
   }
 }

@@ -35,7 +35,7 @@ internal class SpecialObjectMakerContainer : SpecialObjectMaker {
     else                      -> parent?.canMakeObject(key) ?: false
   }
 
-  override fun <T> makeObject(dependencyProvider: DependencyProvider, key: DependencyKey<T>): T? =
+  override fun makeObject(dependencyProvider: DependencyProvider, key: DependencyKey<*>): Any? =
       (findMakerFor(key) ?: parent)?.makeObject(dependencyProvider, key)
 
   private fun findMakerFor(key: DependencyKey<*>) = (makers.firstOrNull { it.canMakeObject(key) })

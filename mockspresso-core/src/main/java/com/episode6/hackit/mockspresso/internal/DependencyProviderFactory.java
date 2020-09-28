@@ -5,7 +5,6 @@ import com.episode6.hackit.mockspresso.api.MockerConfig;
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -76,7 +75,8 @@ class DependencyProviderFactory {
         return obj;
       }
       if (mSpecialObjectMaker.canMakeObject(key)) {
-        return mSpecialObjectMaker.makeObject(childProvider, key);
+        @SuppressWarnings("unchecked") T specialObject = (T) mSpecialObjectMaker.makeObject(childProvider, key);
+        return specialObject;
       }
       return mMockMaker.makeMock(key.typeToken);
     }

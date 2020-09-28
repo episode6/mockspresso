@@ -28,10 +28,9 @@ internal class MockitoAutoFactoryMaker(private val classes: List<Class<*>>) : Sp
 
   override fun canMakeObject(key: DependencyKey<*>): Boolean = classes.contains(key.typeToken.rawType)
 
-  @Suppress("UNCHECKED_CAST")
-  override fun <T> makeObject(dependencyProvider: DependencyProvider, key: DependencyKey<T>): T? {
+  override fun makeObject(dependencyProvider: DependencyProvider, key: DependencyKey<*>): Any? {
     if (!canMakeObject(key)) return null
-    return Mockito.mock(key.typeToken.rawType as Class<T>, FactoryAnswer(key, dependencyProvider))
+    return Mockito.mock(key.typeToken.rawType, FactoryAnswer(key, dependencyProvider))
   }
 }
 
