@@ -29,7 +29,7 @@ public class DependencyProviderFactoryTest {
 
   @Mock MockerConfig.MockMaker mMockMaker;
   @Mock DependencyMap mDependencyMap;
-  @Mock SpecialObjectMaker mSpecialObjectMaker;
+  @Mock SpecialObjectMakerContainer mSpecialObjectMaker;
   @Mock RealObjectMapping mRealObjectMapping;
   @Mock RealObjectMaker mRealObjectMaker;
 

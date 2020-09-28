@@ -40,7 +40,7 @@ class RealObjectMaker  {
   }
 
   private <T> T createObjectInternal(DependencyProvider dependencyProvider, TypeToken<T> typeToken) throws IllegalAccessException, InvocationTargetException, InstantiationException {
-    @SuppressWarnings("unchecked") Constructor<T> constructor = (Constructor<T>) mInjectionConfig.chooseConstructor(typeToken);
+    @SuppressWarnings("unchecked") Constructor<T> constructor = (Constructor<T>) mInjectionConfig.chooseConstructor(typeToken); // TODO throw custom exception
     if (constructor == null) {
       throw new NoValidConstructorException(typeToken);
     }

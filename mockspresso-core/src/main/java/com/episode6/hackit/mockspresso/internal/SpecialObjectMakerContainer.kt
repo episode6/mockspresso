@@ -9,8 +9,8 @@ import java.util.*
  * A container for special object makers. Includes a parent maker (usually
  * another instance of SpecialObjectMakerContainer) that is checked last.
  */
-internal class SpecialObjectMakerContainer : SpecialObjectMaker {
-  private var parent: SpecialObjectMaker? = null
+internal class SpecialObjectMakerContainer {
+  private var parent: SpecialObjectMakerContainer? = null
   private val makers: MutableList<SpecialObjectMaker> = LinkedList()
 
   fun deepCopy(): SpecialObjectMakerContainer = SpecialObjectMakerContainer().also {
@@ -18,7 +18,7 @@ internal class SpecialObjectMakerContainer : SpecialObjectMaker {
     it.addAll(makers)
   }
 
-  fun setParentMaker(parentMaker: SpecialObjectMaker?) {
+  fun setParentMaker(parentMaker: SpecialObjectMakerContainer?) {
     parent = parentMaker
   }
 
@@ -30,13 +30,16 @@ internal class SpecialObjectMakerContainer : SpecialObjectMaker {
     makers.addAll(specialObjectMakers)
   }
 
-  override fun canMakeObject(key: DependencyKey<*>): Boolean = when {
+  fun canMakeObject(key: DependencyKey<*>): Boolean = when {
     findMakerFor(key) != null -> true
     else                      -> parent?.canMakeObject(key) ?: false
   }
 
-  override fun makeObject(dependencyProvider: DependencyProvider, key: DependencyKey<*>): Any? =
-      (findMakerFor(key) ?: parent)?.makeObject(dependencyProvider, key)
+  @Suppress("UNCHECKED_CAST") // TODO throw custom exception
+  fun <T : Any> makeObject(dependencyProvider: DependencyProvider, key: DependencyKey<T>): T? = when (val maker = findMakerFor(key)) {
+    null -> parent?.makeObject(dependencyProvider, key)
+    else -> maker.makeObject(dependencyProvider, key) as T?
+  }
 
   private fun findMakerFor(key: DependencyKey<*>) = (makers.firstOrNull { it.canMakeObject(key) })
 }
