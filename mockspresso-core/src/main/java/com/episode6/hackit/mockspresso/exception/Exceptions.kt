@@ -8,7 +8,6 @@ import com.episode6.hackit.mockspresso.reflect.TypeToken
  */
 class CircularDependencyError(key: DependencyKey<*>) : VerifyError("Attempted to create circular dependency of @RealObjects failed on: $key")
 
-
 /**
  * Exception thrown when trying to create a real object that has no constructor.
  */
