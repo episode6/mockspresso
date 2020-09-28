@@ -2,7 +2,6 @@ package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.api.InjectionConfig;
 import com.episode6.hackit.mockspresso.api.MockerConfig;
-import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 
 /**
  * Class that holds the internal configuration of a mockspresso instance so that
@@ -13,7 +12,7 @@ class MockspressoConfigContainer {
   private final MockerConfig mMockerConfig;
   private final InjectionConfig mInjectionConfig;
   private final DependencyMap mDependencyMap;
-  private final SpecialObjectMaker mSpecialObjectMaker;
+  private final SpecialObjectMakerContainer mSpecialObjectMaker;
   private final RealObjectMapping mRealObjectMapping;
   private final ResourcesLifecycleManager mResourcesLifecycleManager;
 
@@ -21,7 +20,7 @@ class MockspressoConfigContainer {
       MockerConfig mockerConfig,
       InjectionConfig injectionConfig,
       DependencyMap dependencyMap,
-      SpecialObjectMaker specialObjectMaker,
+      SpecialObjectMakerContainer specialObjectMaker,
       RealObjectMapping realObjectMapping,
       ResourcesLifecycleManager resourcesLifecycleManager) {
     mMockerConfig = mockerConfig;
@@ -44,7 +43,7 @@ class MockspressoConfigContainer {
     return mDependencyMap;
   }
 
-  SpecialObjectMaker getSpecialObjectMaker() {
+  SpecialObjectMakerContainer getSpecialObjectMaker() {
     return mSpecialObjectMaker;
   }
 

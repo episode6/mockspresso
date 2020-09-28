@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 @RunWith(DefaultTestRunner.class)
 public class SpecialObjectMakerContainerTest {
 
-  @Mock SpecialObjectMaker parentMaker;
+  @Mock SpecialObjectMakerContainer parentMaker;
 
   @Mock SpecialObjectMaker specialObjectMaker1;
   @Mock SpecialObjectMaker specialObjectMaker2;

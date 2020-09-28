@@ -2,7 +2,6 @@ package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.api.DependencyProvider;
 import com.episode6.hackit.mockspresso.api.MockerConfig;
-import com.episode6.hackit.mockspresso.api.SpecialObjectMaker;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.TypeToken;
 import org.jetbrains.annotations.NotNull;
@@ -25,14 +24,14 @@ class DependencyProviderFactory {
 
   private final MockerConfig.MockMaker mMockMaker;
   private final DependencyMap mDependencyMap;
-  private final SpecialObjectMaker mSpecialObjectMaker;
+  private final SpecialObjectMakerContainer mSpecialObjectMaker;
   private final RealObjectMapping mRealObjectMapping;
   private final RealObjectMaker mRealObjectMaker;
 
   DependencyProviderFactory(
       MockerConfig.MockMaker mockMaker,
       DependencyMap dependencyMap,
-      SpecialObjectMaker specialObjectMaker,
+      SpecialObjectMakerContainer specialObjectMaker,
       RealObjectMapping realObjectMapping,
       RealObjectMaker realObjectMaker) {
     mMockMaker = mockMaker;
@@ -75,8 +74,7 @@ class DependencyProviderFactory {
         return obj;
       }
       if (mSpecialObjectMaker.canMakeObject(key)) {
-        @SuppressWarnings("unchecked") T specialObject = (T) mSpecialObjectMaker.makeObject(childProvider, key);
-        return specialObject;
+        return mSpecialObjectMaker.makeObject(childProvider, key);
       }
       return mMockMaker.makeMock(key.typeToken);
     }
