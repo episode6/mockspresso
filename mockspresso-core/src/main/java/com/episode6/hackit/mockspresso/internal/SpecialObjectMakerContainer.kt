@@ -2,6 +2,7 @@ package com.episode6.hackit.mockspresso.internal
 
 import com.episode6.hackit.mockspresso.api.DependencyProvider
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker
+import com.episode6.hackit.mockspresso.exception.BrokenSpecialObjectMakerException
 import com.episode6.hackit.mockspresso.reflect.DependencyKey
 import java.util.*
 
@@ -35,11 +36,19 @@ internal class SpecialObjectMakerContainer {
     else                      -> parent?.canMakeObject(key) ?: false
   }
 
-  @Suppress("UNCHECKED_CAST") // TODO throw custom exception
   fun <T : Any> makeObject(dependencyProvider: DependencyProvider, key: DependencyKey<T>): T? = when (val maker = findMakerFor(key)) {
     null -> parent?.makeObject(dependencyProvider, key)
-    else -> maker.makeObject(dependencyProvider, key) as T?
+    else -> maker.makeOrThrow(dependencyProvider, key)
   }
 
   private fun findMakerFor(key: DependencyKey<*>) = (makers.firstOrNull { it.canMakeObject(key) })
+
+  @Suppress("UNCHECKED_CAST")
+  private fun <T : Any> SpecialObjectMaker.makeOrThrow(dependencyProvider: DependencyProvider, key: DependencyKey<T>): T? {
+    val value: Any? = makeObject(dependencyProvider, key)
+    if (value != null && !key.typeToken.rawType.isAssignableFrom(value.javaClass)) {
+      throw BrokenSpecialObjectMakerException(this, key, value)
+    }
+    return value as T?
+  }
 }
