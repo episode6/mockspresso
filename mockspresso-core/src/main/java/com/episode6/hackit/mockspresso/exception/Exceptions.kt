@@ -21,7 +21,7 @@ class NoValidConstructorException(typeToken: TypeToken<*>) : VerifyError("No val
 class RepeatedDependencyDefinedException(key: DependencyKey<*>) : VerifyError("Dependency defined multiple times in same Mockspresso instance, consider annotating with @Unmapped. DependencyKey: $key")
 
 /**
- * Thrown when a special object maker returns an object that cannot be cast to the type represented by [key]
+ * Thrown when a special object maker returns an object that cannot be cast to the type represented by the provided key
  */
 class BrokenSpecialObjectMakerException(maker: SpecialObjectMaker, key: DependencyKey<*>, value: Any?) : IllegalArgumentException(
     "Special object maker returned an invalid object. SpecialObjectMaker: ${maker.javaClass.name}, expected: $key, but object returned type: ${value?.javaClass?.name}, value: $value")
