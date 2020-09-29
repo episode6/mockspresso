@@ -1,5 +1,6 @@
 package com.episode6.hackit.mockspresso.exception
 
+import com.episode6.hackit.mockspresso.api.InjectionConfig
 import com.episode6.hackit.mockspresso.api.SpecialObjectMaker
 import com.episode6.hackit.mockspresso.reflect.DependencyKey
 import com.episode6.hackit.mockspresso.reflect.TypeToken
@@ -24,3 +25,6 @@ class RepeatedDependencyDefinedException(key: DependencyKey<*>) : VerifyError("D
  */
 class BrokenSpecialObjectMakerException(maker: SpecialObjectMaker, key: DependencyKey<*>, value: Any?) : IllegalArgumentException(
     "Special object maker returned an invalid object. SpecialObjectMaker: ${maker.javaClass.name}, expected: $key, but object returned type: ${value?.javaClass?.name}, value: $value")
+
+class BrokenInjectionConfigException(config: InjectionConfig, token: TypeToken<*>, value: Any?) : IllegalArgumentException(
+    "InjectionConfig returned an invalid constructor. InjectionConfig: ${config.javaClass.name}, expected: $token, but constructor resulted in object of type: ${value?.javaClass?.name}, value: $value")

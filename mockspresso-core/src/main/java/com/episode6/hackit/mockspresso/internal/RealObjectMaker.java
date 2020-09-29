@@ -2,6 +2,7 @@ package com.episode6.hackit.mockspresso.internal;
 
 import com.episode6.hackit.mockspresso.api.DependencyProvider;
 import com.episode6.hackit.mockspresso.api.InjectionConfig;
+import com.episode6.hackit.mockspresso.exception.BrokenInjectionConfigException;
 import com.episode6.hackit.mockspresso.exception.NoValidConstructorException;
 import com.episode6.hackit.mockspresso.reflect.DependencyKey;
 import com.episode6.hackit.mockspresso.reflect.ReflectUtil;
@@ -64,6 +65,9 @@ class RealObjectMaker  {
     }
 
     T instance = constructor.newInstance(paramValues);
+    if (!typeToken.getRawType().isAssignableFrom(instance.getClass())) {
+      throw new BrokenInjectionConfigException(mInjectionConfig, typeToken, instance);
+    }
     injectObject(dependencyProvider, instance, typeToken);
     return instance;
   }
