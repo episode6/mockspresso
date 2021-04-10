@@ -3,7 +3,7 @@
 buildscript { repositories { jcenter() } }
 
 wrapper {
-  gradleVersion = "5.3"
+  gradleVersion = "7.0"
   distributionType = "all"
 }
 
