@@ -5,15 +5,15 @@ dependencies {
 
   implementation project(':mockspresso-basic-plugins')
 
-  mavenOptional 'com.google.dagger:dagger'
+  mavenOptional libs.dagger.core
 
   testImplementation project(':mockspresso-core')
   testImplementation project(':mockspresso-testing-shared')
 
-  testImplementation 'org.mockito:mockito-core'
-  testImplementation 'com.google.dagger:dagger'
-  testImplementation 'junit:junit'
-  testImplementation 'org.easytesting:fest-assert-core'
-  testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin'
+  testImplementation libs.mockito.core
+  testImplementation libs.mockito.kotlin
+  testImplementation libs.dagger.core
+  testImplementation libs.junit
+  testImplementation libs.fest.core
 }
 
