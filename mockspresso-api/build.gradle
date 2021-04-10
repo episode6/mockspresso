@@ -2,7 +2,7 @@ apply plugin: DeployableJavaProject
 
 dependencies {
   api project(":mockspresso-reflect")
-  mavenProvided 'junit:junit'
+  mavenProvided libs.junit
 }
 
 // we mention javax.inject in our docs even though we don't have a dependency on it here.

@@ -1,6 +1,15 @@
 [versions]
 kotlin = "1.4.0"
+dokka = "0.9.18"
+mockito = "3.4.4"
 
 [libraries]
+deployable = { module = "com.episode6.hackit.deployable:deployable", version = "0.2.4" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+dokka-gradle-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
+junit = { module = "junit:junit", version = "4.13" }
+javax-inject = { module = "javax.inject:javax.inject", version = "1" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito"}
+mockito-kotlin = { module = "com.nhaarman.mockitokotlin2:mockito-kotlin", version = "2.1.0" }
+fest-core = { module = "org.easytesting:fest-assert-core", version = "2.0M10"}

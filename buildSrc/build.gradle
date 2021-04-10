@@ -16,7 +16,7 @@ apply plugin: 'com.episode6.hackit.gdmc'
 
 dependencies {
   runtimeClasspath 'com.episode6.hackit.gdmc:gdmc'
-  runtimeClasspath 'com.episode6.hackit.deployable:deployable'
+  runtimeClasspath libs.deployable
   runtimeClasspath libs.kotlin.gradle.plugin
-  runtimeClasspath 'org.jetbrains.dokka:dokka-gradle-plugin'
+  runtimeClasspath libs.dokka.gradle.plugin
 }
