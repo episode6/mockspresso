@@ -3,21 +3,21 @@ apply plugin: DeployableJavaProject
 dependencies {
   api project(':mockspresso-api')
 
-  mavenOptional 'org.easymock:easymock'
-  mavenOptional 'org.powermock:powermock-module-junit4'
-  mavenOptional 'org.powermock:powermock-api-easymock'
-  mavenOptional 'org.powermock:powermock-module-junit4-rule'
-  mavenOptional 'org.powermock:powermock-classloading-xstream'
+  mavenOptional libs.easymock
+  mavenOptional libs.powermock.module.junit4.core
+  mavenOptional libs.powermock.api.easymock
+  mavenOptional libs.powermock.module.junit4.rule
+  mavenOptional libs.powermock.classloading.xstream
 
-  testImplementation 'org.easymock:easymock'
-  testImplementation 'org.powermock:powermock-module-junit4'
-  testImplementation 'org.powermock:powermock-api-easymock'
-  testImplementation 'org.powermock:powermock-module-junit4-rule'
-  testImplementation 'org.powermock:powermock-classloading-xstream'
+  testImplementation libs.easymock
+  testImplementation libs.powermock.module.junit4.core
+  testImplementation libs.powermock.api.easymock
+  testImplementation libs.powermock.module.junit4.rule
+  testImplementation libs.powermock.classloading.xstream
   testImplementation project(':mockspresso-core')
   testImplementation project(':mockspresso-testing-shared')
-  testImplementation 'junit:junit'
-  testImplementation 'org.easytesting:fest-assert-core'
+  testImplementation libs.junit
+  testImplementation libs.fest.core
 }
 
 test {
