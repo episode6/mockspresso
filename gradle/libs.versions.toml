@@ -14,3 +14,4 @@ mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito"}
 mockito-kotlin = { module = "com.nhaarman.mockitokotlin2:mockito-kotlin", version = "2.1.0" }
 fest-core = { module = "org.easytesting:fest-assert-core", version = "2.0M10"}
 dagger-core = { module = "com.google.dagger:dagger", version.ref = "dagger"}
+easymock = { module = "org.easymock:easymock", version = "4.2" }
