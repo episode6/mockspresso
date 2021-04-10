@@ -1,3 +1,5 @@
+enableFeaturePreview("VERSION_CATALOGS")
+
 include ':mockspresso-api',
     ':mockspresso-reflect',
     ':mockspresso-core',

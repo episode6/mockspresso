@@ -19,7 +19,7 @@ class JavaProject implements Plugin<Project> {
       targetCompatibility = 1.8
 
       dependencies {
-        implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+        implementation libs.kotlin.stdlib
       }
     }
   }
