@@ -26,5 +26,12 @@ powermock-module-junit4-rule = { module = "org.powermock:powermock-module-junit4
 [bundles]
 test-common = [
   "junit",
-  "fest-core"
+  "fest-core",
+]
+powermock-easymock-all = [
+  "easymock",
+  "powermock-api-easymock",
+  "powermock-module-junit4-core",
+  "powermock-module-junit4-rule",
+  "powermock-classloading-xstream",
 ]
