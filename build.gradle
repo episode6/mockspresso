@@ -1,4 +1,4 @@
-
+apply plugin: 'org.jetbrains.dokka'
 
 wrapper {
   gradleVersion = "7.0"
@@ -14,15 +14,6 @@ allprojects {
   version = "0.2.0-SNAPSHOT"
 }
 
-tasks.create(Tasks.SYNC_DOCS) {
-  doLast {
-    String lines = subprojects.findAll { it.tasks.findByName(Tasks.SYNC_DOCS) != null }
-        .collect { it.name }
-        .collect { " - [$it]($it/$it/index.html)" }
-        .join("\n")
-    file("$rootDir/docs/javadocs/README.md").with {
-      parentFile.mkdirs()
-      text = "# JavaDocs\n$lines\n"
-    }
-  }
+tasks.dokkaHtmlMultiModule.configure {
+  outputDirectory.set(file("$rootDir/docs/javadocs"))
 }

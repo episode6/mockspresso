@@ -1,6 +1,6 @@
 [versions]
-kotlin = "1.4.0"
-dokka = "0.9.18"
+kotlin = "1.4.32"
+dokka = "1.4.30"
 mockito = "3.4.4"
 dagger = "2.28.3"
 powermock = "2.0.7"
