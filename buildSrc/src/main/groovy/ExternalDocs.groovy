@@ -6,7 +6,7 @@ import javax.annotation.Nullable
  * Urls for external documentation
  */
 class ExternalDocs {
-  
+
   static String JAVAX_INJECT_DOCS_URL = "https://docs.oracle.com/javaee/7/api/"
 
   static @Nullable String getUrlStringFor(ExternalDependency dependency) {

@@ -8,8 +8,11 @@ class DeployableJavaProject extends JavaProject {
 
   @Override
   protected void applyDeployablePlugin(PluginContainer plugins) {
-    plugins.apply 'org.jetbrains.dokka'
-
+    plugins.with {
+      apply 'org.jetbrains.dokka'
+      apply 'maven-publish'
+      apply 'signing'
+    }
   }
 
   @Override
@@ -34,6 +37,16 @@ class DeployableJavaProject extends JavaProject {
       task("sourcesJar", type: Jar) {
         from sourceSets.main.allSource
         archiveClassifier.set('sources')
+      }
+
+      task("deploy", dependsOn: tasks.publish) {
+        description = "A simple alias for publish, because it's more fun to say."
+        group = "publishing"
+      }
+
+      task('install', dependsOn: tasks.publishToMavenLocal) {
+        description = 'A simple alias for publishToMavenLocal to maintain compatibility with old versions of deployable.'
+        group = 'publishing'
       }
 
       // dokkaHtml is used to generate javadoc jars for maven uploads
