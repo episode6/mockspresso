@@ -3,15 +3,14 @@ apply plugin: DeployableJavaProject
 dependencies {
   api project(':mockspresso-api')
 
-  mavenOptional 'com.google.guava:guava'
+  mavenOptional libs.guava
 
-  testImplementation 'com.google.guava:guava'
+  testImplementation libs.guava
   testImplementation project(':mockspresso-core')
   testImplementation project(':mockspresso-testing-shared')
 
-  testImplementation 'org.mockito:mockito-core'
-  testImplementation 'junit:junit'
-  testImplementation 'org.easytesting:fest-assert-core'
-  testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin'
+  testImplementation libs.mockito.core
+  testImplementation libs.mockito.kotlin
+  testImplementation libs.bundles.test.common
 }
 
