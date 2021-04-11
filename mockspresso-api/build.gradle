@@ -9,7 +9,7 @@ dependencies {
 tasks.dokkaHtmlPartial {
   dokkaSourceSets {
     configureEach {
-      externalDocumentationLink { url.set(new URL("https://docs.oracle.com/javaee/7/api/")) }
+      externalDocumentationLink { url.set(new URL(ExternalDocs.JAVAX_INJECT_DOCS_URL)) }
     }
   }
 }

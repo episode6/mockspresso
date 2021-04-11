@@ -6,6 +6,9 @@ import javax.annotation.Nullable
  * Urls for external documentation
  */
 class ExternalDocs {
+  
+  static String JAVAX_INJECT_DOCS_URL = "https://docs.oracle.com/javaee/7/api/"
+
   static @Nullable String getUrlStringFor(ExternalDependency dependency) {
     String key = "${dependency.group}:${dependency.name}"
     String version = dependency.getVersion()
@@ -13,7 +16,7 @@ class ExternalDocs {
       case 'junit:junit':
         return "https://junit.org/junit4/javadoc/$version/"
       case 'javax.inject:javax.inject':
-        return "https://docs.oracle.com/javaee/7/api/"
+        return JAVAX_INJECT_DOCS_URL
       case 'org.easymock:easymock':
         return "http://easymock.org/api/"
       case 'com.google.guava:guava':
