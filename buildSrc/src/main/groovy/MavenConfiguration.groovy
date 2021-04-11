@@ -25,29 +25,27 @@ class MavenConfiguration {
 
           pom {
             name = project.name
-            description = project.findProperty("deployable.pom.description")
-            url = project.findProperty("deployable.pom.url")
+            description = "An extensible auto-mocker for java, designed to simplify your unit tests."
+            url = "https://github.com/episode6/mockspresso"
             packaging "jar"
+
             licenses {
               license {
-                name = project.findProperty("deployable.pom.license.name")
-                url = project.findProperty("deployable.pom.license.url")
-                distribution = project.findProperty("deployable.pom.license.distribution")
+                name = "The MIT License (MIT)"
+                url = "https://github.com/episode6/mockspresso/blob/master/LICENSE"
+                distribution = "repo"
               }
             }
             developers {
               developer {
-                id = project.findProperty("deployable.pom.developer.id")
-                name = project.findProperty("deployable.pom.developer.name")
-                if (project.findProperty("deployable.pom.developer.email") != null) {
-                  email = project.findProperty("deployable.pom.developer.email")
-                }
+                id = "episode6"
+                name = "episode6, Inc."
               }
             }
             scm {
-              url = project.findProperty("deployable.pom.scm.url")
-              connection = project.findProperty("deployable.pom.scm.connection")
-              developerConnection = project.findProperty("deployable.pom.scm.developerConnection")
+              url = "extensible"
+              connection = "scm:https://github.com/episode6/mockspresso.git"
+              developerConnection = "scm:https://github.com/episode6/mockspresso.git"
             }
           }
 
