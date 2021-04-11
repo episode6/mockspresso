@@ -1,5 +1,6 @@
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
+import org.gradle.api.artifacts.ExternalDependency
 import org.gradle.api.plugins.PluginContainer
 import org.gradle.api.tasks.bundling.Jar
 
@@ -21,9 +22,7 @@ class DeployableJavaProject extends JavaProject {
         mavenProvided
 
         compileOnly {
-          extendsFrom(
-              mavenOptional,
-              mavenProvided)
+          extendsFrom(mavenOptional, mavenProvided)
         }
       }
 
@@ -49,17 +48,19 @@ class DeployableJavaProject extends JavaProject {
       }
 
       configurations.all { Configuration config ->
-        //noinspection UnstableApiUsage
         config.withDependencies { dependencies ->
-
-//          // Include links to javadocs of external dependencies when possible
-//          dependencies.findAll { it instanceof ExternalDependency }
-//              .collect { (ExternalDependency) it }
-//              .collect { ExternalDocs.getUrlFor(project, it) }
-//              .findAll { it != null }
-//              .forEach { extUrl ->
-//                tasks.dokka { externalDocumentationLink { url = extUrl } }
-//              }
+          // Include links to javadocs of external dependencies when possible
+          dependencies.findAll { it instanceof ExternalDependency }
+              .collect { (ExternalDependency) it }
+              .collect { ExternalDocs.getUrlFor(it) }
+              .findAll { it != null }
+              .forEach { extUrl ->
+                tasks.dokkaHtml {
+                  dokkaSourceSets {
+                    configureEach { externalDocumentationLink { url.set(extUrl) } }
+                  }
+                }
+              }
         }
       }
     }
