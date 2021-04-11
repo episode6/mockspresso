@@ -19,7 +19,7 @@ dagger-core = { module = "com.google.dagger:dagger", version.ref = "dagger"}
 easymock = { module = "org.easymock:easymock", version = "4.2" }
 powermock-core = { module = "org.powermock:powermock-core", version.ref = "powermock" }
 powermock-api-easymock = { module = "org.powermock:powermock-api-easymock", version.ref = "powermock" }
-powermock-api-mockito2 = { module = "org.powermock:powermock-api-mockito2", version.ref = "powermock" }
+powermock-api-mockito = { module = "org.powermock:powermock-api-mockito2", version.ref = "powermock" }
 powermock-classloading-xstream = { module = "org.powermock:powermock-classloading-xstream", version.ref = "powermock" }
 powermock-module-junit4-core = { module = "org.powermock:powermock-module-junit4", version.ref = "powermock" }
 powermock-module-junit4-rule = { module = "org.powermock:powermock-module-junit4-rule", version.ref = "powermock" }
@@ -34,6 +34,13 @@ test-common = [
 powermock-easymock-all = [
   "easymock",
   "powermock-api-easymock",
+  "powermock-module-junit4-core",
+  "powermock-module-junit4-rule",
+  "powermock-classloading-xstream",
+]
+powermock-mockito-all = [
+  "mockito-core",
+  "powermock-api-mockito",
   "powermock-module-junit4-core",
   "powermock-module-junit4-rule",
   "powermock-classloading-xstream",
