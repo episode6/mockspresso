@@ -6,10 +6,4 @@ dependencies {
 }
 
 // we mention javax.inject in our docs even though we don't have a dependency on it here.
-tasks.dokkaHtmlPartial {
-  dokkaSourceSets {
-    configureEach {
-      externalDocumentationLink { url.set(new URL(ExternalDocs.JAVAX_INJECT_DOCS_URL)) }
-    }
-  }
-}
+ExternalDocs.addLink(project, ExternalDocs.JAVAX_INJECT_DOCS_URL)

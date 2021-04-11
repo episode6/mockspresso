@@ -1,15 +1,17 @@
+import org.gradle.api.Project
+import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.ExternalDependency
 
 import javax.annotation.Nullable
 
 /**
- * Urls for external documentation
+ * Configurations/urls for external documentation
  */
 class ExternalDocs {
 
   static String JAVAX_INJECT_DOCS_URL = "https://docs.oracle.com/javaee/7/api/"
 
-  static @Nullable String getUrlStringFor(ExternalDependency dependency) {
+  static @Nullable String getUrlFor(ExternalDependency dependency) {
     String key = "${dependency.group}:${dependency.name}"
     String version = dependency.getVersion()
     switch (key) {
@@ -37,11 +39,20 @@ class ExternalDocs {
     return null;
   }
 
-  static @Nullable URL getUrlFor(ExternalDependency dependency) {
-    @Nullable String url = getUrlStringFor(dependency)
-    if (url != null) {
-      return new URL(url)
+  static void addLink(Project project, String externalUrl) {
+    project.tasks.dokkaHtmlPartial {
+      dokkaSourceSets { configureEach { externalDocumentationLink { url.set(new URL(externalUrl)) } } }
     }
-    return null
+  }
+
+  static void configureSourcesFor(Project project) {
+    project.configurations.all { Configuration config ->
+      config.withDependencies { dependencies ->
+        dependencies.withType(ExternalDependency)
+            .collect { getUrlFor(it) }
+            .findAll { it != null }
+            .forEach { extUrl -> addLink(project, extUrl) }
+      }
+    }
   }
 }
