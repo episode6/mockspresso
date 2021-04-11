@@ -25,3 +25,7 @@ tasks.dokkaHtmlMultiModule.configure {
   dependsOn clearDocsDir
   outputDirectory.set(file("$rootDir/docs/javadocs"))
 }
+
+task syncDocs {
+  dependsOn dokkaHtmlMultiModule
+}

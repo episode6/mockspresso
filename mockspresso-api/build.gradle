@@ -6,7 +6,7 @@ dependencies {
 }
 
 // we mention javax.inject in our docs even though we don't have a dependency on it here.
-tasks.dokkaHtml {
+tasks.dokkaHtmlPartial {
   dokkaSourceSets {
     configureEach {
       externalDocumentationLink { url.set(new URL("https://docs.oracle.com/javaee/7/api/")) }

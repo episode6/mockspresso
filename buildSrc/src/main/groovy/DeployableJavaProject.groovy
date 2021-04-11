@@ -36,7 +36,20 @@ class DeployableJavaProject extends JavaProject {
         archiveClassifier.set('sources')
       }
 
+      // dokkaHtml is used to generate javadoc jars for maven uploads
       tasks.dokkaHtml {
+        dokkaSourceSets {
+          configureEach {
+            jdkVersion.set(8)
+            reportUndocumented.set(false)
+            noStdlibLink.set(true)
+            noJdkLink.set(true)
+          }
+        }
+      }
+
+      // dokkaHtmlPartial is used to generate a complete set of docs for the web
+      tasks.dokkaHtmlPartial {
         dokkaSourceSets {
           configureEach {
             jdkVersion.set(8)
@@ -55,7 +68,7 @@ class DeployableJavaProject extends JavaProject {
               .collect { ExternalDocs.getUrlFor(it) }
               .findAll { it != null }
               .forEach { extUrl ->
-                tasks.dokkaHtml {
+                tasks.dokkaHtmlPartial {
                   dokkaSourceSets {
                     configureEach { externalDocumentationLink { url.set(extUrl) } }
                   }
