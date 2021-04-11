@@ -22,9 +22,7 @@ class DeployableJavaProject extends JavaProject {
         mavenOptional
         mavenProvided
 
-        compileOnly {
-          extendsFrom(mavenOptional, mavenProvided)
-        }
+        compileOnly { extendsFrom(mavenOptional, mavenProvided) }
       }
 
       task("javadocJar", type: Jar, dependsOn: tasks.dokkaHtml) {
@@ -73,5 +71,6 @@ class DeployableJavaProject extends JavaProject {
     }
 
     ExternalDocs.configureSourcesFor(project)
+    MavenConfiguration.setup(project)
   }
 }
