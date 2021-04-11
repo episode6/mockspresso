@@ -8,12 +8,10 @@ class DeployableJavaProject extends JavaProject {
     project.configurations {
       mavenOptional
       mavenProvided
-      mavenProvidedOptional
       compileOnly {
         extendsFrom(
             mavenOptional,
-            mavenProvided,
-            mavenProvidedOptional)
+            mavenProvided)
       }
     }
   }
