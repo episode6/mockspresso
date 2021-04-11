@@ -24,6 +24,7 @@ powermock-classloading-xstream = { module = "org.powermock:powermock-classloadin
 powermock-module-junit4-core = { module = "org.powermock:powermock-module-junit4", version.ref = "powermock" }
 powermock-module-junit4-rule = { module = "org.powermock:powermock-module-junit4-rule", version.ref = "powermock" }
 guava = { module = "com.google.guava:guava", version = "20.0" }
+mockspresso-reflect-guava = { module = "com.episode6.hackit.mockspresso:mockspresso-reflect-guava", version = "27.1-android" }
 
 [bundles]
 test-common = [
