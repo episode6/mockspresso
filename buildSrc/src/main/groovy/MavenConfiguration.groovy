@@ -7,10 +7,8 @@ class MavenConfiguration {
   static void setup(Project project) {
     configureTasks(project)
     configurePublications(project)
-  }
-
-  private static boolean isReleaseBuild(Project project) {
-    return project.version.contains("SNAPSHOT") == false
+    configureRepo(project)
+    configureSigning(project)
   }
 
   private static void configurePublications(Project project) {
@@ -80,5 +78,38 @@ class MavenConfiguration {
     }
   }
 
+  private static boolean isReleaseBuild(Project project) {
+    return project.version.contains("SNAPSHOT") == false
+  }
+
+  private static String getRepoUrl(Project project) {
+    if (isReleaseBuild(project)) {
+      return "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+    } else {
+      return "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
+  }
+
+  private static void configureRepo(Project project) {
+    project.publishing {
+      repositories {
+        maven {
+          url getRepoUrl(project)
+          credentials {
+            username project.findProperty("deployable.nexus.username")
+            password project.findProperty("deployable.nexus.password")
+          }
+        }
+      }
+    }
+  }
+
+  private static void configureSigning(Project project) {
+    if (isReleaseBuild(project)) {
+      project.signing {
+        sign project.publishing.publications.mavenJava
+      }
+    }
+  }
 }
 
