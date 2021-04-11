@@ -5,8 +5,7 @@ dependencies {
   api libs.javax.inject
 
   testImplementation project(':mockspresso-testing-shared')
-  testImplementation libs.junit
-  testImplementation libs.fest.core
+  testImplementation libs.bundles.test.common
   testImplementation libs.mockito.core
   testImplementation libs.mockito.kotlin
 }

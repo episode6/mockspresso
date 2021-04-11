@@ -22,3 +22,9 @@ powermock-api-mockito2 = { module = "org.powermock:powermock-api-mockito2", vers
 powermock-classloading-xstream = { module = "org.powermock:powermock-classloading-xstream", version.ref = "powermock" }
 powermock-module-junit4-core = { module = "org.powermock:powermock-module-junit4", version.ref = "powermock" }
 powermock-module-junit4-rule = { module = "org.powermock:powermock-module-junit4-rule", version.ref = "powermock" }
+
+[bundles]
+test-common = [
+  "junit",
+  "fest-core"
+]

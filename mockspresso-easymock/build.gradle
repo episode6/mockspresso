@@ -7,8 +7,7 @@ dependencies {
 
   testImplementation project(':mockspresso-core')
   testImplementation project(':mockspresso-testing-shared')
-  testImplementation libs.junit
-  testImplementation libs.fest.core
+  testImplementation libs.bundles.test.common
   testImplementation libs.easymock
 }
 
