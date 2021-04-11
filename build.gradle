@@ -8,6 +8,8 @@ wrapper {
 allprojects {
   repositories {
     mavenCentral()
+    maven { url "https://kotlin.bintray.com/dokka" }
+    maven { url "https://kotlin.bintray.com/kotlinx" }
   }
 
   group = "com.episode6.hackit.mockspresso"
