@@ -3,15 +3,14 @@ apply plugin: DeployableJavaProject
 dependencies {
   api project(':mockspresso-api')
 
-  mavenOptional 'org.mockito:mockito-core'
+  mavenOptional libs.mockito.core
 
-  testImplementation 'org.mockito:mockito-core'
   testImplementation project(':mockspresso-core')
   testImplementation project(':mockspresso-testing-shared')
 
-  testImplementation 'junit:junit'
-  testImplementation 'org.easytesting:fest-assert-core'
-  testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin'
+  testImplementation libs.bundles.test.common
+  testImplementation libs.mockito.core
+  testImplementation libs.mockito.kotlin
 }
 
 test {
