@@ -3,8 +3,7 @@ apply plugin: DeployableJavaProject
 dependencies {
   api project(':mockspresso-api')
   api project(':mockspresso-reflect')
-
-  mavenProvided libs.junit
+  compileOnly libs.junit
 
   testImplementation libs.bundles.test.common
   testImplementation libs.mockito.core

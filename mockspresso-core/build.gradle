@@ -1,8 +1,8 @@
 apply plugin: DeployableJavaProject
 
 dependencies {
-  mavenProvided libs.junit
   api libs.javax.inject
+  compileOnly libs.junit
 
   // base deps
   api project(':mockspresso-api')

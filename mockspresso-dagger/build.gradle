@@ -2,14 +2,11 @@ apply plugin: DeployableJavaProject
 
 dependencies {
   api project(':mockspresso-api')
-
   implementation project(':mockspresso-basic-plugins')
-
-  mavenOptional libs.dagger.core
+  compileOnly libs.dagger.core
 
   testImplementation project(':mockspresso-core')
   testImplementation project(':mockspresso-testing-shared')
-
   testImplementation libs.mockito.core
   testImplementation libs.mockito.kotlin
   testImplementation libs.dagger.core

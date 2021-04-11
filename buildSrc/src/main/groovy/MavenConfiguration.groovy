@@ -5,7 +5,11 @@ class MavenConfiguration {
 
   static void setup(Project project) {
     MavenConfiguration config = new MavenConfiguration(project)
-    config.setupDescriptions()
+    config.configureArtifacts()
+  }
+
+  private boolean isReleaseBuild() {
+    return project.version.contains("SNAPSHOT") == false
   }
 
   final Project project
@@ -14,10 +18,12 @@ class MavenConfiguration {
     project = project1
   }
 
-  private void setupDescriptions() {
+  private void configureArtifacts() {
     project.publishing {
       publications {
-        mavenArtifacts(MavenPublication) {
+        mavenJava(MavenPublication) {
+          from project.components.java
+
           groupId project.group
           artifactId project.name
           version project.version
@@ -49,8 +55,13 @@ class MavenConfiguration {
               developerConnection = project.findProperty("deployable.pom.scm.developerConnection")
             }
           }
+
+          artifact project.sourcesJar
+          artifact project.javadocJar
         }
       }
     }
   }
+
 }
+

@@ -2,8 +2,7 @@ apply plugin: DeployableJavaProject
 
 dependencies {
   api project(':mockspresso-api')
-
-  mavenOptional libs.easymock
+  compileOnly libs.easymock
 
   testImplementation project(':mockspresso-core')
   testImplementation project(':mockspresso-testing-shared')

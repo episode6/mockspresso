@@ -2,8 +2,7 @@ apply plugin: DeployableJavaProject
 
 dependencies {
   api project(':mockspresso-api')
-
-  mavenOptional libs.mockito.core
+  compileOnly libs.mockito.core
 
   testImplementation project(':mockspresso-core')
   testImplementation project(':mockspresso-testing-shared')

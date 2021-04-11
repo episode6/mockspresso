@@ -18,13 +18,6 @@ class DeployableJavaProject extends JavaProject {
     super.apply(project)
 
     project.with {
-      configurations {
-        mavenOptional
-        mavenProvided
-
-        compileOnly { extendsFrom(mavenOptional, mavenProvided) }
-      }
-
       task("javadocJar", type: Jar, dependsOn: tasks.dokkaHtml) {
         archiveClassifier.set('javadoc')
         from tasks.dokkaHtml

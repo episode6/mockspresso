@@ -2,8 +2,7 @@ apply plugin: DeployableJavaProject
 
 dependencies {
   api project(':mockspresso-api')
-
-  mavenOptional libs.guava
+  compileOnly libs.guava
 
   testImplementation libs.guava
   testImplementation project(':mockspresso-core')

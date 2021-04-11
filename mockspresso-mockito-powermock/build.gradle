@@ -2,13 +2,11 @@ apply plugin: DeployableJavaProject
 
 dependencies {
   api project(':mockspresso-api')
-
-  mavenOptional libs.bundles.powermock.mockito.all
+  compileOnly libs.bundles.powermock.mockito.all
 
   testImplementation libs.bundles.powermock.mockito.all
   testImplementation project(':mockspresso-core')
   testImplementation project(':mockspresso-testing-shared')
-
   testImplementation libs.bundles.test.common
   testImplementation libs.mockito.kotlin
 }
