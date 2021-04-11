@@ -14,6 +14,7 @@
  - Dependency versions are now all defined in gradle's standardized `.gradle/libs.versions.toml` file and are easier to grok.
  - Dependencies that were previously marked `optional` are no longer exported in the POM at all as they are marked `compileOnly`. Should have no impact on builds.
  - JUnit dependency is now marked as `runtime` instead of `provided` in POM. Should have no impact on builds.
+ - Updated dokka to 1.4.30 which results in a drastic improvement in generated docs.
 
 ### v0.1.0 - September 20th, 2020
  - Documentation re-written
