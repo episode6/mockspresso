@@ -14,6 +14,14 @@ allprojects {
   version = "0.2.0-SNAPSHOT"
 }
 
+task clearDocsDir(type: Delete) {
+  delete "docs/javadocs"
+  doLast {
+    file("$rootDir/docs/javadocs").mkdirs()
+  }
+}
+
 tasks.dokkaHtmlMultiModule.configure {
+  dependsOn clearDocsDir
   outputDirectory.set(file("$rootDir/docs/javadocs"))
 }

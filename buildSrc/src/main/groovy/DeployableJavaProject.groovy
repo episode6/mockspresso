@@ -28,13 +28,13 @@ class DeployableJavaProject extends JavaProject {
       }
 
       task("javadocJar", type: Jar, dependsOn: tasks.dokkaHtml) {
-        archiveClassifier = 'javadoc'
+        archiveClassifier.set('javadoc')
         from tasks.dokkaHtml
       }
 
       task("sourcesJar", type: Jar) {
         from sourceSets.main.allSource
-        archiveClassifier = 'sources'
+        archiveClassifier.set('sources')
       }
 
       tasks.dokkaHtml {
