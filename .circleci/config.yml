@@ -26,7 +26,7 @@ jobs:
       - run: git submodule sync
       - run: git submodule update --init
       - run: ./gradlew assemble
-      - run: ./gradlew dokka
+      - run: ./gradlew dokkaHtml
       - run: ./gradlew check
       - run:
           name: Save test results
