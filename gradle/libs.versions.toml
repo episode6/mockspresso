@@ -14,6 +14,7 @@ javax-inject = { module = "javax.inject:javax.inject", version = "1" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito"}
 mockito-kotlin = { module = "com.nhaarman.mockitokotlin2:mockito-kotlin", version = "2.1.0" }
 fest-core = { module = "org.easytesting:fest-assert-core", version = "2.0M10"}
+assertj-core = { module = "org.assertj:assertj-core", version = "3.16.1" }
 dagger-core = { module = "com.google.dagger:dagger", version.ref = "dagger"}
 easymock = { module = "org.easymock:easymock", version = "4.2" }
 powermock-core = { module = "org.powermock:powermock-core", version.ref = "powermock" }
@@ -27,6 +28,7 @@ powermock-module-junit4-rule = { module = "org.powermock:powermock-module-junit4
 test-common = [
   "junit",
   "fest-core",
+  "assertj-core",
 ]
 powermock-easymock-all = [
   "easymock",

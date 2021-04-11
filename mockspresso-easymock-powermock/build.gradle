@@ -4,7 +4,7 @@ dependencies {
   api project(':mockspresso-api')
 
   mavenOptional libs.bundles.powermock.easymock.all
-  
+
   testImplementation project(':mockspresso-core')
   testImplementation project(':mockspresso-testing-shared')
   testImplementation libs.bundles.test.common
