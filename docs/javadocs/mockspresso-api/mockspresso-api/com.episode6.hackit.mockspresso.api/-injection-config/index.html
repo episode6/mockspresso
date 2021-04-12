@@ -1,52 +1,92 @@
-<HTML>
-<HEAD>
-<meta charset="UTF-8">
-<title>InjectionConfig - mockspresso-api</title>
-<link rel="stylesheet" href="../../../style.css">
-</HEAD>
-<BODY>
-<a href="../../index.html">mockspresso-api</a>&nbsp;/&nbsp;<a href="../index.html">com.episode6.hackit.mockspresso.api</a>&nbsp;/&nbsp;<a href="./index.html">InjectionConfig</a><br/>
-<br/>
-<h1>InjectionConfig</h1>
-<code><span class="keyword">interface </span><span class="identifier">InjectionConfig</span></code>
-<p>A configuration interface that defines how we construct real objects.</p>
-<h3>Types</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<p><a href="-constructor-selector/index.html">ConstructorSelector</a></p>
-</td>
-<td>
-<code><span class="keyword">interface </span><span class="identifier">ConstructorSelector</span></code></td>
-</tr>
-</tbody>
-</table>
-<h3>Functions</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<p><a href="provide-constructor-selector.html">provideConstructorSelector</a></p>
-</td>
-<td>
-<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">provideConstructorSelector</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="-constructor-selector/index.html"><span class="identifier">InjectionConfig.ConstructorSelector</span></a></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="provide-injectable-field-annotations.html">provideInjectableFieldAnnotations</a></p>
-</td>
-<td>
-<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">provideInjectableFieldAnnotations</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html"><span class="identifier">MutableList</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html"><span class="identifier">Annotation</span></a><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="provide-injectable-method-annotations.html">provideInjectableMethodAnnotations</a></p>
-</td>
-<td>
-<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">provideInjectableMethodAnnotations</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html"><span class="identifier">MutableList</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html"><span class="identifier">Annotation</span></a><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span></code></td>
-</tr>
-</tbody>
-</table>
-</BODY>
-</HTML>
+<html><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>InjectionConfig</title>
+</head><body><link href="../../../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script><script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script><link href="../../../../styles/style.css" rel="Stylesheet"><link href="../../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../../scripts/main.js" async></script>
+  
+    <div id="container">
+      <div id="leftColumn"><a href="../../../../index.html">
+            <div id="logo"></div>
+          </a>
+        <div id="paneSearch"></div>
+        <div id="sideMenu"></div>
+      </div>
+      <div id="main">
+        <script type="text/javascript" src="../../../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
+
+        <div class="main-content" id="content" pageids="mockspresso-api::com.episode6.hackit.mockspresso.api/InjectionConfig///PointingToDeclaration//385760975">
+          <div class="navigation-wrapper" id="navigation-wrapper">
+            <div class="breadcrumbs"><a href="../../../index.html">mockspresso-api</a>/<a href="../index.html">com.episode6.hackit.mockspresso.api</a>/<a href="index.html">InjectionConfig</a></div>
+            <div class="pull-right d-flex">
+              <div id="searchBar"></div>
+            </div>
+          </div>
+          <div class="cover ">
+            <h1 class="cover"><span>Injection</span><wbr><span>Config</span></h1>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-api:dokkaHtmlPartial/main"><div class="symbol monospace">interface <a href="index.html">InjectionConfig</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">A configuration interface that defines how we construct real objects.</p></div></div>
+          </div>
+          <div class="tabbedcontent">
+            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button></div>
+            <div class="tabs-section-body">
+              <h2 class="">Functions</h2>
+              <div class="table" data-togglable="Functions"><a data-name="%5Bcom.episode6.hackit.mockspresso.api%2FInjectionConfig%2FchooseConstructor%2F%23com.episode6.hackit.mockspresso.reflect.TypeToken%5B*%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" anchor-label="chooseConstructor" id="%5Bcom.episode6.hackit.mockspresso.api%2FInjectionConfig%2FchooseConstructor%2F%23com.episode6.hackit.mockspresso.reflect.TypeToken%5B*%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>
+                <div class="table-row" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="choose-constructor.html">chooseConstructor</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.episode6.hackit.mockspresso.api%2FInjectionConfig%2FchooseConstructor%2F%23com.episode6.hackit.mockspresso.reflect.TypeToken%5B*%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-api:dokkaHtmlPartial/main"><div class="symbol monospace">abstract fun <a href="choose-constructor.html">chooseConstructor</a>(typeToken: <a href="../../../../mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-type-token/index.html">TypeToken</a>&lt;*&gt;): <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Constructor.html">Constructor</a>&lt;out <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt;?<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.episode6.hackit.mockspresso.api%2FInjectionConfig%2FprovideInjectableFieldAnnotations%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" anchor-label="provideInjectableFieldAnnotations" id="%5Bcom.episode6.hackit.mockspresso.api%2FInjectionConfig%2FprovideInjectableFieldAnnotations%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>
+                <div class="table-row" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="provide-injectable-field-annotations.html">provideInjectableFieldAnnotations</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.episode6.hackit.mockspresso.api%2FInjectionConfig%2FprovideInjectableFieldAnnotations%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-api:dokkaHtmlPartial/main"><div class="symbol monospace">abstract fun <a href="provide-injectable-field-annotations.html">provideInjectableFieldAnnotations</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html">Class</a>&lt;out <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html">Annotation</a>&gt;&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.episode6.hackit.mockspresso.api%2FInjectionConfig%2FprovideInjectableMethodAnnotations%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" anchor-label="provideInjectableMethodAnnotations" id="%5Bcom.episode6.hackit.mockspresso.api%2FInjectionConfig%2FprovideInjectableMethodAnnotations%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>
+                <div class="table-row" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="provide-injectable-method-annotations.html">provideInjectableMethodAnnotations</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.episode6.hackit.mockspresso.api%2FInjectionConfig%2FprovideInjectableMethodAnnotations%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-api:dokkaHtmlPartial/main"><div class="symbol monospace">abstract fun <a href="provide-injectable-method-annotations.html">provideInjectableMethodAnnotations</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html">Class</a>&lt;out <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html">Annotation</a>&gt;&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2021 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+    </div>
+  
+
+
+</body></html>

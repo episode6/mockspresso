@@ -1,6 +1,11 @@
-$dokka.format:html
+$dokka.format:html-v1
 $dokka.linkExtension:html
-$dokka.location:com.episode6.hackit.mockspresso.mockito$automaticFactories(com.episode6.hackit.mockspresso.Mockspresso.Builder, kotlin.Array((java.lang.Class((kotlin.Any)))))com.episode6.hackit.mockspresso.mockito/com.episode6.hackit.mockspresso.-mockspresso.-builder/automatic-factories.html
-$dokka.location:com.episode6.hackit.mockspresso.mockito$automaticFactories(com.episode6.hackit.mockspresso.Mockspresso.Builder, kotlin.Array((kotlin.reflect.KClass((kotlin.Any)))))com.episode6.hackit.mockspresso.mockito/com.episode6.hackit.mockspresso.-mockspresso.-builder/automatic-factories.html
-$dokka.location:com.episode6.hackit.mockspresso.mockito$mockByMockito(com.episode6.hackit.mockspresso.Mockspresso.Builder)com.episode6.hackit.mockspresso.mockito/com.episode6.hackit.mockspresso.-mockspresso.-builder/mock-by-mockito.html
+$dokka.location:com.episode6.hackit.mockspresso.mockito////PointingToDeclaration/mockspresso-mockito/com.episode6.hackit.mockspresso.mockito/index.html
+$dokka.location:com.episode6.hackit.mockspresso.mockito//automaticFactories/com.episode6.hackit.mockspresso.Mockspresso.Builder#kotlin.Array[java.lang.Class[*]]/PointingToDeclaration/mockspresso-mockito/com.episode6.hackit.mockspresso.mockito/automatic-factories.html
+$dokka.location:com.episode6.hackit.mockspresso.mockito//automaticFactories/com.episode6.hackit.mockspresso.Mockspresso.Builder#kotlin.Array[kotlin.reflect.KClass[*]]/PointingToDeclaration/mockspresso-mockito/com.episode6.hackit.mockspresso.mockito/automatic-factories.html
+$dokka.location:com.episode6.hackit.mockspresso.mockito//mockByMockito/com.episode6.hackit.mockspresso.Mockspresso.Builder#/PointingToDeclaration/mockspresso-mockito/com.episode6.hackit.mockspresso.mockito/mock-by-mockito.html
+$dokka.location:com.episode6.hackit.mockspresso.mockito/MockspressoMockitoPluginsJavaSupport///PointingToDeclaration/mockspresso-mockito/com.episode6.hackit.mockspresso.mockito/-mockspresso-mockito-plugins-java-support/index.html
+$dokka.location:com.episode6.hackit.mockspresso.mockito/MockspressoMockitoPluginsJavaSupport/automaticFactories/#kotlin.Array[java.lang.Class[*]]/PointingToDeclaration/mockspresso-mockito/com.episode6.hackit.mockspresso.mockito/-mockspresso-mockito-plugins-java-support/automatic-factories.html
+$dokka.location:com.episode6.hackit.mockspresso.mockito/MockspressoMockitoPluginsJavaSupport/mockByMockito/#/PointingToDeclaration/mockspresso-mockito/com.episode6.hackit.mockspresso.mockito/-mockspresso-mockito-plugins-java-support/mock-by-mockito.html
 com.episode6.hackit.mockspresso.mockito
+

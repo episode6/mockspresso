@@ -1,5 +1,0 @@
-$dokka.format:html
-$dokka.linkExtension:html
-
-com.episode6.hackit.mockspresso.quick
-com.episode6.hackit.mockspresso.quick.exception

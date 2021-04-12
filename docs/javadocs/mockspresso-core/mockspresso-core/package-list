@@ -1,7 +1,39 @@
-$dokka.format:html
+$dokka.format:html-v1
 $dokka.linkExtension:html
-
+$dokka.location:com.episode6.hackit.mockspresso.exception////PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.exception/index.html
+$dokka.location:com.episode6.hackit.mockspresso.exception/BrokenInjectionConfigException///PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.exception/-broken-injection-config-exception/index.html
+$dokka.location:com.episode6.hackit.mockspresso.exception/BrokenInjectionConfigException/BrokenInjectionConfigException/#com.episode6.hackit.mockspresso.api.InjectionConfig#com.episode6.hackit.mockspresso.reflect.TypeToken[*]#kotlin.Any?/PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.exception/-broken-injection-config-exception/-broken-injection-config-exception.html
+$dokka.location:com.episode6.hackit.mockspresso.exception/BrokenSpecialObjectMakerException///PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.exception/-broken-special-object-maker-exception/index.html
+$dokka.location:com.episode6.hackit.mockspresso.exception/BrokenSpecialObjectMakerException/BrokenSpecialObjectMakerException/#com.episode6.hackit.mockspresso.api.SpecialObjectMaker#com.episode6.hackit.mockspresso.reflect.DependencyKey[*]#kotlin.Any?/PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.exception/-broken-special-object-maker-exception/-broken-special-object-maker-exception.html
+$dokka.location:com.episode6.hackit.mockspresso.exception/CircularDependencyError///PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.exception/-circular-dependency-error/index.html
+$dokka.location:com.episode6.hackit.mockspresso.exception/CircularDependencyError/CircularDependencyError/#com.episode6.hackit.mockspresso.reflect.DependencyKey[*]/PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.exception/-circular-dependency-error/-circular-dependency-error.html
+$dokka.location:com.episode6.hackit.mockspresso.exception/NoValidConstructorException///PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.exception/-no-valid-constructor-exception/index.html
+$dokka.location:com.episode6.hackit.mockspresso.exception/NoValidConstructorException/NoValidConstructorException/#com.episode6.hackit.mockspresso.reflect.TypeToken[*]/PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.exception/-no-valid-constructor-exception/-no-valid-constructor-exception.html
+$dokka.location:com.episode6.hackit.mockspresso.exception/RepeatedDependencyDefinedException///PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.exception/-repeated-dependency-defined-exception/index.html
+$dokka.location:com.episode6.hackit.mockspresso.exception/RepeatedDependencyDefinedException/RepeatedDependencyDefinedException/#com.episode6.hackit.mockspresso.reflect.DependencyKey[*]/PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.exception/-repeated-dependency-defined-exception/-repeated-dependency-defined-exception.html
+$dokka.location:com.episode6.hackit.mockspresso.junit////PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.junit/index.html
+$dokka.location:com.episode6.hackit.mockspresso.junit/MethodRuleChain///PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.junit/-method-rule-chain/index.html
+$dokka.location:com.episode6.hackit.mockspresso.junit/MethodRuleChain/apply/#org.junit.runners.model.Statement#org.junit.runners.model.FrameworkMethod#java.lang.Object/PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.junit/-method-rule-chain/apply.html
+$dokka.location:com.episode6.hackit.mockspresso.junit/MethodRuleChain/chainAround/#org.junit.rules.MethodRule/PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.junit/-method-rule-chain/chain-around.html
+$dokka.location:com.episode6.hackit.mockspresso.junit/MethodRuleChain/chainAround/#org.junit.rules.TestRule/PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.junit/-method-rule-chain/chain-around.html
+$dokka.location:com.episode6.hackit.mockspresso.junit/MethodRuleChain/emptyRuleChain/#/PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.junit/-method-rule-chain/empty-rule-chain.html
+$dokka.location:com.episode6.hackit.mockspresso.junit/MethodRuleChain/outerRule/#org.junit.rules.MethodRule/PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.junit/-method-rule-chain/outer-rule.html
+$dokka.location:com.episode6.hackit.mockspresso.junit/MethodRuleChain/outerRule/#org.junit.rules.TestRule/PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.junit/-method-rule-chain/outer-rule.html
+$dokka.location:com.episode6.hackit.mockspresso.junit/MethodRules///PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.junit/-method-rules/index.html
+$dokka.location:com.episode6.hackit.mockspresso.junit/MethodRules/wrapTestRule/#org.junit.rules.TestRule/PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.junit/-method-rules/wrap-test-rule.html
+$dokka.location:com.episode6.hackit.mockspresso.util////PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.util/index.html
+$dokka.location:com.episode6.hackit.mockspresso.util/CollectionUtil///PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.util/-collection-util/index.html
+$dokka.location:com.episode6.hackit.mockspresso.util/CollectionUtil/concatList/#T.../PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.util/-collection-util/concat-list.html
+$dokka.location:com.episode6.hackit.mockspresso.util/CollectionUtil/concatList/#java.util.Collection<T>#T.../PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.util/-collection-util/concat-list.html
+$dokka.location:com.episode6.hackit.mockspresso.util/Preconditions///PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.util/-preconditions/index.html
+$dokka.location:com.episode6.hackit.mockspresso.util/Preconditions/assertNotNull/#T#java.lang.String/PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.util/-preconditions/assert-not-null.html
+$dokka.location:com.episode6.hackit.mockspresso.util/Preconditions/assertNull/#java.lang.Object#java.lang.String/PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.util/-preconditions/assert-null.html
+$dokka.location:com.episode6.hackit.mockspresso.util/Preconditions/assertTrue/#boolean#java.lang.String/PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso.util/-preconditions/assert-true.html
+$dokka.location:com.episode6.hackit.mockspresso////PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso/index.html
+$dokka.location:com.episode6.hackit.mockspresso/BuildMockspresso///PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso/-build-mockspresso/index.html
+$dokka.location:com.episode6.hackit.mockspresso/BuildMockspresso/with/#/PointingToDeclaration/mockspresso-core/com.episode6.hackit.mockspresso/-build-mockspresso/with.html
 com.episode6.hackit.mockspresso
 com.episode6.hackit.mockspresso.exception
 com.episode6.hackit.mockspresso.junit
 com.episode6.hackit.mockspresso.util
+

@@ -1,28 +1,45 @@
-<HTML>
-<HEAD>
-<meta charset="UTF-8">
-<title>Mockspresso.inject - mockspresso-api</title>
-<link rel="stylesheet" href="../../../style.css">
-</HEAD>
-<BODY>
-<a href="../../index.html">mockspresso-api</a>&nbsp;/&nbsp;<a href="../index.html">com.episode6.hackit.mockspresso</a>&nbsp;/&nbsp;<a href="index.html">Mockspresso</a>&nbsp;/&nbsp;<a href="./inject.html">inject</a><br/>
-<br/>
-<h1>inject</h1>
-<a name="com.episode6.hackit.mockspresso.Mockspresso$inject(kotlin.Any)"></a>
-<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">inject</span><span class="symbol">(</span><span class="identifier">@NotNull</span> <span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso$inject(kotlin.Any)/instance">instance</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
-<p>Inject an existing object with mockspresso dependencies. Field and method injection will be performed (assuming the injector of this mockspresso instance supports it)</p>
-<h3>Parameters</h3>
-<p><a name="instance"></a>
-<code>instance</code> - <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">:</span> The object to inject mocks/dependencies into.</p>
-<a name="com.episode6.hackit.mockspresso.Mockspresso$inject(com.episode6.hackit.mockspresso.Mockspresso.inject.T, com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.Mockspresso.inject.T)))"></a>
-<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">inject</span><span class="symbol">(</span><span class="identifier">@NotNull</span> <span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso$inject(com.episode6.hackit.mockspresso.Mockspresso.inject.T, com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.Mockspresso.inject.T)))/instance">instance</span><span class="symbol">:</span>&nbsp;<a href="inject.html#T"><span class="identifier">T</span></a><span class="symbol">, </span><span class="identifier">@NotNull</span> <span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso$inject(com.episode6.hackit.mockspresso.Mockspresso.inject.T, com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.Mockspresso.inject.T)))/typeToken">typeToken</span><span class="symbol">:</span>&nbsp;<a href="https://episode6.github.io/mockspresso/javadocs/mockspresso-reflect/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-type-token/index.html"><span class="identifier">TypeToken</span></a><span class="symbol">&lt;</span><a href="inject.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
-<p>An alternative signature to <code><a href="./inject.html">#inject(Object)</a></code>. Use this method and pass an explic type token if injecting a pre- constructed generic object that injects parameters defined as TypeVariables. I.e. <code>class MySampleGeneric&lt;V&gt; { @Inject V myInjectedVariable; } </code> Without the typeToken represented the object being injected, we're unable to infer the correct type for the generic paremeter, and may wind up providing a mock <code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html">Object</a></code> instead of the correct mapping.</p>
-<h3>Parameters</h3>
-<p><a name="instance"></a>
-<code>instance</code> - <a href="inject.html#T"><span class="identifier">T</span></a><span class="symbol">:</span> The object to inject mocks/dependencies into.</p>
-<p><a name="typeToken"></a>
-<code>typeToken</code> - <a href="https://episode6.github.io/mockspresso/javadocs/mockspresso-reflect/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-type-token/index.html"><span class="identifier">TypeToken</span></a><span class="symbol">&lt;</span><a href="inject.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">:</span> A TypeToken representing the complete type of instance</p>
-<p><a name="&lt;T&gt;"></a>
-<code><T></code> - The Type of instance param</p>
-</BODY>
-</HTML>
+<html><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>inject</title>
+</head><body><link href="../../../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script><script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script><link href="../../../../styles/style.css" rel="Stylesheet"><link href="../../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../../scripts/main.js" async></script>
+  
+    <div id="container">
+      <div id="leftColumn"><a href="../../../../index.html">
+            <div id="logo"></div>
+          </a>
+        <div id="paneSearch"></div>
+        <div id="sideMenu"></div>
+      </div>
+      <div id="main">
+        <script type="text/javascript" src="../../../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
+
+        <div class="main-content" id="content" pageids="mockspresso-api::com.episode6.hackit.mockspresso/Mockspresso/inject/#java.lang.Object/PointingToDeclaration//385760975">
+          <div class="navigation-wrapper" id="navigation-wrapper">
+            <div class="breadcrumbs"><a href="../../../index.html">mockspresso-api</a>/<a href="../index.html">com.episode6.hackit.mockspresso</a>/<a href="index.html">Mockspresso</a>/<a href="inject.html">inject</a></div>
+            <div class="pull-right d-flex">
+              <div id="searchBar"></div>
+            </div>
+          </div>
+          <div class="cover ">
+            <h1 class="cover"><span>inject</span></h1>
+          </div>
+<div class="divergent-group" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-api:dokkaHtmlPartial/main"><div class="symbol monospace">abstract fun <a href="inject.html">inject</a>(<span>@<span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/">NotNull</span>()&nbsp;</span>instance: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<p class="paragraph">Inject an existing object with mockspresso dependencies.Field and method injection will be performed (assuming theinjector of this mockspresso instance supports it)</p><h2 class="">Parameters</h2><div data-togglable="Parameters"><div class="platform-hinted WithExtraAttributes" data-platform-hinted="data-platform-hinted" data-togglable="Parameters"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-api:dokkaHtmlPartial/main"><div data-togglable="Parameters"><div class="table" data-togglable="Parameters"><div class="table-row" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex">instance</span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">The object to inject mocks/dependencies into.</p></div></div></div></div></div></div></div></div></div></div></div>
+<div class="divergent-group" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-api:dokkaHtmlPartial/main"><div class="symbol monospace">abstract fun &lt;<a href="inject.html">T</a>&gt; <a href="inject.html">inject</a>(<span>@<span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/">NotNull</span>()&nbsp;</span>instance: <a href="../../com.episode6.hackit.mockspresso.api/-dependency-provider/get.html">T</a>, <span>@<span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/">NotNull</span>()&nbsp;</span>typeToken: <a href="../../../../mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-type-token/index.html">TypeToken</a>&lt;<a href="../../com.episode6.hackit.mockspresso.api/-dependency-provider/get.html">T</a>&gt;)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<p class="paragraph">An alternative signature to <a href="inject.html">inject</a>. Use thismethod and pass an explic type token if injecting a pre-constructed generic object that injects parameters defined asTypeVariables. I.e. <code>{@code class MySampleGeneric{ @Inject V myInjectedVariable; } }</code> Without the typeToken represented the object being injected, we'reunable to infer the correct type for the generic paremeter, and maywind up providing a mock <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html">Object</a> instead of the correct mapping.</p><h2 class="">Parameters</h2><div data-togglable="Parameters"><div class="platform-hinted WithExtraAttributes" data-platform-hinted="data-platform-hinted" data-togglable="Parameters"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-api:dokkaHtmlPartial/main"><div data-togglable="Parameters"><div class="table" data-togglable="Parameters"><div class="table-row" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex">instance</span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">The object to inject mocks/dependencies into.</p></div></div></div></div></div><div class="table-row" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex">typeToken</span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">A TypeToken representing the complete type of instance</p></div></div></div></div></div><div class="table-row" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex">&lt;T&gt;</span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">The Type of instance param</p></div></div></div></div></div></div></div></div></div></div></div>
+        </div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2021 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+    </div>
+  
+
+
+</body></html>

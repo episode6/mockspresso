@@ -1,5 +1,10 @@
-$dokka.format:html
+$dokka.format:html-v1
 $dokka.linkExtension:html
-$dokka.location:com.episode6.hackit.mockspresso.dagger$automaticLazies(com.episode6.hackit.mockspresso.Mockspresso.Builder)com.episode6.hackit.mockspresso.dagger/com.episode6.hackit.mockspresso.-mockspresso.-builder/automatic-lazies.html
-$dokka.location:com.episode6.hackit.mockspresso.dagger$injectByDaggerConfig(com.episode6.hackit.mockspresso.Mockspresso.Builder)com.episode6.hackit.mockspresso.dagger/com.episode6.hackit.mockspresso.-mockspresso.-builder/inject-by-dagger-config.html
+$dokka.location:com.episode6.hackit.mockspresso.dagger////PointingToDeclaration/mockspresso-dagger/com.episode6.hackit.mockspresso.dagger/index.html
+$dokka.location:com.episode6.hackit.mockspresso.dagger//automaticLazies/com.episode6.hackit.mockspresso.Mockspresso.Builder#/PointingToDeclaration/mockspresso-dagger/com.episode6.hackit.mockspresso.dagger/automatic-lazies.html
+$dokka.location:com.episode6.hackit.mockspresso.dagger//injectByDaggerConfig/com.episode6.hackit.mockspresso.Mockspresso.Builder#/PointingToDeclaration/mockspresso-dagger/com.episode6.hackit.mockspresso.dagger/inject-by-dagger-config.html
+$dokka.location:com.episode6.hackit.mockspresso.dagger/MockspressoDaggerPluginsJavaSupport///PointingToDeclaration/mockspresso-dagger/com.episode6.hackit.mockspresso.dagger/-mockspresso-dagger-plugins-java-support/index.html
+$dokka.location:com.episode6.hackit.mockspresso.dagger/MockspressoDaggerPluginsJavaSupport/automaticLazies/#/PointingToDeclaration/mockspresso-dagger/com.episode6.hackit.mockspresso.dagger/-mockspresso-dagger-plugins-java-support/automatic-lazies.html
+$dokka.location:com.episode6.hackit.mockspresso.dagger/MockspressoDaggerPluginsJavaSupport/injectByDaggerConfig/#/PointingToDeclaration/mockspresso-dagger/com.episode6.hackit.mockspresso.dagger/-mockspresso-dagger-plugins-java-support/inject-by-dagger-config.html
 com.episode6.hackit.mockspresso.dagger
+
