@@ -1,63 +1,109 @@
-<HTML>
-<HEAD>
-<meta charset="UTF-8">
-<title>ReflectUtil - mockspresso-reflect</title>
-<link rel="stylesheet" href="../../../style.css">
-</HEAD>
-<BODY>
-<a href="../../index.html">mockspresso-reflect</a>&nbsp;/&nbsp;<a href="../index.html">com.episode6.hackit.mockspresso.reflect</a>&nbsp;/&nbsp;<a href="./index.html">ReflectUtil</a><br/>
-<br/>
-<h1>ReflectUtil</h1>
-<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">ReflectUtil</span></code>
-<p>Java reflect utils</p>
-<h3>Constructors</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<p><a href="-init-.html">&lt;init&gt;</a></p>
-</td>
-<td>
-<code><span class="identifier">ReflectUtil</span><span class="symbol">(</span><span class="symbol">)</span></code>
-<p>Java reflect utils</p>
-</td>
-</tr>
-</tbody>
-</table>
-<h3>Functions</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<p><a href="find-qualifier-annotation.html">findQualifierAnnotation</a></p>
-</td>
-<td>
-<code><span class="keyword">open</span> <span class="keyword">static</span> <span class="keyword">fun </span><span class="identifier">findQualifierAnnotation</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.reflect.ReflectUtil$findQualifierAnnotation(java.lang.reflect.Field)/field">field</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Field.html"><span class="identifier">Field</span></a><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html"><span class="identifier">Annotation</span></a><span class="symbol">?</span></code><br/>
-<code><span class="keyword">open</span> <span class="keyword">static</span> <span class="keyword">fun </span><span class="identifier">findQualifierAnnotation</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.reflect.ReflectUtil$findQualifierAnnotation(kotlin.Array((kotlin.Annotation)), kotlin.String)/annotations">annotations</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html"><span class="identifier">Annotation</span></a><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">, </span><span class="identifier" id="com.episode6.hackit.mockspresso.reflect.ReflectUtil$findQualifierAnnotation(kotlin.Array((kotlin.Annotation)), kotlin.String)/description">description</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html"><span class="identifier">Annotation</span></a><span class="symbol">?</span></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="get-all-declared-fields.html">getAllDeclaredFields</a></p>
-</td>
-<td>
-<code><span class="keyword">open</span> <span class="keyword">static</span> <span class="keyword">fun </span><span class="identifier">getAllDeclaredFields</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.reflect.ReflectUtil$getAllDeclaredFields(java.lang.Class((kotlin.Any)))/clazz">clazz</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html"><span class="identifier">MutableList</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Field.html"><span class="identifier">Field</span></a><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="get-all-declared-methods.html">getAllDeclaredMethods</a></p>
-</td>
-<td>
-<code><span class="keyword">open</span> <span class="keyword">static</span> <span class="keyword">fun </span><span class="identifier">getAllDeclaredMethods</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.reflect.ReflectUtil$getAllDeclaredMethods(java.lang.Class((kotlin.Any)))/clazz">clazz</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html"><span class="identifier">MutableList</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Method.html"><span class="identifier">Method</span></a><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="is-any-annotation-present.html">isAnyAnnotationPresent</a></p>
-</td>
-<td>
-<code><span class="keyword">open</span> <span class="keyword">static</span> <span class="keyword">fun </span><span class="identifier">isAnyAnnotationPresent</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.reflect.ReflectUtil$isAnyAnnotationPresent(java.lang.reflect.Field, kotlin.collections.MutableCollection((java.lang.Class((kotlin.Annotation)))))/field">field</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Field.html"><span class="identifier">Field</span></a><span class="symbol">!</span><span class="symbol">, </span><span class="identifier" id="com.episode6.hackit.mockspresso.reflect.ReflectUtil$isAnyAnnotationPresent(java.lang.reflect.Field, kotlin.collections.MutableCollection((java.lang.Class((kotlin.Annotation)))))/annotations">annotations</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-collection/index.html"><span class="identifier">MutableCollection</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html"><span class="identifier">Annotation</span></a><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code><br/>
-<code><span class="keyword">open</span> <span class="keyword">static</span> <span class="keyword">fun </span><span class="identifier">isAnyAnnotationPresent</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.reflect.ReflectUtil$isAnyAnnotationPresent(java.lang.reflect.Method, kotlin.collections.MutableCollection((java.lang.Class((kotlin.Annotation)))))/method">method</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Method.html"><span class="identifier">Method</span></a><span class="symbol">!</span><span class="symbol">, </span><span class="identifier" id="com.episode6.hackit.mockspresso.reflect.ReflectUtil$isAnyAnnotationPresent(java.lang.reflect.Method, kotlin.collections.MutableCollection((java.lang.Class((kotlin.Annotation)))))/annotations">annotations</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-collection/index.html"><span class="identifier">MutableCollection</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html"><span class="identifier">Annotation</span></a><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
-</tr>
-</tbody>
-</table>
-</BODY>
-</HTML>
+<html><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>ReflectUtil</title>
+</head><body><link href="../../../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script><script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script><link href="../../../../styles/style.css" rel="Stylesheet"><link href="../../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../../scripts/main.js" async></script>
+  
+    <div id="container">
+      <div id="leftColumn"><a href="../../../../index.html">
+            <div id="logo"></div>
+          </a>
+        <div id="paneSearch"></div>
+        <div id="sideMenu"></div>
+      </div>
+      <div id="main">
+        <script type="text/javascript" src="../../../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
+
+        <div class="main-content" id="content" pageids="mockspresso-reflect::com.episode6.hackit.mockspresso.reflect/ReflectUtil///PointingToDeclaration//-946794995">
+          <div class="navigation-wrapper" id="navigation-wrapper">
+            <div class="breadcrumbs"><a href="../../../index.html">mockspresso-reflect</a>/<a href="../index.html">com.episode6.hackit.mockspresso.reflect</a>/<a href="index.html">ReflectUtil</a></div>
+            <div class="pull-right d-flex">
+              <div id="searchBar"></div>
+            </div>
+          </div>
+          <div class="cover ">
+            <h1 class="cover"><span>Reflect</span><wbr><span>Util</span></h1>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-reflect:dokkaHtmlPartial/main"><div class="symbol monospace">open class <a href="index.html">ReflectUtil</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Java reflect utils</p></div></div>
+          </div>
+          <div class="tabbedcontent">
+            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button></div>
+            <div class="tabs-section-body">
+              <h2 class="">Functions</h2>
+              <div class="table" data-togglable="Functions"><a data-name="%5Bcom.episode6.hackit.mockspresso.reflect%2FReflectUtil%2FfindQualifierAnnotation%2F%23java.lang.reflect.Field%2FPointingToDeclaration%2F%2C+com.episode6.hackit.mockspresso.reflect%2FReflectUtil%2FfindQualifierAnnotation%2F%23java.lang.annotation.Annotation%5B%5D%23java.lang.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F-946794995" anchor-label="findQualifierAnnotation" id="%5Bcom.episode6.hackit.mockspresso.reflect%2FReflectUtil%2FfindQualifierAnnotation%2F%23java.lang.reflect.Field%2FPointingToDeclaration%2F%2C+com.episode6.hackit.mockspresso.reflect%2FReflectUtil%2FfindQualifierAnnotation%2F%23java.lang.annotation.Annotation%5B%5D%23java.lang.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F-946794995" data-filterable-set=":mockspresso-reflect:dokkaHtmlPartial/main"></a>
+                <div class="table-row" data-filterable-current=":mockspresso-reflect:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-reflect:dokkaHtmlPartial/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="find-qualifier-annotation.html">findQualifierAnnotation</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.episode6.hackit.mockspresso.reflect%2FReflectUtil%2FfindQualifierAnnotation%2F%23java.lang.reflect.Field%2FPointingToDeclaration%2F%2C+com.episode6.hackit.mockspresso.reflect%2FReflectUtil%2FfindQualifierAnnotation%2F%23java.lang.annotation.Annotation%5B%5D%23java.lang.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F-946794995"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":mockspresso-reflect:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-reflect:dokkaHtmlPartial/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-reflect:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><div class="block">@<span data-unresolved-link="org.jetbrains.annotations/Nullable///PointingToDeclaration/">Nullable</span>()</div></div>open fun <a href="find-qualifier-annotation.html">findQualifierAnnotation</a>(field: <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Field.html">Field</a>): <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/Annotation.html">Annotation</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace"><div class="block"><div class="block">@<span data-unresolved-link="org.jetbrains.annotations/Nullable///PointingToDeclaration/">Nullable</span>()</div></div>open fun <a href="find-qualifier-annotation.html">findQualifierAnnotation</a>(annotations: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/Annotation.html">Annotation</a>&gt;, description: <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a>): <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/Annotation.html">Annotation</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.episode6.hackit.mockspresso.reflect%2FReflectUtil%2FgetAllDeclaredFields%2F%23java.lang.Class%3C%3F%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F-946794995" anchor-label="getAllDeclaredFields" id="%5Bcom.episode6.hackit.mockspresso.reflect%2FReflectUtil%2FgetAllDeclaredFields%2F%23java.lang.Class%3C%3F%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F-946794995" data-filterable-set=":mockspresso-reflect:dokkaHtmlPartial/main"></a>
+                <div class="table-row" data-filterable-current=":mockspresso-reflect:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-reflect:dokkaHtmlPartial/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="get-all-declared-fields.html">getAllDeclaredFields</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.episode6.hackit.mockspresso.reflect%2FReflectUtil%2FgetAllDeclaredFields%2F%23java.lang.Class%3C%3F%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F-946794995"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":mockspresso-reflect:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-reflect:dokkaHtmlPartial/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-reflect:dokkaHtmlPartial/main"><div class="symbol monospace">open fun <a href="get-all-declared-fields.html">getAllDeclaredFields</a>(clazz: <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html">Class</a>&lt;out <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt;): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Field.html">Field</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.episode6.hackit.mockspresso.reflect%2FReflectUtil%2FgetAllDeclaredMethods%2F%23java.lang.Class%3C%3F%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F-946794995" anchor-label="getAllDeclaredMethods" id="%5Bcom.episode6.hackit.mockspresso.reflect%2FReflectUtil%2FgetAllDeclaredMethods%2F%23java.lang.Class%3C%3F%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F-946794995" data-filterable-set=":mockspresso-reflect:dokkaHtmlPartial/main"></a>
+                <div class="table-row" data-filterable-current=":mockspresso-reflect:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-reflect:dokkaHtmlPartial/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="get-all-declared-methods.html">getAllDeclaredMethods</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.episode6.hackit.mockspresso.reflect%2FReflectUtil%2FgetAllDeclaredMethods%2F%23java.lang.Class%3C%3F%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F-946794995"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":mockspresso-reflect:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-reflect:dokkaHtmlPartial/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-reflect:dokkaHtmlPartial/main"><div class="symbol monospace">open fun <a href="get-all-declared-methods.html">getAllDeclaredMethods</a>(clazz: <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html">Class</a>&lt;out <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt;): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Method.html">Method</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.episode6.hackit.mockspresso.reflect%2FReflectUtil%2FisAnyAnnotationPresent%2F%23java.lang.reflect.Field%23java.util.Collection%3Cjava.lang.Class%3C%3F+extends+java.lang.annotation.Annotation%3E%3E%2FPointingToDeclaration%2F%2C+com.episode6.hackit.mockspresso.reflect%2FReflectUtil%2FisAnyAnnotationPresent%2F%23java.lang.reflect.Method%23java.util.Collection%3Cjava.lang.Class%3C%3F+extends+java.lang.annotation.Annotation%3E%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F-946794995" anchor-label="isAnyAnnotationPresent" id="%5Bcom.episode6.hackit.mockspresso.reflect%2FReflectUtil%2FisAnyAnnotationPresent%2F%23java.lang.reflect.Field%23java.util.Collection%3Cjava.lang.Class%3C%3F+extends+java.lang.annotation.Annotation%3E%3E%2FPointingToDeclaration%2F%2C+com.episode6.hackit.mockspresso.reflect%2FReflectUtil%2FisAnyAnnotationPresent%2F%23java.lang.reflect.Method%23java.util.Collection%3Cjava.lang.Class%3C%3F+extends+java.lang.annotation.Annotation%3E%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F-946794995" data-filterable-set=":mockspresso-reflect:dokkaHtmlPartial/main"></a>
+                <div class="table-row" data-filterable-current=":mockspresso-reflect:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-reflect:dokkaHtmlPartial/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="is-any-annotation-present.html">isAnyAnnotationPresent</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.episode6.hackit.mockspresso.reflect%2FReflectUtil%2FisAnyAnnotationPresent%2F%23java.lang.reflect.Field%23java.util.Collection%3Cjava.lang.Class%3C%3F+extends+java.lang.annotation.Annotation%3E%3E%2FPointingToDeclaration%2F%2C+com.episode6.hackit.mockspresso.reflect%2FReflectUtil%2FisAnyAnnotationPresent%2F%23java.lang.reflect.Method%23java.util.Collection%3Cjava.lang.Class%3C%3F+extends+java.lang.annotation.Annotation%3E%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F-946794995"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":mockspresso-reflect:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-reflect:dokkaHtmlPartial/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-reflect:dokkaHtmlPartial/main"><div class="symbol monospace">open fun <a href="is-any-annotation-present.html">isAnyAnnotationPresent</a>(field: <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Field.html">Field</a>, annotations: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html">Collection</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html">Class</a>&lt;out <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/Annotation.html">Annotation</a>&gt;&gt;): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace">open fun <a href="is-any-annotation-present.html">isAnyAnnotationPresent</a>(method: <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Method.html">Method</a>, annotations: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html">Collection</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html">Class</a>&lt;out <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/Annotation.html">Annotation</a>&gt;&gt;): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2021 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+    </div>
+  
+
+
+</body></html>

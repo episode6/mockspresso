@@ -1,5 +1,10 @@
-$dokka.format:html
+$dokka.format:html-v1
 $dokka.linkExtension:html
-$dokka.location:com.episode6.hackit.mockspresso.guava$automaticListenableFutures(com.episode6.hackit.mockspresso.Mockspresso.Builder)com.episode6.hackit.mockspresso.guava/com.episode6.hackit.mockspresso.-mockspresso.-builder/automatic-listenable-futures.html
-$dokka.location:com.episode6.hackit.mockspresso.guava$automaticSuppliers(com.episode6.hackit.mockspresso.Mockspresso.Builder)com.episode6.hackit.mockspresso.guava/com.episode6.hackit.mockspresso.-mockspresso.-builder/automatic-suppliers.html
+$dokka.location:com.episode6.hackit.mockspresso.guava////PointingToDeclaration/mockspresso-guava/com.episode6.hackit.mockspresso.guava/index.html
+$dokka.location:com.episode6.hackit.mockspresso.guava//automaticListenableFutures/com.episode6.hackit.mockspresso.Mockspresso.Builder#/PointingToDeclaration/mockspresso-guava/com.episode6.hackit.mockspresso.guava/automatic-listenable-futures.html
+$dokka.location:com.episode6.hackit.mockspresso.guava//automaticSuppliers/com.episode6.hackit.mockspresso.Mockspresso.Builder#/PointingToDeclaration/mockspresso-guava/com.episode6.hackit.mockspresso.guava/automatic-suppliers.html
+$dokka.location:com.episode6.hackit.mockspresso.guava/MockspressoGuavaPluginsJavaSupport///PointingToDeclaration/mockspresso-guava/com.episode6.hackit.mockspresso.guava/-mockspresso-guava-plugins-java-support/index.html
+$dokka.location:com.episode6.hackit.mockspresso.guava/MockspressoGuavaPluginsJavaSupport/automaticListenableFutures/#/PointingToDeclaration/mockspresso-guava/com.episode6.hackit.mockspresso.guava/-mockspresso-guava-plugins-java-support/automatic-listenable-futures.html
+$dokka.location:com.episode6.hackit.mockspresso.guava/MockspressoGuavaPluginsJavaSupport/automaticSuppliers/#/PointingToDeclaration/mockspresso-guava/com.episode6.hackit.mockspresso.guava/-mockspresso-guava-plugins-java-support/automatic-suppliers.html
 com.episode6.hackit.mockspresso.guava
+

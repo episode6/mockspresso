@@ -1,6 +1,74 @@
-$dokka.format:html
+$dokka.format:html-v1
 $dokka.linkExtension:html
-
+$dokka.location:com.episode6.hackit.mockspresso.annotation////PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.annotation/index.html
+$dokka.location:com.episode6.hackit.mockspresso.annotation/Dependency///PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.annotation/-dependency/index.html
+$dokka.location:com.episode6.hackit.mockspresso.annotation/Dependency/bindAs/#/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.annotation/-dependency/bind-as.html
+$dokka.location:com.episode6.hackit.mockspresso.annotation/RealObject///PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.annotation/-real-object/index.html
+$dokka.location:com.episode6.hackit.mockspresso.annotation/RealObject/implementation/#/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.annotation/-real-object/implementation.html
+$dokka.location:com.episode6.hackit.mockspresso.annotation/Unmapped///PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.annotation/-unmapped/index.html
+$dokka.location:com.episode6.hackit.mockspresso.api////PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.api/index.html
+$dokka.location:com.episode6.hackit.mockspresso.api/DependencyProvider///PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.api/-dependency-provider/index.html
+$dokka.location:com.episode6.hackit.mockspresso.api/DependencyProvider/get/#com.episode6.hackit.mockspresso.reflect.DependencyKey<T>/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.api/-dependency-provider/get.html
+$dokka.location:com.episode6.hackit.mockspresso.api/InjectionConfig///PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.api/-injection-config/index.html
+$dokka.location:com.episode6.hackit.mockspresso.api/InjectionConfig/chooseConstructor/#com.episode6.hackit.mockspresso.reflect.TypeToken[*]/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.api/-injection-config/choose-constructor.html
+$dokka.location:com.episode6.hackit.mockspresso.api/InjectionConfig/provideInjectableFieldAnnotations/#/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.api/-injection-config/provide-injectable-field-annotations.html
+$dokka.location:com.episode6.hackit.mockspresso.api/InjectionConfig/provideInjectableMethodAnnotations/#/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.api/-injection-config/provide-injectable-method-annotations.html
+$dokka.location:com.episode6.hackit.mockspresso.api/MockerConfig.FieldPreparer///PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.api/-mocker-config/-field-preparer/index.html
+$dokka.location:com.episode6.hackit.mockspresso.api/MockerConfig.FieldPreparer/prepareFields/#java.lang.Object/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.api/-mocker-config/-field-preparer/prepare-fields.html
+$dokka.location:com.episode6.hackit.mockspresso.api/MockerConfig.MockMaker///PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.api/-mocker-config/-mock-maker/index.html
+$dokka.location:com.episode6.hackit.mockspresso.api/MockerConfig.MockMaker/makeMock/#com.episode6.hackit.mockspresso.reflect.TypeToken<T>/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.api/-mocker-config/-mock-maker/make-mock.html
+$dokka.location:com.episode6.hackit.mockspresso.api/MockerConfig///PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.api/-mocker-config/index.html
+$dokka.location:com.episode6.hackit.mockspresso.api/MockerConfig/provideFieldPreparer/#/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.api/-mocker-config/provide-field-preparer.html
+$dokka.location:com.episode6.hackit.mockspresso.api/MockerConfig/provideMockAnnotations/#/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.api/-mocker-config/provide-mock-annotations.html
+$dokka.location:com.episode6.hackit.mockspresso.api/MockerConfig/provideMockMaker/#/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.api/-mocker-config/provide-mock-maker.html
+$dokka.location:com.episode6.hackit.mockspresso.api/MockspressoPlugin///PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.api/-mockspresso-plugin/index.html
+$dokka.location:com.episode6.hackit.mockspresso.api/MockspressoPlugin/apply/#com.episode6.hackit.mockspresso.Mockspresso.Builder/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.api/-mockspresso-plugin/apply.html
+$dokka.location:com.episode6.hackit.mockspresso.api/ObjectProvider///PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.api/-object-provider/index.html
+$dokka.location:com.episode6.hackit.mockspresso.api/ObjectProvider/get/#/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.api/-object-provider/get.html
+$dokka.location:com.episode6.hackit.mockspresso.api/SpecialObjectMaker///PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.api/-special-object-maker/index.html
+$dokka.location:com.episode6.hackit.mockspresso.api/SpecialObjectMaker/canMakeObject/#com.episode6.hackit.mockspresso.reflect.DependencyKey[*]/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.api/-special-object-maker/can-make-object.html
+$dokka.location:com.episode6.hackit.mockspresso.api/SpecialObjectMaker/makeObject/#com.episode6.hackit.mockspresso.api.DependencyProvider#com.episode6.hackit.mockspresso.reflect.DependencyKey[*]/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso.api/-special-object-maker/make-object.html
+$dokka.location:com.episode6.hackit.mockspresso////PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/index.html
+$dokka.location:com.episode6.hackit.mockspresso//createNew/com.episode6.hackit.mockspresso.Mockspresso#/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/create-new.html
+$dokka.location:com.episode6.hackit.mockspresso//dependencyOf/com.episode6.hackit.mockspresso.Mockspresso.Builder#kotlin.Annotation?#kotlin.Function0[TypeParam(bounds=[kotlin.Any])?]/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/dependency-of.html
+$dokka.location:com.episode6.hackit.mockspresso//getDependencyOf/com.episode6.hackit.mockspresso.Mockspresso#kotlin.Annotation?/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/get-dependency-of.html
+$dokka.location:com.episode6.hackit.mockspresso//injectType/com.episode6.hackit.mockspresso.Mockspresso#TypeParam(bounds=[kotlin.Any])/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/inject-type.html
+$dokka.location:com.episode6.hackit.mockspresso//realClassOf/com.episode6.hackit.mockspresso.Mockspresso.Builder#kotlin.Annotation?/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/real-class-of.html
+$dokka.location:com.episode6.hackit.mockspresso//realImplOf/com.episode6.hackit.mockspresso.Mockspresso.Builder#kotlin.Annotation?/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/real-impl-of.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Builder///PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/index.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Builder/build/#/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/build.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Builder/buildRule/#/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/build-rule.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Builder/dependency/#com.episode6.hackit.mockspresso.reflect.DependencyKey<T>#V/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/dependency.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Builder/dependency/#com.episode6.hackit.mockspresso.reflect.TypeToken<T>#V/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/dependency.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Builder/dependency/#java.lang.Class<T>#V/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/dependency.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Builder/dependencyProvider/#com.episode6.hackit.mockspresso.reflect.DependencyKey<T>#com.episode6.hackit.mockspresso.api.ObjectProvider<V>/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/dependency-provider.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Builder/dependencyProvider/#com.episode6.hackit.mockspresso.reflect.TypeToken<T>#com.episode6.hackit.mockspresso.api.ObjectProvider<V>/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/dependency-provider.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Builder/dependencyProvider/#java.lang.Class<T>#com.episode6.hackit.mockspresso.api.ObjectProvider<V>/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/dependency-provider.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Builder/injector/#com.episode6.hackit.mockspresso.api.InjectionConfig/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/injector.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Builder/innerRule/#org.junit.rules.MethodRule/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/inner-rule.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Builder/innerRule/#org.junit.rules.TestRule/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/inner-rule.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Builder/mocker/#com.episode6.hackit.mockspresso.api.MockerConfig/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/mocker.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Builder/outerRule/#org.junit.rules.MethodRule/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/outer-rule.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Builder/outerRule/#org.junit.rules.TestRule/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/outer-rule.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Builder/plugin/#com.episode6.hackit.mockspresso.api.MockspressoPlugin/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/plugin.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Builder/realObject/#com.episode6.hackit.mockspresso.reflect.DependencyKey<T>#com.episode6.hackit.mockspresso.reflect.TypeToken<? extends T>/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/real-object.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Builder/realObject/#com.episode6.hackit.mockspresso.reflect.DependencyKey<T>#java.lang.Class<? extends T>/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/real-object.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Builder/realObject/#com.episode6.hackit.mockspresso.reflect.DependencyKey<T>/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/real-object.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Builder/realObject/#com.episode6.hackit.mockspresso.reflect.TypeToken<T>/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/real-object.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Builder/realObject/#java.lang.Class<T>/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/real-object.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Builder/specialObjectMaker/#com.episode6.hackit.mockspresso.api.SpecialObjectMaker/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/special-object-maker.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Builder/testResources/#java.lang.Object/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/test-resources.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Builder/testResourcesWithoutLifecycle/#java.lang.Object/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/test-resources-without-lifecycle.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso.Rule///PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-rule/index.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso///PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/index.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso/buildUpon/#/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/build-upon.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso/create/#com.episode6.hackit.mockspresso.reflect.TypeToken<T>/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/create.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso/create/#java.lang.Class<T>/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/create.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso/getDependency/#com.episode6.hackit.mockspresso.reflect.DependencyKey<T>/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/get-dependency.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso/inject/#T#com.episode6.hackit.mockspresso.reflect.TypeToken<T>/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/inject.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso/inject/#java.lang.Object/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/inject.html
+$dokka.location:com.episode6.hackit.mockspresso/Mockspresso/teardown/#/PointingToDeclaration/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/teardown.html
 com.episode6.hackit.mockspresso
 com.episode6.hackit.mockspresso.annotation
 com.episode6.hackit.mockspresso.api
+

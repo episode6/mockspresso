@@ -1,4 +1,8 @@
-$dokka.format:html
+$dokka.format:html-v1
 $dokka.linkExtension:html
-$dokka.location:com.episode6.hackit.mockspresso.easymock$mockByEasyMock(com.episode6.hackit.mockspresso.Mockspresso.Builder)com.episode6.hackit.mockspresso.easymock/com.episode6.hackit.mockspresso.-mockspresso.-builder/mock-by-easy-mock.html
+$dokka.location:com.episode6.hackit.mockspresso.easymock////PointingToDeclaration/mockspresso-easymock/com.episode6.hackit.mockspresso.easymock/index.html
+$dokka.location:com.episode6.hackit.mockspresso.easymock//mockByEasyMock/com.episode6.hackit.mockspresso.Mockspresso.Builder#/PointingToDeclaration/mockspresso-easymock/com.episode6.hackit.mockspresso.easymock/mock-by-easy-mock.html
+$dokka.location:com.episode6.hackit.mockspresso.easymock/MockspressoEasyMockPluginsJavaSupport///PointingToDeclaration/mockspresso-easymock/com.episode6.hackit.mockspresso.easymock/-mockspresso-easy-mock-plugins-java-support/index.html
+$dokka.location:com.episode6.hackit.mockspresso.easymock/MockspressoEasyMockPluginsJavaSupport/mockByEasyMock/#/PointingToDeclaration/mockspresso-easymock/com.episode6.hackit.mockspresso.easymock/-mockspresso-easy-mock-plugins-java-support/mock-by-easy-mock.html
 com.episode6.hackit.mockspresso.easymock
+

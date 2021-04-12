@@ -1,8 +1,16 @@
-$dokka.format:html
+$dokka.format:html-v1
 $dokka.linkExtension:html
-$dokka.location:com.episode6.hackit.mockspresso.basic.plugin$automaticProviders(com.episode6.hackit.mockspresso.Mockspresso.Builder)com.episode6.hackit.mockspresso.basic.plugin/com.episode6.hackit.mockspresso.-mockspresso.-builder/automatic-providers.html
-$dokka.location:com.episode6.hackit.mockspresso.basic.plugin$injectByJavaxConfig(com.episode6.hackit.mockspresso.Mockspresso.Builder)com.episode6.hackit.mockspresso.basic.plugin/com.episode6.hackit.mockspresso.-mockspresso.-builder/inject-by-javax-config.html
-$dokka.location:com.episode6.hackit.mockspresso.basic.plugin$injectBySimpleConfig(com.episode6.hackit.mockspresso.Mockspresso.Builder)com.episode6.hackit.mockspresso.basic.plugin/com.episode6.hackit.mockspresso.-mockspresso.-builder/inject-by-simple-config.html
+$dokka.location:com.episode6.hackit.mockspresso.basic.plugin.javax////PointingToDeclaration/mockspresso-basic-plugins/com.episode6.hackit.mockspresso.basic.plugin.javax/index.html
+$dokka.location:com.episode6.hackit.mockspresso.basic.plugin.javax/MultipleInjectConstructorException///PointingToDeclaration/mockspresso-basic-plugins/com.episode6.hackit.mockspresso.basic.plugin.javax/-multiple-inject-constructor-exception/index.html
+$dokka.location:com.episode6.hackit.mockspresso.basic.plugin.javax/MultipleInjectConstructorException/MultipleInjectConstructorException/#com.episode6.hackit.mockspresso.reflect.TypeToken<?>/PointingToDeclaration/mockspresso-basic-plugins/com.episode6.hackit.mockspresso.basic.plugin.javax/-multiple-inject-constructor-exception/-multiple-inject-constructor-exception.html
+$dokka.location:com.episode6.hackit.mockspresso.basic.plugin////PointingToDeclaration/mockspresso-basic-plugins/com.episode6.hackit.mockspresso.basic.plugin/index.html
+$dokka.location:com.episode6.hackit.mockspresso.basic.plugin//automaticProviders/com.episode6.hackit.mockspresso.Mockspresso.Builder#/PointingToDeclaration/mockspresso-basic-plugins/com.episode6.hackit.mockspresso.basic.plugin/automatic-providers.html
+$dokka.location:com.episode6.hackit.mockspresso.basic.plugin//injectByJavaxConfig/com.episode6.hackit.mockspresso.Mockspresso.Builder#/PointingToDeclaration/mockspresso-basic-plugins/com.episode6.hackit.mockspresso.basic.plugin/inject-by-javax-config.html
+$dokka.location:com.episode6.hackit.mockspresso.basic.plugin//injectBySimpleConfig/com.episode6.hackit.mockspresso.Mockspresso.Builder#/PointingToDeclaration/mockspresso-basic-plugins/com.episode6.hackit.mockspresso.basic.plugin/inject-by-simple-config.html
+$dokka.location:com.episode6.hackit.mockspresso.basic.plugin/MockspressoBasicPluginsJavaSupport///PointingToDeclaration/mockspresso-basic-plugins/com.episode6.hackit.mockspresso.basic.plugin/-mockspresso-basic-plugins-java-support/index.html
+$dokka.location:com.episode6.hackit.mockspresso.basic.plugin/MockspressoBasicPluginsJavaSupport/automaticProviders/#/PointingToDeclaration/mockspresso-basic-plugins/com.episode6.hackit.mockspresso.basic.plugin/-mockspresso-basic-plugins-java-support/automatic-providers.html
+$dokka.location:com.episode6.hackit.mockspresso.basic.plugin/MockspressoBasicPluginsJavaSupport/injectByJavaxConfig/#/PointingToDeclaration/mockspresso-basic-plugins/com.episode6.hackit.mockspresso.basic.plugin/-mockspresso-basic-plugins-java-support/inject-by-javax-config.html
+$dokka.location:com.episode6.hackit.mockspresso.basic.plugin/MockspressoBasicPluginsJavaSupport/injectBySimpleConfig/#/PointingToDeclaration/mockspresso-basic-plugins/com.episode6.hackit.mockspresso.basic.plugin/-mockspresso-basic-plugins-java-support/inject-by-simple-config.html
 com.episode6.hackit.mockspresso.basic.plugin
 com.episode6.hackit.mockspresso.basic.plugin.javax
-com.episode6.hackit.mockspresso.basic.plugin.simple
+

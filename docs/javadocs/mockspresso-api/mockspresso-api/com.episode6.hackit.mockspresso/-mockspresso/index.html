@@ -1,131 +1,238 @@
-<HTML>
-<HEAD>
-<meta charset="UTF-8">
-<title>Mockspresso - mockspresso-api</title>
-<link rel="stylesheet" href="../../../style.css">
-</HEAD>
-<BODY>
-<a href="../../index.html">mockspresso-api</a>&nbsp;/&nbsp;<a href="../index.html">com.episode6.hackit.mockspresso</a>&nbsp;/&nbsp;<a href="./index.html">Mockspresso</a><br/>
-<br/>
-<h1>Mockspresso</h1>
-<code><span class="keyword">interface </span><span class="identifier">Mockspresso</span></code>
-<p>Main mockspresso interface</p>
-<h3>Types</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<p><a href="-builder/index.html">Builder</a></p>
-</td>
-<td>
-<code><span class="keyword">interface </span><span class="identifier">Builder</span></code>
-<p>Class used to build Mockspresso and Mockspresso.Rule instances.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="-rule.html">Rule</a></p>
-</td>
-<td>
-<code><span class="keyword">interface </span><span class="identifier">Rule</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Mockspresso</span></a><span class="symbol">, </span><a href="https://junit.org/junit4/javadoc/4.13/org/junit/rules/MethodRule.html"><span class="identifier">MethodRule</span></a></code>
-<p>An implementation of Mockspresso that also implements JUnit's <code><a href="https://junit.org/junit4/javadoc/4.13/org/junit/rules/MethodRule.html">MethodRule</a></code>.</p>
-</td>
-</tr>
-</tbody>
-</table>
-<h3>Functions</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<p><a href="build-upon.html">buildUpon</a></p>
-</td>
-<td>
-<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">buildUpon</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="-builder/index.html"><span class="identifier">Mockspresso.Builder</span></a></code>
-<p>Build upon this mockspresso instance's configuration and dependencies.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="create.html">create</a></p>
-</td>
-<td>
-<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso$create(java.lang.Class((com.episode6.hackit.mockspresso.Mockspresso.create.T)))/clazz">clazz</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="create.html#T"><span class="identifier">T</span></a></code><br/>
-<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso$create(com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.Mockspresso.create.T)))/typeToken">typeToken</span><span class="symbol">:</span>&nbsp;<a href="https://episode6.github.io/mockspresso/javadocs/mockspresso-reflect/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-type-token/index.html"><span class="identifier">TypeToken</span></a><span class="symbol">&lt;</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="create.html#T"><span class="identifier">T</span></a></code>
-<p>Create a real object injected with mockspresso dependencies.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="get-dependency.html">getDependency</a></p>
-</td>
-<td>
-<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">getDependency</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso$getDependency(com.episode6.hackit.mockspresso.reflect.DependencyKey((com.episode6.hackit.mockspresso.Mockspresso.getDependency.T)))/key">key</span><span class="symbol">:</span>&nbsp;<a href="https://episode6.github.io/mockspresso/javadocs/mockspresso-reflect/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-dependency-key/index.html"><span class="identifier">DependencyKey</span></a><span class="symbol">&lt;</span><a href="get-dependency.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="get-dependency.html#T"><span class="identifier">T</span></a></code>
-<p>Get a dependency (creating a new mock, if needed) from mockspresso. We purposefully don't annotate the return-type here NotNull because nulls are theoretically allowed dependencies (they just must be mapped explicitly). So kotlin users must assume nullability via platform-type.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="inject.html">inject</a></p>
-</td>
-<td>
-<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">inject</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso$inject(kotlin.Any)/instance">instance</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
-<p>Inject an existing object with mockspresso dependencies. Field and method injection will be performed (assuming the injector of this mockspresso instance supports it)</p>
-<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">inject</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso$inject(com.episode6.hackit.mockspresso.Mockspresso.inject.T, com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.Mockspresso.inject.T)))/instance">instance</span><span class="symbol">:</span>&nbsp;<a href="inject.html#T"><span class="identifier">T</span></a><span class="symbol">, </span><span class="identifier" id="com.episode6.hackit.mockspresso.Mockspresso$inject(com.episode6.hackit.mockspresso.Mockspresso.inject.T, com.episode6.hackit.mockspresso.reflect.TypeToken((com.episode6.hackit.mockspresso.Mockspresso.inject.T)))/typeToken">typeToken</span><span class="symbol">:</span>&nbsp;<a href="https://episode6.github.io/mockspresso/javadocs/mockspresso-reflect/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-type-token/index.html"><span class="identifier">TypeToken</span></a><span class="symbol">&lt;</span><a href="inject.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
-<p>An alternative signature to <code><a href="inject.html">#inject(Object)</a></code>. Use this method and pass an explic type token if injecting a pre- constructed generic object that injects parameters defined as TypeVariables. I.e. <code>class MySampleGeneric&lt;V&gt; { @Inject V myInjectedVariable; } </code> Without the typeToken represented the object being injected, we're unable to infer the correct type for the generic paremeter, and may wind up providing a mock <code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html">Object</a></code> instead of the correct mapping.</p>
-</td>
-</tr>
-</tbody>
-</table>
-<h3>Extension Functions</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<p><a href="../create-new.html">createNew</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">Mockspresso</span></a><span class="symbol">.</span><span class="identifier">createNew</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../create-new.html#T"><span class="identifier">T</span></a></code>
-<p>Create a real object of type <a href="../create-new.html#T">T</a> injected with mockspresso dependencies.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="../get-dependency-of.html">getDependencyOf</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">Mockspresso</span></a><span class="symbol">.</span><span class="identifier">getDependencyOf</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso$getDependencyOf(com.episode6.hackit.mockspresso.Mockspresso, kotlin.Annotation)/qualifier">qualifier</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html"><span class="identifier">Annotation</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="../get-dependency-of.html#T"><span class="identifier">T</span></a><span class="symbol">?</span></code>
-<p>Get a dependency (creating a new mock, if needed) from mockspresso.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="../inject-type.html">injectType</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">Mockspresso</span></a><span class="symbol">.</span><span class="identifier">injectType</span><span class="symbol">(</span><span class="identifier" id="com.episode6.hackit.mockspresso$injectType(com.episode6.hackit.mockspresso.Mockspresso, com.episode6.hackit.mockspresso.injectType.T)/instance">instance</span><span class="symbol">:</span>&nbsp;<a href="../inject-type.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
-<p>Inject an existing object with mockspresso dependencies.
-Field and method injection will be performed (assuming the
-injector of this mockspresso instance supports it). Uses a reified
-type and includes a TypeToken in the method call, so will work with
-generics.</p>
-</td>
-</tr>
-</tbody>
-</table>
-<h3>Inheritors</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<p><a href="-rule.html">Rule</a></p>
-</td>
-<td>
-<code><span class="keyword">interface </span><span class="identifier">Rule</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Mockspresso</span></a><span class="symbol">, </span><a href="https://junit.org/junit4/javadoc/4.13/org/junit/rules/MethodRule.html"><span class="identifier">MethodRule</span></a></code>
-<p>An implementation of Mockspresso that also implements JUnit's <code><a href="https://junit.org/junit4/javadoc/4.13/org/junit/rules/MethodRule.html">MethodRule</a></code>.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</BODY>
-</HTML>
+<html><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Mockspresso</title>
+</head><body><link href="../../../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script><script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script><link href="../../../../styles/style.css" rel="Stylesheet"><link href="../../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../../scripts/main.js" async></script>
+  
+    <div id="container">
+      <div id="leftColumn"><a href="../../../../index.html">
+            <div id="logo"></div>
+          </a>
+        <div id="paneSearch"></div>
+        <div id="sideMenu"></div>
+      </div>
+      <div id="main">
+        <script type="text/javascript" src="../../../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
+
+        <div class="main-content" id="content" pageids="mockspresso-api::com.episode6.hackit.mockspresso/Mockspresso///PointingToDeclaration//385760975">
+          <div class="navigation-wrapper" id="navigation-wrapper">
+            <div class="breadcrumbs"><a href="../../../index.html">mockspresso-api</a>/<a href="../index.html">com.episode6.hackit.mockspresso</a>/<a href="index.html">Mockspresso</a></div>
+            <div class="pull-right d-flex">
+              <div id="searchBar"></div>
+            </div>
+          </div>
+          <div class="cover ">
+            <h1 class="cover"><span>Mockspresso</span></h1>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-api:dokkaHtmlPartial/main"><div class="symbol monospace">interface <a href="index.html">Mockspresso</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Main mockspresso interface</p></div></div>
+          </div>
+          <div class="tabbedcontent">
+            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Extensions">Extensions</button><button class="section-tab" data-togglable="Inheritors">Inheritors</button></div>
+            <div class="tabs-section-body">
+              <h2 class="">Types</h2>
+              <div class="table" data-togglable="Types"><a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso.Builder%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F385760975" anchor-label="Builder" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso.Builder%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>
+                <div class="table-row" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="-builder/index.html">Builder</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.episode6.hackit.mockspresso%2FMockspresso.Builder%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F385760975"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-api:dokkaHtmlPartial/main"><div class="symbol monospace">interface <a href="-builder/index.html">Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso.Builder%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F385760975" anchor-label="Builder" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso.Builder%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a><div class="brief "><a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso.Builder%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F385760975" anchor-label="Builder" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso.Builder%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>Class used to build Mockspresso and Mockspresso.Rule instances.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso.Rule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F385760975" anchor-label="Rule" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso.Rule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>
+                <div class="table-row" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="-rule/index.html">Rule</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.episode6.hackit.mockspresso%2FMockspresso.Rule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F385760975"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-api:dokkaHtmlPartial/main"><div class="symbol monospace">interface <a href="-rule/index.html">Rule</a> : <a href="index.html">Mockspresso</a>, <a href="https://junit.org/junit4/javadoc/4.13/org/junit/rules/MethodRule.html">MethodRule</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso.Rule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F385760975" anchor-label="Rule" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso.Rule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a><div class="brief "><a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso.Rule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F385760975" anchor-label="Rule" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso.Rule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>An implementation of Mockspresso that also implements JUnit's <a href="https://junit.org/junit4/javadoc/4.13/org/junit/rules/MethodRule.html">MethodRule</a>.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Functions</h2>
+              <div class="table" data-togglable="Functions"><a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2FbuildUpon%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" anchor-label="buildUpon" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2FbuildUpon%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>
+                <div class="table-row" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="build-upon.html">buildUpon</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2FbuildUpon%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-api:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><div class="block">@<span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/">NotNull</span>()</div></div>abstract fun <a href="build-upon.html">buildUpon</a>(): <a href="-builder/index.html">Mockspresso.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2FbuildUpon%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" anchor-label="buildUpon" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2FbuildUpon%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a><div class="brief "><a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2FbuildUpon%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" anchor-label="buildUpon" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2FbuildUpon%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>Build upon this mockspresso instance's configuration and dependencies.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Fcreate%2F%23com.episode6.hackit.mockspresso.reflect.TypeToken%3CT%3E%2FPointingToDeclaration%2F%2C+com.episode6.hackit.mockspresso%2FMockspresso%2Fcreate%2F%23java.lang.Class%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" anchor-label="create" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Fcreate%2F%23com.episode6.hackit.mockspresso.reflect.TypeToken%3CT%3E%2FPointingToDeclaration%2F%2C+com.episode6.hackit.mockspresso%2FMockspresso%2Fcreate%2F%23java.lang.Class%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>
+                <div class="table-row" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="create.html">create</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Fcreate%2F%23com.episode6.hackit.mockspresso.reflect.TypeToken%3CT%3E%2FPointingToDeclaration%2F%2C+com.episode6.hackit.mockspresso%2FMockspresso%2Fcreate%2F%23java.lang.Class%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-api:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><div class="block">@<span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/">NotNull</span>()</div></div>abstract fun &lt;<a href="create.html">T</a>&gt; <a href="create.html">create</a>(<span>@<span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/">NotNull</span>()&nbsp;</span>typeToken: <a href="../../../../mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-type-token/index.html">TypeToken</a>&lt;<a href="../../com.episode6.hackit.mockspresso.api/-dependency-provider/get.html">T</a>&gt;): <a href="../../com.episode6.hackit.mockspresso.api/-dependency-provider/get.html">T</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Fcreate%2F%23com.episode6.hackit.mockspresso.reflect.TypeToken%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" anchor-label="create" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Fcreate%2F%23com.episode6.hackit.mockspresso.reflect.TypeToken%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a><div class="brief "><a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Fcreate%2F%23com.episode6.hackit.mockspresso.reflect.TypeToken%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" anchor-label="create" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Fcreate%2F%23com.episode6.hackit.mockspresso.reflect.TypeToken%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>Create a real object injected with mockspresso dependencies.</div></div>
+<div class="divergent-group" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-api:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><div class="block">@<span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/">NotNull</span>()</div></div>abstract fun &lt;<a href="create.html">T</a>&gt; <a href="create.html">create</a>(<span>@<span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/">NotNull</span>()&nbsp;</span>clazz: <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html">Class</a>&lt;<a href="../../com.episode6.hackit.mockspresso.api/-dependency-provider/get.html">T</a>&gt;): <a href="../../com.episode6.hackit.mockspresso.api/-dependency-provider/get.html">T</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Fcreate%2F%23java.lang.Class%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" anchor-label="create" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Fcreate%2F%23java.lang.Class%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a><div class="brief "><a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Fcreate%2F%23java.lang.Class%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" anchor-label="create" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Fcreate%2F%23java.lang.Class%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>Create a real object injected with mockspresso dependencies.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2FgetDependency%2F%23com.episode6.hackit.mockspresso.reflect.DependencyKey%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" anchor-label="getDependency" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2FgetDependency%2F%23com.episode6.hackit.mockspresso.reflect.DependencyKey%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>
+                <div class="table-row" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="get-dependency.html">getDependency</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2FgetDependency%2F%23com.episode6.hackit.mockspresso.reflect.DependencyKey%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-api:dokkaHtmlPartial/main"><div class="symbol monospace">abstract fun &lt;<a href="get-dependency.html">T</a>&gt; <a href="get-dependency.html">getDependency</a>(<span>@<span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/">NotNull</span>()&nbsp;</span>key: <a href="../../../../mockspresso-reflect/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-dependency-key/index.html">DependencyKey</a>&lt;<a href="../../com.episode6.hackit.mockspresso.api/-dependency-provider/get.html">T</a>&gt;): <a href="../../com.episode6.hackit.mockspresso.api/-dependency-provider/get.html">T</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2FgetDependency%2F%23com.episode6.hackit.mockspresso.reflect.DependencyKey%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" anchor-label="getDependency" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2FgetDependency%2F%23com.episode6.hackit.mockspresso.reflect.DependencyKey%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a><div class="brief "><a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2FgetDependency%2F%23com.episode6.hackit.mockspresso.reflect.DependencyKey%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" anchor-label="getDependency" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2FgetDependency%2F%23com.episode6.hackit.mockspresso.reflect.DependencyKey%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>Get a dependency (creating a new mock, if needed) from mockspresso.We purposefully don't annotate the return-type here NotNullbecause nulls are theoretically allowed dependencies (they just mustbe mapped explicitly).</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Finject%2F%23java.lang.Object%2FPointingToDeclaration%2F%2C+com.episode6.hackit.mockspresso%2FMockspresso%2Finject%2F%23T%23com.episode6.hackit.mockspresso.reflect.TypeToken%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" anchor-label="inject" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Finject%2F%23java.lang.Object%2FPointingToDeclaration%2F%2C+com.episode6.hackit.mockspresso%2FMockspresso%2Finject%2F%23T%23com.episode6.hackit.mockspresso.reflect.TypeToken%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>
+                <div class="table-row" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="inject.html">inject</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Finject%2F%23java.lang.Object%2FPointingToDeclaration%2F%2C+com.episode6.hackit.mockspresso%2FMockspresso%2Finject%2F%23T%23com.episode6.hackit.mockspresso.reflect.TypeToken%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-api:dokkaHtmlPartial/main"><div class="symbol monospace">abstract fun <a href="inject.html">inject</a>(<span>@<span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/">NotNull</span>()&nbsp;</span>instance: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Finject%2F%23java.lang.Object%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" anchor-label="inject" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Finject%2F%23java.lang.Object%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a><div class="brief "><a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Finject%2F%23java.lang.Object%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" anchor-label="inject" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Finject%2F%23java.lang.Object%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>Inject an existing object with mockspresso dependencies.</div></div>
+<div class="divergent-group" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-api:dokkaHtmlPartial/main"><div class="symbol monospace">abstract fun &lt;<a href="inject.html">T</a>&gt; <a href="inject.html">inject</a>(<span>@<span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/">NotNull</span>()&nbsp;</span>instance: <a href="../../com.episode6.hackit.mockspresso.api/-dependency-provider/get.html">T</a>, <span>@<span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/">NotNull</span>()&nbsp;</span>typeToken: <a href="../../../../mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-type-token/index.html">TypeToken</a>&lt;<a href="../../com.episode6.hackit.mockspresso.api/-dependency-provider/get.html">T</a>&gt;)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Finject%2F%23T%23com.episode6.hackit.mockspresso.reflect.TypeToken%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" anchor-label="inject" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Finject%2F%23T%23com.episode6.hackit.mockspresso.reflect.TypeToken%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a><div class="brief "><a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Finject%2F%23T%23com.episode6.hackit.mockspresso.reflect.TypeToken%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" anchor-label="inject" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Finject%2F%23T%23com.episode6.hackit.mockspresso.reflect.TypeToken%3CT%3E%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>An alternative signature to <a href="inject.html">inject</a>.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Fteardown%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" anchor-label="teardown" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Fteardown%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>
+                <div class="table-row" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="teardown.html">teardown</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Fteardown%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-api:dokkaHtmlPartial/main"><div class="symbol monospace">abstract fun <a href="teardown.html">teardown</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Fteardown%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" anchor-label="teardown" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Fteardown%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a><div class="brief "><a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Fteardown%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" anchor-label="teardown" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso%2Fteardown%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>Tears down this on-the-fly mockspresso instance.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Inheritors</h2>
+              <div class="table" data-togglable="Inheritors"><a data-name="%5Bcom.episode6.hackit.mockspresso%2FMockspresso.Rule%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F385760975" anchor-label="Mockspresso" id="%5Bcom.episode6.hackit.mockspresso%2FMockspresso.Rule%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>
+                <div class="table-row" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="-rule/index.html">Mockspresso</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.episode6.hackit.mockspresso%2FMockspresso.Rule%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F385760975"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div></div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="tabbedcontent">Extensions</h2>
+              <div class="table" data-togglable="Extensions"><a data-name="%5Bcom.episode6.hackit.mockspresso%2F%2FcreateNew%2Fcom.episode6.hackit.mockspresso.Mockspresso%23%2FPointingToDeclaration%2F%5D%2FExtensions%2F385760975" anchor-label="createNew" id="%5Bcom.episode6.hackit.mockspresso%2F%2FcreateNew%2Fcom.episode6.hackit.mockspresso.Mockspresso%23%2FPointingToDeclaration%2F%5D%2FExtensions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>
+                <div class="table-row" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../create-new.html">createNew</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.episode6.hackit.mockspresso%2F%2FcreateNew%2Fcom.episode6.hackit.mockspresso.Mockspresso%23%2FPointingToDeclaration%2F%5D%2FExtensions%2F385760975"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-api:dokkaHtmlPartial/main"><div class="symbol monospace">inline fun &lt;<a href="../create-new.html">T</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt; <a href="index.html">Mockspresso</a>.<a href="../create-new.html">createNew</a>(): <a href="../create-new.html">T</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.episode6.hackit.mockspresso%2F%2FcreateNew%2Fcom.episode6.hackit.mockspresso.Mockspresso%23%2FPointingToDeclaration%2F%5D%2FExtensions%2F385760975" anchor-label="createNew" id="%5Bcom.episode6.hackit.mockspresso%2F%2FcreateNew%2Fcom.episode6.hackit.mockspresso.Mockspresso%23%2FPointingToDeclaration%2F%5D%2FExtensions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a><div class="brief "><a data-name="%5Bcom.episode6.hackit.mockspresso%2F%2FcreateNew%2Fcom.episode6.hackit.mockspresso.Mockspresso%23%2FPointingToDeclaration%2F%5D%2FExtensions%2F385760975" anchor-label="createNew" id="%5Bcom.episode6.hackit.mockspresso%2F%2FcreateNew%2Fcom.episode6.hackit.mockspresso.Mockspresso%23%2FPointingToDeclaration%2F%5D%2FExtensions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>Create a real object of type <a href="../create-new.html">T</a> injected with mockspresso dependencies.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.episode6.hackit.mockspresso%2F%2FgetDependencyOf%2Fcom.episode6.hackit.mockspresso.Mockspresso%23kotlin.Annotation%3F%2FPointingToDeclaration%2F%5D%2FExtensions%2F385760975" anchor-label="getDependencyOf" id="%5Bcom.episode6.hackit.mockspresso%2F%2FgetDependencyOf%2Fcom.episode6.hackit.mockspresso.Mockspresso%23kotlin.Annotation%3F%2FPointingToDeclaration%2F%5D%2FExtensions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>
+                <div class="table-row" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../get-dependency-of.html">getDependencyOf</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.episode6.hackit.mockspresso%2F%2FgetDependencyOf%2Fcom.episode6.hackit.mockspresso.Mockspresso%23kotlin.Annotation%3F%2FPointingToDeclaration%2F%5D%2FExtensions%2F385760975"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-api:dokkaHtmlPartial/main"><div class="symbol monospace">inline fun &lt;<a href="../get-dependency-of.html">T</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt; <a href="index.html">Mockspresso</a>.<a href="../get-dependency-of.html">getDependencyOf</a>(qualifier: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html">Annotation</a>? = null): <a href="../get-dependency-of.html">T</a>?<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.episode6.hackit.mockspresso%2F%2FgetDependencyOf%2Fcom.episode6.hackit.mockspresso.Mockspresso%23kotlin.Annotation%3F%2FPointingToDeclaration%2F%5D%2FExtensions%2F385760975" anchor-label="getDependencyOf" id="%5Bcom.episode6.hackit.mockspresso%2F%2FgetDependencyOf%2Fcom.episode6.hackit.mockspresso.Mockspresso%23kotlin.Annotation%3F%2FPointingToDeclaration%2F%5D%2FExtensions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a><div class="brief "><a data-name="%5Bcom.episode6.hackit.mockspresso%2F%2FgetDependencyOf%2Fcom.episode6.hackit.mockspresso.Mockspresso%23kotlin.Annotation%3F%2FPointingToDeclaration%2F%5D%2FExtensions%2F385760975" anchor-label="getDependencyOf" id="%5Bcom.episode6.hackit.mockspresso%2F%2FgetDependencyOf%2Fcom.episode6.hackit.mockspresso.Mockspresso%23kotlin.Annotation%3F%2FPointingToDeclaration%2F%5D%2FExtensions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>Get a dependency (creating a new mock, if needed) from mockspresso.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.episode6.hackit.mockspresso%2F%2FinjectType%2Fcom.episode6.hackit.mockspresso.Mockspresso%23TypeParam%28bounds%3D%5Bkotlin.Any%5D%29%2FPointingToDeclaration%2F%5D%2FExtensions%2F385760975" anchor-label="injectType" id="%5Bcom.episode6.hackit.mockspresso%2F%2FinjectType%2Fcom.episode6.hackit.mockspresso.Mockspresso%23TypeParam%28bounds%3D%5Bkotlin.Any%5D%29%2FPointingToDeclaration%2F%5D%2FExtensions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>
+                <div class="table-row" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../inject-type.html">injectType</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.episode6.hackit.mockspresso%2F%2FinjectType%2Fcom.episode6.hackit.mockspresso.Mockspresso%23TypeParam%28bounds%3D%5Bkotlin.Any%5D%29%2FPointingToDeclaration%2F%5D%2FExtensions%2F385760975"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":mockspresso-api:dokkaHtmlPartial/main" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":mockspresso-api:dokkaHtmlPartial/main"><div class="symbol monospace">inline fun &lt;<a href="../inject-type.html">T</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt; <a href="index.html">Mockspresso</a>.<a href="../inject-type.html">injectType</a>(instance: <a href="../inject-type.html">T</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.episode6.hackit.mockspresso%2F%2FinjectType%2Fcom.episode6.hackit.mockspresso.Mockspresso%23TypeParam%28bounds%3D%5Bkotlin.Any%5D%29%2FPointingToDeclaration%2F%5D%2FExtensions%2F385760975" anchor-label="injectType" id="%5Bcom.episode6.hackit.mockspresso%2F%2FinjectType%2Fcom.episode6.hackit.mockspresso.Mockspresso%23TypeParam%28bounds%3D%5Bkotlin.Any%5D%29%2FPointingToDeclaration%2F%5D%2FExtensions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a><div class="brief "><a data-name="%5Bcom.episode6.hackit.mockspresso%2F%2FinjectType%2Fcom.episode6.hackit.mockspresso.Mockspresso%23TypeParam%28bounds%3D%5Bkotlin.Any%5D%29%2FPointingToDeclaration%2F%5D%2FExtensions%2F385760975" anchor-label="injectType" id="%5Bcom.episode6.hackit.mockspresso%2F%2FinjectType%2Fcom.episode6.hackit.mockspresso.Mockspresso%23TypeParam%28bounds%3D%5Bkotlin.Any%5D%29%2FPointingToDeclaration%2F%5D%2FExtensions%2F385760975" data-filterable-set=":mockspresso-api:dokkaHtmlPartial/main"></a>Inject an existing object with mockspresso dependencies.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2021 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+    </div>
+  
+
+
+</body></html>

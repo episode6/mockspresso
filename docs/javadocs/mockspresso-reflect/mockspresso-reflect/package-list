@@ -1,5 +1,41 @@
-$dokka.format:html
+$dokka.format:html-v1
 $dokka.linkExtension:html
-
+$dokka.location:com.episode6.hackit.mockspresso.reflect.exception////PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect.exception/index.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect.exception/MultipleQualifierAnnotationException///PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect.exception/-multiple-qualifier-annotation-exception/index.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect.exception/MultipleQualifierAnnotationException/MultipleQualifierAnnotationException/#java.lang.String/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect.exception/-multiple-qualifier-annotation-exception/-multiple-qualifier-annotation-exception.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect////PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/index.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect//dependencyKey/#kotlin.Annotation?/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/dependency-key.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect//genericParameterKey/com.episode6.hackit.mockspresso.reflect.DependencyKey[*]#/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/generic-parameter-key.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect//isParameterizedGeneric/com.episode6.hackit.mockspresso.reflect.DependencyKey[*]#kotlin.reflect.KClass[*]/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/is-parameterized-generic.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect//typeToken/#/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/type-token.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/AnnotationLiteral///PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-annotation-literal/index.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/AnnotationLiteral/annotationType/#/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-annotation-literal/annotation-type.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/AnnotationLiteral/equals/#java.lang.Object/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-annotation-literal/equals.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/AnnotationLiteral/hashCode/#/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-annotation-literal/hash-code.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/AnnotationLiteral/toString/#/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-annotation-literal/to-string.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/DependencyKey///PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-dependency-key/index.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/DependencyKey/equals/#java.lang.Object/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-dependency-key/equals.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/DependencyKey/fromField/#java.lang.reflect.Field#com.episode6.hackit.mockspresso.reflect.TypeToken<?>/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-dependency-key/from-field.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/DependencyKey/fromField/#java.lang.reflect.Field/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-dependency-key/from-field.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/DependencyKey/hashCode/#/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-dependency-key/hash-code.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/DependencyKey/identityAnnotation/#/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-dependency-key/identity-annotation.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/DependencyKey/of/#com.episode6.hackit.mockspresso.reflect.TypeToken<T>#java.lang.annotation.Annotation/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-dependency-key/of.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/DependencyKey/of/#com.episode6.hackit.mockspresso.reflect.TypeToken<T>/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-dependency-key/of.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/DependencyKey/of/#java.lang.Class<T>#java.lang.annotation.Annotation/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-dependency-key/of.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/DependencyKey/of/#java.lang.Class<T>/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-dependency-key/of.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/DependencyKey/toString/#/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-dependency-key/to-string.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/DependencyKey/typeToken/#/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-dependency-key/type-token.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/NamedAnnotationLiteral///PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-named-annotation-literal/index.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/NamedAnnotationLiteral/NamedAnnotationLiteral/#/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-named-annotation-literal/-named-annotation-literal.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/NamedAnnotationLiteral/NamedAnnotationLiteral/#java.lang.String/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-named-annotation-literal/-named-annotation-literal.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/NamedAnnotationLiteral/value/#/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-named-annotation-literal/value.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/ReflectUtil///PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-reflect-util/index.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/ReflectUtil/findQualifierAnnotation/#java.lang.annotation.Annotation[]#java.lang.String/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-reflect-util/find-qualifier-annotation.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/ReflectUtil/findQualifierAnnotation/#java.lang.reflect.Field/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-reflect-util/find-qualifier-annotation.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/ReflectUtil/getAllDeclaredFields/#java.lang.Class<?>/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-reflect-util/get-all-declared-fields.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/ReflectUtil/getAllDeclaredMethods/#java.lang.Class<?>/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-reflect-util/get-all-declared-methods.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/ReflectUtil/isAnyAnnotationPresent/#java.lang.reflect.Field#java.util.Collection<java.lang.Class<? extends java.lang.annotation.Annotation>>/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-reflect-util/is-any-annotation-present.html
+$dokka.location:com.episode6.hackit.mockspresso.reflect/ReflectUtil/isAnyAnnotationPresent/#java.lang.reflect.Method#java.util.Collection<java.lang.Class<? extends java.lang.annotation.Annotation>>/PointingToDeclaration/mockspresso-reflect/com.episode6.hackit.mockspresso.reflect/-reflect-util/is-any-annotation-present.html
 com.episode6.hackit.mockspresso.reflect
 com.episode6.hackit.mockspresso.reflect.exception
+

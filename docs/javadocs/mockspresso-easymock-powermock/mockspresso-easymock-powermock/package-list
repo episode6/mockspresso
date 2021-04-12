@@ -1,5 +1,10 @@
-$dokka.format:html
+$dokka.format:html-v1
 $dokka.linkExtension:html
-$dokka.location:com.episode6.hackit.mockspresso.easymock.powermock$mockByPowerMock(com.episode6.hackit.mockspresso.Mockspresso.Builder)com.episode6.hackit.mockspresso.easymock.powermock/com.episode6.hackit.mockspresso.-mockspresso.-builder/mock-by-power-mock.html
-$dokka.location:com.episode6.hackit.mockspresso.easymock.powermock$mockByPowerMockRule(com.episode6.hackit.mockspresso.Mockspresso.Builder)com.episode6.hackit.mockspresso.easymock.powermock/com.episode6.hackit.mockspresso.-mockspresso.-builder/mock-by-power-mock-rule.html
+$dokka.location:com.episode6.hackit.mockspresso.easymock.powermock////PointingToDeclaration/mockspresso-easymock-powermock/com.episode6.hackit.mockspresso.easymock.powermock/index.html
+$dokka.location:com.episode6.hackit.mockspresso.easymock.powermock//mockByPowerMock/com.episode6.hackit.mockspresso.Mockspresso.Builder#/PointingToDeclaration/mockspresso-easymock-powermock/com.episode6.hackit.mockspresso.easymock.powermock/mock-by-power-mock.html
+$dokka.location:com.episode6.hackit.mockspresso.easymock.powermock//mockByPowerMockRule/com.episode6.hackit.mockspresso.Mockspresso.Builder#/PointingToDeclaration/mockspresso-easymock-powermock/com.episode6.hackit.mockspresso.easymock.powermock/mock-by-power-mock-rule.html
+$dokka.location:com.episode6.hackit.mockspresso.easymock.powermock/MockspressoEasyPowerMockPluginsJavaSupport///PointingToDeclaration/mockspresso-easymock-powermock/com.episode6.hackit.mockspresso.easymock.powermock/-mockspresso-easy-power-mock-plugins-java-support/index.html
+$dokka.location:com.episode6.hackit.mockspresso.easymock.powermock/MockspressoEasyPowerMockPluginsJavaSupport/mockByPowerMock/#/PointingToDeclaration/mockspresso-easymock-powermock/com.episode6.hackit.mockspresso.easymock.powermock/-mockspresso-easy-power-mock-plugins-java-support/mock-by-power-mock.html
+$dokka.location:com.episode6.hackit.mockspresso.easymock.powermock/MockspressoEasyPowerMockPluginsJavaSupport/mockByPowerMockRule/#/PointingToDeclaration/mockspresso-easymock-powermock/com.episode6.hackit.mockspresso.easymock.powermock/-mockspresso-easy-power-mock-plugins-java-support/mock-by-power-mock-rule.html
 com.episode6.hackit.mockspresso.easymock.powermock
+
