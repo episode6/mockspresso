@@ -1,0 +1,48 @@
+[versions]
+kotlin = "1.4.32"
+dokka = "1.4.30"
+mockito = "3.4.4"
+dagger = "2.28.3"
+powermock = "2.0.7"
+
+[libraries]
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+dokka-gradle-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
+junit = { module = "junit:junit", version = "4.13" }
+javax-inject = { module = "javax.inject:javax.inject", version = "1" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito"}
+mockito-kotlin = { module = "com.nhaarman.mockitokotlin2:mockito-kotlin", version = "2.1.0" }
+fest-core = { module = "org.easytesting:fest-assert-core", version = "2.0M10"}
+assertj-core = { module = "org.assertj:assertj-core", version = "3.16.1" }
+dagger-core = { module = "com.google.dagger:dagger", version.ref = "dagger"}
+easymock = { module = "org.easymock:easymock", version = "4.2" }
+powermock-core = { module = "org.powermock:powermock-core", version.ref = "powermock" }
+powermock-api-easymock = { module = "org.powermock:powermock-api-easymock", version.ref = "powermock" }
+powermock-api-mockito = { module = "org.powermock:powermock-api-mockito2", version.ref = "powermock" }
+powermock-classloading-xstream = { module = "org.powermock:powermock-classloading-xstream", version.ref = "powermock" }
+powermock-module-junit4-core = { module = "org.powermock:powermock-module-junit4", version.ref = "powermock" }
+powermock-module-junit4-rule = { module = "org.powermock:powermock-module-junit4-rule", version.ref = "powermock" }
+guava = { module = "com.google.guava:guava", version = "20.0" }
+mockspresso-reflect-guava = { module = "com.episode6.hackit.mockspresso:mockspresso-reflect-guava", version = "27.1-android" }
+
+[bundles]
+test-common = [
+  "junit",
+  "fest-core",
+  "assertj-core",
+]
+powermock-easymock-all = [
+  "easymock",
+  "powermock-api-easymock",
+  "powermock-module-junit4-core",
+  "powermock-module-junit4-rule",
+  "powermock-classloading-xstream",
+]
+powermock-mockito-all = [
+  "mockito-core",
+  "powermock-api-mockito",
+  "powermock-module-junit4-core",
+  "powermock-module-junit4-rule",
+  "powermock-classloading-xstream",
+]

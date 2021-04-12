@@ -1,30 +1,33 @@
-// some buildscript dependencies fail to resolve without this
-// actual buildscript dependencies are defined in buildSrc/build.gradle
-buildscript { repositories { jcenter() } }
+apply plugin: 'org.jetbrains.dokka'
 
 wrapper {
-  gradleVersion = "5.3"
-  distributionType = "all"
+  gradleVersion = "7.0"
+  distributionType = "ALL"
 }
 
 allprojects {
   repositories {
-    jcenter()
+    mavenCentral()
+    maven { url "https://kotlin.bintray.com/dokka" }
+    maven { url "https://kotlin.bintray.com/kotlinx" }
   }
 
   group = "com.episode6.hackit.mockspresso"
   version = "0.2.0-SNAPSHOT"
 }
 
-tasks.create(Tasks.SYNC_DOCS) {
+task clearDocsDir(type: Delete) {
+  delete "docs/javadocs"
   doLast {
-    String lines = subprojects.findAll { it.tasks.findByName(Tasks.SYNC_DOCS) != null }
-        .collect { it.name }
-        .collect { " - [$it]($it/$it/index.html)" }
-        .join("\n")
-    file("$rootDir/docs/javadocs/README.md").with {
-      parentFile.mkdirs()
-      text = "# JavaDocs\n$lines\n"
-    }
+    file("$rootDir/docs/javadocs").mkdirs()
   }
+}
+
+tasks.dokkaHtmlMultiModule.configure {
+  dependsOn clearDocsDir
+  outputDirectory.set(file("$rootDir/docs/javadocs"))
+}
+
+task syncDocs {
+  dependsOn dokkaHtmlMultiModule
 }

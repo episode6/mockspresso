@@ -1,8 +1,8 @@
 apply plugin: DeployableJavaProject
 
 dependencies {
-  mavenProvided 'junit:junit'
-  api 'javax.inject:javax.inject'
+  api libs.javax.inject
+  implementation libs.junit
 
   // base deps
   api project(':mockspresso-api')
@@ -10,9 +10,8 @@ dependencies {
   api project(':mockspresso-basic-plugins')
 
   testImplementation project(':mockspresso-testing-shared')
-  testImplementation 'junit:junit'
-  testImplementation 'org.mockito:mockito-core'
-  testImplementation 'org.easytesting:fest-assert-core'
+  testImplementation libs.bundles.test.common
+  testImplementation libs.mockito.core
 }
 
 test {

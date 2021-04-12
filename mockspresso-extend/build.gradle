@@ -3,12 +3,10 @@ apply plugin: DeployableJavaProject
 dependencies {
   api project(':mockspresso-api')
   api project(':mockspresso-reflect')
+  implementation libs.junit
 
-  mavenProvided 'junit:junit'
-
-  testImplementation 'junit:junit'
-  testImplementation 'org.assertj:assertj-core'
-  testImplementation 'org.mockito:mockito-core'
+  testImplementation libs.bundles.test.common
+  testImplementation libs.mockito.core
   testImplementation project(':mockspresso-core')
   testImplementation project(':mockspresso-testing-shared')
   testImplementation project(':mockspresso-mockito')

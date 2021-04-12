@@ -2,12 +2,11 @@ apply plugin: DeployableJavaProject
 
 dependencies {
   api project(':mockspresso-api')
-  api 'javax.inject:javax.inject'
+  api libs.javax.inject
 
   testImplementation project(':mockspresso-testing-shared')
-  testImplementation 'junit:junit'
-  testImplementation 'org.mockito:mockito-core'
-  testImplementation 'org.easytesting:fest-assert-core'
-  testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin'
+  testImplementation libs.bundles.test.common
+  testImplementation libs.mockito.core
+  testImplementation libs.mockito.kotlin
 }
 

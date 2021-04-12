@@ -1,7 +1,7 @@
 apply plugin: JavaProject
 
 dependencies {
-  implementation 'javax.inject:javax.inject'
-  implementation 'org.easytesting:fest-assert-core'
+  implementation libs.javax.inject
+  implementation libs.fest.core
 }
 

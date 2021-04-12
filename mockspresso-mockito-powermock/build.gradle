@@ -2,24 +2,13 @@ apply plugin: DeployableJavaProject
 
 dependencies {
   api project(':mockspresso-api')
+  compileOnly libs.bundles.powermock.mockito.all
 
-  mavenOptional 'org.mockito:mockito-core'
-  mavenOptional 'org.powermock:powermock-module-junit4'
-  mavenOptional 'org.powermock:powermock-api-mockito2'
-  mavenOptional 'org.powermock:powermock-module-junit4-rule'
-  mavenOptional 'org.powermock:powermock-classloading-xstream'
-
-  testImplementation 'org.mockito:mockito-core'
-  testImplementation 'org.powermock:powermock-module-junit4'
-  testImplementation 'org.powermock:powermock-api-mockito2'
-  testImplementation 'org.powermock:powermock-module-junit4-rule'
-  testImplementation 'org.powermock:powermock-classloading-xstream'
+  testImplementation libs.bundles.powermock.mockito.all
   testImplementation project(':mockspresso-core')
   testImplementation project(':mockspresso-testing-shared')
-
-  testImplementation 'junit:junit'
-  testImplementation 'org.easytesting:fest-assert-core'
-  testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin'
+  testImplementation libs.bundles.test.common
+  testImplementation libs.mockito.kotlin
 }
 
 test {

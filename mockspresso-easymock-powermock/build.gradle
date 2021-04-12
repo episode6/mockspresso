@@ -2,22 +2,12 @@ apply plugin: DeployableJavaProject
 
 dependencies {
   api project(':mockspresso-api')
+  compileOnly libs.bundles.powermock.easymock.all
 
-  mavenOptional 'org.easymock:easymock'
-  mavenOptional 'org.powermock:powermock-module-junit4'
-  mavenOptional 'org.powermock:powermock-api-easymock'
-  mavenOptional 'org.powermock:powermock-module-junit4-rule'
-  mavenOptional 'org.powermock:powermock-classloading-xstream'
-
-  testImplementation 'org.easymock:easymock'
-  testImplementation 'org.powermock:powermock-module-junit4'
-  testImplementation 'org.powermock:powermock-api-easymock'
-  testImplementation 'org.powermock:powermock-module-junit4-rule'
-  testImplementation 'org.powermock:powermock-classloading-xstream'
   testImplementation project(':mockspresso-core')
   testImplementation project(':mockspresso-testing-shared')
-  testImplementation 'junit:junit'
-  testImplementation 'org.easytesting:fest-assert-core'
+  testImplementation libs.bundles.test.common
+  testImplementation libs.bundles.powermock.easymock.all
 }
 
 test {
