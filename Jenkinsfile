@@ -19,7 +19,7 @@ node {
   gradleRunner.buildAndTest()
 
   stage('docgen') {
-    gradleRunner.runGradle("docgen", "dokka", false)
+    gradleRunner.runGradle("docgen", "dokkaHtml", false)
   }
 
   gradleRunner.deploy()
