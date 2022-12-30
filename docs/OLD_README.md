@@ -1,3 +1,6 @@
+# This library is no longer being actively maintained.
+# Development has moved to **[mockspresso2](https://episode6.github.io/mockspresso2)**
+
 ## What & Why?
 Mockspresso acts like a single-use DI graph for your java/kotlin unit and integration tests. `@Mock`s and `@Dependency`s are imported into the graph, and lateinit `@RealObject`s are constructed automatically (via reflection) with your dependencies injected. Any dependencies that aren't explicitly supplied are mocked by default. RealObjects also get imported into the DI graph and can be combined to perform complex integration tests.
 

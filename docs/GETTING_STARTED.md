@@ -1,3 +1,6 @@
+# This library is no longer being actively maintained.
+# Development has moved to **[mockspresso2](https://episode6.github.io/mockspresso2)**
+
 # Getting Started with Mockspresso
 Since [`Mockspresso`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/index.html) is agnostic to your DI and mocking framework of choice, we must start with an empty [`Mockspresso.Builder()`](javadocs/mockspresso-api/mockspresso-api/com.episode6.hackit.mockspresso/-mockspresso/-builder/index.html) an teach it how to create mocks and real objects. We usually do this using kotlin extension functions... 
 
