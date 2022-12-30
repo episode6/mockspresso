@@ -1,5 +1,4 @@
-# This library is no longer being actively maintained.
-# Development has moved to **[mockspresso2](https://episode6.github.io/mockspresso2)**
+# This library is no longer being actively maintained. Development has moved to **[mockspresso2](https://episode6.github.io/mockspresso2)**
 
 ## Included Plugins
 
